@@ -15,8 +15,18 @@
 // #define BETABOT
 //  When using the second robot, uncomment the above line
 
+// #define MOD_AMP
+// When amp module is installed, uncomment the above line
+
+// #define MOD_TRAP
+//  When trap module is installed, uncomment the above line
+
+// #define MOD_BUDDY
+//  When buddy climber is installed, uncomment the above line
+
 namespace CONSTANTS
 {
+  constexpr int XBOX_PORT = 0;
   struct PidCoeff
   {
     const double
@@ -28,6 +38,18 @@ namespace CONSTANTS
         min = .0, /// Minimum output for control loop.
         max = .0; /// Maximum output for control loop.
   };
+
+  namespace SHOOTER
+  {
+    constexpr int LEFT_ID = 0;     // CHANGEME
+    constexpr int RIGHT_ID = 1;    // CHANGEME
+    constexpr int AZIMUTH_ID = 2;  // CHANGME
+    constexpr int CANCODER_ID = 3; // CHANGEME
+    constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
+    constexpr double ANGLE_RATIO = 1;                // CHANGEME
+    constexpr units::degree_t FENDER_ANGLE = 15_deg; // CHANGEME
+
+  } // namespace SHOOTER
 
   namespace DRIVE
   {
@@ -44,17 +66,17 @@ namespace CONSTANTS
     {
       struct ModuleConfig
       {
-        constexpr int driver;
-        constexpr int azimuth;
-        constexpr int cancoder;
-        constexpr units::turn_t offset;
+        int driver;
+        int azimuth;
+        int cancoder;
+        units::turn_t offset;
       };
 #ifndef BETABOT
 #pragma message("First Robot Config active")
       /* -------------------------------------------------------------------------- */
       /*                     BEGIN FIRST ROBOT CONFIGURATION                        */
       /* -------------------------------------------------------------------------- */
-      constxpr ModuleConfig FL{60, 61, 14, 0.22_tr};
+      constexpr ModuleConfig FL{60, 61, 14, 0.22_tr};
       constexpr ModuleConfig FR{50, 51, 13, -0.304_tr};
       constexpr ModuleConfig BL{30, 31, 11, -0.335_tr};
       constexpr ModuleConfig BR{40, 41, 12, 0.052_tr};
@@ -74,6 +96,11 @@ namespace CONSTANTS
       constexpr ModuleConfig FR{50, 51, 13, -0.304_tr};
       constexpr ModuleConfig BL{30, 31, 11, -0.335_tr};
       constexpr ModuleConfig BR{40, 41, 12, 0.052_tr};
+
+/* -------------------------------------------------------------------------- */
+/*                        END SECOND ROBOT CONFIGUATION                       */
+/* -------------------------------------------------------------------------- */
+#endif // BETABOT
     }
   }
 }

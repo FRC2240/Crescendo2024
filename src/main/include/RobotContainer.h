@@ -8,13 +8,18 @@
 #include <frc2/command/button/CommandXboxController.h>
 
 #include "Constants.h"
-#include "subsystems/ExampleSubsystem.h"
-#include "subsystems/Arm.h"
-#include "commands/Intake.h"
 #include "swerve/Drivetrain.h"
 #include "swerve/Odometry.h"
 #include "swerve/Trajectory.h"
 #include "swerve/Vision.h"
+#include "subsystems/Intake.h"
+#include "subsystems/Climber.h"
+#include "subsystems/Shooter.h"
+#include <frc2/command/button/Trigger.h>
+
+#include <subsystems/Shooter.h>
+#include "commands/Autos.h"
+#include <pathplanner/lib/auto/NamedCommands.h>
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -30,20 +35,20 @@ public:
 
   frc2::CommandPtr GetAutonomousCommand();
 
-  frc2::CommandXboxController m_driverController{
+  frc2::CommandXboxController m_stick{
       CONSTANTS::XBOX_PORT};
 
   Drivetrain m_drivetrain;
   Odometry m_odometry{&m_drivetrain};
-  Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_driverController};
+  Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick};
   void ConfigureBindings();
 
 private:
+  Intake m_intake;
+  Climber m_climber;
+  Shooter m_shooter;
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
   // The robot's subsystems are defined here...
   std::unique_ptr<frc2::Command> coral_auto;
-  ExampleSubsystem m_subsystem;
-  Arm m_arm;
-  Intake m_intake;
 };
