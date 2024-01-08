@@ -36,8 +36,8 @@ frc2::CommandPtr Shooter::fender_shot()
                [this]
                {
                    set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
-                   if (m_cancoder.GetAbsolutePosition().GetValueAsDouble() * 0.95_tr >= CONSTANTS::SHOOTER::FENDER_RANGE.first &&
-                       m_cancoder.GetAbsolutePosition().GetValueAsDouble() * 1.05_tr >= CONSTANTS::SHOOTER::FENDER_RANGE.second)
+                   if (m_cancoder.GetAbsolutePosition().GetValue() + CONSTANTS::SHOOTER::FENDER_TOLERANCE < CONSTANTS::SHOOTER::FENDER_ANGLE &&
+                       m_cancoder.GetAbsolutePosition().GetValue() - CONSTANTS::SHOOTER::FENDER_TOLERANCE > CONSTANTS::SHOOTER::FENDER_ANGLE)
                    {
                        m_left_motor.SetControl(ctre::phoenix6::controls::DutyCycleOut(1));
                    }

@@ -43,11 +43,12 @@ namespace CONSTANTS
   {
     constexpr int LEFT_ID = 0;     // CHANGEME
     constexpr int RIGHT_ID = 1;    // CHANGEME
-    constexpr int AZIMUTH_ID = 2;  // CHANGME
+    constexpr int ANGLE_ID = 2;    // CHANGME
     constexpr int CANCODER_ID = 3; // CHANGEME
     constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
-    constexpr double ANGLE_RATIO = 1;                // CHANGEME
-    constexpr units::degree_t FENDER_ANGLE = 15_deg; // CHANGEME
+    constexpr double ANGLE_RATIO = 1;                    // CHANGEME
+    constexpr units::degree_t FENDER_ANGLE = 15_deg;     // CHANGEME
+    constexpr units::degree_t FENDER_TOLERANCE = 15_deg; // CHANGEME
 
   } // namespace SHOOTER
 
