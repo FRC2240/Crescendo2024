@@ -5,6 +5,10 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
+#include <ctre/phoenix6/TalonFX.hpp>
+#include <units/angle.h>
+#include <units/time.h>
+#include <units/angular_velocity.h>
 
 class Intake : public frc2::SubsystemBase
 {
@@ -19,7 +23,19 @@ public:
    */
   void Periodic() override;
 
-private:
-  // Components (e.g. motor controllers and sensors) should generally be
-  // declared private and exposed only through public methods.
+  frc2::CommandPtr ExtendCommand();
+  frc2::CommandPtr RetractCommand();
+  frc2::CommandPtr EnableCommand();
+  frc2::CommandPtr DisableCommand();
+
+ private:
+  ctre::phoenix6::hardware::TalonFX m_angleMotor{};
+  ctre::phoenix6::hardware::TalonFX m_flywheelMotor{};
+  ctre::phoenix6::hardware::TalonFX m_beltMotor{};
+
+  units::turn_t kStartRotations = 0; //change
+  units::turn_t kEndRotations = 100; //change
+  //turn per second kFlywheelSpeed = 50
+  //turn per second kBeltSpeed = 50
+
 };
