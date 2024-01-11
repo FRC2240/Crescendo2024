@@ -16,6 +16,7 @@
 #include <frc/estimator/SwerveDrivePoseEstimator.h>
 // #include <TimeOfFlight.h>
 #include <frc/DriverStation.h>
+#include "swerve/Vision.h"
 
 #ifndef CFG_NO_DRIVEBASE
 class Odometry
@@ -23,11 +24,12 @@ class Odometry
 private:
     Drivetrain *m_drivetrain;
     // std::shared_ptr<nt::NetworkTable> m_limelight =
+    Vision *m_vision;
     // nt::NetworkTableInstance::GetDefault().GetTable("limelight-dev");?
 
 public:
     // static frc::SwerveDriveKinematics<4> *kinematics_ptr;
-    Odometry(Drivetrain *drivetrain);
+    Odometry(Drivetrain *drivetrain, Vision *vision);
     void putField2d();
 
     std::shared_ptr<nt::NetworkTable> m_limelight = nt::NetworkTableInstance::GetDefault().GetTable("limelight-dev");
