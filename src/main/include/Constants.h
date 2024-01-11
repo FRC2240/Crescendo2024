@@ -39,6 +39,11 @@ namespace CONSTANTS
         max = .0; /// Maximum output for control loop.
   };
 
+  namespace INTAKE
+  {
+    constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
+  } // namespace INTAKE
+
   namespace SHOOTER
   {
     constexpr int LEFT_ID = 0;     // CHANGEME
