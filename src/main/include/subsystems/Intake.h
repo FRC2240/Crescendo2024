@@ -5,6 +5,7 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
+#include <frc2/command/CommandPtr.h>
 #include <ctre/phoenix6/TalonFX.hpp>
 #include <units/angle.h>
 #include <units/time.h>
@@ -29,13 +30,13 @@ public:
   frc2::CommandPtr DisableCommand();
 
  private:
-  ctre::phoenix6::hardware::TalonFX m_angleMotor{};
-  ctre::phoenix6::hardware::TalonFX m_flywheelMotor{};
-  ctre::phoenix6::hardware::TalonFX m_beltMotor{};
+  ctre::phoenix6::hardware::TalonFX m_angleMotor{0};
+  ctre::phoenix6::hardware::TalonFX m_flywheelMotor{1};
+  ctre::phoenix6::hardware::TalonFX m_beltMotor{2};
 
-  units::turn_t kStartRotations = 0; //change
-  units::turn_t kEndRotations = 100; //change
-  //turn per second kFlywheelSpeed = 50
-  //turn per second kBeltSpeed = 50
+  units::angle::turn_t kStartRotations{0}; //change
+  units::angle::turn_t kEndRotations{100}; //change
+  units::angular_velocity::turns_per_second_t kFlywheelSpeed{50};
+  units::angular_velocity::turns_per_second_t kBeltSpeed{50};
 
 };
