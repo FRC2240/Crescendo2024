@@ -8,7 +8,6 @@
 #include <networktables/NetworkTableInstance.h>
 #include <frc/estimator/SwerveDrivePoseEstimator.h>
 #include <frc/DriverStation.h>
-
 class Vision
 {
 public:

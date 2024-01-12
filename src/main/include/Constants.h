@@ -26,6 +26,14 @@
 
 namespace CONSTANTS
 {
+  template <typename T>
+  bool IN_THRESHOLD(T source, T target, T range)
+  {
+    T low_end = 1 - range;
+    T high_end = 1 + range;
+    return (source >= target * low_end && source <= target * high_end);
+  }
+
   constexpr int XBOX_PORT = 0;
   struct PidCoeff
   {

@@ -45,6 +45,8 @@ public:
 
     frc2::CommandPtr auto_pickup(Intake *intake);
 
+    frc2::CommandPtr auto_score_align();
+
     // Note: a 2023 comment means it is Moonwalker Specific and can be safely removed.
 
     // 2023
