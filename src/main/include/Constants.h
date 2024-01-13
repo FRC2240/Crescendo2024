@@ -64,6 +64,8 @@ namespace CONSTANTS
     constexpr double ANGLE_RATIO = 1;                    // CHANGEME
     constexpr units::degree_t FENDER_ANGLE = 15_deg;     // CHANGEME
     constexpr units::degree_t FENDER_TOLERANCE = 15_deg; // CHANGEME
+    constexpr units::degree_t AMP_ANGLE = 30_deg;
+    constexpr int BELT_ID = 4;
 
   } // namespace SHOOTER
 

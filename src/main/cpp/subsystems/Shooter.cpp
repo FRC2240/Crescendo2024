@@ -46,7 +46,7 @@ frc2::CommandPtr Shooter::fender_shot()
         .ToPtr();
 }
 
-units::turn_t Shooter::get_angle()
+units::degree_t Shooter::get_angle()
 {
     return m_cancoder.GetAbsolutePosition().GetValue();
 }
@@ -110,7 +110,7 @@ frc2::CommandPtr Shooter::set_angle_cmd(units::degree_t angle)
 
     std::function<bool()> is_finished = [this, &angle]() -> bool
     {
-        return CONSTANTS::IN_THRESHOLD<units::turn_t>(get_angle(), angle, 1_deg);
+        return CONSTANTS::IN_THRESHOLD<units::degree_t>(get_angle(), angle, 1_deg);
     };
     std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
 
@@ -127,5 +127,19 @@ frc2::CommandPtr Shooter::execute_auto_shot()
 {
     return frc2::RunCommand([this]
                             { m_left_motor.SetControl(ctre::phoenix6::controls::DutyCycleOut(1)); })
+        .ToPtr();
+}
+
+frc2::CommandPtr Shooter::amp_shot()
+{
+    return frc2::RunCommand(
+               [this]
+               {
+                   set_angle(CONSTANTS::SHOOTER::AMP_ANGLE);
+                   if (CONSTANTS::IN_THRESHOLD<units::degree_t>(get_angle(), CONSTANTS::SHOOTER::AMP_ANGLE, 1_deg))
+                   {
+                       m_belt_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{3_tr / 1_s});
+                   }
+               })
         .ToPtr();
 }
