@@ -35,28 +35,34 @@ Intake::Intake() {
 // This method will be called once per scheduler run
 void Intake::Periodic() {};
 
+#pragma warn("Intake::is_loaded() is UNIMPLEMENTED!")
+
+bool Intake::is_loaded() {
+    return false;
+};
+
 frc2::CommandPtr Intake::ExtendCommand() {
-    return RunOnce([this] {
-        m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{kEndRotations});
-    }).WithName("Extend");
+    return frc2::RunCommand([this] {
+            m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{kEndRotations});
+    }, {this}).WithName("Extend");
 };
 
 frc2::CommandPtr Intake::RetractCommand() {
-    return RunOnce([this] {
+    return frc2::RunCommand([this] {
         m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{kStartRotations});
-    }).WithName("Retract");
+    }, {this}).WithName("Retract");
 };
 
 frc2::CommandPtr Intake::EnableCommand() {
-    return RunOnce([this] {
+    return frc2::RunCommand([this] {
         m_flywheelMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{kFlywheelSpeed});
         m_beltMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{kBeltSpeed});
-    }).WithName("Enable");
+    }, {this}).WithName("Enable");
 };
 
 frc2::CommandPtr Intake::DisableCommand() {
-    return RunOnce([this] {
+    return frc2::RunCommand([this] {
         m_flywheelMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{units::angular_velocity::turns_per_second_t{0}});
         m_beltMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{units::angular_velocity::turns_per_second_t{0}}); //wrong type?
-    }).WithName("Disable");
+    }, {this}).WithName("Disable");
 };

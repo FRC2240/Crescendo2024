@@ -10,6 +10,7 @@
 #include <units/angle.h>
 #include <units/time.h>
 #include <units/angular_velocity.h>
+#include <frc2/command/RunCommand.h>
 
 class Intake : public frc2::SubsystemBase
 {
