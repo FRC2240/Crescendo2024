@@ -7,34 +7,24 @@
 #include <ctre/phoenix6/TalonFX.hpp>
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/SubsystemBase.h>
+#include <frc/XboxController.h>
 
 class Climber : public frc2::SubsystemBase {
  public:
    Climber();
     void climb(double pos);
-    void decend(double Pos);
-
-
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic() override;
-  
+  frc::XboxController m_stick_init{0};
+  frc::XboxController *m_stick;
  
  private:
-     enum position{
-      up 
-      down
-     }
-    
-     m_pos = 0.6;
-     
 
   //Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
    
-     ctre::phoenix6::hardware::TalonFX hieght_climber {0};
-    
-
+    ctre::phoenix6::hardware::TalonFX hieght_climber {0};
 
 };
