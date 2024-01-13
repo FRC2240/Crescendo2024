@@ -12,6 +12,11 @@ RobotContainer::RobotContainer()
   // Configure the button bindings
   m_chooser.AddOption("A More Descriptive Auto Name", AUTOS::AUTOLINE);
   ConfigureBindings();
+
+  m_chooser.AddOption("Cross Auto Line", &m_cross_line);
+  m_chooser.AddOption("Two Game Piece", &m_two_piece);
+
+  frc::SmartDashboard::PutData(&m_chooser);
 }
 
 void RobotContainer::ConfigureBindings()
@@ -31,6 +36,7 @@ void RobotContainer::ConfigureBindings()
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
 {
+
   switch (m_chooser.GetSelected())
   {
   case AUTOS::AUTOLINE:
@@ -44,4 +50,5 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
     break;
   }
   // An example command will be run in autonomous
+
 }
