@@ -8,19 +8,19 @@
 #include <frc2/command/button/CommandXboxController.h>
 
 #include "Constants.h"
+#include "commands/Autos.h"
+#include "subsystems/Climber.h"
+#include "subsystems/Intake.h"
+#include "subsystems/Shooter.h"
 #include "swerve/Drivetrain.h"
 #include "swerve/Odometry.h"
 #include "swerve/Trajectory.h"
 #include "swerve/Vision.h"
-#include "subsystems/Intake.h"
-#include "subsystems/Climber.h"
-#include "subsystems/Shooter.h"
-#include <frc2/command/button/Trigger.h>
 #include <frc/DataLogManager.h>
-#include <subsystems/Shooter.h>
-#include "commands/Autos.h"
-#include <pathplanner/lib/auto/NamedCommands.h>
 #include <frc/smartdashboard/SendableChooser.h>
+#include <frc2/command/button/Trigger.h>
+#include <pathplanner/lib/auto/NamedCommands.h>
+#include <subsystems/Shooter.h>
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -29,15 +29,13 @@
  * scheduler calls).  Instead, the structure of the robot (including subsystems,
  * commands, and trigger mappings) should be declared here.
  */
-class RobotContainer
-{
+class RobotContainer {
 public:
   RobotContainer();
 
   frc2::CommandPtr GetAutonomousCommand();
 
-  frc2::CommandXboxController m_stick{
-      CONSTANTS::XBOX_PORT};
+  frc2::CommandXboxController m_stick{CONSTANTS::XBOX_PORT};
 
   Drivetrain m_drivetrain;
   Vision m_vision;
@@ -46,8 +44,7 @@ public:
   void ConfigureBindings();
 
 private:
-  enum AUTOS
-  {
+  enum AUTOS {
     AUTOLINE, // CHANGEME
     TWO_GP,   // CHANGEME
   };
@@ -58,5 +55,4 @@ private:
 
   // The robot's subsystems are defined here...
   frc::SendableChooser<AUTOS> m_chooser;
-
 };

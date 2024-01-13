@@ -4,23 +4,19 @@
 
 #include "RobotContainer.h"
 
-RobotContainer::RobotContainer()
-{
+RobotContainer::RobotContainer() {
 
-  // m_odometry.resetPosition(frc::Pose2d(1.6_m, 5_m, frc::Rotation2d(0_rad)), frc::Rotation2d(0_rad));
-  // Initialize all of your commands and subsystems here
-  // Configure the button bindings
-  m_chooser.AddOption("A More Descriptive Auto Name", AUTOS::AUTOLINE);
+  // m_odometry.resetPosition(frc::Pose2d(1.6_m, 5_m, frc::Rotation2d(0_rad)),
+  // frc::Rotation2d(0_rad)); Initialize all of your commands and subsystems
+  // here Configure the button bindings
+  m_chooser.AddOption("2GP", AUTOS::TWO_GP);
+  m_chooser.AddOption("Auto Line", AUTOS::AUTOLINE);
   ConfigureBindings();
-
-  m_chooser.AddOption("Cross Auto Line", &m_cross_line);
-  m_chooser.AddOption("Two Game Piece", &m_two_piece);
 
   frc::SmartDashboard::PutData(&m_chooser);
 }
 
-void RobotContainer::ConfigureBindings()
-{
+void RobotContainer::ConfigureBindings() {
   // Configure your trigger bindings here
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
   m_stick.RightStick().OnTrue(m_trajectory.manual_drive());
@@ -28,17 +24,12 @@ void RobotContainer::ConfigureBindings()
 
   m_stick.Y().OnTrue(
       m_trajectory.auto_score_align()
-          .AlongWith(
-              m_shooter.set_angle_cmd(m_vision.get_shooter_angle()))
-          .AndThen(
-              m_shooter.execute_auto_shot().WithTimeout(0.5_s)));
+          .AlongWith(m_shooter.set_angle_cmd(m_vision.get_shooter_angle()))
+          .AndThen(m_shooter.execute_auto_shot().WithTimeout(0.5_s)));
 }
 
-frc2::CommandPtr RobotContainer::GetAutonomousCommand()
-{
-
-  switch (m_chooser.GetSelected())
-  {
+frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
+  switch (m_chooser.GetSelected()) {
   case AUTOS::AUTOLINE:
     return autos::autoline(&m_trajectory);
     break;
@@ -49,6 +40,4 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
     frc::DataLogManager::Log("WARN: NO ERROR SELECTED");
     break;
   }
-  // An example command will be run in autonomous
-
 }
