@@ -16,10 +16,11 @@
 #include "subsystems/Climber.h"
 #include "subsystems/Shooter.h"
 #include <frc2/command/button/Trigger.h>
-
+#include <frc/DataLogManager.h>
 #include <subsystems/Shooter.h>
 #include "commands/Autos.h"
 #include <pathplanner/lib/auto/NamedCommands.h>
+#include <frc/smartdashboard/SendableChooser.h>
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -45,11 +46,16 @@ public:
   void ConfigureBindings();
 
 private:
+  enum AUTOS
+  {
+    AUTOLINE, // CHANGEME
+    TWO_GP,   // CHANGEME
+  };
   Intake m_intake;
   Climber m_climber;
   Shooter m_shooter;
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
   // The robot's subsystems are defined here...
-  std::unique_ptr<frc2::Command> coral_auto;
+  frc::SendableChooser<AUTOS> m_chooser;
 };

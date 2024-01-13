@@ -12,6 +12,7 @@ RobotContainer::RobotContainer()
   coral_auto = PathPlannerAuto("coral auto").ToPtr().Unwrap();
   frc::SmartDashboard::PutData("Coral Auto", coral_auto.get());
   // Configure the button bindings
+  m_chooser.AddOption("A More Descriptive Auto Name", AUTOS::AUTOLINE);
   ConfigureBindings();
 }
 
@@ -32,5 +33,17 @@ void RobotContainer::ConfigureBindings()
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
 {
+  switch (m_chooser.GetSelected())
+  {
+  case AUTOS::AUTOLINE:
+    return autos::autoline(&m_trajectory);
+    break;
+  case AUTOS::TWO_GP:
+    return autos::two_gp(&m_trajectory);
+
+  default:
+    frc::DataLogManager::Log("WARN: NO ERROR SELECTED");
+    break;
+  }
   // An example command will be run in autonomous
 }
