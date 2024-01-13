@@ -17,14 +17,14 @@
 
     if m_stick.Y(Climber_up){
 
-          hieght_climber.SetControl(ctre::phoenix6::controls::PostionDutyCycle{units::angle::turn_t{25}}) 
+          hieght_climber.SetControl(ctre::phoenix6::controls::PostionDutyCycle{units::angle::turn_t{25}});
 
             
     }
    if m_stick.X(Climber_down){
       
         
-         hieght_climber.SetControl(ctre::phoenix6::controls::PostionDutyCycle{units::angle::turn_t{-25}}) 
+         hieght_climber.SetControl(ctre::phoenix6::controls::PostionDutyCycle{units::angle::turn_t{-25}}); 
    
 
    }
