@@ -26,12 +26,14 @@
 
 namespace CONSTANTS
 {
+
+  // An additive threshold (+/- value) that checks if 2 values (target & source) are within a range
+  // A template so it can be used with units. Call it by:
+  // CONSTANTS::IN_THRESHOLD<type>(x,y,z)
   template <typename T>
-  bool IN_THRESHOLD(T source, T target, T range)
+  static bool IN_THRESHOLD(T source, T target, T range)
   {
-    T low_end = 1 - range;
-    T high_end = 1 + range;
-    return (source >= target * low_end && source <= target * high_end);
+    return (source >= target - range && source <= target + range);
   }
 
   constexpr int XBOX_PORT = 0;

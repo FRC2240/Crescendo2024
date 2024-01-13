@@ -64,4 +64,8 @@ std::optional<units::degree_t> Vision::get_apriltag_angle()
         return std::nullopt;
     }
 }
+
+std::optional<units::degree_t> Vision::get_shooter_angle()
+{
+}
 Vision::~Vision() = default;

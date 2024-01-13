@@ -45,3 +45,87 @@ frc2::CommandPtr Shooter::fender_shot()
                {this})
         .ToPtr();
 }
+
+units::turn_t Shooter::get_angle()
+{
+    return m_cancoder.GetAbsolutePosition().GetValue();
+}
+
+frc2::CommandPtr Shooter::set_angle_cmd(std::optional<units::degree_t> angle)
+{
+    std::function<void()> init = [this] {};
+    std::function<void()> periodic = [this, &angle]()
+    {
+        try
+        {
+            if (angle)
+            {
+                set_angle(angle.value());
+            }
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    };
+
+    std::function<bool()> is_finished = [this, &angle]() -> bool
+    {
+        try
+        {
+            if (angle)
+            {
+                return CONSTANTS::IN_THRESHOLD<units::turn_t>(get_angle(), angle.value(), 1_deg);
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+
+        return false;
+    };
+    std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
+
+    return frc2::FunctionalCommand(
+               init,
+               periodic,
+               end,
+               is_finished,
+               {this})
+        .ToPtr();
+}
+
+frc2::CommandPtr Shooter::set_angle_cmd(units::degree_t angle)
+{
+    std::function<void()> init = [this] {};
+    std::function<void()> periodic = [this, &angle]()
+    {
+        set_angle(angle);
+    };
+
+    std::function<bool()> is_finished = [this, &angle]() -> bool
+    {
+        return CONSTANTS::IN_THRESHOLD<units::turn_t>(get_angle(), angle, 1_deg);
+    };
+    std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
+
+    return frc2::FunctionalCommand(
+               init,
+               periodic,
+               end,
+               is_finished,
+               {this})
+        .ToPtr();
+}
+
+frc2::CommandPtr Shooter::execute_auto_shot()
+{
+    return frc2::RunCommand([this]
+                            { m_left_motor.SetControl(ctre::phoenix6::controls::DutyCycleOut(1)); })
+        .ToPtr();
+}

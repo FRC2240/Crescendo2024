@@ -175,10 +175,12 @@ frc2::CommandPtr Trajectory::auto_score_align()
 
         if (angle)
         {
-            // return (m_drivetrain->get_absolute_angle())
+            return (CONSTANTS::IN_THRESHOLD<units::degree_t>(angle.value(), 0_deg, 1_deg));
         }
     };
 
     std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
+
+    return frc2::FunctionalCommand(init, periodic, end, is_finished, {this}).ToPtr();
 }
 #endif
