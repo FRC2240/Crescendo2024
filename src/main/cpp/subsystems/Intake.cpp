@@ -43,26 +43,34 @@ bool Intake::is_loaded() {
 
 frc2::CommandPtr Intake::ExtendCommand() {
     return frc2::RunCommand([this] {
-            m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{kEndRotations});
+            m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{END_ROTATIONS});
     }, {this}).WithName("Extend");
 };
 
 frc2::CommandPtr Intake::RetractCommand() {
     return frc2::RunCommand([this] {
-        m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{kStartRotations});
+        m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{START_ROTATIONS});
     }, {this}).WithName("Retract");
 };
 
-frc2::CommandPtr Intake::EnableCommand() {
+frc2::CommandPtr Intake::StartSpinCommand() {
     return frc2::RunCommand([this] {
-        m_flywheelMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{kFlywheelSpeed});
-        m_beltMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{kBeltSpeed});
-    }, {this}).WithName("Enable");
+        m_flywheelMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{FLYWHEEL_SPEED});
+        m_beltMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{BELT_SPEED});
+    }, {this}).WithName("StartSpin");
 };
 
-frc2::CommandPtr Intake::DisableCommand() {
+frc2::CommandPtr Intake::StopSpinCommand() {
     return frc2::RunCommand([this] {
         m_flywheelMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{units::angular_velocity::turns_per_second_t{0}});
         m_beltMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{units::angular_velocity::turns_per_second_t{0}}); //wrong type?
-    }, {this}).WithName("Disable");
+    }, {this}).WithName("StopSpin");
+};
+
+frc2::CommandPtr Intake::StartCommand() {
+    return ExtendCommand().AndThen(StartSpinCommand()).WithName("Start");
+};
+
+frc2::CommandPtr Intake::StopCommand() {
+    return RetractCommand().AndThen(StopSpinCommand()).WithName("Stop");
 };
