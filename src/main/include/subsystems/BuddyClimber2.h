@@ -12,10 +12,10 @@
 #include <units/angular_velocity.h>
 #include <frc2/command/RunCommand.h>
 
-class BuddyClimber : public frc2::SubsystemBase
+class BuddyClimber2 : public frc2::SubsystemBase
 {
 public:
-  BuddyClimber();
+  BuddyClimber2();
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -25,8 +25,10 @@ public:
   frc2::CommandPtr RetractCommand();
 
 private:
-  ctre::phoenix6::hardware::TalonFX m_clawMotor{4};
+  ctre::phoenix6::hardware::TalonFX m_grabMotor{5};
+  ctre::phoenix6::hardware::TalonFX m_climbMotor{6};
 
   units::angle::turn_t START_ROTATIONS{0}; //change
   units::angle::turn_t END_ROTATIONS{100}; //change
+  units::angular_velocity::turns_per_second_t GRAB_VELOCITY{50}; //change 
 };

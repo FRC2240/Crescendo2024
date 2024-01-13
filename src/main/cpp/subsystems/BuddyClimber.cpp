@@ -21,12 +21,12 @@ BuddyClimber::BuddyClimber() {
 
 frc2::CommandPtr BuddyClimber::ExtendCommand() {
     return frc2::RunCommand([this] {
-            m_clawMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{kEndRotations});
+            m_clawMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{END_ROTATIONS});
     }, {this}).WithName("Extend");
 };
 
 frc2::CommandPtr BuddyClimber::RetractCommand() {
     return frc2::RunCommand([this] {
-        m_clawMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{kStartRotations});
+        m_clawMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{START_ROTATIONS});
     }, {this}).WithName("Retract");
 };
