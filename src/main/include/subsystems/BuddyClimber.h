@@ -23,6 +23,7 @@ public:
   
   frc2::CommandPtr ExtendCommand();
   frc2::CommandPtr RetractCommand();
+  //frc2::CommandPtr ManualOverrideCommand();
 
 private:
   ctre::phoenix6::hardware::TalonFX m_clawMotor{4};
