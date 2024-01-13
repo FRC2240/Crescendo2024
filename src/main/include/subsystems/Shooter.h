@@ -17,7 +17,18 @@ public:
   Shooter();
 
   frc2::CommandPtr fender_shot();
+
+  // This is a wrapper for set angle that is a cmdptr so it can be used in the auto shot compisiton
+  // Overloaded so it can be used with vision
+  frc2::CommandPtr set_angle_cmd(units::degree_t angle);
+  frc2::CommandPtr set_angle_cmd(std::optional<units::degree_t> angle);
+
+  units::turn_t get_angle();
+
   void set_angle(units::degree_t angle);
+
+  frc2::CommandPtr execute_auto_shot();
+
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */

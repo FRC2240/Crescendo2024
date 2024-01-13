@@ -21,6 +21,13 @@ void RobotContainer::ConfigureBindings()
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
   m_stick.RightStick().OnTrue(m_trajectory.manual_drive());
   m_stick.X().OnTrue(m_shooter.fender_shot().WithTimeout(0.5_s));
+
+  m_stick.Y().OnTrue(
+      m_trajectory.auto_score_align()
+          .AlongWith(
+              m_shooter.set_angle_cmd(m_vision.get_shooter_angle()))
+          .AndThen(
+              m_shooter.execute_auto_shot().WithTimeout(0.5_s)));
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
