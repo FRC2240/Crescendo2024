@@ -4,12 +4,29 @@
 
 #pragma once
 
-#include <frc2/command/CommandHelper.h>
-#include <frc2/command/SequentialCommandGroup.h>
+#include <frc2/command/SubsystemBase.h>
+#include <frc2/command/CommandPtr.h>
+#include <ctre/phoenix6/TalonFX.hpp>
+#include <units/angle.h>
+#include <units/time.h>
+#include <units/angular_velocity.h>
+#include <frc2/command/RunCommand.h>
 
-class BuddyClimber
-    : public frc2::CommandHelper<frc2::SequentialCommandGroup,
-                                 BuddyClimber> {
- public:
+class BuddyClimber : public frc2::SubsystemBase
+{
+public:
   BuddyClimber();
+
+  /**
+   * Will be called periodically whenever the CommandScheduler runs.
+   */
+  
+  frc2::CommandPtr ExtendCommand();
+  frc2::CommandPtr RetractCommand();
+
+private:
+  ctre::phoenix6::hardware::TalonFX m_clawMotor{4};
+
+  units::angle::turn_t kStartRotations{0}; //change
+  units::angle::turn_t kEndRotations{100}; //change
 };
