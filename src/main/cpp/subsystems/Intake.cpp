@@ -14,14 +14,6 @@ Intake::Intake() {
     angle_config.Slot0.kD = 0.0;
     m_angleMotor.GetConfigurator().Apply(angle_config);
     
-    ctre::phoenix6::configs::TalonFXConfiguration flywheel_config{};
-    flywheel_config.Audio.BeepOnBoot = true;
-    flywheel_config.CurrentLimits.SupplyCurrentLimitEnable = true;
-    flywheel_config.CurrentLimits.SupplyCurrentLimit = 25; //change
-    angle_config.Slot0.kP = 0.1;
-    angle_config.Slot0.kD = 0.0;
-    m_flywheelMotor.GetConfigurator().Apply(flywheel_config);
-    
     ctre::phoenix6::configs::TalonFXConfiguration belt_config{};
     belt_config.Audio.BeepOnBoot = true;
     belt_config.CurrentLimits.SupplyCurrentLimitEnable = true;
