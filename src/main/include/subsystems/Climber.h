@@ -11,45 +11,30 @@
 class Climber : public frc2::SubsystemBase {
  public:
    Climber();
-  
-  void 
-    
-   
+    void climb(double pos);
+    void decend(double Pos);
 
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
-  void Periodic() override {}
+  void Periodic() override;
   
  
  private:
-     enum{
-      up
+     enum position{
+      up 
       down
      }
     
-      m_pos = 0.0;
-      m_rmp = 0.0;
-
+     m_pos = 0.6;
+     
 
   //Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
    
      ctre::phoenix6::hardware::TalonFX hieght_climber {0};
     
-       
-
-    
-    
-
-   
-
-
- 
-
-
- 
 
 
 };

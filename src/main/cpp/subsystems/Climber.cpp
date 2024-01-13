@@ -8,30 +8,31 @@
  Climber::Climber() {
     ctre::phoenix6::configs::TalonFXConfiguration hieght_climber_config {};
     hieght_climber_config.Slot0.kP = 0.1;
-    hieght_climber_config.Slot0.kI = 0.1
+    hieght_climber_config.Slot0.kI = 0.1;
     hieght_climber.GetConfigurator().Apply(hieght_climber_config);
  }
-   
-   
-   void Climber:: climb (double pos) 
 
-    if m_stick.Y(Climber_up){
+void Climber::Periodic() {};
+   
+   void Climber:: climb (double pos) {
 
-          hieght_climber.SetControl(ctre::phoenix6::controls::PostionDutyCycle{units::angle::turn_t{25}});
+        if m_stick.Y(pos > 0){
+
+          hieght_climber.SetControl(ctre::phoenix6::controls::PostionDutyCycle{units::angle::turn_t{-25}});
 
             
     }
-   if m_stick.X(Climber_down){
+    }
+   
+   void Climber:: decend (double pos) {
+        if m_stick.X(pos < 0){
       
         
-         hieght_climber.SetControl(ctre::phoenix6::controls::PostionDutyCycle{units::angle::turn_t{-25}}); 
+         hieght_climber.SetControl(ctre::phoenix6::controls::PostionDutyCycle{units::angle::turn_t{25}}); 
    
 
+        }
    }
-   
-    
-// This method will be called once per scheduler run
-void Climber::Periodic() {}
   
 
   
