@@ -39,8 +39,9 @@ public:
       CONSTANTS::XBOX_PORT};
 
   Drivetrain m_drivetrain;
-  Odometry m_odometry{&m_drivetrain};
-  Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick};
+  Vision m_vision;
+  Odometry m_odometry{&m_drivetrain, &m_vision};
+  Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick, &m_vision};
   void ConfigureBindings();
 
 private:

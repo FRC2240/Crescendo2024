@@ -17,16 +17,19 @@
 #include <cmath>
 #include "swerve/ngr.h"
 #include "swerve/Odometry.h"
+#include "swerve/Vision.h"
 #include <frc/DriverStation.h>
 
 #include <frc/controller/HolonomicDriveController.h>
 #include <frc/smartdashboard/SmartDashboard.h>
-
+#include <frc2/command/FunctionalCommand.h>
 #include <frc2/command/SubsystemBase.h>
 #include <chrono>
 #include <thread>
 #include <frc/Timer.h>
 #include <frc/XboxController.h>
+
+#include "subsystems/Intake.h"
 
 #ifndef CFG_NO_DRIVEBASE
 using namespace pathplanner; // PathPlanner keeps everything hidden behind 2 sets of namespaces so it's safe to remove the first layer
@@ -37,7 +40,12 @@ public:
     Trajectory(
         Drivetrain *drivetrain,
         Odometry *odometry,
-        frc::XboxController *stick);
+        frc::XboxController *stick,
+        Vision *vision);
+
+    frc2::CommandPtr auto_pickup(Intake *intake);
+
+    frc2::CommandPtr auto_score_align();
 
     // Note: a 2023 comment means it is Moonwalker Specific and can be safely removed.
 
@@ -68,5 +76,6 @@ private:
     Drivetrain *m_drivetrain;
     Odometry *m_odometry;
     frc::XboxController *m_stick;
+    Vision *m_vision;
 };
 #endif

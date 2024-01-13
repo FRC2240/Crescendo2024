@@ -20,8 +20,8 @@
 
 frc::Timer m_trajTimer;
 
-Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc::XboxController *stick)
-    : m_drivetrain{drivetrain}, m_odometry{odometry}, m_stick{stick}
+Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc::XboxController *stick, Vision *vision)
+    : m_drivetrain{drivetrain}, m_odometry{odometry}, m_stick{stick}, m_vision{vision}
 {
     AutoBuilder::configureHolonomic(
         [this]() -> frc::Pose2d
@@ -40,13 +40,16 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc::XboxCont
         {
             return m_drivetrain->drive(speeds);
         },
-        HolonomicPathFollowerConfig(
-            PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-            PIDConstants(5.0, 0.0, 0.0), // Rotation PID constants
-            4.5_mps,                     // Max module speed, in m/s
-            10_in,                       // Drive base radius in meters. Distance from robot center to furthest module.
-            ReplanningConfig()           // Default path replanning config. See the API for the options here),
-            ),
+        HolonomicPathFollowerConfig(PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
+                                    PIDConstants(5.0, 0.0, 0.0), // Rotation PID constants
+                                    4.5_mps,                     // Max module speed, in m/s
+                                    10_in,                       // Drive base radius in meters. Distance from robot center to furthest module.
+                                    ReplanningConfig()           // Default path replanning config. See the API for the options here),
+                                    ),
+        [this]() -> bool
+        {
+            return false;
+        },
         this);
 }
 
@@ -104,5 +107,78 @@ frc2::CommandPtr Trajectory::make_absolute_line_path(frc::Pose2d target_pose)
 frc2::CommandPtr Trajectory::extract(std::string auton)
 {
     return AutoBuilder::buildAuto(auton);
+}
+
+frc2::CommandPtr Trajectory::auto_pickup(Intake *intake)
+{
+    std::function<void()> init = [this]() { /*no data currently needed */ };
+    std::function<void()> periodic = [this]()
+    {
+        try
+        {
+            std::optional<units::degree_t> angle = m_vision->get_coral_angle();
+            if (angle)
+            {
+                frc::SmartDashboard::PutString("coral intake state", "target locked");
+                m_drivetrain->face_direction(0_deg, angle.value().value());
+                if (angle.value() < CONSTANTS::INTAKE::AUTO_PICKUP_THRESHOLD &&
+                    angle.value() > -CONSTANTS::INTAKE::AUTO_PICKUP_THRESHOLD)
+                {
+                    m_drivetrain->drive(1_mps, 0_mps, (0_deg / 1_s), false);
+                }
+            }
+            else
+            {
+                frc::SmartDashboard::PutString("coral intake state", "no target found");
+            }
+        }
+        catch (const std::exception &e)
+        {
+            fmt::println("ERROR: coral optional exeption");
+            std::cerr << e.what() << '\n';
+        }
+    };
+
+    std::function<bool()> is_finished = [this, &intake]() -> bool
+    {
+        return intake->is_loaded();
+    };
+
+    std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
+    return frc2::FunctionalCommand(init, periodic, end, is_finished, {this, intake}).ToPtr();
+}
+
+frc2::CommandPtr Trajectory::auto_score_align()
+{
+    std::function<void()> init = [this]() { /*no data currently needed */ };
+    std::function<void()> periodic = [this]()
+    {
+        try
+        {
+            std::optional<units::degree_t> angle = m_vision->get_apriltag_angle();
+
+            if (angle)
+            {
+                m_drivetrain->face_direction(0_deg, angle.value().value());
+            }
+        }
+        catch (const std::exception &e)
+        {
+            fmt::println("ERROR: apriltag optional exeption");
+            std::cerr << e.what() << '\n';
+        }
+    };
+
+    std::function<bool()> is_finished = [this]() -> bool
+    {
+        std::optional<units::degree_t> angle = m_vision->get_apriltag_angle();
+
+        if (angle)
+        {
+            // return (m_drivetrain->get_absolute_angle())
+        }
+    };
+
+    std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
 }
 #endif
