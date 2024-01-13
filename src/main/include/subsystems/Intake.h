@@ -34,12 +34,10 @@ public:
 
  private:
   ctre::phoenix6::hardware::TalonFX m_angleMotor{0};
-  ctre::phoenix6::hardware::TalonFX m_flywheelMotor{1};
   ctre::phoenix6::hardware::TalonFX m_beltMotor{2};
 
   units::angle::turn_t START_ROTATIONS{0}; //change
   units::angle::turn_t END_ROTATIONS{100}; //change
-  units::angular_velocity::turns_per_second_t FLYWHEEL_SPEED{50};
-  units::angular_velocity::turns_per_second_t BELT_SPEED{50};
+  units::angular_velocity::turns_per_second_t BELT_SPEED{50}; //change
 
 };

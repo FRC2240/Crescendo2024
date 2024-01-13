@@ -55,14 +55,12 @@ frc2::CommandPtr Intake::RetractCommand() {
 
 frc2::CommandPtr Intake::StartSpinCommand() {
     return frc2::RunCommand([this] {
-        m_flywheelMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{FLYWHEEL_SPEED});
         m_beltMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{BELT_SPEED});
     }, {this}).WithName("StartSpin");
 };
 
 frc2::CommandPtr Intake::StopSpinCommand() {
     return frc2::RunCommand([this] {
-        m_flywheelMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{units::angular_velocity::turns_per_second_t{0}});
         m_beltMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{units::angular_velocity::turns_per_second_t{0}}); //wrong type?
     }, {this}).WithName("StopSpin");
 };
