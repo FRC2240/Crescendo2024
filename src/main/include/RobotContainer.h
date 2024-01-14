@@ -52,7 +52,7 @@ private:
     TWO_GP,   // CHANGEME
   };
   Intake m_intake;
-  Climber m_climber;
+  Climber m_climber{&m_stick};
   Shooter m_shooter;
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
