@@ -9,11 +9,12 @@ RobotContainer::RobotContainer() {
   // m_odometry.resetPosition(frc::Pose2d(1.6_m, 5_m, frc::Rotation2d(0_rad)),
   // frc::Rotation2d(0_rad)); Initialize all of your commands and subsystems
   // here Configure the button bindings
-  m_chooser.AddOption("2GP", AUTOS::TWO_GP);
-  m_chooser.AddOption("Auto Line", AUTOS::AUTOLINE);
-  ConfigureBindings();
+
+  m_chooser.AddOption("Cross Auto Line", AUTOS::AUTOLINE);
+  m_chooser.AddOption("Two Game Piece", AUTOS::TWO_GP);
 
   frc::SmartDashboard::PutData(&m_chooser);
+  ConfigureBindings();
 }
 
 void RobotContainer::ConfigureBindings() {
