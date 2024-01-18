@@ -10,11 +10,12 @@
 #include <ctre/phoenix6/TalonFX.hpp>
 #include <ctre/phoenix6/CANcoder.hpp>
 #include <frc2/command/RunCommand.h>
+#include "subsystems/Intake.h"
 
 class Shooter : public frc2::SubsystemBase
 {
 public:
-  Shooter();
+  Shooter(Intake *intake);
 
   frc2::CommandPtr fender_shot();
 
@@ -35,9 +36,10 @@ public:
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic() override;
+
   ctre::phoenix6::hardware::CANcoder m_cancoder{CONSTANTS::SHOOTER::CANCODER_ID};
   ctre::phoenix6::hardware::TalonFX m_left_motor{CONSTANTS::SHOOTER::LEFT_ID};
   ctre::phoenix6::hardware::TalonFX m_right_motor{CONSTANTS::SHOOTER::RIGHT_ID};
-  ctre::phoenix6::hardware::TalonFX m_belt_motor{CONSTANTS::SHOOTER::BELT_ID};
   ctre::phoenix6::hardware::TalonFX m_angle_motor{CONSTANTS::SHOOTER::ANGLE_ID};
+  Intake *m_intake;
 };

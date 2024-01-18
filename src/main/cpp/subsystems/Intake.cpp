@@ -45,6 +45,12 @@ frc2::CommandPtr Intake::RetractCommand() {
     }, {this}).WithName("Retract");
 };
 
+frc2::CommandPtr Intake::BraceCommand() {
+    return frc2::RunCommand([this] {
+        m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{BRACE_ROTATIONS});
+    }, {this}).WithName("Brace");
+};
+
 frc2::CommandPtr Intake::StartSpinCommand() {
     return frc2::RunCommand([this] {
         m_beltMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{BELT_SPEED});
@@ -64,3 +70,13 @@ frc2::CommandPtr Intake::StartCommand() {
 frc2::CommandPtr Intake::StopCommand() {
     return RetractCommand().AndThen(StopSpinCommand()).WithName("Stop");
 };
+
+/*
+
+New position [DONE]
+Belt combined
+Motor in intake
+Shooter gets pointer to class in constructor
+How does Shooter access Belt?
+
+*/

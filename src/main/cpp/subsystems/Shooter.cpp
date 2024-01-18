@@ -4,8 +4,9 @@
 
 #include "subsystems/Shooter.h"
 
-Shooter::Shooter()
+Shooter::Shooter(Intake *intake) : m_intake{intake}
 {
+
     ctre::phoenix6::configs::TalonFXConfiguration left_conf{};
     left_conf.Slot0.kP = 1;
     ctre::phoenix6::configs::TalonFXConfiguration right_conf = left_conf;
@@ -138,7 +139,7 @@ frc2::CommandPtr Shooter::amp_shot()
                    set_angle(CONSTANTS::SHOOTER::AMP_ANGLE);
                    if (CONSTANTS::IN_THRESHOLD<units::degree_t>(get_angle(), CONSTANTS::SHOOTER::AMP_ANGLE, 1_deg))
                    {
-                       m_belt_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{3_tr / 1_s});
+                       m_intake->m_beltMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{3_tr / 1_s});
                    }
                })
         .ToPtr();

@@ -27,17 +27,19 @@ public:
 
   frc2::CommandPtr ExtendCommand();
   frc2::CommandPtr RetractCommand();
+  frc2::CommandPtr BraceCommand();
   frc2::CommandPtr StartSpinCommand();
   frc2::CommandPtr StopSpinCommand();
   frc2::CommandPtr StartCommand();
   frc2::CommandPtr StopCommand();
 
- private:
-  ctre::phoenix6::hardware::TalonFX m_angleMotor{0};
   ctre::phoenix6::hardware::TalonFX m_beltMotor{2};
 
-  units::angle::turn_t START_ROTATIONS{0}; //change
-  units::angle::turn_t END_ROTATIONS{100}; //change
-  units::angular_velocity::turns_per_second_t BELT_SPEED{50}; //change
-
+private:
+  ctre::phoenix6::hardware::TalonFX m_angleMotor{0};
+  
+  const units::angle::turn_t START_ROTATIONS{0}; //change
+  const units::angle::turn_t END_ROTATIONS{100}; //change
+  const units::angular_velocity::turns_per_second_t BELT_SPEED{50}; //change
+  const units::angle::turn_t BRACE_ROTATIONS{150}; //change
 };
