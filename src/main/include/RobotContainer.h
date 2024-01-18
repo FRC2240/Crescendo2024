@@ -8,19 +8,19 @@
 #include <frc2/command/button/CommandXboxController.h>
 
 #include "Constants.h"
+#include "commands/Autos.h"
+#include "subsystems/Climber.h"
+#include "subsystems/Intake.h"
+#include "subsystems/Shooter.h"
 #include "swerve/Drivetrain.h"
 #include "swerve/Odometry.h"
 #include "swerve/Trajectory.h"
 #include "swerve/Vision.h"
-#include "subsystems/Intake.h"
-#include "subsystems/Climber.h"
-#include "subsystems/Shooter.h"
-#include <frc2/command/button/Trigger.h>
 #include <frc/DataLogManager.h>
-#include <subsystems/Shooter.h>
-#include "commands/Autos.h"
-#include <pathplanner/lib/auto/NamedCommands.h>
 #include <frc/smartdashboard/SendableChooser.h>
+#include <frc2/command/button/Trigger.h>
+#include <pathplanner/lib/auto/NamedCommands.h>
+#include <subsystems/Shooter.h>
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -36,8 +36,7 @@ public:
 
   frc2::CommandPtr GetAutonomousCommand();
 
-  frc2::CommandXboxController m_stick{
-      CONSTANTS::XBOX_PORT};
+  frc2::CommandXboxController m_stick{CONSTANTS::XBOX_PORT};
 
   Drivetrain m_drivetrain;
   Vision m_vision;
@@ -50,10 +49,12 @@ private:
   {
     AUTOLINE, // CHANGEME
     TWO_GP,   // CHANGEME
+    TEST,
   };
   Intake m_intake;
   Climber m_climber{&m_stick};
   Shooter m_shooter{&m_intake};
+
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
   // The robot's subsystems are defined here...
