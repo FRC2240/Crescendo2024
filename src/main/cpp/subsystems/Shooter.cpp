@@ -6,7 +6,7 @@
 
 Shooter::Shooter(Intake* intake)
 {
-    m_belt_motor = intake->m_belt_motor; //maybe?
+    m_belt_motor = intake->m_beltMotor; //maybe?
 
     ctre::phoenix6::configs::TalonFXConfiguration left_conf{};
     left_conf.Slot0.kP = 1;
