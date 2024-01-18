@@ -53,7 +53,7 @@ private:
   };
   Intake m_intake;
   Climber m_climber{&m_stick};
-  Shooter m_shooter;
+  Shooter m_shooter{&m_intake};
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
   // The robot's subsystems are defined here...
