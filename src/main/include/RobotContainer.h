@@ -29,7 +29,8 @@
  * scheduler calls).  Instead, the structure of the robot (including subsystems,
  * commands, and trigger mappings) should be declared here.
  */
-class RobotContainer {
+class RobotContainer
+{
 public:
   RobotContainer();
 
@@ -44,13 +45,15 @@ public:
   void ConfigureBindings();
 
 private:
-  enum AUTOS {
+  enum AUTOS
+  {
     AUTOLINE, // CHANGEME
     TWO_GP,   // CHANGEME
+    TEST,
   };
-  Intake m_intake;
-  Climber m_climber{&m_stick};
-  Shooter m_shooter;
+  // Intake m_intake;
+  // Climber m_climber{&m_stick};
+  // Shooter m_shooter;
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
   // The robot's subsystems are defined here...
