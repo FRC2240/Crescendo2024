@@ -30,13 +30,13 @@ void RobotContainer::ConfigureBindings() {
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
+  frc::DataLogManager::Log("here");
   switch (m_chooser.GetSelected()) {
   case AUTOS::AUTOLINE:
     return autos::autoline(&m_trajectory);
     break;
   case AUTOS::TWO_GP:
     return autos::two_gp(&m_trajectory);
-
   default:
     frc::DataLogManager::Log("WARN: NO ERROR SELECTED");
     break;
