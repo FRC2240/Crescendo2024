@@ -15,7 +15,7 @@
 class Shooter : public frc2::SubsystemBase
 {
 public:
-  Shooter(Intake* intake);
+  Shooter(Intake *intake);
 
   frc2::CommandPtr fender_shot();
 
@@ -41,5 +41,5 @@ public:
   ctre::phoenix6::hardware::TalonFX m_left_motor{CONSTANTS::SHOOTER::LEFT_ID};
   ctre::phoenix6::hardware::TalonFX m_right_motor{CONSTANTS::SHOOTER::RIGHT_ID};
   ctre::phoenix6::hardware::TalonFX m_angle_motor{CONSTANTS::SHOOTER::ANGLE_ID};
-  ctre::phoenix6::hardware::TalonFX m_belt_motor = nullptr;
+  Intake *m_intake;
 };
