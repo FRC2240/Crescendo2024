@@ -12,6 +12,7 @@
 #include "subsystems/Climber.h"
 #include "subsystems/Intake.h"
 #include "subsystems/Shooter.h"
+#include "subsystems/BuddyClimber.h"
 #include "swerve/Drivetrain.h"
 #include "swerve/Odometry.h"
 #include "swerve/Trajectory.h"
@@ -54,6 +55,7 @@ private:
   Intake m_intake;
   Climber m_climber{&m_stick};
   Shooter m_shooter{&m_intake};
+  BuddyClimber m_buddyClimber;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 

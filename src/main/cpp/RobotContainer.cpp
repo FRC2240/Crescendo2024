@@ -30,6 +30,11 @@ void RobotContainer::ConfigureBindings()
   //       m_trajectory.auto_score_align()
   //           .AlongWith(m_shooter.set_angle_cmd(m_vision.get_shooter_angle()))
   //           .AndThen(m_shooter.execute_auto_shot().WithTimeout(0.5_s)));
+
+  // Buddy Climber
+  m_stick.LeftBumper().OnTrue(m_buddyClimber.StartLeftCommand());
+  m_stick.RightBumper().OnTrue(m_buddyClimber.StartRightCommand());
+  m_stick.Start().OnTrue(m_buddyClimber.DeployCommand());
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
