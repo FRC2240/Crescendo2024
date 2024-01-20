@@ -37,14 +37,18 @@ void RobotContainer::ConfigureBindings()
   m_stick1.Start().OnTrue(m_buddyClimber.DeployCommand());
 
   // Intake
-  frc2::Trigger{[this] -> bool {
-    int pov = m_stick1.POV();
-    return pov < 30 || pov > 330;
-  }}.OnTrue(m_intake.StartCommand()); //change to extend?
+  frc2::Trigger{[this] -> bool
+                {
+                  int pov = m_stick1.POV();
+                  return pov < 30 || pov > 330;
+                }}
+      .OnTrue(m_intake.StartCommand()); // change to extend?
 
-  frc2::Trigger{[this] -> bool {
-    return CONSTANTS::IN_THRESHOLD<int>(m_stick1.POV(), 180, 30);
-  }}.OnTrue(m_intake.StopCommand()); //change to retract?
+  frc2::Trigger{[this] -> bool
+                {
+                  return CONSTANTS::IN_THRESHOLD<int>(m_stick1.POV(), 180, 30);
+                }}
+      .OnTrue(m_intake.StopCommand()); // change to retract?
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
