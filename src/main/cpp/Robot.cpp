@@ -9,7 +9,6 @@
 void Robot::RobotInit() {}
 
 void Robot::RobotPeriodic() {
-  m_container.m_odometry.update();
   frc2::CommandScheduler::GetInstance().Run();
 }
 
@@ -27,7 +26,10 @@ void Robot::AutonomousInit() {
   }
 }
 
-void Robot::AutonomousPeriodic() {}
+void Robot::AutonomousPeriodic() {
+    m_container.m_odometry.update();
+
+}
 
 void Robot::AutonomousExit() {}
 
