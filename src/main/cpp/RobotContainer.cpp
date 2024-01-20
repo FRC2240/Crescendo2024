@@ -60,15 +60,29 @@ void RobotContainer::ConfigureBindings()
   m_stick1.Start().OnTrue(m_buddyClimber.DeployCommand());
 
   // Intake
-  frc2::Trigger{[this] -> bool {
-    int pov = m_stick1.POV();
-    return pov < 30 || pov > 330;
-  }}.OnTrue(m_intake.StartCommand()); //change to extend?
+  frc2::Trigger{[this] -> bool
+                {
+                  int pov = m_stick1.GetPOV();
+                  return pov < 30 || pov > 330;
+                }}
+      .OnTrue(m_intake.StartCommand()); // change to extend?
 
+<<<<<<< HEAD
   frc2::Trigger{[this] -> bool {
     return CONSTANTS::IN_THRESHOLD<int>(m_stick1.POV(), 180, 30);
   }}.OnTrue(m_intake.StopCommand()); //change to retract?
 >>>>>>> b6055b5 (added intake bindings and intake delay)
+||||||| parent of e81aa19 (fixed issues after simulation)
+  frc2::Trigger{[this] -> bool {
+    return CONSTANTS::IN_THRESHOLD<int>(m_stick1.POV(), 180, 30);
+  }}.OnTrue(m_intake.StopCommand()); //change to retract?
+=======
+  frc2::Trigger{[this] -> bool
+                {
+                  return CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30);
+                }}
+      .OnTrue(m_intake.StopCommand()); // change to retract?
+>>>>>>> e81aa19 (fixed issues after simulation)
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
