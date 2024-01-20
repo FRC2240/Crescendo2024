@@ -8,7 +8,10 @@
 
 void Robot::RobotInit() {}
 
-void Robot::RobotPeriodic() {
+void Robot::RobotPeriodic()
+{
+  m_container.m_odometry.update_from_vision();
+  m_container.m_odometry.update();
   frc2::CommandScheduler::GetInstance().Run();
 }
 
@@ -18,23 +21,26 @@ void Robot::DisabledPeriodic() {}
 
 void Robot::DisabledExit() {}
 
-void Robot::AutonomousInit() {
+void Robot::AutonomousInit()
+{
   m_autonomousCommand = m_container.GetAutonomousCommand();
 
-  if (m_autonomousCommand) {
+  if (m_autonomousCommand)
+  {
     m_autonomousCommand->Schedule();
   }
 }
 
-void Robot::AutonomousPeriodic() {
-    m_container.m_odometry.update();
-
+void Robot::AutonomousPeriodic()
+{
 }
 
 void Robot::AutonomousExit() {}
 
-void Robot::TeleopInit() {
-  if (m_autonomousCommand) {
+void Robot::TeleopInit()
+{
+  if (m_autonomousCommand)
+  {
     m_autonomousCommand->Cancel();
   }
 }
@@ -43,7 +49,8 @@ void Robot::TeleopPeriodic() {}
 
 void Robot::TeleopExit() {}
 
-void Robot::TestInit() {
+void Robot::TestInit()
+{
   frc2::CommandScheduler::GetInstance().CancelAll();
 }
 
@@ -52,7 +59,8 @@ void Robot::TestPeriodic() {}
 void Robot::TestExit() {}
 
 #ifndef RUNNING_FRC_TESTS
-int main() {
+int main()
+{
   return frc::StartRobot<Robot>();
 }
 #endif
