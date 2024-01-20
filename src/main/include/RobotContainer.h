@@ -37,7 +37,8 @@ public:
 
   frc2::CommandPtr GetAutonomousCommand();
 
-  frc2::CommandXboxController m_stick{CONSTANTS::XBOX_PORT};
+  frc2::CommandXboxController m_stick0{0};
+  frc2::CommandXboxController m_stick1{1};
 
   Drivetrain m_drivetrain;
   Vision m_vision;

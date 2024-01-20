@@ -34,9 +34,11 @@ bool Intake::is_loaded() {
 };
 
 frc2::CommandPtr Intake::ExtendCommand() {
-    return frc2::RunCommand([this] {
+    return frc2::RunCommand([this] -> void {
             m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{END_ROTATIONS});
-    }, {this}).WithName("Extend");
+    }, {this}).Until([this] -> bool {
+        return CONSTANTS::IN_THRESHOLD<units::turn_t>(m_angleMotor.GetPosition().GetValue(), END_ROTATIONS, ROTATION_THRESHOLD);
+    }).WithName("Extend");
 };
 
 frc2::CommandPtr Intake::RetractCommand() {
@@ -78,5 +80,13 @@ Belt combined
 Motor in intake
 Shooter gets pointer to class in constructor
 How does Shooter access Belt?
+
+*/
+
+
+
+/*
+
+
 
 */

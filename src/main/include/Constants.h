@@ -36,7 +36,6 @@ namespace CONSTANTS
     return (source >= target - range && source <= target + range);
   }
 
-  constexpr int XBOX_PORT = 0;
   struct PidCoeff
   {
     const double

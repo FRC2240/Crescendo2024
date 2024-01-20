@@ -11,6 +11,7 @@
 #include <units/time.h>
 #include <units/angular_velocity.h>
 #include <frc2/command/RunCommand.h>
+#include "Constants.h"
 
 class Intake : public frc2::SubsystemBase
 {
@@ -42,4 +43,5 @@ private:
   const units::angle::turn_t END_ROTATIONS{100}; //change
   const units::angular_velocity::turns_per_second_t BELT_SPEED{50}; //change
   const units::angle::turn_t BRACE_ROTATIONS{150}; //change
+  const units::angle::turn_t ROTATION_THRESHOLD{1}; //change?
 };
