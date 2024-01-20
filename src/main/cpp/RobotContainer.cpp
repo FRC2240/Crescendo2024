@@ -32,6 +32,7 @@ void RobotContainer::ConfigureBindings()
   //           .AndThen(m_shooter.execute_auto_shot().WithTimeout(0.5_s)));
 
   // Buddy Climber
+<<<<<<< HEAD
   m_stick1.LeftBumper().OnTrue(m_buddyClimber.StartLeftCommand());
   m_stick1.RightBumper().OnTrue(m_buddyClimber.StartRightCommand());
   m_stick1.Start().OnTrue(m_buddyClimber.DeployCommand());
@@ -49,6 +50,25 @@ void RobotContainer::ConfigureBindings()
                   return CONSTANTS::IN_THRESHOLD<int>(m_stick1.POV(), 180, 30);
                 }}
       .OnTrue(m_intake.StopCommand()); // change to retract?
+||||||| parent of b6055b5 (added intake bindings and intake delay)
+  m_stick.LeftBumper().OnTrue(m_buddyClimber.StartLeftCommand());
+  m_stick.RightBumper().OnTrue(m_buddyClimber.StartRightCommand());
+  m_stick.Start().OnTrue(m_buddyClimber.DeployCommand());
+=======
+  m_stick1.LeftBumper().OnTrue(m_buddyClimber.StartLeftCommand());
+  m_stick1.RightBumper().OnTrue(m_buddyClimber.StartRightCommand());
+  m_stick1.Start().OnTrue(m_buddyClimber.DeployCommand());
+
+  // Intake
+  frc2::Trigger{[this] -> bool {
+    int pov = m_stick1.POV();
+    return pov < 30 || pov > 330;
+  }}.OnTrue(m_intake.StartCommand()); //change to extend?
+
+  frc2::Trigger{[this] -> bool {
+    return CONSTANTS::IN_THRESHOLD<int>(m_stick1.POV(), 180, 30);
+  }}.OnTrue(m_intake.StopCommand()); //change to retract?
+>>>>>>> b6055b5 (added intake bindings and intake delay)
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
