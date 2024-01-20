@@ -1,16 +1,35 @@
 {
   "version": 1.0,
-  "startingPose": {
-    "position": {
-      "x": 2,
-      "y": 2
-    },
-    "rotation": 0
-  },
+  "startingPose": null,
   "command": {
     "type": "sequential",
     "data": {
-      "commands": []
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pos_2_GP1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pos_2_GP2_Speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score"
+          }
+        }
+      ]
     }
   },
   "folder": "GP2",
