@@ -5,7 +5,7 @@ Vision::Vision() = default;
 std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
 {
     // NOTE: THIS IS TO BE REWRITTEN TO A VECTOR OF ALL CAMERAS, NOT JUST 1
-    auto ll_results = m_limelight->GetNumberArray("botpose", std::vector<double>(6));
+    auto ll_results = m_limelight->GetNumberArray("botpose_wpiblue", std::vector<double>(6));
     std::vector<std::optional<frc::Pose2d>> ret;
     ret.push_back(frc::Pose2d(
         units::meter_t{ll_results[0]},
