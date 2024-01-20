@@ -12,33 +12,15 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "score"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "GP1"
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "intake"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Speaker"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "score"
           }
         }
       ]
