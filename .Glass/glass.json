@@ -1,10 +1,32 @@
 {
   "NetworkTables": {
-    "Retained Values": {
+    "Persistent Values": {
       "open": false
+    },
+    "retained": {
+      "limelight": {
+        "double[]##v_/limelight/botpose": {
+          "open": true
+        },
+        "double[]##v_/limelight/botpose_targetspace": {
+          "open": true
+        },
+        "double[]##v_/limelight/botpose_wpiblue": {
+          "open": true
+        },
+        "double[]##v_/limelight/botpose_wpired": {
+          "open": true
+        }
+      }
     },
     "transitory": {
       "SmartDashboard": {
+        "Odometry Field": {
+          "open": true
+        },
+        "SendableChooser[0]": {
+          "open": true
+        },
         "odometry": {
           "open": true
         },
@@ -15,6 +37,13 @@
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/Odometry Field": "Field2d",
       "/SmartDashboard/SendableChooser[0]": "String Chooser"
+    },
+    "windows": {
+      "/SmartDashboard/SendableChooser[0]": {
+        "window": {
+          "visible": true
+        }
+      }
     }
   },
   "NetworkTables Info": {
@@ -49,7 +78,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 413,
+          "height": 0,
           "series": [
             {
               "color": [
