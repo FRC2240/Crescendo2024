@@ -7,10 +7,19 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
     // NOTE: THIS IS TO BE REWRITTEN TO A VECTOR OF ALL CAMERAS, NOT JUST 1
     auto ll_results = m_limelight->GetNumberArray("botpose_wpiblue", std::vector<double>(6));
     std::vector<std::optional<frc::Pose2d>> ret;
+    frc::SmartDashboard::PutNumber("X", ll_results[0]);
+    frc::SmartDashboard::PutNumber("Y", ll_results[1]);
+    if (!(ll_results[0]==(int)0)){
     ret.push_back(frc::Pose2d(
         units::meter_t{ll_results[0]},
         units::meter_t{ll_results[1]},
         frc::Rotation2d(units::degree_t{ll_results[5]})));
+    }
+    else {
+                ret.push_back(std::nullopt);
+    }
+    return ret;
+
 }
 
 std::optional<units::degree_t> Vision::get_coral_angle()
