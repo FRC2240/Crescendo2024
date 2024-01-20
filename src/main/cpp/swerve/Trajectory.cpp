@@ -25,12 +25,19 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc::XboxCont
 {
     AutoBuilder::configureHolonomic(
         [this]() -> frc::Pose2d
-        {
-            frc::SmartDashboard::PutNumber("ppx", m_odometry->getPose().X().value());
-            return m_odometry->getPose();
+        {       
+            auto pose = m_odometry->getPose();
+            frc::SmartDashboard::PutNumber("pp/X", pose.X().value());
+            frc::SmartDashboard::PutNumber("pp/Y", pose.Y().value());
+
+            return pose;
         },
         [this](frc::Pose2d pose) -> void
         {
+            fmt::println("WARN: RESET POSE");
+
+            frc::SmartDashboard::PutNumber("pp/rp/X", pose.X().value());
+            frc::SmartDashboard::PutNumber("pp/rp/Y", pose.Y().value());
             m_odometry->resetPosition(pose, frc::Rotation2d(m_drivetrain->get_absolute_angle()));
         },
         [this]() -> frc::ChassisSpeeds
@@ -50,7 +57,8 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc::XboxCont
         [this]() -> bool
         {
             auto alliance = frc::DriverStation::GetAlliance();
-            if (alliance) {
+            if (alliance)
+            {
                 return alliance.value() == frc::DriverStation::Alliance::kRed;
             }
             return false;
@@ -111,7 +119,7 @@ frc2::CommandPtr Trajectory::make_absolute_line_path(frc::Pose2d target_pose)
 
 frc2::CommandPtr Trajectory::extract(std::string auton)
 {
-    fmt::println("{}",auton);
+    fmt::println("{}", auton);
     return PathPlannerAuto(auton).ToPtr();
 }
 
