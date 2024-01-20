@@ -8,7 +8,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pos_1_GP1"
+            "pathName": "Pos_2_GP1"
           }
         },
         {
@@ -20,7 +20,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pos_1_GP2_Speaker"
+            "pathName": "Pos_2_GP2_Speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score"
           }
         }
       ]
