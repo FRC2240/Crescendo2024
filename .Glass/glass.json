@@ -3,6 +3,7 @@
     "Retained Values": {
       "open": false
     },
+<<<<<<< HEAD
     "transitory": {
       "SmartDashboard": {
         "open": true
@@ -11,6 +12,23 @@
     "types": {
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/SendableChooser[0]": "String Chooser"
+||||||| parent of 44443a4 (mid debugging)
+    "Transitory Values": {
+      "open": false
+=======
+    "transitory": {
+      "SmartDashboard": {
+        "odometry": {
+          "open": true
+        },
+        "open": true
+      }
+    },
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Odometry Field": "Field2d",
+      "/SmartDashboard/SendableChooser[0]": "String Chooser"
+>>>>>>> 44443a4 (mid debugging)
     }
   },
   "NetworkTables Info": {
@@ -34,6 +52,7 @@
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
     "serverTeam": "2240"
+<<<<<<< HEAD
   },
   "Plots": {
     "Plot <0>": {
@@ -111,5 +130,45 @@
         }
       ]
     }
+||||||| parent of 44443a4 (mid debugging)
+=======
+  },
+  "Plots": {
+    "Plot <0>": {
+      "plots": [
+        {
+          "backgroundColor": [
+            0.0,
+            0.0,
+            0.0,
+            0.8500000238418579
+          ],
+          "height": 413,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/odometry/X",
+              "marker": "Circle"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/odometry/Y",
+              "marker": "Circle"
+            }
+          ]
+        }
+      ]
+    }
+>>>>>>> 44443a4 (mid debugging)
   }
 }

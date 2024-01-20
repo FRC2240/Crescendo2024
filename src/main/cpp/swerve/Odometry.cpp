@@ -26,7 +26,7 @@ frc2::CommandPtr Odometry::set_pose_cmd(frc::Pose2d pose)
 {
     return frc2::cmd::RunOnce([this, &pose]
                               { resetPosition(pose, frc::Rotation2d(0_rad)); },
-                              {});
+                              {}).AndThen(frc2::PrintCommand("reset odometry").ToPtr());
 }
 
 void Odometry::putField2d()
@@ -39,6 +39,8 @@ void Odometry::update()
     frc::Pose2d const pose = estimator.Update(m_drivetrain->getCCWHeading(),
                                               m_drivetrain->getModulePositions());
     // if constexpr (CONSTANTS::DEBUGGING)
+    frc::SmartDashboard::PutNumber("odometry/X", pose.X().value());
+        frc::SmartDashboard::PutNumber("odometry/Y", pose.Y().value());
     frc::SmartDashboard::PutString("Odometry: ", fmt::format("Pose X: {}, Y: {}, Z (Degrees): {}\n", pose.X().value(), pose.Y().value(), pose.Rotation().Degrees().value()));
 }
 

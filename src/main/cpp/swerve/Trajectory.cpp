@@ -48,6 +48,10 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc::XboxCont
                                     ),
         [this]() -> bool
         {
+            auto alliance = frc::DriverStation::GetAlliance();
+            if (alliance) {
+                return alliance.value() == frc::DriverStation::Alliance::kRed;
+            }
             return false;
         },
         this);
@@ -106,7 +110,8 @@ frc2::CommandPtr Trajectory::make_absolute_line_path(frc::Pose2d target_pose)
 
 frc2::CommandPtr Trajectory::extract(std::string auton)
 {
-    return AutoBuilder::buildAuto(auton);
+    fmt::println("{}",auton);
+    return PathPlannerAuto(auton).ToPtr();
 }
 
 frc2::CommandPtr Trajectory::auto_pickup(Intake *intake)
