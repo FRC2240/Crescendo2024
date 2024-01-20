@@ -12,6 +12,7 @@
 #include "subsystems/Climber.h"
 #include "subsystems/Intake.h"
 #include "subsystems/Shooter.h"
+#include "subsystems/BuddyClimber.h"
 #include "swerve/Drivetrain.h"
 #include "swerve/Odometry.h"
 #include "swerve/Trajectory.h"
@@ -36,12 +37,13 @@ public:
 
   frc2::CommandPtr GetAutonomousCommand();
 
-  frc2::CommandXboxController m_stick{CONSTANTS::XBOX_PORT};
+  frc2::CommandXboxController m_stick0{0};
+  frc2::CommandXboxController m_stick1{1};
 
   Drivetrain m_drivetrain;
   Vision m_vision;
   Odometry m_odometry{&m_drivetrain, &m_vision};
-  Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick, &m_vision};
+  Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick0, &m_vision};
   void ConfigureBindings();
 
 private:
@@ -52,8 +54,9 @@ private:
     TEST,
   };
   Intake m_intake;
-  Climber m_climber{&m_stick};
+  Climber m_climber{&m_stick0};
   Shooter m_shooter{&m_intake};
+  BuddyClimber m_buddyClimber;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 

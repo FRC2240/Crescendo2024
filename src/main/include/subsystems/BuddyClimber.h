@@ -11,6 +11,7 @@
 #include <units/time.h>
 #include <units/angular_velocity.h>
 #include <frc2/command/RunCommand.h>
+#include <frc/Servo.h>
 
 class BuddyClimber : public frc2::SubsystemBase
 {
@@ -21,13 +22,15 @@ public:
    * Will be called periodically whenever the CommandScheduler runs.
    */
   
-  frc2::CommandPtr ExtendCommand();
-  frc2::CommandPtr RetractCommand();
+  frc2::CommandPtr DeployCommand();
+  frc2::CommandPtr StartRightCommand();
+  frc2::CommandPtr StartLeftCommand();
   //frc2::CommandPtr ManualOverrideCommand();
 
 private:
-  ctre::phoenix6::hardware::TalonFX m_clawMotor{4};
-
-  units::angle::turn_t START_ROTATIONS{0}; //change
-  units::angle::turn_t END_ROTATIONS{100}; //change
+  ctre::phoenix6::hardware::TalonFX m_rightMotor{4};
+  ctre::phoenix6::hardware::TalonFX m_leftMotor{5}; //change?
+  frc::Servo m_deployServo{1}; //change
+  const double DEPLOY_ANGLE = 1.0; //change
+  const units::angular_velocity::turns_per_second_t ROTOR_SPEED{25}; //change
 };

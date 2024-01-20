@@ -8,25 +8,41 @@
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 
-BuddyClimber::BuddyClimber() {
-    ctre::phoenix6::configs::TalonFXConfiguration claw_config{};
-    claw_config.Audio.BeepOnBoot = true;
-    claw_config.CurrentLimits.SupplyCurrentLimitEnable = true;
-    claw_config.CurrentLimits.SupplyCurrentLimit = 25; //change
-    claw_config.Slot0.kP = 0.1;
-    claw_config.Slot0.kD = 0.0;
-    m_clawMotor.GetConfigurator().Apply(claw_config);
+BuddyClimber::BuddyClimber()
+{
+    ctre::phoenix6::configs::TalonFXConfiguration right_config{};
+    right_config.Audio.BeepOnBoot = true;
+    right_config.CurrentLimits.SupplyCurrentLimitEnable = true;
+    right_config.CurrentLimits.SupplyCurrentLimit = 25; // change
+    right_config.Slot0.kP = 1.0;
+    right_config.Slot0.kD = 0.0;
+    ctre::phoenix6::configs::TalonFXConfiguration left_config = right_config;
+    left_config.MotorOutput.Inverted = left_config.MotorOutput.Inverted.Clockwise_Positive;
+
+    m_rightMotor.GetConfigurator().Apply(right_config);
+    m_leftMotor.GetConfigurator().Apply(left_config);
 };
 
-
-frc2::CommandPtr BuddyClimber::ExtendCommand() {
-    return frc2::RunCommand([this] {
-            m_clawMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{END_ROTATIONS});
-    }, {this}).WithName("Extend");
+frc2::CommandPtr BuddyClimber::DeployCommand()
+{
+    return frc2::RunCommand([this]
+                            { m_deployServo.Set(DEPLOY_ANGLE); },
+                            {this})
+        .WithName("Deploy");
 };
 
-frc2::CommandPtr BuddyClimber::RetractCommand() {
-    return frc2::RunCommand([this] {
-        m_clawMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{START_ROTATIONS});
-    }, {this}).WithName("Retract");
+frc2::CommandPtr BuddyClimber::StartRightCommand()
+{
+    return frc2::RunCommand([this]
+                            { m_rightMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{ROTOR_SPEED}); },
+                            {this})
+        .WithName("Start Right");
+};
+
+frc2::CommandPtr BuddyClimber::StartLeftCommand()
+{
+    return frc2::RunCommand([this]
+                            { m_leftMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{ROTOR_SPEED}); },
+                            {this})
+        .WithName("Start Left");
 };
