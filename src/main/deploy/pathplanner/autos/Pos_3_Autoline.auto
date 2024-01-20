@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3453679095632345,
-      "y": 7.0
+      "x": 1.4,
+      "y": 4.1
     },
     "rotation": 0
   },
@@ -12,20 +12,14 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "score"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Autoline"
+            "pathName": "Pos_3 Autoline"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Cross Autoline",
   "choreoAuto": false
 }
