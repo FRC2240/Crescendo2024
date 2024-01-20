@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 1.6966470023165614,
-        "y": 4.886485963448118
+        "y": 4.9
       },
       "prevControl": {
-        "x": 1.850957085372818,
-        "y": 4.402981036538514
+        "x": 1.8509534753656507,
+        "y": 4.416493920975299
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -25.559965171823876,
+    "rotation": -25.560000000000002,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Speaker",
+  "folder": "gp2_speaker",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

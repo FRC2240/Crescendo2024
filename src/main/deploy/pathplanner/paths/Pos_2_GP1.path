@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 3.18,
+        "x": 3.2,
         "y": 5.55
       },
       "prevControl": {
-        "x": 1.6593093674254455,
+        "x": 1.6793093674254456,
         "y": 5.55
       },
       "nextControl": null,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "GP",
+  "folder": "gp1",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

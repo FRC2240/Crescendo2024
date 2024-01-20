@@ -8,7 +8,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pos_3_GP1"
+            "pathName": "pos_3_gp1"
           }
         },
         {
@@ -20,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pos_3_GP2_Speaker"
+            "pathName": "pos_3_gp2_speaker"
           }
         },
         {
@@ -32,6 +32,6 @@
       ]
     }
   },
-  "folder": "GP2",
+  "folder": "gp2",
   "choreoAuto": false
 }

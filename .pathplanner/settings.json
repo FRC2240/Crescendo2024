@@ -3,14 +3,15 @@
   "robotLength": 0.9,
   "holonomicMode": true,
   "pathFolders": [
-    "Autoline",
-    "GP",
-    "Speaker"
+    "autoline",
+    "gp2",
+    "gp2_speaker",
+    "gp1"
   ],
   "autoFolders": [
-    "Cross Autoline",
-    "GP2",
-    "GP3"
+    "cross_autoline",
+    "gp2",
+    "gp3"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
