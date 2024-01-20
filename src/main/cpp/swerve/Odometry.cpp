@@ -22,6 +22,13 @@ Odometry::Odometry(Drivetrain *drivetrain, Vision *vision)
 {
 }
 
+frc2::CommandPtr Odometry::set_pose_cmd(frc::Pose2d pose)
+{
+    return frc2::cmd::RunOnce([this, &pose]
+                              { resetPosition(pose, frc::Rotation2d(0_rad)); },
+                              {});
+}
+
 void Odometry::putField2d()
 {
     frc::SmartDashboard::PutData("Odometry Field", &field2d);
