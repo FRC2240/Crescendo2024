@@ -26,6 +26,7 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc::XboxCont
     AutoBuilder::configureHolonomic(
         [this]() -> frc::Pose2d
         {
+            frc::SmartDashboard::PutNumber("ppx", m_odometry->getPose().X().value());
             return m_odometry->getPose();
         },
         [this](frc::Pose2d pose) -> void
