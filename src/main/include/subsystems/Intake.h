@@ -34,10 +34,10 @@ public:
   frc2::CommandPtr StartCommand();
   frc2::CommandPtr StopCommand();
 
-  ctre::phoenix6::hardware::TalonFX m_beltMotor{2};
+  ctre::phoenix6::hardware::TalonFX m_beltMotor{CONSTANTS::CAN_IDS::INTAKE_BELT};
 
 private:
-  ctre::phoenix6::hardware::TalonFX m_angleMotor{0};
+  ctre::phoenix6::hardware::TalonFX m_angleMotor{CONSTANTS::CAN_IDS::INTAKE_ANGLE};
   
   const units::angle::turn_t START_ROTATIONS{0}; //change
   const units::angle::turn_t END_ROTATIONS{100}; //change

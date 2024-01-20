@@ -12,6 +12,7 @@
 #include <units/angular_velocity.h>
 #include <frc2/command/RunCommand.h>
 #include <frc/Servo.h>
+#include "Constants.h"
 
 class BuddyClimber : public frc2::SubsystemBase
 {
@@ -28,9 +29,9 @@ public:
   //frc2::CommandPtr ManualOverrideCommand();
 
 private:
-  ctre::phoenix6::hardware::TalonFX m_rightMotor{4};
-  ctre::phoenix6::hardware::TalonFX m_leftMotor{5}; //change?
-  frc::Servo m_deployServo{1}; //change
+  ctre::phoenix6::hardware::TalonFX m_rightMotor{CONSTANTS::CAN_IDS::BUDDYCLIMBER_RIGHT};
+  ctre::phoenix6::hardware::TalonFX m_leftMotor{CONSTANTS::CAN_IDS::BUDDYCLIMBER_LEFT};
+  frc::Servo m_deployServo{CONSTANTS::CAN_IDS::BUDDYCLIMBER_SERVO_PWM_CHANNEL}; //change
   const double DEPLOY_ANGLE = 1.0; //change
   const units::angular_velocity::turns_per_second_t ROTOR_SPEED{25}; //change
 };

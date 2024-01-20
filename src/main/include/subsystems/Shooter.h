@@ -37,9 +37,9 @@ public:
    */
   void Periodic() override;
 
-  ctre::phoenix6::hardware::CANcoder m_cancoder{CONSTANTS::SHOOTER::CANCODER_ID};
-  ctre::phoenix6::hardware::TalonFX m_left_motor{CONSTANTS::SHOOTER::LEFT_ID};
-  ctre::phoenix6::hardware::TalonFX m_right_motor{CONSTANTS::SHOOTER::RIGHT_ID};
-  ctre::phoenix6::hardware::TalonFX m_angle_motor{CONSTANTS::SHOOTER::ANGLE_ID};
+  ctre::phoenix6::hardware::CANcoder m_cancoder{CONSTANTS::CAN_IDS::SHOOTER_CANCODER_ID};
+  ctre::phoenix6::hardware::TalonFX m_left_motor{CONSTANTS::CAN_IDS::SHOOTER_LEFT_ID};
+  ctre::phoenix6::hardware::TalonFX m_right_motor{CONSTANTS::CAN_IDS::SHOOTER_RIGHT_ID};
+  ctre::phoenix6::hardware::TalonFX m_angle_motor{CONSTANTS::CAN_IDS::SHOOTER_ANGLE_ID};
   Intake *m_intake;
 };

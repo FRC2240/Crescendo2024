@@ -48,6 +48,37 @@ namespace CONSTANTS
         max = .0; /// Maximum output for control loop.
   };
 
+  namespace CAN_IDS {
+
+    // Todo: make Drivetrain.h use these constants (I am too scared to touch)
+    constexpr int DRIVETRAIN_FRONT_LEFT_DRIVER = 60;
+    constexpr int DRIVETRAIN_FRONT_LEFT_TURNER = 61;
+    constexpr int DRIVETRAIN_FRONT_LEFT_ENCODER = 14;
+    constexpr int DRIVETRAIN_FRONT_RIGHT_DRIVER = 50;
+    constexpr int DRIVETRAIN_FRONT_RIGHT_TURNER = 51;
+    constexpr int DRIVETRAIN_FRONT_RIGHT_ENCODER = 13;
+    constexpr int DRIVETRAIN_BACK_LEFT_DRIVER = 30;
+    constexpr int DRIVETRAIN_BACK_LEFT_TURNER = 31;
+    constexpr int DRIVETRAIN_BACK_LEFT_ENCODER = 11;
+    constexpr int DRIVETRAIN_BACK_RIGHT_DRIVER = 40;
+    constexpr int DRIVETRAIN_BACK_RIGHT_TURNER = 41;
+    constexpr int DRIVETRAIN_BACK_RIGHT_ENCODER = 12;
+    
+    constexpr int BUDDYCLIMBER_RIGHT = 0;
+    constexpr int BUDDYCLIMBER_LEFT = 1;
+    constexpr int BUDDYCLIMBER_SERVO_PWM_CHANNEL = 1;
+
+    constexpr int CLIMBER_MOTOR = 2;
+    
+    constexpr int INTAKE_ANGLE = 3;
+    constexpr int INTAKE_BELT = 4;
+
+    constexpr int SHOOTER_LEFT_ID = 5;
+    constexpr int SHOOTER_RIGHT_ID = 6;
+    constexpr int SHOOTER_ANGLE_ID = 7;
+    constexpr int SHOOTER_CANCODER_ID = 8;
+  }
+
   namespace INTAKE
   {
     constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
@@ -55,10 +86,6 @@ namespace CONSTANTS
 
   namespace SHOOTER
   {
-    constexpr int LEFT_ID = 0;     // CHANGEME
-    constexpr int RIGHT_ID = 1;    // CHANGEME
-    constexpr int ANGLE_ID = 2;    // CHANGME
-    constexpr int CANCODER_ID = 3; // CHANGEME
     constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
     constexpr double ANGLE_RATIO = 1;                    // CHANGEME
     constexpr units::degree_t FENDER_ANGLE = 15_deg;     // CHANGEME

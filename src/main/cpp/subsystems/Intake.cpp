@@ -34,7 +34,7 @@ bool Intake::is_loaded() {
 };
 
 frc2::CommandPtr Intake::ExtendCommand() {
-    return frc2::RunCommand([this] -> void {
+    return frc2::RunCommand([this] {
             m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{END_ROTATIONS});
     }, {this}).Until([this] -> bool {
         return CONSTANTS::IN_THRESHOLD<units::turn_t>(m_angleMotor.GetPosition().GetValue(), END_ROTATIONS, ROTATION_THRESHOLD);

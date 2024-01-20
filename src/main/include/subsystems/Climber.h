@@ -8,6 +8,7 @@
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/SubsystemBase.h>
 #include <frc2/command/button/CommandXboxController.h>
+#include "Constants.h"
 
 class Climber : public frc2::SubsystemBase
 {
@@ -26,5 +27,5 @@ private:
   //  declared private and exposed only through public methods.
 
   frc::XboxController *m_stick;
-  ctre::phoenix6::hardware::TalonFX hieght_climber{0};
+  ctre::phoenix6::hardware::TalonFX hieght_climber{CONSTANTS::CAN_IDS::CLIMBER_MOTOR};
 };
