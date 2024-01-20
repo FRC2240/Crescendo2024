@@ -30,7 +30,10 @@ void Robot::AutonomousInit()
   }
 }
 
-void Robot::AutonomousPeriodic() {}
+void Robot::AutonomousPeriodic()
+{
+  m_container.m_odometry.update();
+}
 
 void Robot::AutonomousExit() {}
 
