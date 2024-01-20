@@ -49,7 +49,7 @@ private:
   {
     AUTOLINE, // CHANGEME
     TWO_GP,   // CHANGEME
-    TEST,
+    POS_1_GP2,
   };
   Intake m_intake;
   Climber m_climber{&m_stick};
