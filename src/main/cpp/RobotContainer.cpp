@@ -13,9 +13,10 @@ RobotContainer::RobotContainer()
 
   m_chooser.AddOption("Cross Auto Line", AUTOS::AUTOLINE);
   m_chooser.AddOption("Two Game Piece", AUTOS::TWO_GP);
-  m_chooser.AddOption("Test", AUTOS::TEST);
+  m_chooser.AddOption("Position 1 two game piece", AUTOS::POS_1_GP2);
 
   frc::SmartDashboard::PutData(&m_chooser);
+  m_odometry.putField2d();
   ConfigureBindings();
 }
 
@@ -64,8 +65,8 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
   case AUTOS::TWO_GP:
     return autos::two_gp(&m_trajectory);
     break;
-  case AUTOS::TEST:
-    return autos::test(&m_trajectory);
+  case AUTOS::POS_1_GP2:
+    return autos::pos_1_gp2(&m_trajectory);
     break;
   default:
     frc::DataLogManager::Log("WARN: NO ERROR SELECTED");
