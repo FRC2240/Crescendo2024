@@ -20,12 +20,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Autoline"
+            "pathName": "pos_1_autoline"
           }
         }
       ]
     }
   },
-  "folder": "Cross Autoline",
+  "folder": "cross_autoline",
   "choreoAuto": false
 }
