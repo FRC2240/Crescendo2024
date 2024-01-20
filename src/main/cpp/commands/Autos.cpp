@@ -2,9 +2,9 @@
 
 #include <frc2/command/Commands.h>
 
-frc2::CommandPtr autos::test(Trajectory *traj)
+frc2::CommandPtr autos::pos_1_gp2(Trajectory *traj)
 {
-  return frc2::PrintCommand("start test").ToPtr().AndThen(traj->extract("a_test").AndThen(frc2::PrintCommand("line cross").ToPtr()));
+  return frc2::PrintCommand("start two gamepiece pos_1").ToPtr().AndThen(traj->extract("A_Pos_1_GP2").AndThen(frc2::PrintCommand("two piece completed").ToPtr()));
 }
 
 frc2::CommandPtr autos::autoline(Trajectory *traj)
