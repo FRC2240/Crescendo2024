@@ -45,7 +45,7 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
     return autos::two_gp(&m_trajectory);
     break;
   case AUTOS::POS_1_GP2:
-    return m_odometry.set_pose_cmd(frc::Pose2d(1.4_m, 7_m, frc::Rotation2d(0_rad))).AndThen(autos::pos_1_gp2(&m_trajectory));
+    return autos::pos_1_gp2(&m_trajectory);
     break;
   default:
     frc::DataLogManager::Log("WARN: NO ERROR SELECTED");

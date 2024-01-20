@@ -3,6 +3,9 @@
     "Persistent Values": {
       "open": false
     },
+    "Retained Values": {
+      "open": false
+    },
     "retained": {
       "limelight": {
         "double[]##v_/limelight/botpose": {
@@ -21,16 +24,15 @@
     },
     "transitory": {
       "SmartDashboard": {
-        "Odometry Field": {
-          "open": true
-        },
-        "SendableChooser[0]": {
-          "open": true
-        },
         "odometry": {
           "open": true
         },
         "open": true
+      },
+      "limelight-jank": {
+        "double[]##v_/limelight-jank/botpose_wpiblue": {
+          "open": true
+        }
       }
     },
     "types": {
@@ -65,7 +67,7 @@
     "visible": true
   },
   "NetworkTables Settings": {
-    "mode": "Client (NT4)",
+    "mode": "Client (NT3)",
     "serverTeam": "2240"
   },
   "Plots": {
