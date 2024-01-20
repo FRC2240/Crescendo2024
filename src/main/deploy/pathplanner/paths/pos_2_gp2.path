@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.65,
-        "y": 4.1
+        "x": 1.4,
+        "y": 5.55
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9538304740769885,
-        "y": 4.228096275741424
+        "x": 1.840669746502401,
+        "y": 4.783612574743946
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.7,
-        "y": 4.9
+        "x": 2.65,
+        "y": 4.1
       },
       "prevControl": {
-        "x": 1.8543064730490892,
-        "y": 4.416493920975299
+        "x": 1.6657849857053102,
+        "y": 4.197234259130172
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -25.560000000000002,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "gp2_speaker",
+  "folder": "gp2",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }
