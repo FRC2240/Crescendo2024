@@ -20,7 +20,7 @@
         "y": 4.1
       },
       "prevControl": {
-        "x": 1.1293093674254453,
+        "x": 1.129309367425445,
         "y": 4.1
       },
       "nextControl": null,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Autoline",
+  "folder": null,
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

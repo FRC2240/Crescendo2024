@@ -6,15 +6,9 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "score"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Pos_1_GP1"
+            "pathName": "Pos_3_GP1"
           }
         },
         {
@@ -26,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pos_1_GP2_Speaker"
+            "pathName": "Pos_3_GP2_Speaker"
           }
         },
         {
