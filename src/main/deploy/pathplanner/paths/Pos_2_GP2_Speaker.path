@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.18,
+        "x": 3.2,
         "y": 5.55
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0619660112501057,
+        "x": 2.0819660112501057,
         "y": 5.55
       },
       "isLocked": false,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Speaker",
+  "folder": "gp2_speaker",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }
