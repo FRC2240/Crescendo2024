@@ -14,9 +14,15 @@ BuddyClimber::BuddyClimber()
     right_config.Audio.BeepOnBoot = true;
     right_config.CurrentLimits.SupplyCurrentLimitEnable = true;
     right_config.CurrentLimits.SupplyCurrentLimit = 25; // change
-    right_config.Slot0.kP = 1.0;
+    right_config.Slot0.kP = 0.1;
     right_config.Slot0.kD = 0.0;
-    ctre::phoenix6::configs::TalonFXConfiguration left_config = right_config;
+
+    ctre::phoenix6::configs::TalonFXConfiguration left_config{};
+    left_config.Audio.BeepOnBoot = true;
+    left_config.CurrentLimits.SupplyCurrentLimitEnable = true;
+    left_config.CurrentLimits.SupplyCurrentLimit = 25; // change
+    left_config.Slot0.kP = 0.1;
+    left_config.Slot0.kD = 0.0;
     left_config.MotorOutput.Inverted = left_config.MotorOutput.Inverted.Clockwise_Positive;
 
     m_rightMotor.GetConfigurator().Apply(right_config);
@@ -30,19 +36,36 @@ frc2::CommandPtr BuddyClimber::DeployCommand()
                             {this})
         .WithName("Deploy");
 };
+// try duty cycle control?
 
 frc2::CommandPtr BuddyClimber::StartRightCommand()
 {
-    return frc2::RunCommand([this]
-                            { m_rightMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{ROTOR_SPEED}); },
-                            {this})
+    return RunOnce([this]
+                            {
+                                m_rightMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{ROTOR_SPEED});
+                                std::cout << "Right";
+                            })
         .WithName("Start Right");
 };
 
 frc2::CommandPtr BuddyClimber::StartLeftCommand()
 {
-    return frc2::RunCommand([this]
-                            { m_leftMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{ROTOR_SPEED}); },
-                            {this})
+    return RunOnce([this]
+                            {
+                                m_leftMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{ROTOR_SPEED});
+                                std::cout << "Left";
+                            })
         .WithName("Start Left");
+};
+
+frc2::CommandPtr BuddyClimber::StopCommand()
+{
+    return RunOnce([this] {
+            m_leftMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{units::turns_per_second_t{0}});
+            m_rightMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{units::turns_per_second_t{0}});
+            m_deployServo.Set(0.0);
+            std::cout << "Stop";
+        })
+        .WithName("Stop BuddyClimber");
+        
 };

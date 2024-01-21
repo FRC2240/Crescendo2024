@@ -26,6 +26,7 @@ public:
   frc2::CommandPtr DeployCommand();
   frc2::CommandPtr StartRightCommand();
   frc2::CommandPtr StartLeftCommand();
+  frc2::CommandPtr StopCommand();
   //frc2::CommandPtr ManualOverrideCommand();
 
 private:

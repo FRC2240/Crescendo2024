@@ -5,7 +5,7 @@
 #include <units/angular_velocity.h>
 #include <iostream>
 #include <fmt/format.h>
-#ifndef CFG_NO_DRIVEBASE
+//#ifndef CFG_NO_DRIVEBASE
 #define CAN_BUS_NAME "swervecan"
 
 /******************************************************************/
@@ -176,4 +176,4 @@ void SwerveModule::manualVelocityContol(double const &velocity_ticks_per_100ms)
     driver.SetControl(controls::DutyCycleOut{velocity_ticks_per_100ms});
     turner.SetControl(controls::DutyCycleOut{0});
 }
-#endif
+//#endif

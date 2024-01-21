@@ -64,19 +64,19 @@ namespace CONSTANTS
     constexpr int DRIVETRAIN_BACK_RIGHT_TURNER = 41;
     constexpr int DRIVETRAIN_BACK_RIGHT_ENCODER = 12;
     
-    constexpr int BUDDYCLIMBER_RIGHT = 0;
-    constexpr int BUDDYCLIMBER_LEFT = 1;
+    constexpr int BUDDYCLIMBER_RIGHT = 1;
+    constexpr int BUDDYCLIMBER_LEFT = 2;
     constexpr int BUDDYCLIMBER_SERVO_PWM_CHANNEL = 1;
 
-    constexpr int CLIMBER_MOTOR = 2;
+    constexpr int CLIMBER_MOTOR = 3;
     
-    constexpr int INTAKE_ANGLE = 3;
-    constexpr int INTAKE_BELT = 4;
+    constexpr int INTAKE_ANGLE = 4;
+    constexpr int INTAKE_BELT = 5;
 
-    constexpr int SHOOTER_LEFT_ID = 5;
-    constexpr int SHOOTER_RIGHT_ID = 6;
-    constexpr int SHOOTER_ANGLE_ID = 7;
-    constexpr int SHOOTER_CANCODER_ID = 8;
+    constexpr int SHOOTER_LEFT_ID = 6;
+    constexpr int SHOOTER_RIGHT_ID = 7;
+    constexpr int SHOOTER_ANGLE_ID = 8;
+    constexpr int SHOOTER_CANCODER_ID = 9;
   }
 
   namespace INTAKE

@@ -31,6 +31,10 @@ void RobotContainer::ConfigureBindings()
   //           .AlongWith(m_shooter.set_angle_cmd(m_vision.get_shooter_angle()))
   //           .AndThen(m_shooter.execute_auto_shot().WithTimeout(0.5_s)));
 
+
+  //TEMPORARY for testing
+  m_stick1.Back().OnTrue(m_buddyClimber.StopCommand());
+
   // Buddy Climber
   m_stick1.LeftBumper().OnTrue(m_buddyClimber.StartLeftCommand());
   m_stick1.RightBumper().OnTrue(m_buddyClimber.StartRightCommand());
