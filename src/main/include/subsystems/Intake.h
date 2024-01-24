@@ -34,14 +34,15 @@ public:
   frc2::CommandPtr StartCommand();
   frc2::CommandPtr StopCommand();
 
+  // Move all CAN ids to constants as well as all constants in this file.
   ctre::phoenix6::hardware::TalonFX m_beltMotor{2};
 
 private:
   ctre::phoenix6::hardware::TalonFX m_angleMotor{0};
-  
-  const units::angle::turn_t START_ROTATIONS{0}; //change
-  const units::angle::turn_t END_ROTATIONS{100}; //change
-  const units::angular_velocity::turns_per_second_t BELT_SPEED{50}; //change
-  const units::angle::turn_t BRACE_ROTATIONS{150}; //change
-  const units::angle::turn_t ROTATION_THRESHOLD{1}; //change?
+
+  const units::angle::turn_t START_ROTATIONS{0};                    // change
+  const units::angle::turn_t END_ROTATIONS{100};                    // change
+  const units::angular_velocity::turns_per_second_t BELT_SPEED{50}; // change
+  const units::angle::turn_t BRACE_ROTATIONS{150};                  // change
+  const units::angle::turn_t ROTATION_THRESHOLD{1};                 // change?
 };

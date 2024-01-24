@@ -64,7 +64,7 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
 
     ctre::phoenix6::configs::TalonFXConfiguration turner_config{};
     turner_config.Audio.BeepOnBoot = true;
-    turner_config.Slot0.kP = -3.203;
+    turner_config.Slot0.kP = -3.903;
     // turner_config.Slot0.kI = 32;
     // turner_config.Slot0.kD = 0.08;
     turner_config.Slot0.kS = 0;
@@ -141,6 +141,7 @@ void SwerveModule::setDesiredState(frc::SwerveModuleState const &desired_state)
     driver.SetControl(controls::VelocityDutyCycle{bot_speed_to_wheel_speed(optimized_speed)});
     turner.SetControl(controlreq);
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/vout", driver.GetMotorVoltage().GetValueAsDouble());
+    frc::SmartDashboard::PutNumber(driver.GetDescription() + "/percent out", driver.GetMotorVoltage().GetValueAsDouble() / frc::DriverStation::GetBatteryVoltage());
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/cyclemarker", (double)std::rand() / RAND_MAX);
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/turner.get()", turner.GetPosition().Refresh().GetValueAsDouble());
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/driver rotations", driver.GetPosition().GetValueAsDouble());

@@ -11,6 +11,7 @@
 #include <ctre/phoenix6/TalonFX.hpp>
 #include <ctre/phoenix6/CANcoder.hpp>
 #include "Constants.h"
+#include <frc/DriverStation.h>
 
 class SwerveModule
 {
@@ -57,7 +58,7 @@ private:
     inline units::turns_per_second_t bot_speed_to_wheel_speed(units::meters_per_second_t bot_speed);
 
     static constexpr units::length::meter_t WHEEL_RADIUS = 2.42_in; // measured
-    static constexpr units::meter_t WHEEL_CIRCUMFERENCE = 1.8_in;   // Should be 12 but 2 is better.
+    static constexpr units::meter_t WHEEL_CIRCUMFERENCE = 1_in;     // Should be 12 but 2 is better.
 
     static constexpr auto DRIVER_GEAR_RATIO = 6.75;
     static constexpr auto TURNER_GEAR_RATIO = 150 / 7;
