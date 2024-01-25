@@ -40,12 +40,14 @@ void RobotContainer::ConfigureBindings()
   frc2::Trigger{[this] -> bool
                 {
                   int pov = m_stick1.GetPOV();
-                  return pov < 30 || pov > 330;
+                  return pov == 0;
                 }}
       .OnTrue(m_intake.StartCommand()); // change to extend?
 
   frc2::Trigger{[this] -> bool
                 {
+                  frc::SmartDashboard::PutNumber("pov", m_stick1.GetPOV());
+                  frc::SmartDashboard::PutBoolean("Threshold", CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30));
                   return CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30);
                 }}
       .OnTrue(m_intake.StopCommand()); // change to retract?

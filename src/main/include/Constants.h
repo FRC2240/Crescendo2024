@@ -50,15 +50,17 @@ namespace CONSTANTS
 
   namespace INTAKE
   {
+    constexpr int BELT_ID = 2;
+    constexpr int ANGLE_ID = 1;
     constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
   } // namespace INTAKE
 
   namespace SHOOTER
   {
-    constexpr int LEFT_ID = 0;     // CHANGEME
-    constexpr int RIGHT_ID = 1;    // CHANGEME
-    constexpr int ANGLE_ID = 2;    // CHANGME
-    constexpr int CANCODER_ID = 3; // CHANGEME
+    constexpr int LEFT_ID = 10;     // CHANGEME
+    constexpr int RIGHT_ID = 11;    // CHANGEME
+    constexpr int ANGLE_ID = 12;    // CHANGME
+    constexpr int CANCODER_ID = 13; // CHANGEME
     constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
     constexpr double ANGLE_RATIO = 1;                    // CHANGEME
     constexpr units::degree_t FENDER_ANGLE = 15_deg;     // CHANGEME
