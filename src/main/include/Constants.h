@@ -50,8 +50,8 @@ namespace CONSTANTS
 
   namespace INTAKE
   {
-    constexpr int BELT_ID = 2;
-    constexpr int ANGLE_ID = 1;
+    constexpr int BELT_ID = 20;
+    constexpr int ANGLE_ID = 10;
     constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
   } // namespace INTAKE
 

@@ -8,7 +8,7 @@
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/SubsystemBase.h>
 #include <frc2/command/button/CommandXboxController.h>
-
+#include <frc/smartdashboard/SmartDashboard.h>
 class Climber : public frc2::SubsystemBase
 {
 public:
@@ -19,12 +19,15 @@ public:
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic() override;
-  frc::XboxController m_stick_init{0};
 
 private:
   // Components (e.g. motor controllers and sensors) should generally be
   //  declared private and exposed only through public methods.
 
   frc::XboxController *m_stick;
-  ctre::phoenix6::hardware::TalonFX hieght_climber{0};
+  // TODO:
+  // 1. Fix typo
+  // 2. Add second motor
+  // 3. Put CAN ID in constants
+  ctre::phoenix6::hardware::TalonFX hieght_climber{19};
 };
