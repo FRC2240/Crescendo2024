@@ -37,14 +37,20 @@ frc2::CommandPtr Shooter::fender_shot()
                [this]
                {
                    set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
-                   if (m_cancoder.GetAbsolutePosition().GetValue() + CONSTANTS::SHOOTER::FENDER_TOLERANCE < CONSTANTS::SHOOTER::FENDER_ANGLE &&
-                       m_cancoder.GetAbsolutePosition().GetValue() - CONSTANTS::SHOOTER::FENDER_TOLERANCE > CONSTANTS::SHOOTER::FENDER_ANGLE)
-                   {
-                       m_left_motor.SetControl(ctre::phoenix6::controls::DutyCycleOut(1));
-                   }
+                   //    if (m_cancoder.GetAbsolutePosition().GetValue() + CONSTANTS::SHOOTER::FENDER_TOLERANCE < CONSTANTS::SHOOTER::FENDER_ANGLE &&
+                   //    m_cancoder.GetAbsolutePosition().GetValue() - CONSTANTS::SHOOTER::FENDER_TOLERANCE > CONSTANTS::SHOOTER::FENDER_ANGLE)
+                   //    {
+                   //    }
+                   fmt::println("fender shot 1");
                },
                {this})
-        .ToPtr();
+        .WithTimeout(0.5_s)
+        .AndThen(frc2::RunCommand([this]
+                                  { 
+                     fmt::println("fender shot 2");
+                                    m_left_motor.SetControl(ctre::phoenix6::controls::DutyCycleOut(1)); })
+                     .ToPtr()
+                     .WithTimeout(0.5_s));
 }
 
 units::degree_t Shooter::get_angle()

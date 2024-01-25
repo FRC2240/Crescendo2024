@@ -24,7 +24,7 @@ void RobotContainer::ConfigureBindings()
   // Configure your trigger bindings here
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
   m_stick1.RightStick().OnTrue(m_trajectory.manual_drive());
-  // m_stick.X().OnTrue(m_shooter.fender_shot().WithTimeout(0.5_s));
+  m_stick0.X().ToggleOnTrue(m_shooter.fender_shot());
 
   //   m_stick.Y().OnTrue(
   //       m_trajectory.auto_score_align()

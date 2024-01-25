@@ -57,9 +57,9 @@ namespace CONSTANTS
 
   namespace SHOOTER
   {
-    constexpr int LEFT_ID = 10;     // CHANGEME
+    constexpr int LEFT_ID = 1;      // CHANGEME
     constexpr int RIGHT_ID = 11;    // CHANGEME
-    constexpr int ANGLE_ID = 12;    // CHANGME
+    constexpr int ANGLE_ID = 2;     // CHANGME
     constexpr int CANCODER_ID = 13; // CHANGEME
     constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
     constexpr double ANGLE_RATIO = 1;                    // CHANGEME
