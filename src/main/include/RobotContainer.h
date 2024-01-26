@@ -46,7 +46,6 @@ public:
   Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick0, &m_vision};
   void ConfigureBindings();
 
-private:
   enum AUTOS
   {
     AUTOLINE, // CHANGEME
@@ -58,6 +57,7 @@ private:
   Shooter m_shooter{&m_intake};
   BuddyClimber m_buddyClimber;
 
+private:
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
   // The robot's subsystems are defined here...

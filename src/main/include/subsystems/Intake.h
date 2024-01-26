@@ -12,6 +12,8 @@
 #include <units/angular_velocity.h>
 #include <frc2/command/RunCommand.h>
 #include "Constants.h"
+#include "frc2/command/PrintCommand.h"
+#include "frc/smartdashboard/SmartDashboard.h"
 
 class Intake : public frc2::SubsystemBase
 {
@@ -35,14 +37,14 @@ public:
   frc2::CommandPtr StopCommand();
 
   // Move all CAN ids to constants as well as all constants in this file.
-  ctre::phoenix6::hardware::TalonFX m_beltMotor{2};
+  ctre::phoenix6::hardware::TalonFX m_beltMotor{CONSTANTS::INTAKE::BELT_ID};
 
 private:
-  ctre::phoenix6::hardware::TalonFX m_angleMotor{0};
+  ctre::phoenix6::hardware::TalonFX m_angleMotor{CONSTANTS::INTAKE::ANGLE_ID};
 
-  const units::angle::turn_t START_ROTATIONS{0};                    // change
-  const units::angle::turn_t END_ROTATIONS{100};                    // change
-  const units::angular_velocity::turns_per_second_t BELT_SPEED{50}; // change
-  const units::angle::turn_t BRACE_ROTATIONS{150};                  // change
-  const units::angle::turn_t ROTATION_THRESHOLD{1};                 // change?
+  const units::angle::turn_t START_ROTATIONS{0};                     // change
+  const units::angle::turn_t END_ROTATIONS{100};                     // change
+  const units::angular_velocity::turns_per_second_t BELT_SPEED{500}; // change
+  const units::angle::turn_t BRACE_ROTATIONS{150};                   // change
+  const units::angle::turn_t ROTATION_THRESHOLD{1};                  // change?
 };
