@@ -48,40 +48,40 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
   switch (m_chooser.GetSelected())
   {
   case AUTOS::POS_1_LINE:
-    return autos::pos_1_gp2(&m_trajectory);
+    return autos::pos_1_line(&m_trajectory);
     break;
   case AUTOS::POS_2_LINE:
-    return autos::pos_1_gp2(&m_trajectory);
+    return autos::pos_2_line(&m_trajectory);
     break;
   case AUTOS::POS_3_LINE:
-    return autos::pos_1_gp2(&m_trajectory);
+    return autos::pos_3_line(&m_trajectory);
     break;
   case AUTOS::POS_1_GP2:
     return autos::pos_1_gp2(&m_trajectory);
     break;
   case AUTOS::POS_2_GP2:
-    return autos::pos_1_gp2(&m_trajectory);
+    return autos::pos_2_gp2(&m_trajectory);
     break;
   case AUTOS::POS_3_GP2:
-    return autos::pos_1_gp2(&m_trajectory);
+    return autos::pos_3_gp2(&m_trajectory);
     break;
   case AUTOS::POS_1_GP3:
-    return autos::pos_1_gp2(&m_trajectory);
+    return autos::pos_1_gp3(&m_trajectory);
     break;
   case AUTOS::POS_2_GP3:
-    return autos::pos_1_gp2(&m_trajectory);
+    return autos::pos_2_gp3(&m_trajectory);
     break;
   case AUTOS::POS_3_GP3:
-    return autos::pos_1_gp2(&m_trajectory);
+    return autos::pos_3_gp3(&m_trajectory);
     break;
   case AUTOS::POS_1_GP4:
-    return autos::pos_1_gp2(&m_trajectory);
+    return autos::pos_1_gp4(&m_trajectory);
     break;
   case AUTOS::POS_2_GP4:
-    return autos::pos_1_gp2(&m_trajectory);
+    return autos::pos_2_gp4(&m_trajectory);
     break;
   case AUTOS::POS_3_GP4:
-    return autos::pos_1_gp2(&m_trajectory);
+    return autos::pos_3_gp4(&m_trajectory);
     break;
   default:
     frc::DataLogManager::Log("WARN: NO ERROR SELECTED");
