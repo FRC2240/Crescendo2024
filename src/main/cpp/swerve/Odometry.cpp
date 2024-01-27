@@ -119,11 +119,15 @@ void Odometry::add_vision_measurment(const frc::Pose2d &pose)
 
 void Odometry::update_from_vision()
 {
+    auto pose = estimator.GetEstimatedPosition();
+    frc::SmartDashboard::PutNumber("odometry/X", pose.X().value());
+    frc::SmartDashboard::PutNumber("odometry/Y", pose.Y().value());
+
     for (std::optional<frc::Pose2d> i : m_vision->get_bot_position())
     {
         if (i)
         {
-            assert(i);
+            frc::SmartDashboard::PutNumber("auto thing", i.value().X().value());
             estimator.AddVisionMeasurement(i.value(), frc::Timer::GetFPGATimestamp());
         }
     }

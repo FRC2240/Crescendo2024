@@ -6,10 +6,13 @@
 
 #include <frc2/command/CommandScheduler.h>
 
-void Robot::RobotInit() {}
+void Robot::RobotInit()
+{
+}
 
 void Robot::RobotPeriodic()
 {
+  m_container.m_odometry.update_from_vision();
   m_container.m_odometry.update();
   frc2::CommandScheduler::GetInstance().Run();
 }
