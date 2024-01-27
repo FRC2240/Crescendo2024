@@ -10,8 +10,8 @@ void Robot::RobotInit() {}
 
 void Robot::RobotPeriodic()
 {
+  m_container.m_odometry.update();
   frc2::CommandScheduler::GetInstance().Run();
-  frc::SmartDashboard::PutString("Intake active cmd", m_container.m_intake.GetCurrentCommand()->GetName());
 }
 
 void Robot::DisabledInit() {}
