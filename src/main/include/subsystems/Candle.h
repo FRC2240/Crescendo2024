@@ -5,17 +5,23 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
+#include "Constants.h"
+#include "ctre/phoenix/led/CANdle.h"
+#include "ctre/phoenix/led/RainbowAnimation.h"
 
 class Candle : public frc2::SubsystemBase {
- public:
-  Candle();
+    public:
 
-  /**
-   * Will be called periodically whenever the CommandScheduler runs.
-   */
-  void Periodic() override;
+    Candle();
 
- private:
-  // Components (e.g. motor controllers and sensors) should generally be
-  // declared private and exposed only through public methods.
+    void Purple();
+    void Yellow();
+    void Red();
+    void Blue();
+    void Rainbow();
+    void Off();
+
+    private:
+    ctre::phoenix::led::CANdle m_candle {CONSTANTS::CANDLE::CANDLE_ID, ""};
+    ctre::phoenix::led::RainbowAnimation rainbow{0.5, 0.5, -1};
 };

@@ -52,6 +52,10 @@ namespace CONSTANTS
     constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
   } // namespace INTAKE
 
+  namespace CANDLE {
+    constexpr int CANDLE_ID = 5;
+  }
+
   namespace SHOOTER
   {
     constexpr int LEFT_ID = 0;     // CHANGEME
