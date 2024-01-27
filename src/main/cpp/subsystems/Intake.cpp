@@ -7,18 +7,20 @@
 
 Intake::Intake()
 {
+    //angle motor
     ctre::phoenix6::configs::TalonFXConfiguration angle_config{};
     angle_config.Audio.BeepOnBoot = true;
     angle_config.CurrentLimits.SupplyCurrentLimitEnable = true;
-    angle_config.CurrentLimits.SupplyCurrentLimit = 25; // change
+    angle_config.CurrentLimits.SupplyCurrentLimit = 25; // CHANGEME
     angle_config.Slot0.kP = 0.5;
     angle_config.Slot0.kD = 0.0;
     m_angleMotor.GetConfigurator().Apply(angle_config);
 
+    //belt motor (pid stuff may be unnecessary)
     ctre::phoenix6::configs::TalonFXConfiguration belt_config{};
     belt_config.Audio.BeepOnBoot = true;
     belt_config.CurrentLimits.SupplyCurrentLimitEnable = true;
-    belt_config.CurrentLimits.SupplyCurrentLimit = 25; // change
+    belt_config.CurrentLimits.SupplyCurrentLimit = 25; // CHANGEME
     belt_config.Slot0.kP = 0.5;
     belt_config.Slot0.kD = 0.0;
     m_beltMotor.GetConfigurator().Apply(belt_config);
@@ -27,8 +29,8 @@ Intake::Intake()
 // This method will be called once per scheduler run
 void Intake::Periodic(){};
 
+//TODO: idk what this does
 #pragma warn("Intake::is_loaded() is UNIMPLEMENTED!")
-
 bool Intake::is_loaded()
 {
     return false;
@@ -40,7 +42,7 @@ frc2::CommandPtr Intake::ExtendCommand()
         {
             m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{END_ROTATIONS});
         }, {this})
-        .Until([this] -> bool
+        .Until([this] -> bool // stop when done (to allow StartSpinCommand to run)
             { return CONSTANTS::IN_THRESHOLD<units::turn_t>(m_angleMotor.GetPosition().GetValue(), END_ROTATIONS, ROTATION_THRESHOLD); })
         .WithName("Extend");
 };
@@ -50,7 +52,7 @@ frc2::CommandPtr Intake::RetractCommand()
     return frc2::RunCommand([this] -> void {
             m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{START_ROTATIONS});
         }, {this})
-        .Until([this] -> bool {
+        .Until([this] -> bool { // stop when done (to allow StopSpinCommand to run)
             return CONSTANTS::IN_THRESHOLD<units::turn_t>(m_angleMotor.GetPosition().GetValue(), START_ROTATIONS, ROTATION_THRESHOLD);
         })
         .WithName("Retract");
