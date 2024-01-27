@@ -8,18 +8,9 @@
 
 void Robot::RobotInit() {}
 
-<<<<<<< HEAD
 void Robot::RobotPeriodic()
 {
   m_container.m_odometry.update();
-||||||| parent of 216cacc (vision fixes)
-void Robot::RobotPeriodic() {
-=======
-void Robot::RobotPeriodic()
-{
-  m_container.m_odometry.update_from_vision();
-  m_container.m_odometry.update();
->>>>>>> 216cacc (vision fixes)
   frc2::CommandScheduler::GetInstance().Run();
 }
 
@@ -39,18 +30,8 @@ void Robot::AutonomousInit()
   }
 }
 
-<<<<<<< HEAD
 void Robot::AutonomousPeriodic()
 {
-  m_container.m_odometry.update();
-||||||| parent of 216cacc (vision fixes)
-void Robot::AutonomousPeriodic() {
-    m_container.m_odometry.update();
-
-=======
-void Robot::AutonomousPeriodic()
-{
->>>>>>> 216cacc (vision fixes)
 }
 
 void Robot::AutonomousExit() {}
