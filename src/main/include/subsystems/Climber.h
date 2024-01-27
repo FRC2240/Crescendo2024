@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #pragma once
+#include <ctre/phoenix6/controls/Follower.hpp>
 #include <units/angle.h>
 #include <ctre/phoenix6/TalonFX.hpp>
 #include <frc2/command/CommandPtr.h>
@@ -24,8 +25,7 @@ private:
   // Components (e.g. motor controllers and sensors) should generally be
   //  declared private and exposed only through public methods.
 
-  // TODO:
-  // 3. Put CAN ID in constants
+  frc::XboxController* m_stick;
 
   ctre::phoenix6::hardware::TalonFX left_climber{41};
   ctre::phoenix6::hardware::TalonFX right_climber{40};
