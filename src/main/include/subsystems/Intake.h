@@ -44,7 +44,7 @@ private:
 
   const units::angle::turn_t START_ROTATIONS{0};                     // change
   const units::angle::turn_t END_ROTATIONS{100};                     // change
-  const units::angular_velocity::turns_per_second_t BELT_SPEED{500}; // change
+  const units::voltage::volt_t BELT_SPEED{3}; // change
   const units::angle::turn_t BRACE_ROTATIONS{150};                   // change
   const units::angle::turn_t ROTATION_THRESHOLD{1};                  // change?
 };
