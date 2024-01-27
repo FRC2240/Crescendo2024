@@ -24,10 +24,9 @@ private:
   // Components (e.g. motor controllers and sensors) should generally be
   //  declared private and exposed only through public methods.
 
-  frc::XboxController *m_stick;
   // TODO:
-  // 1. Fix typo
-  // 2. Add second motor
   // 3. Put CAN ID in constants
-  ctre::phoenix6::hardware::TalonFX hieght_climber{19};
+
+  ctre::phoenix6::hardware::TalonFX left_climber{41};
+  ctre::phoenix6::hardware::TalonFX right_climber{40};
 };
