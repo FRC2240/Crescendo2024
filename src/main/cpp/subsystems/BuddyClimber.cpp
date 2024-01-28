@@ -25,24 +25,42 @@ BuddyClimber::BuddyClimber()
 
 frc2::CommandPtr BuddyClimber::DeployCommand()
 {
-    return frc2::RunCommand([this]
-                            { m_deployServo.Set(DEPLOY_ANGLE); },
-                            {this})
+    return RunOnce([this]
+                            {
+                                m_deployServo.Set(DEPLOY_ANGLE); 
+                            })
         .WithName("Deploy");
 };
 
 frc2::CommandPtr BuddyClimber::StartRightCommand()
 {
-    return frc2::RunCommand([this]
-                            { m_rightMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{ROTOR_SPEED}); },
-                            {this})
+    return RunOnce([this]
+                            {
+                                std::cout << "right";
+                                m_rightMotor.SetControl(ctre::phoenix6::controls::VoltageOut{ROTOR_SPEED}); 
+                            })
         .WithName("Start Right");
 };
 
 frc2::CommandPtr BuddyClimber::StartLeftCommand()
 {
-    return frc2::RunCommand([this]
-                            { m_leftMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{ROTOR_SPEED}); },
-                            {this})
+    return RunOnce([this]
+                            {
+                                std::cout << "left";
+                                m_leftMotor.SetControl(ctre::phoenix6::controls::VoltageOut{ROTOR_SPEED});
+                                })
+        .WithName("Start Left");
+};
+
+frc2::CommandPtr BuddyClimber::ResetCommand()
+{
+    return RunOnce([this]
+        {
+
+            std::cout << "reset";
+            m_leftMotor.SetControl(ctre::phoenix6::controls::VoltageOut{units::voltage::volt_t{0}});
+            m_rightMotor.SetControl(ctre::phoenix6::controls::VoltageOut{units::voltage::volt_t{0}});
+            m_deployServo.Set(0.0);
+        })
         .WithName("Start Left");
 };

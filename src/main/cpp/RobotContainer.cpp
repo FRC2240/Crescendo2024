@@ -45,6 +45,7 @@ void RobotContainer::ConfigureBindings()
   m_stick1.LeftBumper().OnTrue(m_buddyClimber.StartLeftCommand());
   m_stick1.RightBumper().OnTrue(m_buddyClimber.StartRightCommand());
   m_stick1.Start().OnTrue(m_buddyClimber.DeployCommand());
+  m_stick1.Back().OnTrue(m_buddyClimber.ResetCommand());
 
   // Intake
   frc2::Trigger{[this] -> bool
