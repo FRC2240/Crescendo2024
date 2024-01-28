@@ -1,16 +1,54 @@
 {
   "NetworkTables": {
+    "Persistent Values": {
+      "open": false
+    },
     "Retained Values": {
       "open": false
     },
+    "retained": {
+      "limelight": {
+        "double[]##v_/limelight/botpose": {
+          "open": true
+        },
+        "double[]##v_/limelight/botpose_targetspace": {
+          "open": true
+        },
+        "double[]##v_/limelight/botpose_wpiblue": {
+          "open": true
+        },
+        "double[]##v_/limelight/botpose_wpired": {
+          "open": true
+        }
+      }
+    },
     "transitory": {
       "SmartDashboard": {
-        "open": true
+        "odometry": {
+          "open": true
+        },
+        "open": true,
+        "pp": {
+          "open": true
+        }
+      },
+      "limelight-jank": {
+        "double[]##v_/limelight-jank/botpose_wpiblue": {
+          "open": true
+        }
       }
     },
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Odometry Field": "Field2d",
       "/SmartDashboard/SendableChooser[0]": "String Chooser"
+    },
+    "windows": {
+      "/SmartDashboard/SendableChooser[0]": {
+        "window": {
+          "visible": true
+        }
+      }
     }
   },
   "NetworkTables Info": {
@@ -54,7 +92,8 @@
                 0.6901960968971252,
                 1.0
               ],
-              "id": "NT:/SmartDashboard/Talon FX (v6) 60/percent out"
+              "id": "NT:/SmartDashboard/odometry/X",
+              "marker": "Circle"
             },
             {
               "color": [
@@ -63,49 +102,8 @@
                 0.32156863808631897,
                 1.0
               ],
-              "id": "NT:/SmartDashboard/Talon FX (v6) 50/percent out"
-            },
-            {
-              "color": [
-                0.3333333432674408,
-                0.658823549747467,
-                0.4078431725502014,
-                1.0
-              ],
-              "id": "NT:/SmartDashboard/Talon FX (v6) 40/percent out"
-            },
-            {
-              "color": [
-                0.7686275243759155,
-                0.30588236451148987,
-                0.32156863808631897,
-                1.0
-              ],
-              "id": "NT:/SmartDashboard/Talon FX (v6) 30/percent out"
-            }
-          ]
-        }
-      ]
-    },
-    "Plot <1>": {
-      "plots": [
-        {
-          "backgroundColor": [
-            0.0,
-            0.0,
-            0.0,
-            0.8500000238418579
-          ],
-          "height": 338,
-          "series": [
-            {
-              "color": [
-                0.2980392277240753,
-                0.44705885648727417,
-                0.6901960968971252,
-                1.0
-              ],
-              "id": "NT:/SmartDashboard/robot speed"
+              "id": "NT:/SmartDashboard/odometry/Y",
+              "marker": "Circle"
             }
           ]
         }

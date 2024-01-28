@@ -22,6 +22,14 @@ Odometry::Odometry(Drivetrain *drivetrain, Vision *vision)
 {
 }
 
+frc2::CommandPtr Odometry::set_pose_cmd(frc::Pose2d pose)
+{
+    return frc2::cmd::RunOnce([this, &pose]
+                              { resetPosition(pose, frc::Rotation2d(0_rad)); },
+                              {})
+        .AndThen(frc2::PrintCommand("reset odometry").ToPtr());
+}
+
 void Odometry::putField2d()
 {
     frc::SmartDashboard::PutData("Odometry Field", &field2d);
@@ -32,10 +40,13 @@ void Odometry::update()
     frc::Pose2d const pose = estimator.Update(m_drivetrain->getCCWHeading(),
                                               m_drivetrain->getModulePositions());
     // if constexpr (CONSTANTS::DEBUGGING)
+    frc::SmartDashboard::PutNumber("odometry/X", pose.X().value());
+    frc::SmartDashboard::PutNumber("odometry/Y", pose.Y().value());
     frc::SmartDashboard::PutString("Odometry: ", fmt::format("Pose X: {}, Y: {}, Z (Degrees): {}\n", pose.X().value(), pose.Y().value(), pose.Rotation().Degrees().value()));
 }
 
-frc::Pose2d Odometry::getPose() { return estimator.GetEstimatedPosition(); }
+frc::Pose2d Odometry::getPose() { return estimator.Update(m_drivetrain->getCCWHeading(),
+                                                          m_drivetrain->getModulePositions()); }
 
 frc::ChassisSpeeds const Odometry::getFieldRelativeSpeeds()
 {
@@ -57,6 +68,7 @@ frc::ChassisSpeeds const Odometry::getFieldRelativeSpeeds()
 
     previous_pose = estimator.GetEstimatedPosition(); // Set the previous_pose for the next time this loop is run
 
+    // estimator.
     speed_timer.Reset(); // Time how long until next call
 
     return frc::ChassisSpeeds{X, Y, rot};
@@ -108,11 +120,15 @@ void Odometry::add_vision_measurment(const frc::Pose2d &pose)
 
 void Odometry::update_from_vision()
 {
+    auto pose = estimator.GetEstimatedPosition();
+    frc::SmartDashboard::PutNumber("odometry/X", pose.X().value());
+    frc::SmartDashboard::PutNumber("odometry/Y", pose.Y().value());
+
     for (std::optional<frc::Pose2d> i : m_vision->get_bot_position())
     {
         if (i)
         {
-            assert(i);
+            frc::SmartDashboard::PutNumber("auto thing", i.value().X().value());
             estimator.AddVisionMeasurement(i.value(), frc::Timer::GetFPGATimestamp());
         }
     }

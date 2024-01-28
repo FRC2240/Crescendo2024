@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2.315998401273197,
-      "y": 7.220147106367759
+      "x": 1.4,
+      "y": 5.55
     },
-    "rotation": -4.935419767653268
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
@@ -14,12 +14,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "p_test"
+            "pathName": "pos_2_autoline"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "cross_autoline",
   "choreoAuto": false
 }

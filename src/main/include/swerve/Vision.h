@@ -8,6 +8,8 @@
 #include <networktables/NetworkTableInstance.h>
 #include <frc/estimator/SwerveDrivePoseEstimator.h>
 #include <frc/DriverStation.h>
+#include <frc/smartdashboard/SmartDashboard.h>
+
 class Vision
 {
 public:
@@ -41,7 +43,7 @@ public:
 
 private:
     std::shared_ptr<nt::NetworkTable> m_limelight =
-        nt::NetworkTableInstance::GetDefault().GetTable("limelight");
+        nt::NetworkTableInstance::GetDefault().GetTable("limelight-jank");
 
     // frc::SwerveDrivePoseEstimator<4> m_estimator {
     //     m_drivetrain->kinematics,

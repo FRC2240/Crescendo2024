@@ -48,9 +48,18 @@ public:
 
   enum AUTOS
   {
-    AUTOLINE, // CHANGEME
-    TWO_GP,   // CHANGEME
-    TEST,
+    POS_1_LINE,
+    POS_2_LINE,
+    POS_3_LINE,
+    POS_1_GP2,
+    POS_2_GP2,
+    POS_3_GP2,
+    POS_1_GP3,
+    POS_2_GP3,
+    POS_3_GP3,
+    POS_1_GP4,
+    POS_2_GP4,
+    POS_3_GP4
   };
   Intake m_intake;
   Climber m_climber{&m_stick0};

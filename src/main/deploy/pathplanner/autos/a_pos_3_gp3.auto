@@ -1,26 +1,14 @@
 {
   "version": 1.0,
-  "startingPose": {
-    "position": {
-      "x": 1.2702458435470134,
-      "y": 6.918311045540341
-    },
-    "rotation": 0
-  },
+  "startingPose": null,
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "score"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "GP1"
+            "pathName": "pos_3_autoline"
           }
         },
         {
@@ -32,7 +20,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Speaker"
+            "pathName": "pos_3_gp2_speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "pos_3_gp2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "pos_2_gp2_speaker"
           }
         },
         {
@@ -44,6 +56,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "gp3",
   "choreoAuto": false
 }
