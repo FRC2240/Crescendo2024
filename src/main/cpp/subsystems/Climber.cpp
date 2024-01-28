@@ -12,31 +12,40 @@ Climber::Climber(frc::XboxController *stick)
    left_climber_config.Slot0.kI = 0.1;
    left_climber_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
    left_climber.GetConfigurator().Apply(left_climber_config);
+   //ctre::phoenix6::controls::Follower req{4, true};
+
 
    ctre::phoenix6::configs::TalonFXConfiguration right_climber_config{};
    right_climber_config.Slot0.kP = 1;
    right_climber_config.Slot0.kI = 0.1;
    right_climber_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
    right_climber.GetConfigurator().Apply(right_climber_config);
-   ctre::phoenix6::controls::Follower req{41, true};
-   right_climber.SetControl(req);
+   /*ctre::phoenix6::controls::Follower req{5, false};
+   right_climber.SetControl(req);*/
 }
 
 void Climber::Periodic()
 {
+   /*ctre::phoenix6::controls::Follower req{5, 1};
+   right_climber.SetControl(req);*/
    int yPos = m_stick->GetPOV();
    if (yPos == 0)
    {
       frc::SmartDashboard::PutString("climbers", "up");
       right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0.5});
+      left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0.5});
    }
    else if (yPos == 180)
    {
       frc::SmartDashboard::PutString("climbers", "down");
       right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-0.5});
+      left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-0.5});
    }
    else
    {
       right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0});
+      left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0});
    }
+  
+
 };
