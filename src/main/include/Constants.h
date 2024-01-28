@@ -55,6 +55,11 @@ namespace CONSTANTS
     constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
   } // namespace INTAKE
 
+  namespace CLIMBER
+  {
+    constexpr int left_climber = 4; //CHANGEME
+    constexpr int right_climber = 5; //CHANGEME
+  } // namespace CLIMBER
   namespace CANDLE {
     constexpr int CANDLE_ID = 5;
   }
