@@ -68,6 +68,7 @@ frc::ChassisSpeeds const Odometry::getFieldRelativeSpeeds()
 
     previous_pose = estimator.GetEstimatedPosition(); // Set the previous_pose for the next time this loop is run
 
+    // estimator.
     speed_timer.Reset(); // Time how long until next call
 
     return frc::ChassisSpeeds{X, Y, rot};
