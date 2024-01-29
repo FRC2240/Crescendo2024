@@ -58,7 +58,8 @@ private:
     POS_3_GP3,
     POS_1_GP4,
     POS_2_GP4,
-    POS_3_GP4
+    POS_3_GP4,
+    TEST
   };
   Intake m_intake;
   Climber m_climber{&m_stick};

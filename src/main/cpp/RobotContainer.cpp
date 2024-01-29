@@ -23,6 +23,7 @@ RobotContainer::RobotContainer()
   m_chooser.AddOption("Position 1 four game piece", AUTOS::POS_1_GP4);
   m_chooser.AddOption("Position 2 four game piece", AUTOS::POS_2_GP4);
   m_chooser.AddOption("Position 3 four game piece", AUTOS::POS_3_GP4);
+  m_chooser.AddOption("test", AUTOS::TEST);
 
   frc::SmartDashboard::PutData(&m_chooser);
   m_odometry.putField2d();
@@ -82,6 +83,9 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
     break;
   case AUTOS::POS_3_GP4:
     return autos::pos_3_gp4(&m_trajectory);
+    break;
+  case AUTOS::TEST:
+    return autos::test(&m_trajectory);
     break;
   default:
     frc::DataLogManager::Log("WARN: NO ERROR SELECTED");

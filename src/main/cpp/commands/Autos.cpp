@@ -61,3 +61,8 @@ frc2::CommandPtr autos::pos_3_gp4(Trajectory *traj)
 {
   return frc2::PrintCommand("start four gamepiece pos_1").ToPtr().AndThen(traj->extract("a_pos_3_gp4").AndThen(frc2::PrintCommand("four piece completed").ToPtr()));
 }
+
+frc2::CommandPtr autos::test(Trajectory *traj)
+{
+  return frc2::PrintCommand("start test").ToPtr().AndThen(traj->extract("a_test").AndThen(frc2::PrintCommand("four piece completed").ToPtr()));
+}
