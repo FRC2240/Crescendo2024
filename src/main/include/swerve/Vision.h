@@ -56,17 +56,31 @@ private:
   std::shared_ptr<photon::PhotonCamera> m_right_camera_b =
       std::make_shared<photon::PhotonCamera>("photon-right-b");
 
-  std::vector<std::shared_ptr<photon::PhotonCamera>> m_photoncam_vec = {
-      m_left_camera_a, m_left_camera_b, m_right_camera_a, m_right_camera_b};
-
   frc::AprilTagFieldLayout layout =
       frc::LoadAprilTagLayoutField(frc::AprilTagField::k2024Crescendo);
 
-  photon::PhotonPoseEstimator m_estimator{
+  photon::PhotonPoseEstimator m_left_estimator_a{
       layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
-      frc::Transform3d(
-          frc::Pose3d(0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)),
-          frc::Pose3d(1_m, 1_m, 1_m, frc::Rotation3d(1_rad, 1_rad, 1_rad)))};
+      CONSTANTS::VISION::LEFT_CAMERA_A_TF};
+
+  photon::PhotonPoseEstimator m_left_estimator_b{
+      layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
+      CONSTANTS::VISION::LEFT_CAMERA_B_TF};
+
+  photon::PhotonPoseEstimator m_right_estimator_a{
+      layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
+      CONSTANTS::VISION::RIGHT_CAMERA_A_TF};
+
+  photon::PhotonPoseEstimator m_right_estimator_b{
+      layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
+      CONSTANTS::VISION::LEFT_CAMERA_A_TF};
+
+  std::vector<std::pair<std::shared_ptr<photon::PhotonCamera>,
+                        photon::PhotonPoseEstimator>>
+      m_photoncam_vec = {{m_left_camera_a, m_left_estimator_a},
+                         {m_left_camera_b, m_left_estimator_b},
+                         {m_right_camera_a, m_right_estimator_a},
+                         {m_right_camera_b, m_right_estimator_b}};
 
   std::shared_ptr<nt::NetworkTable> m_aft_limelight =
       nt::NetworkTableInstance::GetDefault().GetTable("limelight-aft");
