@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #pragma once
-#include <ctre/phoenix6/controls/Follower.hpp>
+//#include <ctre/phoenix6/controls/Follower.hpp>
 #include <units/angle.h>
 #include <ctre/phoenix6/TalonFX.hpp>
 #include <frc2/command/CommandPtr.h>
@@ -27,6 +27,6 @@ private:
 
   frc::XboxController* m_stick;
 
-  ctre::phoenix6::hardware::TalonFX left_climber{41};
-  ctre::phoenix6::hardware::TalonFX right_climber{40};
+  ctre::phoenix6::hardware::TalonFX left_climber{5};
+  ctre::phoenix6::hardware::TalonFX right_climber{4};
 };
