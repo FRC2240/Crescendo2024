@@ -57,9 +57,11 @@ namespace CONSTANTS
 
   namespace CLIMBER
   {
-    constexpr int left_climber = 41; //CHANGEME
-    constexpr int right_climber = 40; //CHANGEME
-    // namespace CLIMBER
+    constexpr int left_climber = 4; //CHANGEME
+    constexpr int right_climber = 5; //CHANGEME
+  } // namespace CLIMBER
+  namespace CANDLE {
+    constexpr int CANDLE_ID = 5;
   }
 
   namespace SHOOTER
