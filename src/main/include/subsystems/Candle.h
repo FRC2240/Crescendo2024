@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <frc2/command/CommandPtr.h>
 #include <frc2/command/SubsystemBase.h>
 #include "Constants.h"
 #include "ctre/phoenix/led/CANdle.h"
