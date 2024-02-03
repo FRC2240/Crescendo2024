@@ -11,7 +11,7 @@ Shooter::Shooter(Intake *intake) : m_intake{intake}
     left_conf.Slot0.kP = 1;
     ctre::phoenix6::configs::TalonFXConfiguration right_conf = left_conf;
     right_conf.MotorOutput.Inverted = right_conf.MotorOutput.Inverted.CounterClockwise_Positive;
-
+    // right_conf.Feedback.
     ctre::phoenix6::configs::TalonFXConfiguration angle_conf{};
     angle_conf.Feedback.RotorToSensorRatio = CONSTANTS::SHOOTER::ANGLE_RATIO;
     angle_conf.Slot0.kP = 1;
@@ -48,9 +48,11 @@ frc2::CommandPtr Shooter::fender_shot()
         .AndThen(frc2::RunCommand([this]
                                   { 
                      fmt::println("fender shot 2");
-                                    m_left_motor.SetControl(ctre::phoenix6::controls::DutyCycleOut(1)); })
+                                    m_left_motor.SetControl(ctre::phoenix6::controls::DutyCycleOut(1));
+                                    // frc::SmartDashboard::PutNumber("lvolt", m_left_motor.GetMotorVoltage())
+                                    m_right_motor.SetControl(ctre::phoenix6::controls::DutyCycleOut(-1)); })
                      .ToPtr()
-                     .WithTimeout(0.5_s));
+                     .WithTimeout(50_s));
 }
 
 units::degree_t Shooter::get_angle()
