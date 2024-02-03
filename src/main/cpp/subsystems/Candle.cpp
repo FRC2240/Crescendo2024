@@ -51,7 +51,7 @@ frc2::CommandPtr Candle::Rainbow()
     return frc2::RunCommand([this]
                            {m_candle.Animate(Rainbow); },
                           {this})
-            .WithName("Rainbow").ToPtr();
+            .WithName("Raindbow").ToPtr();
 };
 
 frc2::CommandPtr Candle::Off()
