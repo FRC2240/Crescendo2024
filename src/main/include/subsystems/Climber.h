@@ -22,11 +22,9 @@ public:
   void Periodic() override;
 
 private:
-  // Components (e.g. motor controllers and sensors) should generally be
-  //  declared private and exposed only through public methods.
 
   frc::XboxController* m_stick;
 
-  ctre::phoenix6::hardware::TalonFX left_climber{5};
-  ctre::phoenix6::hardware::TalonFX right_climber{4};
+  ctre::phoenix6::hardware::TalonFX left_climber{5}; //CHANGEME (Make sure you change constants as well)
+  ctre::phoenix6::hardware::TalonFX right_climber{4}; //CHANGEME (Make sure you change constants as well)
 };

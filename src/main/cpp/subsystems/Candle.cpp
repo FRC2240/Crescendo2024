@@ -18,6 +18,19 @@ void Candle::Purple() {
     m_candle.SetLEDs(82, 28, 200);
 }
 
+frc2::CommandPtr Candle::Purple() 
+{
+    return frc2::RunCommand()
+}
+
+frc2::CommandPtr Intake::BraceCommand()
+{
+    return frc2::RunCommand([this]
+                            { m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{BRACE_ROTATIONS}); },
+                            {this})
+        .WithName("Brace");
+};
+
 void Candle::Yellow() {
     m_candle.SetLEDs(254, 162, 1);
 }
@@ -26,14 +39,14 @@ void Candle::Red() {
     m_candle.SetLEDs(255, 0, 0);
 }
 
-void Candle::Blue(){
+void Candle::Blue() {
     m_candle.SetLEDs(0, 0, 255);
 }
 
-void Candle::Rainbow(){
+void Candle::Rainbow() {
     m_candle.Animate(rainbow);
 }
 
-void Candle::Off(){
+void Candle::Off() {
     m_candle.SetLEDs(0,0,0);
 }

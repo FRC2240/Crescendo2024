@@ -22,6 +22,6 @@ class Candle : public frc2::SubsystemBase {
     void Off();
 
     private:
-    ctre::phoenix::led::CANdle m_candle {CONSTANTS::CANDLE::CANDLE_ID, ""};
+    ctre::phoenix::led::CANdle m_candle {CONSTANTS::CANDLE::CANDLE_ID}; 
     ctre::phoenix::led::RainbowAnimation rainbow{0.5, 0.5, -1};
 };
