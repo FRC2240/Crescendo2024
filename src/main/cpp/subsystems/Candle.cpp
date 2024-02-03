@@ -14,39 +14,54 @@ Candle::Candle(){
 
 }
 
-void Candle::Purple() {
-    m_candle.SetLEDs(82, 28, 200);
-}
-
-frc2::CommandPtr Candle::Purple() 
+frc2::CommandPtr Candle::Purple()
 {
-    return frc2::RunCommand()
-}
-
-frc2::CommandPtr Intake::BraceCommand()
-{
-    return frc2::RunCommand([this]
-                            { m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{BRACE_ROTATIONS}); },
-                            {this})
-        .WithName("Brace");
+    return frc2::InstantCommand([this]
+                           {m_candle.SetLEDs(82, 28, 200); },
+                          {this})
+            .WithName("Purple").ToPtr();
 };
 
-void Candle::Yellow() {
-    m_candle.SetLEDs(254, 162, 1);
-}
+frc2::CommandPtr Candle::Yellow()
+{
+    return frc2::InstantCommand([this]
+                           {m_candle.SetLEDs(254, 162, 1); },
+                          {this})
+            .WithName("Yellow").ToPtr();
+};
 
-void Candle::Red() {
-    m_candle.SetLEDs(255, 0, 0);
-}
+frc2::CommandPtr Candle::Red()
+{
+    return frc2::InstantCommand([this]
+                           {m_candle.SetLEDs(255, 0, 0); },
+                          {this})
+            .WithName("Red").ToPtr();
+};
 
-void Candle::Blue() {
-    m_candle.SetLEDs(0, 0, 255);
-}
+frc2::CommandPtr Candle::Blue()
+{
+    return frc2::InstantCommand([this]
+                           {m_candle.SetLEDs(0, 0, 255); },
+                          {this})
+            .WithName("Blue").ToPtr();
+};
+
+frc2::CommandPtr Candle::Rainbow()
+{
+    return frc2::InstantCommand([this]
+                           {m_candle.Animate(Rainbow); },
+                          {this})
+            .WithName("Raindbow").ToPtr();
+};
 
 void Candle::Rainbow() {
     m_candle.Animate(rainbow);
 }
 
-void Candle::Off() {
-    m_candle.SetLEDs(0,0,0);
-}
+frc2::CommandPtr Candle::Off()
+{
+    return frc2::InstantCommand([this]
+                           {m_candle.SetLEDs(0, 0, 0); },
+                          {this})
+            .WithName("Off").ToPtr();
+};
