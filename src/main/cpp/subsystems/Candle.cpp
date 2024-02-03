@@ -16,7 +16,7 @@ Candle::Candle(){
 
 frc2::CommandPtr Candle::Purple()
 {
-    return frc2::InstantCommand([this]
+    return frc2::RunCommand([this]
                            {m_candle.SetLEDs(82, 28, 200); },
                           {this})
             .WithName("Purple").ToPtr();
@@ -24,7 +24,7 @@ frc2::CommandPtr Candle::Purple()
 
 frc2::CommandPtr Candle::Yellow()
 {
-    return frc2::InstantCommand([this]
+    return frc2::RunCommand([this]
                            {m_candle.SetLEDs(254, 162, 1); },
                           {this})
             .WithName("Yellow").ToPtr();
@@ -32,7 +32,7 @@ frc2::CommandPtr Candle::Yellow()
 
 frc2::CommandPtr Candle::Red()
 {
-    return frc2::InstantCommand([this]
+    return frc2::RunCommand([this]
                            {m_candle.SetLEDs(255, 0, 0); },
                           {this})
             .WithName("Red").ToPtr();
@@ -40,7 +40,7 @@ frc2::CommandPtr Candle::Red()
 
 frc2::CommandPtr Candle::Blue()
 {
-    return frc2::InstantCommand([this]
+    return frc2::RunCommand([this]
                            {m_candle.SetLEDs(0, 0, 255); },
                           {this})
             .WithName("Blue").ToPtr();
@@ -48,19 +48,15 @@ frc2::CommandPtr Candle::Blue()
 
 frc2::CommandPtr Candle::Rainbow()
 {
-    return frc2::InstantCommand([this]
+    return frc2::RunCommand([this]
                            {m_candle.Animate(Rainbow); },
                           {this})
             .WithName("Raindbow").ToPtr();
 };
 
-void Candle::Rainbow() {
-    m_candle.Animate(rainbow);
-}
-
 frc2::CommandPtr Candle::Off()
 {
-    return frc2::InstantCommand([this]
+    return frc2::RunCommand([this]
                            {m_candle.SetLEDs(0, 0, 0); },
                           {this})
             .WithName("Off").ToPtr();
