@@ -46,13 +46,13 @@ frc2::CommandPtr Candle::Blue()
             .WithName("Blue");
 };
 
-frc2::CommandPtr Candle::Rainbow()
+/*frc2::CommandPtr Candle::Rainbow()
 {
     return frc2::RunCommand([this]
                            {m_candle.Animate(Rainbow); },
                           {this})
             .WithName("Rainbow");
-};
+};*/
 
 frc2::CommandPtr Candle::Off()
 {
