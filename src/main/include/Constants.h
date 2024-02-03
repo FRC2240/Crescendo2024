@@ -76,6 +76,8 @@ namespace CONSTANTS
     constexpr units::degree_t FENDER_TOLERANCE = 15_deg; // CHANGEME
     constexpr units::degree_t AMP_ANGLE = 30_deg;
     constexpr int BELT_ID = 4;
+    constexpr units::turns_per_second_t LEFT_VELOCITY{10}; //CHANGEME;
+    constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; //CHANGEME;
 
   } // namespace SHOOTER
 
