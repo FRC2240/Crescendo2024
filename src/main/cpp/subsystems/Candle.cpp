@@ -19,7 +19,7 @@ frc2::CommandPtr Candle::Purple()
     return frc2::RunCommand([this]
                            {m_candle.SetLEDs(82, 28, 200); },
                           {this})
-            .WithName("Purple").ToPtr();
+            .WithName("Purple");
 };
 
 frc2::CommandPtr Candle::Yellow()
@@ -27,7 +27,7 @@ frc2::CommandPtr Candle::Yellow()
     return frc2::RunCommand([this]
                            {m_candle.SetLEDs(254, 162, 1); },
                           {this})
-            .WithName("Yellow").ToPtr();
+            .WithName("Yellow");
 };
 
 frc2::CommandPtr Candle::Red()
@@ -35,7 +35,7 @@ frc2::CommandPtr Candle::Red()
     return frc2::RunCommand([this]
                            {m_candle.SetLEDs(255, 0, 0); },
                           {this})
-            .WithName("Red").ToPtr();
+            .WithName("Red");
 };
 
 frc2::CommandPtr Candle::Blue()
@@ -43,7 +43,7 @@ frc2::CommandPtr Candle::Blue()
     return frc2::RunCommand([this]
                            {m_candle.SetLEDs(0, 0, 255); },
                           {this})
-            .WithName("Blue").ToPtr();
+            .WithName("Blue");
 };
 
 frc2::CommandPtr Candle::Rainbow()
@@ -51,7 +51,7 @@ frc2::CommandPtr Candle::Rainbow()
     return frc2::RunCommand([this]
                            {m_candle.Animate(Rainbow); },
                           {this})
-            .WithName("Rainbow").ToPtr();
+            .WithName("Rainbow");
 };
 
 frc2::CommandPtr Candle::Off()
@@ -59,5 +59,5 @@ frc2::CommandPtr Candle::Off()
     return frc2::RunCommand([this]
                            {m_candle.SetLEDs(0, 0, 0); },
                           {this})
-            .WithName("Off").ToPtr();
+            .WithName("Off");
 };
