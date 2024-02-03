@@ -31,32 +31,6 @@ void Shooter::set_angle(units::degree_t angle)
     m_angle_motor.SetControl(req);
     fmt::println("SetAngle");
 }
-/*
-frc2::CommandPtr Shooter::fender_shot()
-{
-    return frc2::RunCommand(
-               [this]
-               {
-                   //set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
-                   set_angle(units::angle::degree_t{1000});
-                   //    if (m_cancoder.GetAbsolutePosition().GetValue() + CONSTANTS::SHOOTER::FENDER_TOLERANCE < CONSTANTS::SHOOTER::FENDER_ANGLE &&
-                   //    m_cancoder.GetAbsolutePosition().GetValue() - CONSTANTS::SHOOTER::FENDER_TOLERANCE > CONSTANTS::SHOOTER::FENDER_ANGLE)
-                   //    {
-                   //    }
-                   fmt::println("fender shot 1");
-               },
-               {this})
-        .WithTimeout(0.5_s)
-        .AndThen(frc2::RunCommand([this]
-                                  { 
-                     fmt::println("fender shot 2");
-                                    m_left_motor.SetControl(ctre::phoenix6::controls::VelocityVoltage(CONSTANTS::SHOOTER::LEFT_VELOCITY));
-                                    frc::SmartDashboard::PutNumber("lvolt", m_left_motor.GetMotorVoltage().GetValue().value());
-                                    m_right_motor.SetControl(ctre::phoenix6::controls::VelocityVoltage(-CONSTANTS::SHOOTER::RIGHT_VELOCITY)); })
-                     .ToPtr()
-                     .WithTimeout(50_s));
-}
-*/
 
 frc2::CommandPtr Shooter::fender_shot() {
     
