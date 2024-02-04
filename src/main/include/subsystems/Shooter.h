@@ -37,6 +37,7 @@ public:
    */
   void Periodic() override;
 
+private:
   ctre::phoenix6::hardware::CANcoder m_cancoder{CONSTANTS::SHOOTER::CANCODER_ID};
   ctre::phoenix6::hardware::TalonFX m_left_motor{CONSTANTS::SHOOTER::LEFT_ID};
   ctre::phoenix6::hardware::TalonFX m_right_motor{CONSTANTS::SHOOTER::RIGHT_ID};

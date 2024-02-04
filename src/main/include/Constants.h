@@ -58,15 +58,16 @@ namespace CONSTANTS
   } // namespace INTAKE
   namespace VISION
   {
-    static const auto LEFT_CAMERA_A_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
+    static const auto LEFT_CAMERA_A_TF = frc::Transform3d{0_in, -11_in, 22_in, frc::Rotation3d(0_rad, 0_rad, 180_deg)};
     static const auto LEFT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
-    static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
+    static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{0_m, 11_in, 22_in, frc::Rotation3d(0_rad, 0_rad, 180_deg)};
     static const auto RIGHT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
 
   } // namespace VISION
 
   namespace CLIMBER
   {
+<<<<<<< HEAD
     constexpr int left_climber = 4;  // CHANGEME
     constexpr int right_climber = 5; // CHANGEME
   }                                  // namespace CLIMBER
@@ -74,6 +75,20 @@ namespace CONSTANTS
   namespace CANDLE
   {
     constexpr int CANDLE_ID = 5; // CHANGEME
+||||||| parent of 764a8be (colfax bot testing)
+    constexpr int left_climber = 4; //CHANGEME
+    constexpr int right_climber = 5; //CHANGEME
+  } // namespace CLIMBER
+  namespace CANDLE {
+    constexpr int CANDLE_ID = 5;
+=======
+    constexpr int left_climber = 4;  // CHANGEME
+    constexpr int right_climber = 5; // CHANGEME
+  }                                  // namespace CLIMBER
+  namespace CANDLE
+  {
+    constexpr int CANDLE_ID = 5;
+>>>>>>> 764a8be (colfax bot testing)
   }
 
   namespace SHOOTER

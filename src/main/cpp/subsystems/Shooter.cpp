@@ -4,7 +4,8 @@
 
 #include "subsystems/Shooter.h"
 
-Shooter::Shooter(Intake *intake) : m_intake{intake}
+Shooter::Shooter(Intake *intake)
+ : m_intake{intake}
 {
 
     ctre::phoenix6::configs::TalonFXConfiguration left_conf{};
