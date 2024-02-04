@@ -3,9 +3,6 @@
     "Persistent Values": {
       "open": false
     },
-    "Retained Values": {
-      "open": false
-    },
     "retained": {
       "limelight": {
         "double[]##v_/limelight/botpose": {
@@ -23,6 +20,9 @@
       }
     },
     "transitory": {
+      "Shuffleboard": {
+        "open": true
+      },
       "SmartDashboard": {
         "odometry": {
           "open": true
@@ -30,10 +30,36 @@
         "open": true,
         "pp": {
           "open": true
+        },
+        "pv": {
+          "double[]##v_/SmartDashboard/pv/x arr": {
+            "open": true
+          },
+          "double[]##v_/SmartDashboard/pv/y arr": {
+            "open": true
+          },
+          "open": true
         }
       },
       "limelight-jank": {
         "double[]##v_/limelight-jank/botpose_wpiblue": {
+          "open": true
+        }
+      },
+      "photonvision": {
+        "Arducam_OV9281_USB_Camera": {
+          "open": true
+        },
+        "left_camera_a": {
+          "double[]##v_/photonvision/left_camera_a/targetPose": {
+            "open": true
+          },
+          "open": true
+        },
+        "photon-left-n": {
+          "open": true
+        },
+        "photon-right-a": {
           "open": true
         }
       }
@@ -104,6 +130,33 @@
               ],
               "id": "NT:/SmartDashboard/odometry/Y",
               "marker": "Circle"
+            },
+            {
+              "color": [
+                0.3333333432674408,
+                0.658823549747467,
+                0.4078431725502014,
+                1.0
+              ],
+              "id": "NT:/photonvision/left_camera_a/targetPixelsX"
+            },
+            {
+              "color": [
+                0.7686275243759155,
+                0.30588236451148987,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/photonvision/left_camera_a/targetPixelsY"
+            },
+            {
+              "color": [
+                0.5058823823928833,
+                0.44705885648727417,
+                0.7019608020782471,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/vision step"
             }
           ]
         }

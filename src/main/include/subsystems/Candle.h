@@ -11,19 +11,19 @@
 #include "ctre/phoenix/led/CANdle.h"
 #include "ctre/phoenix/led/RainbowAnimation.h"
 
-class Candle : public frc2::SubsystemBase {
-    public:
-
+class Candle : public frc2::SubsystemBase
+{
+public:
     Candle();
 
-    frc2::CommandPtr Purple(); 
-    frc2::CommandPtr Yellow(); 
-    frc2::CommandPtr Red(); 
-    frc2::CommandPtr Blue(); 
-    frc2::CommandPtr Rainbow(); 
-    frc2::CommandPtr Off(); 
+    frc2::CommandPtr Purple();
+    frc2::CommandPtr Yellow();
+    frc2::CommandPtr Red();
+    frc2::CommandPtr Blue();
+    frc2::CommandPtr Rainbow();
+    frc2::CommandPtr Off();
 
-    private:
-    ctre::phoenix::led::CANdle m_candle {CONSTANTS::CANDLE::CANDLE_ID}; 
-    ctre::phoenix::led::RainbowAnimation rainbow{0.5, 0.5, -1};
+private:
+    ctre::phoenix::led::CANdle m_candle{CONSTANTS::CANDLE::CANDLE_ID};
+    ctre::phoenix::led::RainbowAnimation rainbow_anim{0.5, 0.5, -1};
 };
