@@ -4,36 +4,60 @@
 
 #include "subsystems/Candle.h"
 
-Candle::Candle(){
+Candle::Candle()
+{
     ctre::phoenix::led::CANdleConfiguration config;
-    config.stripType = ctre::phoenix::led::LEDStripType::RGB; 
-    config.brightnessScalar = 0.5; 
+    config.stripType = ctre::phoenix::led::LEDStripType::RGB;
+    config.brightnessScalar = 0.5;
     m_candle.ConfigAllSettings(config);
 
     m_candle.SetLEDs(0, 0, 0);
-
 }
 
-void Candle::Purple() {
-    m_candle.SetLEDs(82, 28, 200);
-}
+frc2::CommandPtr Candle::Purple()
+{
+    return frc2::RunCommand([this]
+                            { m_candle.SetLEDs(82, 28, 200); },
+                            {this})
+        .WithName("Purple");
+};
 
-void Candle::Yellow() {
-    m_candle.SetLEDs(254, 162, 1);
-}
+frc2::CommandPtr Candle::Yellow()
+{
+    return frc2::RunCommand([this]
+                            { m_candle.SetLEDs(254, 162, 1); },
+                            {this})
+        .WithName("Yellow");
+};
 
-void Candle::Red() {
-    m_candle.SetLEDs(255, 0, 0);
-}
+frc2::CommandPtr Candle::Red()
+{
+    return frc2::RunCommand([this]
+                            { m_candle.SetLEDs(255, 0, 0); },
+                            {this})
+        .WithName("Red");
+};
 
-void Candle::Blue(){
-    m_candle.SetLEDs(0, 0, 255);
-}
+frc2::CommandPtr Candle::Blue()
+{
+    return frc2::RunCommand([this]
+                            { m_candle.SetLEDs(0, 0, 255); },
+                            {this})
+        .WithName("Blue");
+};
 
-void Candle::Rainbow(){
-    m_candle.Animate(rainbow);
-}
+frc2::CommandPtr Candle::Rainbow()
+{
+    return frc2::RunCommand([this]
+                            { m_candle.Animate(rainbow_anim); },
+                            {this})
+        .WithName("Rainbow");
+};
 
-void Candle::Off(){
-    m_candle.SetLEDs(0,0,0);
-}
+frc2::CommandPtr Candle::Off()
+{
+    return frc2::RunCommand([this]
+                            { m_candle.SetLEDs(0, 0, 0); },
+                            {this})
+        .WithName("Off");
+};
