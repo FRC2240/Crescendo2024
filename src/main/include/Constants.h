@@ -57,12 +57,13 @@ namespace CONSTANTS
 
   namespace CLIMBER
   {
-    constexpr int left_climber = 4; //CHANGEME
-    constexpr int right_climber = 5; //CHANGEME
-  } // namespace CLIMBER
+    constexpr int left_climber = 4;  // CHANGEME
+    constexpr int right_climber = 5; // CHANGEME
+  }                                  // namespace CLIMBER
 
-  namespace CANDLE {
-    constexpr int CANDLE_ID = 5; //CHANGEME
+  namespace CANDLE
+  {
+    constexpr int CANDLE_ID = 5; // CHANGEME
   }
 
   namespace SHOOTER
@@ -77,8 +78,8 @@ namespace CONSTANTS
     constexpr units::degree_t FENDER_TOLERANCE = 15_deg; // CHANGEME
     constexpr units::degree_t AMP_ANGLE = 30_deg;
     constexpr int BELT_ID = 4;
-    constexpr units::turns_per_second_t LEFT_VELOCITY{10}; //CHANGEME;
-    constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; //CHANGEME;
+    constexpr units::turns_per_second_t LEFT_VELOCITY{10};  // CHANGEME;
+    constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; // CHANGEME;
 
   } // namespace SHOOTER
 
@@ -107,10 +108,11 @@ namespace CONSTANTS
       /* -------------------------------------------------------------------------- */
       /*                     BEGIN FIRST ROBOT CONFIGURATION                        */
       /* -------------------------------------------------------------------------- */
-      constexpr ModuleConfig FL{60, 61, 14, 0.22_tr};
-      constexpr ModuleConfig FR{50, 51, 13, -0.304_tr};
-      constexpr ModuleConfig BL{30, 31, 11, -0.335_tr};
-      constexpr ModuleConfig BR{40, 41, 12, 0.052_tr};
+
+      constexpr ModuleConfig FL{60, 61, 14, 0.31_tr};
+      constexpr ModuleConfig FR{50, 51, 13, -0.182_tr};
+      constexpr ModuleConfig BL{30, 31, 11, -0.286_tr};
+      constexpr ModuleConfig BR{40, 41, 12, 0.03_tr};
 
       /* -------------------------------------------------------------------------- */
       /*                        END FIRST ROBOT CONFIGURATION                       */

@@ -141,6 +141,7 @@ void SwerveModule::setDesiredState(frc::SwerveModuleState const &desired_state)
     driver.SetControl(controls::VelocityDutyCycle{bot_speed_to_wheel_speed(optimized_speed)});
     turner.SetControl(controlreq);
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/vout", driver.GetMotorVoltage().GetValueAsDouble());
+    frc::SmartDashboard::PutNumber(driver.GetDescription() + "/tvout", turner.GetMotorVoltage().GetValueAsDouble());
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/percent out", driver.GetMotorVoltage().GetValueAsDouble() / frc::DriverStation::GetBatteryVoltage());
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/cyclemarker", (double)std::rand() / RAND_MAX);
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/turner.get()", turner.GetPosition().Refresh().GetValueAsDouble());
