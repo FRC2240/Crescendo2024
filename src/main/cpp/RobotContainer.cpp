@@ -34,7 +34,11 @@ void RobotContainer::ConfigureBindings()
   // Configure your trigger bindings here
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
   m_stick1.RightStick().OnTrue(m_trajectory.manual_drive());
+
+  // Shooter
   m_stick0.X().ToggleOnTrue(m_shooter.fender_shot());
+  m_stick0.A().ToggleOnTrue(m_shooter.amp_shot());
+  m_stick0.RightTrigger().OnTrue(m_shooter.execute_auto_shot());
 
   //   m_stick.Y().OnTrue(
   //       m_trajectory.auto_score_align()
@@ -53,7 +57,7 @@ void RobotContainer::ConfigureBindings()
                   int pov = m_stick1.GetPOV();
                   return pov == 0;
                 }}
-      .OnTrue(m_intake.StartCommand()); // change to extend?
+      .OnTrue(m_intake.ExtendCommand()); 
 
   frc2::Trigger{[this] -> bool
                 {
@@ -61,7 +65,7 @@ void RobotContainer::ConfigureBindings()
                   frc::SmartDashboard::PutBoolean("Threshold", CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30));
                   return CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30);
                 }}
-      .OnTrue(m_intake.StopCommand()); // change to retract?
+      .OnTrue(m_intake.RetractCommand()); 
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
