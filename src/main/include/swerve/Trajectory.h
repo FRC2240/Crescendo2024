@@ -29,7 +29,6 @@
 #include <frc/Timer.h>
 #include <frc/XboxController.h>
 
-#include "subsystems/Intake.h"
 
 #ifndef CFG_NO_DRIVEBASE
 using namespace pathplanner; // PathPlanner keeps everything hidden behind 2 sets of namespaces so it's safe to remove the first layer
@@ -42,8 +41,6 @@ public:
         Odometry *odometry,
         frc::XboxController *stick,
         Vision *vision);
-
-    frc2::CommandPtr auto_pickup(Intake *intake);
 
     frc2::CommandPtr auto_score_align();
 

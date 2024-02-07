@@ -48,41 +48,6 @@ namespace CONSTANTS
         max = .0; /// Maximum output for control loop.
   };
 
-  namespace INTAKE
-  {
-    constexpr int BELT_ID = 20;
-    constexpr int ANGLE_ID = 10;
-    constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
-  } // namespace INTAKE
-
-  namespace CLIMBER
-  {
-    constexpr int left_climber = 4;  // CHANGEME
-    constexpr int right_climber = 5; // CHANGEME
-  }                                  // namespace CLIMBER
-
-  namespace CANDLE
-  {
-    constexpr int CANDLE_ID = 5; // CHANGEME
-  }
-
-  namespace SHOOTER
-  {
-    constexpr int LEFT_ID = 1;      // CHANGEME
-    constexpr int RIGHT_ID = 11;    // CHANGEME
-    constexpr int ANGLE_ID = 2;     // CHANGME
-    constexpr int CANCODER_ID = 13; // CHANGEME
-    constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
-    constexpr double ANGLE_RATIO = 1;                    // CHANGEME
-    constexpr units::degree_t FENDER_ANGLE = 15_deg;     // CHANGEME
-    constexpr units::degree_t FENDER_TOLERANCE = 15_deg; // CHANGEME
-    constexpr units::degree_t AMP_ANGLE = 30_deg;
-    constexpr int BELT_ID = 4;
-    constexpr units::turns_per_second_t LEFT_VELOCITY{10};  // CHANGEME;
-    constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; // CHANGEME;
-
-  } // namespace SHOOTER
-
   namespace DRIVE
   {
     constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 18.533_fps;

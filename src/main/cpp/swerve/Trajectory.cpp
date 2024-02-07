@@ -123,44 +123,6 @@ frc2::CommandPtr Trajectory::extract(std::string auton)
     return PathPlannerAuto(auton).ToPtr();
 }
 
-frc2::CommandPtr Trajectory::auto_pickup(Intake *intake)
-{
-    std::function<void()> init = [this]() { /*no data currently needed */ };
-    std::function<void()> periodic = [this]()
-    {
-        try
-        {
-            std::optional<units::degree_t> angle = m_vision->get_coral_angle();
-            if (angle)
-            {
-                frc::SmartDashboard::PutString("coral intake state", "target locked");
-                m_drivetrain->face_direction(0_deg, angle.value().value());
-                if (angle.value() < CONSTANTS::INTAKE::AUTO_PICKUP_THRESHOLD &&
-                    angle.value() > -CONSTANTS::INTAKE::AUTO_PICKUP_THRESHOLD)
-                {
-                    m_drivetrain->drive(1_mps, 0_mps, (0_deg / 1_s), false);
-                }
-            }
-            else
-            {
-                frc::SmartDashboard::PutString("coral intake state", "no target found");
-            }
-        }
-        catch (const std::exception &e)
-        {
-            fmt::println("ERROR: coral optional exeption");
-            std::cerr << e.what() << '\n';
-        }
-    };
-
-    std::function<bool()> is_finished = [this, &intake]() -> bool
-    {
-        return intake->is_loaded();
-    };
-
-    std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
-    return frc2::FunctionalCommand(init, periodic, end, is_finished, {this, intake}).ToPtr();
-}
 
 frc2::CommandPtr Trajectory::auto_score_align()
 {

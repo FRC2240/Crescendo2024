@@ -9,10 +9,6 @@
 
 #include "Constants.h"
 #include "commands/Autos.h"
-#include "subsystems/Climber.h"
-#include "subsystems/Intake.h"
-#include "subsystems/Shooter.h"
-#include "subsystems/BuddyClimber.h"
 #include "swerve/Drivetrain.h"
 #include "swerve/Odometry.h"
 #include "swerve/Trajectory.h"
@@ -21,7 +17,6 @@
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc2/command/button/Trigger.h>
 #include <pathplanner/lib/auto/NamedCommands.h>
-#include <subsystems/Shooter.h>
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -61,11 +56,6 @@ public:
     POS_2_GP4,
     POS_3_GP4
   };
-  Intake m_intake;
-  Climber m_climber{&m_stick0};
-  Shooter m_shooter{&m_intake};
-  BuddyClimber m_buddyClimber;
-
 private:
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
