@@ -28,14 +28,15 @@ void Climber::Periodic()
 {
    /*ctre::phoenix6::controls::Follower req{5, 1};
    right_climber.SetControl(req);*/
-   int yPos = m_stick->GetPOV();
-   if (yPos == 0)
+   double rightTrigger = m_stick->GetRightTriggerAxis();
+   double leftTrigger = m_stick->GetLeftTriggerAxis();
+   if (rightTrigger > 0.2)
    {
       frc::SmartDashboard::PutString("climbers", "up");
       right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0.5});
       left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0.5});
    }
-   else if (yPos == 180)
+   else if (leftTrigger > 0.2)
    {
       frc::SmartDashboard::PutString("climbers", "down");
       right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-0.5});
