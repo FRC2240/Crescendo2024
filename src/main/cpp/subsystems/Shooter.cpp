@@ -16,10 +16,11 @@ Shooter::Shooter(Intake *intake) : m_intake{intake}
     angle_conf.Feedback.RotorToSensorRatio = CONSTANTS::SHOOTER::ANGLE_RATIO;
     angle_conf.Slot0.kP = 0.3;
     angle_conf.Feedback.WithRemoteCANcoder(m_cancoder);
-
     m_left_motor.GetConfigurator().Apply(left_conf);
     m_right_motor.GetConfigurator().Apply(right_conf);
     m_angle_motor.GetConfigurator().Apply(angle_conf);
+    m_angle_motor2.GetConfigurator().Apply(angle_conf);
+    m_angle_motor2.SetControl(ctre::phoenix6::controls::Follower(m_angle_motor.GetDeviceID(), 1));
 }
 
 // This method will be called once per scheduler run
@@ -32,37 +33,38 @@ void Shooter::set_angle(units::degree_t angle)
     fmt::println("SetAngle");
 }
 
-frc2::CommandPtr Shooter::fender_shot() {
-    
+frc2::CommandPtr Shooter::fender_shot()
+{
+
     std::function<void()> init = [this] {};
-    std::function<void()> periodic = [this] {
-        
+    std::function<void()> periodic = [this]
+    {
         set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
         m_left_motor.SetControl(ctre::phoenix6::controls::VelocityVoltage(CONSTANTS::SHOOTER::LEFT_VELOCITY));
         m_right_motor.SetControl(ctre::phoenix6::controls::VelocityVoltage(-CONSTANTS::SHOOTER::RIGHT_VELOCITY));
-    
     };
-    std::function<bool()> is_finished = [this] -> bool {
-
-        return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), CONSTANTS::SHOOTER::FENDER_ANGLE, 1_deg) //change threshold?
-            && CONSTANTS::IN_THRESHOLD<units::angular_velocity::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(), CONSTANTS::SHOOTER::LEFT_VELOCITY, units::angular_velocity::turns_per_second_t{1}) //change threshold?
-            && CONSTANTS::IN_THRESHOLD<units::angular_velocity::turns_per_second_t>(m_right_motor.GetVelocity().GetValue(), CONSTANTS::SHOOTER::RIGHT_VELOCITY, units::angular_velocity::turns_per_second_t{1}); //change threshold?
-
+    std::function<bool()> is_finished = [this] -> bool
+    {
+        return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), CONSTANTS::SHOOTER::FENDER_ANGLE, 1_deg)                                                                                                // change threshold?
+               && CONSTANTS::IN_THRESHOLD<units::angular_velocity::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(), CONSTANTS::SHOOTER::LEFT_VELOCITY, units::angular_velocity::turns_per_second_t{1})    // change threshold?
+               && CONSTANTS::IN_THRESHOLD<units::angular_velocity::turns_per_second_t>(m_right_motor.GetVelocity().GetValue(), CONSTANTS::SHOOTER::RIGHT_VELOCITY, units::angular_velocity::turns_per_second_t{1}); // change threshold?
     };
     std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
 
     return frc2::FunctionalCommand(
-        init,
-        periodic,
-        end,
-        is_finished,
-        {this}
-    )
-    .ToPtr()
-    .AndThen(frc2::RunCommand([this] { 
-        m_intake->m_beltMotor.SetControl(ctre::phoenix6::controls::VelocityVoltage{units::angular_velocity::turns_per_second_t{100}}); //changeme
-    }, {this}).ToPtr())
-    .WithTimeout(0.5_s);
+               init,
+               periodic,
+               end,
+               is_finished,
+               {this})
+        .ToPtr()
+        .AndThen(frc2::RunCommand([this]
+                                  {
+                                      m_intake->m_beltMotor.SetControl(ctre::phoenix6::controls::VelocityVoltage{units::angular_velocity::turns_per_second_t{100}}); // changeme
+                                  },
+                                  {this})
+                     .ToPtr())
+        .WithTimeout(0.5_s);
 }
 
 units::degree_t Shooter::get_angle()

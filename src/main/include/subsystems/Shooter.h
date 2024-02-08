@@ -1,4 +1,4 @@
-  // Copyright (c) FIRST and other WPILib contributors.
+// Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
@@ -41,5 +41,6 @@ public:
   ctre::phoenix6::hardware::TalonFX m_left_motor{CONSTANTS::SHOOTER::LEFT_ID};
   ctre::phoenix6::hardware::TalonFX m_right_motor{CONSTANTS::SHOOTER::RIGHT_ID};
   ctre::phoenix6::hardware::TalonFX m_angle_motor{CONSTANTS::SHOOTER::ANGLE_ID};
+  ctre::phoenix6::hardware::TalonFX m_angle_motor2{CONSTANTS::SHOOTER::ANGLE_ID};
   Intake *m_intake;
 };
