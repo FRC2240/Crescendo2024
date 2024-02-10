@@ -34,10 +34,11 @@ void RobotContainer::ConfigureBindings()
   // Configure your trigger bindings here
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
   m_shooter.SetDefaultCommand(m_shooter.default_cmd());
+  m_intake.SetDefaultCommand(m_intake.StopCommand());
   m_stick1.RightStick().OnTrue(m_trajectory.manual_drive());
 
   // Shooter
-  m_stick0.X().ToggleOnTrue(m_shooter.fender_shot());
+  m_stick0.X().ToggleOnTrue(m_shooter.test_shot());
   m_stick0.A().ToggleOnTrue(m_shooter.amp_shot());
   m_stick0.RightTrigger().OnTrue(m_shooter.execute_auto_shot());
 

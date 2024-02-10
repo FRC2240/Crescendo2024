@@ -11,13 +11,14 @@
 #include <ctre/phoenix6/CANcoder.hpp>
 #include <frc2/command/RunCommand.h>
 #include "subsystems/Intake.h"
-
+#include "swerve/Odometry.h"
 class Shooter : public frc2::SubsystemBase
 {
 public:
-  Shooter(Intake *intake);
+  Shooter(Intake *intake, Odometry *odometry);
 
   frc2::CommandPtr fender_shot();
+  frc2::CommandPtr test_shot();
 
   // This is a wrapper for set angle that is a cmdptr so it can be used in the auto shot compisiton
   // Overloaded so it can be used with vision
@@ -46,4 +47,5 @@ private:
   ctre::phoenix6::hardware::TalonFX m_angle_motor{CONSTANTS::SHOOTER::ANGLE_ID};
   ctre::phoenix6::hardware::TalonFX m_angle_motor2{CONSTANTS::SHOOTER::ANGLE_ID};
   Intake *m_intake;
+  Odometry *m_odometry;
 };
