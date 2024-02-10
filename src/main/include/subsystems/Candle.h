@@ -22,8 +22,10 @@ public:
     frc2::CommandPtr red_blink();
     frc2::CommandPtr rainbow();
     frc2::CommandPtr off();
-    frc2::CommandPtr ramp_up(double current_rpm, double desired_rpm);
-    frc2::CommandPtr run_disabled(bool fms, bool vision, bool auto_selected);
+    frc2::CommandPtr ramp_up(double &current_rpm, double &desired_rpm);
+    frc2::CommandPtr run_disabled();
+    bool auto_selected = false;
+    bool has_vision = false;
 
 private:
     ctre::phoenix::led::CANdle m_candle{CONSTANTS::CANDLE::CANDLE_ID};
@@ -31,10 +33,8 @@ private:
     ctre::phoenix::led::StrobeAnimation red_strobe_anim{255, 0, 0};
     ctre::phoenix::led::StrobeAnimation yellow_strobe_anim{255, 234, 0};
 
-    frc::DriverStation::Alliance m_alliance;
+    bool is_red();
 
-    bool is_red = false;
     double p_rpm = 0;
     int p_led = 0;
-
 };

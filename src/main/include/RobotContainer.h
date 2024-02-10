@@ -72,10 +72,7 @@ public:
   Shooter m_shooter{&m_intake};
   BuddyClimber m_buddyClimber;
 
-  bool fms = frc::DriverStation::IsFMSAttached();
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
-  bool vision = bot_pose[0].has_value();
-  bool auto_selected;
 
 private:
   // Replace with CommandPS4Controller or CommandJoystick if needed
