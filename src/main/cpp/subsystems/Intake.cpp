@@ -15,7 +15,7 @@ Intake::Intake()
     angle_config.CurrentLimits.SupplyCurrentLimitEnable = true;
     angle_config.CurrentLimits.SupplyCurrentLimit = 25; // CHANGEME
     angle_config.Slot0.kP = 0.5;
-    angle_config.Slot0.kD = 0.0;
+    angle_config.Slot0.kD = 0.01;
     m_angleMotor.GetConfigurator().Apply(angle_config);
 
     // belt motor (pid stuff may be unnecessary)
@@ -24,7 +24,7 @@ Intake::Intake()
     belt_config.CurrentLimits.SupplyCurrentLimitEnable = true;
     belt_config.CurrentLimits.SupplyCurrentLimit = 40; // CHANGEME
     belt_config.Slot0.kP = 0.5;
-    belt_config.Slot0.kD = 0.0;
+    belt_config.Slot0.kD = 0.2;
     m_beltMotor.GetConfigurator().Apply(belt_config);
 }
 

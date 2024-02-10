@@ -39,8 +39,10 @@ void RobotContainer::ConfigureBindings()
 
   // Shooter
   m_stick0.X().ToggleOnTrue(m_shooter.test_shot());
+  m_stick0.RightBumper().ToggleOnTrue(m_shooter.fender_shot());
   m_stick0.A().ToggleOnTrue(m_shooter.amp_shot());
   m_stick0.RightTrigger().OnTrue(m_shooter.execute_auto_shot());
+  m_stick0.LeftBumper().ToggleOnTrue(m_intake.StartCommand());
 
   //   m_stick.Y().OnTrue(
   //       m_trajectory.auto_score_align()

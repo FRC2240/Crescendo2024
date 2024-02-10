@@ -55,9 +55,9 @@ namespace CONSTANTS
     constexpr int BELT_ID = 4;
     constexpr int ANGLE_ID = 3;
     constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
-    constexpr units::turn_t DOWN_POSITION = 7.33_tr;
+    constexpr units::turn_t DOWN_POSITION = 7.7_tr;
     constexpr units::turn_t BRACE_POSITION = 2.33_tr;
-    constexpr units::turn_t UP_POSITION = 2_tr;          // Change to 0 for prod
+    constexpr units::turn_t UP_POSITION = 0_tr;          // Change to 0 for prod
     constexpr units::turn_t ROTATION_THRESHOLD = 0.2_tr; // CHANGEME
   }                                                      // namespace INTAKE
   namespace VISION

@@ -4,7 +4,7 @@
 
 #include "subsystems/Shooter.h"
 
-Shooter::Shooter(Intake *intake, Odometry *odometry) : m_intake{intake}, m_odometry{odometry}
+Shooter::Shooter(Odometry *odometry) : m_odometry{odometry}
 {
     frc::SmartDashboard::PutNumber("shooter/dangle", 0.0);
     ctre::phoenix6::configs::TalonFXConfiguration left_conf{};
@@ -20,7 +20,11 @@ Shooter::Shooter(Intake *intake, Odometry *odometry) : m_intake{intake}, m_odome
     m_left_motor.GetConfigurator().Apply(left_conf);
     m_right_motor.GetConfigurator().Apply(right_conf);
     m_angle_motor.GetConfigurator().Apply(angle_conf);
-    m_angle_motor2.GetConfigurator().Apply(angle_conf);
+    ctre::phoenix6::configs::TalonFXConfiguration belt_conf{};
+    belt_conf.CurrentLimits.SupplyCurrentLimitEnable = true;
+    belt_conf.CurrentLimits.SupplyCurrentLimit = 40;
+    belt_conf.Slot0.kP = 0.1;
+    m_belt_motor.GetConfigurator().Apply(belt_conf);
     frc::SmartDashboard::PutNumber("shooter/P", 0.0);
 }
 
@@ -51,7 +55,7 @@ frc2::CommandPtr Shooter::default_cmd()
                    //         req=units::turns_per_second_t{CONSTANTS::SHOOTER::LEFT_VELOCITY};
                    //        }
                    //    }
-                   m_intake->m_beltMotor.Set(0);
+                   m_belt_motor.Set(0);
                    m_angle_motor.Set(0);
                    m_left_motor.Set(0);
                    m_right_motor.Set(0);
@@ -108,7 +112,7 @@ frc2::CommandPtr Shooter::test_shot()
         .ToPtr()
         .AndThen(frc2::RunCommand([this]
                                   {
-                                      m_intake->m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{12}}); // changeme
+                                      m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{12}}); // changeme
                                   },
                                   {this})
                      .ToPtr()
@@ -146,7 +150,7 @@ frc2::CommandPtr Shooter::fender_shot()
         .ToPtr()
         .AndThen(frc2::RunCommand([this]
                                   {
-                                      m_intake->m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{12}}); // changeme
+                                      m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{12}}); // changeme
                                   },
                                   {this})
                      .ToPtr()
@@ -246,7 +250,7 @@ frc2::CommandPtr Shooter::amp_shot()
                    set_angle(CONSTANTS::SHOOTER::AMP_ANGLE);
                    if (CONSTANTS::IN_THRESHOLD<units::degree_t>(get_angle(), CONSTANTS::SHOOTER::AMP_ANGLE, 1_deg))
                    {
-                       m_intake->m_beltMotor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{3_tr / 1_s});
+                       m_belt_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle{3_tr / 1_s});
                    }
                })
         .ToPtr();
