@@ -1,15 +1,18 @@
 #pragma once
 #include "Constants.h"
-#include <units/angle.h>
-#include <stdlib.h>
 #include "networktables/NetworkTable.h"
 #include "networktables/NetworkTableEntry.h"
 #include "networktables/NetworkTableValue.h"
-#include <networktables/NetworkTableInstance.h>
-#include <frc/estimator/SwerveDrivePoseEstimator.h>
 #include <frc/DriverStation.h>
+#include <frc/apriltag/AprilTagFieldLayout.h>
+#include <frc/apriltag/AprilTagFields.h>
+#include <frc/estimator/SwerveDrivePoseEstimator.h>
 #include <frc/smartdashboard/SmartDashboard.h>
-
+#include <networktables/NetworkTableInstance.h>
+#include <photon/PhotonCamera.h>
+#include <photon/PhotonPoseEstimator.h>
+#include <stdlib.h>
+#include <units/angle.h>
 class Vision
 {
 public:
@@ -22,11 +25,13 @@ public:
     4. Determing the angle to an apriltag within 2 degrees
     */
 
-    Vision();
+    Vision(std::function<units::degree_t()> get_angle_fn);
     ~Vision();
 
-    // Optionals are used liberally in this file due to the uncertain nature of vison.
-    // See https://stackoverflow.com/questions/16860960/how-should-one-use-stdoptional for more info
+    // Optionals are used liberally in this file due to the uncertain nature of
+    // vison. See
+    // https://stackoverflow.com/questions/16860960/how-should-one-use-stdoptional
+    // for more info
 
     std::optional<units::degree_t> get_shooter_angle();
 
@@ -42,12 +47,50 @@ public:
     std::optional<units::degree_t> get_apriltag_angle();
 
 private:
-    std::shared_ptr<nt::NetworkTable> m_limelight =
-        nt::NetworkTableInstance::GetDefault().GetTable("limelight-jank");
+    std::function<units::degree_t()> get_angle;
+    bool is_hardware_zoomed = 0;
 
-    // frc::SwerveDrivePoseEstimator<4> m_estimator {
-    //     m_drivetrain->kinematics,
-    //     m_drivetrain->getAngle(),
+    std::shared_ptr<photon::PhotonCamera> m_left_camera_a =
+        std::make_shared<photon::PhotonCamera>("left_camera_a");
+    std::shared_ptr<photon::PhotonCamera> m_left_camera_b =
+        std::make_shared<photon::PhotonCamera>("left_camera_b");
+    std::shared_ptr<photon::PhotonCamera> m_right_camera_a =
+        std::make_shared<photon::PhotonCamera>("right_camera_a");
+    std::shared_ptr<photon::PhotonCamera> m_right_camera_b =
+        std::make_shared<photon::PhotonCamera>("photon-right-b");
 
-    // }
+    frc::AprilTagFieldLayout layout =
+        frc::LoadAprilTagLayoutField(frc::AprilTagField::k2024Crescendo);
+
+    photon::PhotonPoseEstimator m_left_estimator_a{
+        layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
+        CONSTANTS::VISION::LEFT_CAMERA_A_TF};
+
+    photon::PhotonPoseEstimator m_left_estimator_b{
+        layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
+        CONSTANTS::VISION::LEFT_CAMERA_B_TF};
+
+    photon::PhotonPoseEstimator m_right_estimator_a{
+        layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
+        CONSTANTS::VISION::RIGHT_CAMERA_A_TF};
+
+    photon::PhotonPoseEstimator m_right_estimator_b{
+        layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
+        CONSTANTS::VISION::LEFT_CAMERA_A_TF};
+
+    //   std::vector<std::pair<std::shared_ptr<photon::PhotonCamera>,
+    //                         photon::PhotonPoseEstimator>>
+    //       m_photoncam_vec = {{m_left_camera_a, m_left_estimator_a},
+    //                          {m_left_camera_b, m_left_estimator_b},
+    //                          {m_right_camera_a, m_right_estimator_a},
+    //                          {m_right_camera_b, m_right_estimator_b}};
+
+    std::vector<std::pair<std::shared_ptr<photon::PhotonCamera>, photon::PhotonPoseEstimator>>
+        m_photoncam_vec = {{m_left_camera_a, m_left_estimator_a},
+                           {m_right_camera_a, m_right_estimator_a}};
+    std::shared_ptr<nt::NetworkTable> m_aft_limelight =
+        nt::NetworkTableInstance::GetDefault().GetTable("limelight-test");
+
+    std::shared_ptr<nt::NetworkTable> m_fore_limelight =
+        nt::NetworkTableInstance::GetDefault().GetTable("limelight-fore");
 };

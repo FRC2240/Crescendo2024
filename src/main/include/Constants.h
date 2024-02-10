@@ -10,6 +10,8 @@
 #include <units/acceleration.h>
 #include <units/angular_velocity.h>
 #include <units/angular_acceleration.h>
+#include <frc/geometry/Rotation3d.h>
+#include <frc/geometry/Transform3d.h>
 #include <numbers>
 
 // #define BETABOT
@@ -54,16 +56,23 @@ namespace CONSTANTS
     constexpr int ANGLE_ID = 10;
     constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
   } // namespace INTAKE
+  namespace VISION
+  {
+    static const auto LEFT_CAMERA_A_TF = frc::Transform3d{0_in, -11_in, 22_in, frc::Rotation3d(0_rad, 0_rad, 180_deg)};
+    static const auto LEFT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
+    static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{0_m, 11_in, 22_in, frc::Rotation3d(0_rad, 0_rad, 180_deg)};
+    static const auto RIGHT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
+
+  } // namespace VISION
 
   namespace CLIMBER
   {
     constexpr int left_climber = 4;  // CHANGEME
     constexpr int right_climber = 5; // CHANGEME
   }                                  // namespace CLIMBER
-
   namespace CANDLE
   {
-    constexpr int CANDLE_ID = 5; // CHANGEME
+    constexpr int CANDLE_ID = 5;
   }
 
   namespace SHOOTER

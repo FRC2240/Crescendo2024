@@ -41,7 +41,11 @@ public:
   frc2::CommandXboxController m_stick1{1};
 
   Drivetrain m_drivetrain;
-  Vision m_vision;
+  Vision m_vision{
+      [this]() -> units::degree_t
+      {
+        return m_drivetrain.getAngle();
+      }};
   Odometry m_odometry{&m_drivetrain, &m_vision};
   Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick0, &m_vision};
   void ConfigureBindings();
