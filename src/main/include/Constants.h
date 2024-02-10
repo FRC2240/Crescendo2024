@@ -52,10 +52,14 @@ namespace CONSTANTS
 
   namespace INTAKE
   {
-    constexpr int BELT_ID = 20;
-    constexpr int ANGLE_ID = 10;
+    constexpr int BELT_ID = 4;
+    constexpr int ANGLE_ID = 3;
     constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
-  } // namespace INTAKE
+    constexpr units::turn_t DOWN_POSITION = 7.33_tr;
+    constexpr units::turn_t BRACE_POSITION = 2.33_tr;
+    constexpr units::turn_t UP_POSITION = 2_tr;          // Change to 0 for prod
+    constexpr units::turn_t ROTATION_THRESHOLD = 0.2_tr; // CHANGEME
+  }                                                      // namespace INTAKE
   namespace VISION
   {
     static const auto LEFT_CAMERA_A_TF = frc::Transform3d{0_in, -11_in, 22_in, frc::Rotation3d(0_rad, 0_rad, 180_deg)};
@@ -77,14 +81,15 @@ namespace CONSTANTS
 
   namespace SHOOTER
   {
-    constexpr int LEFT_ID = 1;      // CHANGEME
-    constexpr int RIGHT_ID = 11;    // CHANGEME
-    constexpr int ANGLE_ID = 2;     // CHANGME
+    constexpr int LEFT_ID = 2;
+    constexpr int RIGHT_ID = 5;
+    constexpr int ANGLE_ID = 6;
+    constexpr int ANGLE2_ID = 2;
     constexpr int CANCODER_ID = 13; // CHANGEME
     constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
-    constexpr double ANGLE_RATIO = 1;                    // CHANGEME
-    constexpr units::degree_t FENDER_ANGLE = 15_deg;     // CHANGEME
-    constexpr units::degree_t FENDER_TOLERANCE = 15_deg; // CHANGEME
+    constexpr double ANGLE_RATIO = 1; // CHANGEME
+    constexpr units::turn_t FENDER_ANGLE = -11_tr;
+    constexpr units::turn_t FENDER_TOLERANCE = 15_deg; // CHANGEME
     constexpr units::degree_t AMP_ANGLE = 30_deg;
     constexpr int BELT_ID = 4;
     constexpr units::turns_per_second_t LEFT_VELOCITY{10};  // CHANGEME;

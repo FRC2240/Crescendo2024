@@ -4,10 +4,12 @@
 
 #include "subsystems/Intake.h"
 #include <iostream>
+#include "units/current.h"
+#include "units/voltage.h"
 
 Intake::Intake()
 {
-    //angle motor
+    // angle motor
     ctre::phoenix6::configs::TalonFXConfiguration angle_config{};
     angle_config.Audio.BeepOnBoot = true;
     angle_config.CurrentLimits.SupplyCurrentLimitEnable = true;
@@ -16,20 +18,37 @@ Intake::Intake()
     angle_config.Slot0.kD = 0.0;
     m_angleMotor.GetConfigurator().Apply(angle_config);
 
-    //belt motor (pid stuff may be unnecessary)
+    // belt motor (pid stuff may be unnecessary)
     ctre::phoenix6::configs::TalonFXConfiguration belt_config{};
     belt_config.Audio.BeepOnBoot = true;
     belt_config.CurrentLimits.SupplyCurrentLimitEnable = true;
-    belt_config.CurrentLimits.SupplyCurrentLimit = 25; // CHANGEME
+    belt_config.CurrentLimits.SupplyCurrentLimit = 40; // CHANGEME
     belt_config.Slot0.kP = 0.5;
     belt_config.Slot0.kD = 0.0;
     m_beltMotor.GetConfigurator().Apply(belt_config);
 }
 
 // This method will be called once per scheduler run
-void Intake::Periodic(){};
+void Intake::Periodic(){
+    /*
+    auto result = m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
 
-//TODO: idk what this does
+    if (result.IsError())
+    {
+        frc::SmartDashboard::PutString("result", "ERROR");
+    }
+    if (result.IsWarning())
+    {
+        frc::SmartDashboard::PutString("result", "WARN");
+    }
+    if (result.IsOK())
+    {
+        frc::SmartDashboard::PutString("result", "GOOD");
+    }
+    */
+};
+
+// TODO: idk what this does
 #pragma warn("Intake::is_loaded() is UNIMPLEMENTED!")
 bool Intake::is_loaded()
 {
@@ -39,25 +58,23 @@ bool Intake::is_loaded()
 frc2::CommandPtr Intake::ExtendCommand()
 {
     return frc2::RunCommand([this] -> void
-        {
-            m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{END_ROTATIONS});
-        }, {this})
+                            { m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{CONSTANTS::INTAKE::DOWN_POSITION}); },
+                            {this})
         .Until([this] -> bool // stop when done (to allow StartSpinCommand to run)
-            { return CONSTANTS::IN_THRESHOLD<units::turn_t>(m_angleMotor.GetPosition().GetValue(), END_ROTATIONS, ROTATION_THRESHOLD); })
+               { return CONSTANTS::IN_THRESHOLD<units::turn_t>(m_angleMotor.GetPosition().GetValue(), CONSTANTS::INTAKE::DOWN_POSITION, CONSTANTS::INTAKE::ROTATION_THRESHOLD); })
         .WithName("Extend");
 };
 
 frc2::CommandPtr Intake::RetractCommand()
 {
-    return frc2::RunCommand([this] -> void {
-            m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{START_ROTATIONS});
-        }, {this})
+    return frc2::RunCommand([this] -> void
+                            { m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{CONSTANTS::INTAKE::UP_POSITION}); },
+                            {this})
         .Until([this] -> bool { // stop when done (to allow StopSpinCommand to run)
-            return CONSTANTS::IN_THRESHOLD<units::turn_t>(m_angleMotor.GetPosition().GetValue(), START_ROTATIONS, ROTATION_THRESHOLD);
+            return CONSTANTS::IN_THRESHOLD<units::turn_t>(m_angleMotor.GetPosition().GetValue(), CONSTANTS::INTAKE::UP_POSITION, CONSTANTS::INTAKE::ROTATION_THRESHOLD);
         })
         .WithName("Retract");
 };
-
 
 frc2::CommandPtr Intake::BraceCommand()
 {
@@ -70,9 +87,7 @@ frc2::CommandPtr Intake::BraceCommand()
 frc2::CommandPtr Intake::StartSpinCommand()
 {
     return frc2::RunCommand([this]
-                            {
-                                m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(BELT_SPEED));
-                            },
+                            { m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(BELT_SPEED)); },
                             {this})
         .WithName("StartSpin");
 };

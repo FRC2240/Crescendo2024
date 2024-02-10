@@ -32,6 +32,8 @@ public:
 
   frc2::CommandPtr amp_shot();
 
+  frc2::CommandPtr default_cmd();
+
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
