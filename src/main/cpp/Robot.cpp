@@ -19,7 +19,10 @@ void Robot::RobotPeriodic()
 
 void Robot::DisabledInit() {}
 
-void Robot::DisabledPeriodic() {}
+void Robot::DisabledPeriodic()
+{
+  m_container.m_candle.has_vision = (m_container.m_vision.get_bot_position()[0].has_value() && m_container.m_vision.get_bot_position()[0].value().X().value() != 0);
+}
 
 void Robot::DisabledExit() {}
 

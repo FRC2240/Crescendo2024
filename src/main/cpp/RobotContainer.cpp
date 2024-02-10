@@ -57,7 +57,7 @@ void RobotContainer::ConfigureBindings()
                   int pov = m_stick1.GetPOV();
                   return pov == 0;
                 }}
-      .OnTrue(m_intake.ExtendCommand()); 
+      .OnTrue(m_intake.ExtendCommand());
 
   frc2::Trigger{[this] -> bool
                 {
@@ -65,9 +65,9 @@ void RobotContainer::ConfigureBindings()
                   frc::SmartDashboard::PutBoolean("Threshold", CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30));
                   return CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30);
                 }}
-      .OnTrue(m_intake.RetractCommand()); 
+      .OnTrue(m_intake.RetractCommand());
 
-  m_candle.SetDefaultCommand(m_candle.run_disabled(fms,vision,auto_selected));
+  m_candle.SetDefaultCommand(m_candle.run_disabled());
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
@@ -77,55 +77,55 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
   {
   case AUTOS::POS_1_LINE:
     return autos::pos_1_line(&m_trajectory);
-    auto_selected = true;
+    m_candle.auto_selected = true;
     break;
   case AUTOS::POS_2_LINE:
     return autos::pos_2_line(&m_trajectory);
-    auto_selected = true;
+    m_candle.auto_selected = true;
     break;
   case AUTOS::POS_3_LINE:
     return autos::pos_3_line(&m_trajectory);
-    auto_selected = true;
+    m_candle.auto_selected = true;
     break;
   case AUTOS::POS_1_GP2:
     return autos::pos_1_gp2(&m_trajectory);
-    auto_selected = true;
+    m_candle.auto_selected = true;
     break;
   case AUTOS::POS_2_GP2:
     return autos::pos_2_gp2(&m_trajectory);
-    auto_selected = true;
+    m_candle.auto_selected = true;
     break;
   case AUTOS::POS_3_GP2:
     return autos::pos_3_gp2(&m_trajectory);
-    auto_selected = true;
+    m_candle.auto_selected = true;
     break;
   case AUTOS::POS_1_GP3:
     return autos::pos_1_gp3(&m_trajectory);
-    auto_selected = true;
+    m_candle.auto_selected = true;
     break;
   case AUTOS::POS_2_GP3:
     return autos::pos_2_gp3(&m_trajectory);
-    auto_selected = true;
+    m_candle.auto_selected = true;
     break;
   case AUTOS::POS_3_GP3:
     return autos::pos_3_gp3(&m_trajectory);
-    auto_selected = true;
+    m_candle.auto_selected = true;
     break;
   case AUTOS::POS_1_GP4:
     return autos::pos_1_gp4(&m_trajectory);
-    auto_selected = true;
+    m_candle.auto_selected = true;
     break;
   case AUTOS::POS_2_GP4:
     return autos::pos_2_gp4(&m_trajectory);
-    auto_selected = true;
+    m_candle.auto_selected = true;
     break;
   case AUTOS::POS_3_GP4:
     return autos::pos_3_gp4(&m_trajectory);
-    auto_selected = true;
+    m_candle.auto_selected = true;
     break;
   default:
     frc::DataLogManager::Log("WARN: NO ERROR SELECTED");
-    auto_selected = false;
+    m_candle.auto_selected = false;
     break;
   }
 }

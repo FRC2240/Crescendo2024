@@ -12,11 +12,18 @@ Candle::Candle()
     m_candle.ConfigAllSettings(config);
 
     m_candle.SetLEDs(0, 0, 0);
+}
 
-    if (m_alliance == frc::DriverStation::Alliance::kRed)
+bool Candle::is_red()
+{
+    if (frc::DriverStation::GetAlliance())
     {
-        is_red == true;
-    } 
+        if (frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kBlue)
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 frc2::CommandPtr Candle::yellow_blink()
@@ -51,35 +58,35 @@ frc2::CommandPtr Candle::off()
         .WithName("Off");
 };
 
-frc2::CommandPtr Candle::ramp_up(double current_rpm, double desired_rpm)
+frc2::CommandPtr Candle::ramp_up(double &current_rpm, double &desired_rpm)
 {
-    return frc2::RunCommand([this, current_rpm, desired_rpm]{ 
+    return frc2::RunCommand([this, current_rpm, desired_rpm]
+                            { 
         p_rpm = current_rpm/desired_rpm;
         p_led = round(30*p_rpm);
-        if (is_red){
+        if (is_red()){
             m_candle.SetLEDs(255, 0, 0, 0, 0, p_led);
         }
         else {
             m_candle.SetLEDs(0, 0, 255, 0, 0, p_led);
-        }
-    },
-    {this})
-    .WithName("Ramp Up");
+        } },
+                            {this})
+        .WithName("Ramp Up");
 };
 
-frc2::CommandPtr Candle::run_disabled(bool fms, bool vision, bool auto_selected)
+frc2::CommandPtr Candle::run_disabled()
 {
-    return frc2::RunCommand([this, fms, vision, auto_selected]{  
-        if (!fms) {
+    return frc2::RunCommand([this]
+                            {  
+        if (!frc::DriverStation::IsFMSAttached()) {
             Candle::red_blink();
         }
-        else if (!vision || !auto_selected) {
+        else if (!has_vision || !auto_selected) {
             Candle::yellow_blink();
         }
-        else if (fms && vision && auto_selected) {
+        else if (frc::DriverStation::IsFMSAttached() && has_vision && auto_selected) {
             Candle::rainbow();
-        }
-    },
-    {this})
-    .WithName("Run Disabled");
+        } },
+                            {this})
+        .WithName("Run Disabled");
 }
