@@ -22,6 +22,7 @@
 #include <frc2/command/button/Trigger.h>
 #include <pathplanner/lib/auto/NamedCommands.h>
 #include <subsystems/Shooter.h>
+#include "subsystems/Candle.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -44,6 +45,7 @@ public:
   Vision m_vision;
   Odometry m_odometry{&m_drivetrain, &m_vision};
   Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick0, &m_vision};
+  Candle m_candle;
   void ConfigureBindings();
 
   enum AUTOS
@@ -65,6 +67,11 @@ public:
   Climber m_climber{&m_stick0};
   Shooter m_shooter{&m_intake};
   BuddyClimber m_buddyClimber;
+
+  bool fms = frc::DriverStation::IsFMSAttached();
+  std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
+  bool vision = bot_pose[0].has_value();
+  bool auto_selected;
 
 private:
   // Replace with CommandPS4Controller or CommandJoystick if needed
