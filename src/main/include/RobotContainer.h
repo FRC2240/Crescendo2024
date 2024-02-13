@@ -67,7 +67,7 @@ public:
   };
   Intake m_intake;
   Climber m_climber{&m_stick0};
-  Shooter m_shooter{&m_intake, &m_odometry};
+  Shooter m_shooter{&m_odometry, &m_intake};
   BuddyClimber m_buddyClimber;
 
 private:

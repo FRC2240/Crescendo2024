@@ -15,7 +15,7 @@
 class Shooter : public frc2::SubsystemBase
 {
 public:
-  Shooter(Odometry *odometry);
+  Shooter(Odometry *odometry, Intake *intake);
 
   frc2::CommandPtr fender_shot();
   frc2::CommandPtr test_shot();
@@ -47,4 +47,5 @@ private:
   ctre::phoenix6::hardware::TalonFX m_angle_motor{CONSTANTS::SHOOTER::ANGLE_ID};
   ctre::phoenix6::hardware::TalonFX m_belt_motor{CONSTANTS::SHOOTER::BELT_ID};
   Odometry *m_odometry;
+  Intake *m_intake;
 };

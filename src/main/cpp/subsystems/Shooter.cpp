@@ -4,7 +4,7 @@
 
 #include "subsystems/Shooter.h"
 
-Shooter::Shooter(Odometry *odometry) : m_odometry{odometry}
+Shooter::Shooter(Odometry *odometry, Intake *intake) : m_odometry{odometry}, m_intake{intake}
 {
     frc::SmartDashboard::PutNumber("shooter/dangle", 0.0);
     ctre::phoenix6::configs::TalonFXConfiguration left_conf{};
@@ -38,8 +38,6 @@ frc2::CommandPtr Shooter::default_cmd()
     return frc2::RunCommand(
                [this]
                {
-                   m_angle_motor.SetControl(ctre::phoenix6::controls::PositionVoltage(0_tr));
-
                    //    ctre::phoenix6::controls::VelocityDutyCycle req = units::turns_per_second_t{0};
                    //    if (frc::DriverStation::GetAlliance() && frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kBlue)
                    //    {
@@ -55,7 +53,17 @@ frc2::CommandPtr Shooter::default_cmd()
                    //         req=units::turns_per_second_t{CONSTANTS::SHOOTER::LEFT_VELOCITY};
                    //        }
                    //    }
-                   m_belt_motor.Set(0);
+                   if (m_intake->is_intaking)
+                   {
+                       frc::SmartDashboard::PutBoolean("intaking", 1);
+                       m_belt_motor.Set(1);
+                   }
+                   else
+                   {
+
+                       m_belt_motor.Set(0);
+                       frc::SmartDashboard::PutBoolean("intaking", 0);
+                   }
                    m_angle_motor.Set(0);
                    m_left_motor.Set(0);
                    m_right_motor.Set(0);

@@ -14,7 +14,7 @@
 #include "Constants.h"
 #include "frc2/command/PrintCommand.h"
 #include "frc/smartdashboard/SmartDashboard.h"
-
+#include <TimeOfFlight.h>
 class Intake : public frc2::SubsystemBase
 {
 public:
@@ -33,18 +33,21 @@ public:
   frc2::CommandPtr BraceCommand();
   frc2::CommandPtr StartSpinCommand();
   frc2::CommandPtr StopSpinCommand();
-  frc2::CommandPtr StartCommand();    // extends + starts spinning
-  frc2::CommandPtr StopCommand();     // retracts + stops spinning
+  frc2::CommandPtr StartCommand(); // extends + starts spinning
+  frc2::CommandPtr StopCommand();  // retracts + stops spinning
+
+  bool is_intaking = false;
 
   // Move all CAN ids to constants as well as all constants in this file.
   ctre::phoenix6::hardware::TalonFX m_beltMotor{CONSTANTS::INTAKE::BELT_ID};
 
 private:
+  frc::TimeOfFlight m_tof{CONSTANTS::INTAKE::TOF_ID};
   ctre::phoenix6::hardware::TalonFX m_angleMotor{CONSTANTS::INTAKE::ANGLE_ID};
 
   const units::angle::turn_t START_ROTATIONS{0};    // intake retracted position         (CHANGEME)
   const units::angle::turn_t END_ROTATIONS{100};    // intake extended position          (CHANGEME)
-  const units::voltage::volt_t BELT_SPEED{3};       // volts to drive belt motor at      (CHANGEME)
+  const units::voltage::volt_t BELT_SPEED{12};      // volts to drive belt motor at      (CHANGEME)
   const units::angle::turn_t BRACE_ROTATIONS{150};  // brace position                    (CHANGEME)
   const units::angle::turn_t ROTATION_THRESHOLD{1}; // number of rotations to stop motor (CHANGEME)
 };
