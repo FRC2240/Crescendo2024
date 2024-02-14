@@ -50,28 +50,48 @@ frc2::CommandPtr Candle::rainbow()
         .WithName("Rainbow");
 };
 
+frc2::CommandPtr Candle::fast_yellow_blink()
+{
+    return frc2::RunCommand([this]
+                            { m_candle.Animate(fast_yellow_strobe_anim); },
+                            {this})
+        .WithName("Fast Yellow Blink");
+};
+
+frc2::CommandPtr Candle::amp_blink()
+{
+    return frc2::RunCommand([this] { 
+        if (m_alliance == frc::DriverStation::Alliance::kRed) {
+            m_candle.Animate(red_amp_anim);
+        }
+        else {
+            m_candle.Animate(blue_amp_anim);
+        }
+    },
+    {this})
+    .WithName("Amp Blink");
+};
+
+frc2::CommandPtr Candle::not_driver_controlled()
+{
+    return frc2::RunCommand([this] { 
+        if (m_alliance == frc::DriverStation::Alliance::kRed) {
+            m_candle.Animate(red_no_control_anim);
+        }
+        else {
+            m_candle.Animate(blue_no_control_anim);
+        }
+    },
+    {this})
+    .WithName("No Control");                 negai
+};
+
 frc2::CommandPtr Candle::off()
 {
     return frc2::RunCommand([this]
                             { m_candle.SetLEDs(0, 0, 0); },
                             {this})
         .WithName("Off");
-};
-
-frc2::CommandPtr Candle::ramp_up(double &current_rpm, double &desired_rpm)
-{
-    return frc2::RunCommand([this, current_rpm, desired_rpm]
-                            { 
-        p_rpm = current_rpm/desired_rpm;
-        p_led = round(30*p_rpm);
-        if (is_red()){
-            m_candle.SetLEDs(255, 0, 0, 0, 0, p_led);
-        }
-        else {
-            m_candle.SetLEDs(0, 0, 255, 0, 0, p_led);
-        } },
-                            {this})
-        .WithName("Ramp Up");
 };
 
 frc2::CommandPtr Candle::run_disabled()
