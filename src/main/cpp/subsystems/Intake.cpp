@@ -24,6 +24,7 @@ Intake::Intake()
     belt_config.CurrentLimits.SupplyCurrentLimitEnable = true;
     belt_config.CurrentLimits.SupplyCurrentLimit = 40; // CHANGEME
     belt_config.Slot0.kP = 0.5;
+    belt_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
     belt_config.Slot0.kD = 0.2;
     m_beltMotor.GetConfigurator().Apply(belt_config);
 }
@@ -64,9 +65,7 @@ frc2::CommandPtr Intake::ExtendCommand()
                                 m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{CONSTANTS::INTAKE::DOWN_POSITION}); },
                             {this})
         .Until([this] -> bool // stop when done (to allow StartSpinCommand to run)
-               {
-                fmt::println("here");
-                return CONSTANTS::IN_THRESHOLD<units::turn_t>(m_angleMotor.GetPosition().GetValue(), CONSTANTS::INTAKE::DOWN_POSITION, CONSTANTS::INTAKE::ROTATION_THRESHOLD); })
+               { return CONSTANTS::IN_THRESHOLD<units::turn_t>(m_angleMotor.GetPosition().GetValue(), CONSTANTS::INTAKE::DOWN_POSITION, CONSTANTS::INTAKE::ROTATION_THRESHOLD); })
         .WithName("Extend");
 };
 
@@ -94,7 +93,7 @@ frc2::CommandPtr Intake::StartSpinCommand()
     return frc2::RunCommand([this]
                             {
                                 is_intaking = true;
-                                 m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(-BELT_SPEED)); },
+                                 m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{-12})); },
                             {this})
         .Until([this] -> bool
                { return is_loaded(); })

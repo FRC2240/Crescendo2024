@@ -15,7 +15,7 @@ Shooter::Shooter(Odometry *odometry, Intake *intake) : m_odometry{odometry}, m_i
     ctre::phoenix6::configs::TalonFXConfiguration angle_conf{};
     angle_conf.Feedback.RotorToSensorRatio = CONSTANTS::SHOOTER::ANGLE_RATIO;
     angle_conf.Slot0.kP = 1.4;
-    angle_conf.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
+    angle_conf.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Coast;
     // angle_conf.Feedback.WithRemoteCANcoder(m_cancoder);
     m_left_motor.GetConfigurator().Apply(left_conf);
     m_right_motor.GetConfigurator().Apply(right_conf);
@@ -24,6 +24,7 @@ Shooter::Shooter(Odometry *odometry, Intake *intake) : m_odometry{odometry}, m_i
     belt_conf.CurrentLimits.SupplyCurrentLimitEnable = true;
     belt_conf.CurrentLimits.SupplyCurrentLimit = 40;
     belt_conf.Slot0.kP = 0.1;
+    belt_conf.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
     m_belt_motor.GetConfigurator().Apply(belt_conf);
     frc::SmartDashboard::PutNumber("shooter/P", 0.0);
 }
@@ -56,12 +57,12 @@ frc2::CommandPtr Shooter::default_cmd()
                    if (m_intake->is_intaking)
                    {
                        frc::SmartDashboard::PutBoolean("intaking", 1);
-                       m_belt_motor.Set(1);
+                       m_belt_motor.Set(.5);
                    }
                    else
                    {
 
-                       m_belt_motor.Set(0);
+                       m_belt_motor.SetControl(ctre::phoenix6::controls::VelocityVoltage(0_tr / 1_s));
                        frc::SmartDashboard::PutBoolean("intaking", 0);
                    }
                    m_angle_motor.Set(0);
@@ -76,7 +77,6 @@ void Shooter::set_angle(units::degree_t angle)
 {
     ctre::phoenix6::controls::PositionVoltage req{angle};
     m_angle_motor.SetControl(req);
-    fmt::println("SetAngle");
     frc::SmartDashboard::PutNumber("shooter/angle", angle.value());
 }
 frc2::CommandPtr Shooter::test_shot()
