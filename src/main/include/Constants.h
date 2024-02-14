@@ -14,6 +14,7 @@
 #include <frc/geometry/Transform3d.h>
 #include <numbers>
 
+#define COLFAX_BOT
 // #define BETABOT
 //  When using the second robot, uncomment the above line
 
@@ -119,6 +120,14 @@ namespace CONSTANTS
         int cancoder;
         units::turn_t offset;
       };
+#ifdef COLFAX_BOT
+#pragma message("Using Colfax bot")
+      constexpr ModuleConfig FL{60, 61, 14, 0.31_tr};
+      constexpr ModuleConfig FR{50, 51, 13, -0.182_tr};
+      constexpr ModuleConfig BL{30, 31, 11, -0.286_tr};
+      constexpr ModuleConfig BR{40, 41, 12, 0.03_tr};
+#endif // COLFAX_BOT
+
 #ifndef BETABOT
 #pragma message("First Robot Config active")
       /* -------------------------------------------------------------------------- */
