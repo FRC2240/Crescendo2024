@@ -53,7 +53,7 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
     // driver_config.Slot0.kI = 0.400;
     // driver_config.Slot0.kV = 0.0097; // FIXME could be kG, kA or Kv
     driver_config.CurrentLimits.StatorCurrentLimitEnable = true;
-    driver_config.CurrentLimits.StatorCurrentLimit = 80;
+    driver_config.CurrentLimits.StatorCurrentLimit = 70;
     // driver_config.CurrentLimits.SupplyCurrentLimitEnable
     driver_config.MotorOutput.NeutralMode.value = driver_config.MotorOutput.NeutralMode.Brake;
     //  TODO: TUNING
