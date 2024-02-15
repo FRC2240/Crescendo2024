@@ -48,5 +48,25 @@ void Climber::Periodic()
       left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0});
    }
   
+   frc2::CommandPtr Climber::BrakeCommand() {
+    return RunOnce([this] {
+        ctre::phoenix6::configs::TalonFXConfiguration brake_config{};
+        brake_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
+        
+        right_climber.GetConfigurator().Apply(brake_config);
+        left_climber.GetConfigurator().Apply(brake_config);
+    })
+    .WithName("Brake");
+   }
 
+   frc2::CommandPtr Climber::CoastCommand() {
+      return RunOnce([this] {
+         ctre::phoenix6::configs::TalonFXConfiguration coast_config{};
+         coast_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Coast;
+        
+         right_climber.GetConfigurator().Apply(coast_config);
+         left_climber.GetConfigurator().Apply(coast_config);
+      })
+      .WithName("Brake");
+   }
 };

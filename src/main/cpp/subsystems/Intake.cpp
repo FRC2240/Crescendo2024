@@ -36,6 +36,28 @@ bool Intake::is_loaded()
     return false;
 };
 
+frc2::CommandPtr Intake::BrakeCommand() {
+    return RunOnce([this] {
+        ctre::phoenix6::configs::TalonFXConfiguration brake_config{};
+        brake_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
+        
+        m_angleMotor.GetConfigurator().Apply(brake_config);
+        m_beltMotor.GetConfigurator().Apply(brake_config);
+    })
+    .WithName("Brake");
+}
+
+frc2::CommandPtr Intake::CoastCommand() {
+    return RunOnce([this] {
+        ctre::phoenix6::configs::TalonFXConfiguration coast_config{};
+        coast_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Coast;
+        
+        m_angleMotor.GetConfigurator().Apply(coast_config);
+        m_beltMotor.GetConfigurator().Apply(coast_config);
+    })
+    .WithName("Brake");
+}
+
 frc2::CommandPtr Intake::ExtendCommand()
 {
     return frc2::RunCommand([this] -> void
