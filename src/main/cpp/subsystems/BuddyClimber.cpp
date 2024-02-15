@@ -8,7 +8,7 @@
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 
-BuddyClimber::BuddyClimber()
+BuddyClimber::BuddyClimber(frc::DigitalInput *button) : m_button{button}
 {
     ctre::phoenix6::configs::TalonFXConfiguration right_config{};
     right_config.Audio.BeepOnBoot = true;
@@ -22,6 +22,56 @@ BuddyClimber::BuddyClimber()
     m_rightMotor.GetConfigurator().Apply(right_config);
     m_leftMotor.GetConfigurator().Apply(left_config);
 };
+
+BuddyClimber::Periodic() {
+/*    if(!m_button->Get()) {
+        
+    }
+*/
+/*
+    bool pressed = ! m_button->Get();
+    
+    switch(m_buttonState) {
+        case CONSTANTS::BUTTON_STATE::up_coast:
+            if(pressed) {
+                m_buttonState = CONSTANTS::BUTTON_STATE::down_brake;
+                
+                ctre::phoenix6::configs::TalonFXConfiguration brake_config{};
+                brake_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
+                m_rightMotor.GetConfigurator().Apply(brake_config);
+                m_leftMotor.GetConfigurator().Apply(brake_config);
+            }
+            break;
+
+        case CONSTANTS::BUTTON_STATE::down_brake:
+            if(!pressed) {
+                m_buttonState = CONSTANTS::BUTTON_STATE::up_brake;
+            }
+            break;
+
+        case CONSTANTS::BUTTON_STATE::up_brake:
+            if(pressed) {
+                m_buttonState = CONSTANTS::BUTTON_STATE::down_coast;
+                
+                ctre::phoenix6::configs::TalonFXConfiguration coast_config{};
+                coast_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Coast;
+                m_rightMotor.GetConfigurator().Apply(coast_config);
+                m_leftMotor.GetConfigurator().Apply(coast_config);
+            }
+            break;
+
+        case CONSTANTS::BUTTON_STATE::down_coast:
+            if(!pressed) {
+                m_buttonState = CONSTANTS::BUTTON_STATE::up_coast;
+            }
+            break;
+
+    }
+*/
+}
+
+
+frc2::CommandPtr BuddyClimber::
 
 frc2::CommandPtr BuddyClimber::DeployCommand()
 {

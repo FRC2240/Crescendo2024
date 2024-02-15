@@ -14,11 +14,13 @@
 #include <frc2/command/RunCommand.h>
 #include <frc/Servo.h>
 #include <iostream>
+#include <frc/DigitalInput.h>
+#include "Constants.h"
 
 class BuddyClimber : public frc2::SubsystemBase
 {
 public:
-  BuddyClimber();
+  BuddyClimber(frc::DigitalInput *button);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -36,4 +38,6 @@ private:
   frc::Servo m_deployServo{1}; //change
   const double DEPLOY_ANGLE = 1.0; //change
   const units::voltage::volt_t ROTOR_SPEED{5}; //change
+  frc::DigitalInput* m_button;
+  CONSTANTS::BUTTON_STATE m_buttonState = CONSTANTS::BUTTON_STATE::up_coast;
 };

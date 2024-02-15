@@ -22,6 +22,7 @@
 #include <frc2/command/button/Trigger.h>
 #include <pathplanner/lib/auto/NamedCommands.h>
 #include <subsystems/Shooter.h>
+#include <frc/DigitalInput.h>
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -39,6 +40,8 @@ public:
 
   frc2::CommandXboxController m_stick0{0};
   frc2::CommandXboxController m_stick1{1};
+
+  frc::DigitalInput m_brakeButton{0}; //CHANGE
 
   Drivetrain m_drivetrain;
   Vision m_vision{
@@ -65,10 +68,10 @@ public:
     POS_2_GP4,
     POS_3_GP4
   };
-  Intake m_intake;
-  Climber m_climber{&m_stick0};
-  Shooter m_shooter{&m_intake};
-  BuddyClimber m_buddyClimber;
+  Intake m_intake{             &m_brakeButton};
+  Climber m_climber{&m_stick0, &m_brakeButton};
+  Shooter m_shooter{&m_intake, &m_brakeButton};
+  BuddyClimber m_buddyClimber{ &m_brakeButton};
 
 private:
   // Replace with CommandPS4Controller or CommandJoystick if needed

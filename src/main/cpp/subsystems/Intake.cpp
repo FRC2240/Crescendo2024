@@ -5,7 +5,7 @@
 #include "subsystems/Intake.h"
 #include <iostream>
 
-Intake::Intake()
+Intake::Intake(frc::DigitalInput *button) : m_button{button}
 {
     //angle motor
     ctre::phoenix6::configs::TalonFXConfiguration angle_config{};

@@ -11,11 +11,12 @@
 #include <ctre/phoenix6/CANcoder.hpp>
 #include <frc2/command/RunCommand.h>
 #include "subsystems/Intake.h"
+#include <frc/DigitalInput.h>
 
 class Shooter : public frc2::SubsystemBase
 {
 public:
-  Shooter(Intake *intake);
+  Shooter(Intake *intake, frc::DigitalInput *button);
 
   frc2::CommandPtr fender_shot();
 
@@ -44,4 +45,5 @@ private:
   ctre::phoenix6::hardware::TalonFX m_angle_motor{CONSTANTS::SHOOTER::ANGLE_ID};
   ctre::phoenix6::hardware::TalonFX m_angle_motor2{CONSTANTS::SHOOTER::ANGLE_ID};
   Intake *m_intake;
+  frc::DigitalInput* m_button;
 };

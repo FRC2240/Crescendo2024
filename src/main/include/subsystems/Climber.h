@@ -10,11 +10,14 @@
 #include <frc2/command/SubsystemBase.h>
 #include <frc2/command/button/CommandXboxController.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <frc/DigitalInput.h>
+
 class Climber : public frc2::SubsystemBase
 {
 public:
   Climber(
-      frc::XboxController *stick);
+      frc::XboxController *stick,
+      frc::DigitalInput *button);
   void climb(double pos);
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -24,6 +27,7 @@ public:
 private:
 
   frc::XboxController* m_stick;
+  frc::DigitalInput* m_button;
 
   ctre::phoenix6::hardware::TalonFX left_climber{5}; //CHANGEME (Make sure you change constants as well)
   ctre::phoenix6::hardware::TalonFX right_climber{4}; //CHANGEME (Make sure you change constants as well)

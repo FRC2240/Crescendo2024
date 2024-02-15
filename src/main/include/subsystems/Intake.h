@@ -14,11 +14,12 @@
 #include "Constants.h"
 #include "frc2/command/PrintCommand.h"
 #include "frc/smartdashboard/SmartDashboard.h"
+#include <frc/DigitalInput.h>
 
 class Intake : public frc2::SubsystemBase
 {
 public:
-  Intake();
+  Intake(frc::DigitalInput *button);
 
   // TODO: FIX
   bool is_loaded();
@@ -41,7 +42,8 @@ public:
 
 private:
   ctre::phoenix6::hardware::TalonFX m_angleMotor{CONSTANTS::INTAKE::ANGLE_ID};
-
+  frc::DigitalInput* m_button;
+  
   const units::angle::turn_t START_ROTATIONS{0};    // intake retracted position         (CHANGEME)
   const units::angle::turn_t END_ROTATIONS{100};    // intake extended position          (CHANGEME)
   const units::voltage::volt_t BELT_SPEED{3};       // volts to drive belt motor at      (CHANGEME)

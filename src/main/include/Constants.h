@@ -29,6 +29,13 @@
 namespace CONSTANTS
 {
 
+  enum BUTTON_STATE {
+    up_brake,
+    down_brake,
+    up_coast,
+    down_coast
+  };
+  
   // An additive threshold (+/- value) that checks if 2 values (target & source) are within a range
   // A template so it can be used with units. Call it by:
   // CONSTANTS::IN_THRESHOLD<type>(x,y,z)

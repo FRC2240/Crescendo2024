@@ -4,8 +4,9 @@
 
 #include "subsystems/Climber.h"
 
-Climber::Climber(frc::XboxController *stick) 
-    : m_stick{stick}
+Climber::Climber(frc::XboxController *stick, frc::DigitalInput *button):
+   m_button{button},
+   m_stick{stick}
 {
    ctre::phoenix6::configs::TalonFXConfiguration left_climber_config{};
    left_climber_config.Slot0.kP = 1;
