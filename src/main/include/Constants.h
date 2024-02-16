@@ -122,10 +122,10 @@ namespace CONSTANTS
       };
 #ifdef COLFAX_BOT
 #pragma message("Using Colfax bot")
-      constexpr ModuleConfig FL{60, 61, 14, -0.279_tr}; 
-      constexpr ModuleConfig FR{50, 51, 13, -0.182_tr}; //Was not set becouse no cancoder
-      constexpr ModuleConfig BL{30, 31, 11, 0.173_tr}; 
-      constexpr ModuleConfig BR{40, 41, 12, -0.445_tr}; 
+      constexpr ModuleConfig FL{60, 61, 14, -0.279_tr};
+      constexpr ModuleConfig FR{50, 51, 13, -0.182_tr}; // Was not set becouse no cancoder
+      constexpr ModuleConfig BL{30, 31, 11, 0.173_tr};
+      constexpr ModuleConfig BR{40, 41, 12, -0.445_tr};
 #endif // COLFAX_BOT
 
 #ifndef BETABOT
@@ -134,10 +134,10 @@ namespace CONSTANTS
       /*                     BEGIN FIRST ROBOT CONFIGURATION                        */
       /* -------------------------------------------------------------------------- */
 
-      // constexpr ModuleConfig FL{60, 61, 14, 0.31_tr};
-      // constexpr ModuleConfig FR{50, 51, 13, -0.182_tr};
-      // constexpr ModuleConfig BL{30, 31, 11, -0.286_tr};
-      // constexpr ModuleConfig BR{40, 41, 12, 0.03_tr};
+      constexpr ModuleConfig FL{60, 61, 14, 0.31_tr};
+      constexpr ModuleConfig FR{50, 51, 13, -0.182_tr};
+      constexpr ModuleConfig BL{30, 31, 11, -0.286_tr};
+      constexpr ModuleConfig BR{40, 41, 12, 0.03_tr};
 
       /* -------------------------------------------------------------------------- */
       /*                        END FIRST ROBOT CONFIGURATION                       */

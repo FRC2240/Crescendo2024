@@ -43,7 +43,8 @@ void RobotContainer::ConfigureBindings()
   m_stick0.A().ToggleOnTrue(m_shooter.amp_shot());
   m_stick0.RightTrigger().OnTrue(m_shooter.execute_auto_shot());
   m_stick0.LeftBumper().ToggleOnTrue(m_intake.StartCommand());
-  m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup().AlongWith(m_intake.StartCommand()).AndThen(m_intake.StopCommand()));
+  m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup());
+  m_stick0.LeftTrigger().ToggleOnTrue(m_intake.StartCommand());
 
   //   m_stick.Y().OnTrue(
   //       m_trajectory.auto_score_align()
@@ -52,7 +53,8 @@ void RobotContainer::ConfigureBindings()
 
   // Buddy Climber
 
-  m_stick1.LeftBumper().OnTrue(m_buddyClimber.StartLeftCommand());
+  m_stick1.LeftBumper()
+      .OnTrue(m_buddyClimber.StartLeftCommand());
   m_stick1.RightBumper().OnTrue(m_buddyClimber.StartRightCommand());
   m_stick1.Start().OnTrue(m_buddyClimber.DeployCommand());
   m_stick1.Back().OnTrue(m_buddyClimber.ResetCommand());

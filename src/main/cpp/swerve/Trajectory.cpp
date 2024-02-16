@@ -144,7 +144,7 @@ frc2::CommandPtr Trajectory::auto_pickup()
                     angle.value() > -CONSTANTS::INTAKE::AUTO_PICKUP_THRESHOLD)
                 {
                     frc::DataLogManager::Log("4");
-                    m_drivetrain->drive(-1_mps, 0_mps, (0_deg / 1_s), false);
+                    m_drivetrain->drive(-10_fps, 0_mps, (0_deg / 1_s), false);
                 }
             }
             else
@@ -164,7 +164,7 @@ frc2::CommandPtr Trajectory::auto_pickup()
     std::function<bool()> is_finished = [this]() -> bool
     {
         frc::DataLogManager::Log("fegij");
-        return m_vision->get_coral_angle().has_value();
+        return m_intake->is_loaded();
     };
 
     std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted)
