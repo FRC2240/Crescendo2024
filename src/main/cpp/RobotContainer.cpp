@@ -43,6 +43,7 @@ void RobotContainer::ConfigureBindings()
   m_stick0.A().ToggleOnTrue(m_shooter.amp_shot());
   m_stick0.RightTrigger().OnTrue(m_shooter.execute_auto_shot());
   m_stick0.LeftBumper().ToggleOnTrue(m_intake.StartCommand());
+  m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup().AlongWith(m_intake.StartCommand()).AndThen(m_intake.StopCommand()));
 
   //   m_stick.Y().OnTrue(
   //       m_trajectory.auto_score_align()
@@ -55,21 +56,6 @@ void RobotContainer::ConfigureBindings()
   m_stick1.RightBumper().OnTrue(m_buddyClimber.StartRightCommand());
   m_stick1.Start().OnTrue(m_buddyClimber.DeployCommand());
   m_stick1.Back().OnTrue(m_buddyClimber.ResetCommand());
-  // Intake
-  frc2::Trigger{[this] -> bool
-                {
-                  int pov = m_stick1.GetPOV();
-                  return pov == 0;
-                }}
-      .OnTrue(m_intake.ExtendCommand());
-
-  frc2::Trigger{[this] -> bool
-                {
-                  frc::SmartDashboard::PutNumber("pov", m_stick1.GetPOV());
-                  frc::SmartDashboard::PutBoolean("Threshold", CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30));
-                  return CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30);
-                }}
-      .OnTrue(m_intake.RetractCommand());
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()

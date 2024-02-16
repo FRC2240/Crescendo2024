@@ -17,6 +17,9 @@
         "double[]##v_/limelight/botpose_wpired": {
           "open": true
         }
+      },
+      "limelight-fore": {
+        "open": true
       }
     },
     "transitory": {

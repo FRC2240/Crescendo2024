@@ -54,6 +54,7 @@ void Intake::Periodic()
 // TODO: idk what this does
 bool Intake::is_loaded()
 {
+
     return m_tof.GetRange() < CONSTANTS::INTAKE::LOADED_DIST;
 };
 
@@ -108,6 +109,8 @@ frc2::CommandPtr Intake::StopSpinCommand()
                                 m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut{units::voltage::volt_t{0}}); // wrong type?
                             },
                             {this})
+        .Until([this] -> bool
+               { return m_beltMotor.GetVelocity().GetValueAsDouble() < 1; })
         .WithName("StopSpin");
 };
 
@@ -118,7 +121,7 @@ frc2::CommandPtr Intake::StartCommand()
 
 frc2::CommandPtr Intake::StopCommand()
 {
-    return frc2::PrintCommand("Stop Intake").ToPtr().AndThen(RetractCommand().AndThen(StopSpinCommand())).WithName("Stop");
+    return StopSpinCommand().AndThen(RetractCommand()).WithName("Stop");
 };
 
 /*

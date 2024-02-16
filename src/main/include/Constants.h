@@ -14,7 +14,7 @@
 #include <frc/geometry/Transform3d.h>
 #include <numbers>
 
-#define COLFAX_BOT
+// #define COLFAX_BOT
 // #define BETABOT
 //  When using the second robot, uncomment the above line
 
@@ -74,9 +74,9 @@ namespace CONSTANTS
 
   namespace CLIMBER
   {
-    constexpr int left_climber = 4;  // CHANGEME
-    constexpr int right_climber = 5; // CHANGEME
-  }                                  // namespace CLIMBER
+    constexpr int LEFT_ID = 9;   // CHANGEME
+    constexpr int RIGHT_ID = 11; // CHANGEME
+  }                              // namespace CLIMBER
   namespace CANDLE
   {
     constexpr int CANDLE_ID = 5;

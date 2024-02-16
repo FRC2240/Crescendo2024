@@ -1,7 +1,7 @@
 #pragma once
 
 #include "swerve/Drivetrain.h"
-
+#include <frc/DataLogManager.h>
 #include <units/acceleration.h>
 #include <units/angle.h>
 #include <units/length.h>
@@ -29,6 +29,7 @@
 #include <frc/Timer.h>
 #include <frc/XboxController.h>
 
+#include "frc2/command/DeferredCommand.h"
 #include "subsystems/Intake.h"
 
 #ifndef CFG_NO_DRIVEBASE
@@ -41,9 +42,10 @@ public:
         Drivetrain *drivetrain,
         Odometry *odometry,
         frc::XboxController *stick,
-        Vision *vision);
+        Vision *vision,
+        Intake *intake);
 
-    frc2::CommandPtr auto_pickup(Intake *intake);
+    frc2::CommandPtr auto_pickup();
 
     frc2::CommandPtr auto_score_align();
 
@@ -77,5 +79,6 @@ private:
     Odometry *m_odometry;
     frc::XboxController *m_stick;
     Vision *m_vision;
+    Intake *m_intake;
 };
 #endif
