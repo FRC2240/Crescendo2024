@@ -49,7 +49,6 @@ public:
       }};
   Odometry m_odometry{&m_drivetrain, &m_vision};
   Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick0, &m_vision};
-  Candle m_candle;
   void ConfigureBindings();
 
   enum AUTOS
@@ -71,6 +70,7 @@ public:
   Climber m_climber{&m_stick0};
   Shooter m_shooter{&m_intake};
   BuddyClimber m_buddyClimber;
+  Candle m_candle;
 
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
 

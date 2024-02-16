@@ -8,7 +8,6 @@
 #include <frc2/command/RunCommand.h>
 #include <frc2/command/SubsystemBase.h>
 #include "Constants.h"
-#include "RobotContainer.h"
 #include "ctre/phoenix/led/CANdle.h"
 #include "ctre/phoenix/led/RainbowAnimation.h"
 #include "ctre/phoenix/led/StrobeAnimation.h"
@@ -19,6 +18,7 @@ class Candle : public frc2::SubsystemBase
 {
 public:
     Candle();
+    void Periodic() override;
     frc2::CommandPtr fast_yellow_blink();
     frc2::CommandPtr yellow_blink();
     frc2::CommandPtr red_blink();

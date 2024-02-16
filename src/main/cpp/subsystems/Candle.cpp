@@ -26,6 +26,8 @@ bool Candle::is_red()
     return true;
 }
 
+void Candle::Periodic(){}
+
 frc2::CommandPtr Candle::yellow_blink()
 {
     return frc2::RunCommand([this]
@@ -83,7 +85,7 @@ frc2::CommandPtr Candle::not_driver_controlled()
         }
     },
     {this})
-    .WithName("No Control");                 negai
+    .WithName("No Control");
 };
 
 frc2::CommandPtr Candle::off()
