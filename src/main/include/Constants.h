@@ -72,7 +72,7 @@ namespace CONSTANTS
   }                                  // namespace CLIMBER
   namespace CANDLE
   {
-    constexpr int CANDLE_ID = 5;
+    constexpr int CANDLE_ID = 10;
   }
 
   namespace SHOOTER
