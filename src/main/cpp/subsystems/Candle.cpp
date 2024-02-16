@@ -28,34 +28,10 @@ bool Candle::is_red()
 
 void Candle::Periodic(){}
 
-frc2::CommandPtr Candle::yellow_blink()
-{
-    return frc2::RunCommand([this]
-                            { m_candle.Animate(yellow_strobe_anim); },
-                            {this})
-        .WithName("Yellow Blink");
-};
-
-frc2::CommandPtr Candle::red_blink()
-{
-    return frc2::RunCommand([this]
-                            { m_candle.Animate(red_strobe_anim); },
-                            {this})
-        .WithName("Red Blink");
-};
-
-frc2::CommandPtr Candle::rainbow()
-{
-    return frc2::RunCommand([this]
-                            { m_candle.Animate(rainbow_anim); },
-                            {this})
-        .WithName("Rainbow");
-};
-
 frc2::CommandPtr Candle::fast_yellow_blink()
 {
     return frc2::RunCommand([this]
-                            { m_candle.Animate(fast_yellow_strobe_anim); },
+                            { m_candle.Animate(yellow_strobe_anim); },
                             {this})
         .WithName("Fast Yellow Blink");
 };
@@ -91,7 +67,8 @@ frc2::CommandPtr Candle::not_driver_controlled()
 frc2::CommandPtr Candle::off()
 {
     return frc2::RunCommand([this]
-                            { m_candle.SetLEDs(0, 0, 0); },
+                            { m_candle.SetLEDs(0, 0, 0);
+                              m_candle.ClearAnimation(0); },
                             {this})
         .WithName("Off");
 };
@@ -99,16 +76,33 @@ frc2::CommandPtr Candle::off()
 frc2::CommandPtr Candle::run_disabled()
 {
     return frc2::RunCommand([this]
-                            {  
+                            {       
+        m_candle_timer.Start();          
         if (!frc::DriverStation::IsFMSAttached()) {
-            Candle::red_blink();
+            if (m_candle_timer.Get() < units::time::second_t(0.5)) {
+                m_candle.SetLEDs(0, 0, 0);
+            } else if (m_candle_timer.Get() < units::time::second_t(1.0)) {
+                m_candle.SetLEDs(255, 0, 0);
+            } else {
+                m_candle_timer.Reset();
+            }
         }
+
         else if (!has_vision || !auto_selected) {
-            Candle::yellow_blink();
+            if (m_candle_timer.Get() < units::time::second_t(0.5)) {
+                m_candle.SetLEDs(0, 0, 0);
+            } else if (m_candle_timer.Get() < units::time::second_t(1.0)) {
+                m_candle.SetLEDs(255, 234, 0);
+            } else {
+                m_candle_timer.Reset();
+                m_candle.SetLEDs(0, 0, 0);
+            }
         }
         else if (frc::DriverStation::IsFMSAttached() && has_vision && auto_selected) {
-            Candle::rainbow();
+            m_candle.Animate(rainbow_anim);
+            m_candle_timer.Stop();
+            m_candle_timer.Reset();
         } },
                             {this})
-        .WithName("Run Disabled");
+        .WithName("Run Disabled").IgnoringDisable(true);
 }

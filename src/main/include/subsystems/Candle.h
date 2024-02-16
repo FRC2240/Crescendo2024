@@ -12,6 +12,7 @@
 #include "ctre/phoenix/led/RainbowAnimation.h"
 #include "ctre/phoenix/led/StrobeAnimation.h"
 #include "ctre/phoenix/led/LarsonAnimation.h"
+#include <frc/Timer.h>
 #include <cmath>
 
 class Candle : public frc2::SubsystemBase
@@ -20,11 +21,8 @@ public:
     Candle();
     void Periodic() override;
     frc2::CommandPtr fast_yellow_blink();
-    frc2::CommandPtr yellow_blink();
-    frc2::CommandPtr red_blink();
     frc2::CommandPtr amp_blink();
     frc2::CommandPtr not_driver_controlled();
-    frc2::CommandPtr rainbow();
     frc2::CommandPtr off();
     frc2::CommandPtr run_disabled();
     bool auto_selected = false;
@@ -33,9 +31,7 @@ public:
 private:
     ctre::phoenix::led::CANdle m_candle{CONSTANTS::CANDLE::CANDLE_ID};
     ctre::phoenix::led::RainbowAnimation rainbow_anim{0.5, 0.5, -1};
-    ctre::phoenix::led::StrobeAnimation red_strobe_anim{255, 0, 0, 0, 0.2};
-    ctre::phoenix::led::StrobeAnimation yellow_strobe_anim{255, 234, 0, 0, 0.2};
-    ctre::phoenix::led::StrobeAnimation fast_yellow_strobe_anim{255, 234, 0, 0, 1};
+    ctre::phoenix::led::StrobeAnimation yellow_strobe_anim{255, 234, 0, 0, 1};
     ctre::phoenix::led::StrobeAnimation red_amp_anim{255, 0, 0, 0, 1};
     ctre::phoenix::led::StrobeAnimation blue_amp_anim{0, 0, 255, 0, 1};
     ctre::phoenix::led::LarsonAnimation red_no_control_anim{255, 0, 0};
@@ -45,6 +41,5 @@ private:
 
     bool is_red();
 
-    double p_rpm = 0;
-    int p_led = 0;
+    frc::Timer m_candle_timer;
 };
