@@ -24,8 +24,7 @@ public:
    * Will be called periodically whenever the CommandScheduler runs.
    */
   
-  frc2::CommandPtr BrakeCommand();
-  frc2::CommandPtr CoastCommand();
+  frc2::CommandPtr SetBrakeCommand(bool enabled);
   frc2::CommandPtr DeployCommand();
   frc2::CommandPtr StartRightCommand();
   frc2::CommandPtr StartLeftCommand();

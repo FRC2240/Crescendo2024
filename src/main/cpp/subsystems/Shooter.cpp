@@ -34,28 +34,18 @@ void Shooter::set_angle(units::degree_t angle)
     fmt::println("SetAngle");
 }
 
-frc2::CommandPtr Shooter::BrakeCommand() {
-    return RunOnce([this] {
+frc2::CommandPtr Shooter::SetBrakeCommand(bool enabled) {
+    return RunOnce([this, enabled] {
         ctre::phoenix6::configs::TalonFXConfiguration brake_config{};
-        brake_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
-        
+        if(enabled) {
+            brake_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
+        } else {
+            brake_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Coast;
+        }
         m_left_motor.GetConfigurator().Apply(brake_config);
         m_right_motor.GetConfigurator().Apply(brake_config);
         m_angle_motor.GetConfigurator().Apply(brake_config);
         m_angle_motor2.GetConfigurator().Apply(brake_config);
-    })
-    .WithName("Brake");
-}
-
-frc2::CommandPtr Shooter::CoastCommand() {
-    return RunOnce([this] {
-        ctre::phoenix6::configs::TalonFXConfiguration coast_config{};
-        coast_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Coast;
-        
-        m_left_motor.GetConfigurator().Apply(coast_config);
-        m_right_motor.GetConfigurator().Apply(coast_config);
-        m_angle_motor.GetConfigurator().Apply(coast_config);
-        m_angle_motor2.GetConfigurator().Apply(coast_config);
     })
     .WithName("Brake");
 }

@@ -65,7 +65,24 @@ void RobotContainer::ConfigureBindings()
                   frc::SmartDashboard::PutBoolean("Threshold", CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30));
                   return CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30);
                 }}
-      .OnTrue(m_intake.RetractCommand()); 
+      .OnTrue(m_intake.RetractCommand());
+
+  // Brake button (probably broken)
+  /*frc2::Trigger{[this] -> bool
+                {
+                  return 
+                }}
+      .OnTrue(m_intake.ExtendCommand()); */
+
+  //on teleop
+
+
+/*
+  frc2::Trigger{[this] -> bool {
+    return frc::RobotState.isEnabled();
+  }}
+  .OnTrue()
+  */
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
@@ -113,4 +130,13 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
     frc::DataLogManager::Log("WARN: NO ERROR SELECTED");
     break;
   }
+}
+
+frc2::CommandPtr SetBrakeCommand(bool enabled) {
+  
+  return Shooter.SetBrakeCommand(enabled)
+    .AndThen(Intake.SetBrakeCommand(enabled))
+    .AndThen(Climber.SetBrakeCommand(enabled))
+    .AndThen(BuddyClimber.SetBrakeCommand(enabled));
+
 }

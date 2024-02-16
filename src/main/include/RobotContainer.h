@@ -22,6 +22,8 @@
 #include <frc2/command/button/Trigger.h>
 #include <pathplanner/lib/auto/NamedCommands.h>
 #include <subsystems/Shooter.h>
+#include <frc/DigitalInput.h>
+#include <frc/RobotState.h>
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -36,6 +38,8 @@ public:
   RobotContainer();
 
   frc2::CommandPtr GetAutonomousCommand();
+
+  frc2::CommandPtr SetBrakeCommand(bool enabled);
 
   frc2::CommandXboxController m_stick0{0};
   frc2::CommandXboxController m_stick1{1};
@@ -69,6 +73,8 @@ public:
   Climber m_climber{&m_stick0};
   Shooter m_shooter{&m_intake};
   BuddyClimber m_buddyClimber;
+
+  frc::DigitalInput m_brakeButton{0};
 
 private:
   // Replace with CommandPS4Controller or CommandJoystick if needed

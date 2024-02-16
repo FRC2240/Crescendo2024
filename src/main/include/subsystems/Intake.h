@@ -28,8 +28,7 @@ public:
    */
   void Periodic() override;
 
-  frc2::CommandPtr BrakeCommand();
-  frc2::CommandPtr CoastCommand();
+  frc2::CommandPtr SetBrakeCommand(bool enabled);
   frc2::CommandPtr ExtendCommand();
   frc2::CommandPtr RetractCommand();
   frc2::CommandPtr BraceCommand();
