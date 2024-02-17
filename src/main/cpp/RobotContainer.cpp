@@ -94,7 +94,7 @@ void RobotContainer::ConfigureBindings()
 
   // Reset encoder button
   frc2::Trigger{[this] -> bool {
-    return !m_resetButton.Get(); //remove NOT operator if broken
+    return (!m_resetButton.Get()) && frc::RobotState::IsDisabled(); //remove NOT operator if broken
   }}
   .OnTrue(ResetEncodersCommand());
 }
