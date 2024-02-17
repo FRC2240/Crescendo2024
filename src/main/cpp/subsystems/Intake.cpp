@@ -50,6 +50,12 @@ frc2::CommandPtr Intake::SetBrakeCommand(bool enabled) {
     .WithName("Brake");
 }
 
+frc2::CommandPtr Intake::ResetEncodersCommand() {
+    return RunOnce([this] {
+        m_angleMotor.SetPosition(0_tr);
+    });
+}
+
 frc2::CommandPtr Intake::ExtendCommand()
 {
     return frc2::RunCommand([this] -> void

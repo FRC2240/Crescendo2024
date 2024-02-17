@@ -34,6 +34,13 @@ void Shooter::set_angle(units::degree_t angle)
     fmt::println("SetAngle");
 }
 
+frc2::CommandPtr Shooter::ResetEncodersCommand() {
+    return RunOnce([this] {
+        m_angle_motor.SetPosition(0_tr);
+        m_angle_motor2.SetPosition(0_tr);
+    });
+}
+
 frc2::CommandPtr Shooter::SetBrakeCommand(bool enabled) {
     return RunOnce([this, enabled] {
         ctre::phoenix6::configs::TalonFXConfiguration brake_config{};
