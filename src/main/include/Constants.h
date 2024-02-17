@@ -93,7 +93,7 @@ namespace CONSTANTS
     constexpr double ANGLE_RATIO = 1; // CHANGEME
     constexpr units::turn_t FENDER_ANGLE = -11_tr;
     constexpr units::turn_t FENDER_TOLERANCE = 15_deg; // CHANGEME
-    constexpr units::degree_t AMP_ANGLE = 30_deg;
+    constexpr units::turn_t AMP_ANGLE = -10_tr;
     constexpr int BELT_ID = 7;
     constexpr units::turns_per_second_t LEFT_VELOCITY{10};  // CHANGEME;
     constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; // CHANGEME;

@@ -33,8 +33,6 @@ public:
     // https://stackoverflow.com/questions/16860960/how-should-one-use-stdoptional
     // for more info
 
-    std::optional<units::degree_t> get_shooter_angle();
-
     // Returns a vector of optionals of camera outputs.
     // The caller is expected to handle absent data, not the function.
     std::vector<std::optional<frc::Pose2d>> get_bot_position();

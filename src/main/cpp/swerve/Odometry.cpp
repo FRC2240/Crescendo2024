@@ -151,4 +151,11 @@ std::optional<units::meter_t> Odometry::get_dist_to_tgt()
         return std::nullopt;
     }
 }
+
+units::turn_t Odometry::get_shooter_angle()
+{
+    auto pose = getPose();
+    double x = pose.X().convert<units::foot>().value();
+    return units::turn_t{(0.0686 * std::pow(x, 2)) + (2.11 * x) + 19.8};
+}
 #endif

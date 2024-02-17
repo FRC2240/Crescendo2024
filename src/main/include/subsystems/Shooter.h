@@ -22,7 +22,8 @@ public:
 
   // This is a wrapper for set angle that is a cmdptr so it can be used in the auto shot compisiton
   // Overloaded so it can be used with vision
-  frc2::CommandPtr set_angle_cmd(units::degree_t angle);
+  frc2::CommandPtr set_angle_cmd(units::turn_t angle);
+
   frc2::CommandPtr set_angle_cmd(std::optional<units::degree_t> angle);
 
   units::degree_t get_angle();

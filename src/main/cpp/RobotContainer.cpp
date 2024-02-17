@@ -46,10 +46,10 @@ void RobotContainer::ConfigureBindings()
   m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup());
   m_stick0.LeftTrigger().ToggleOnTrue(m_intake.StartCommand());
 
-  //   m_stick.Y().OnTrue(
-  //       m_trajectory.auto_score_align()
-  //           .AlongWith(m_shooter.set_angle_cmd(m_vision.get_shooter_angle()))
-  //           .AndThen(m_shooter.execute_auto_shot().WithTimeout(0.5_s)));
+  m_stick0.RightTrigger().OnTrue(
+      m_trajectory.auto_score_align()
+          .AlongWith(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle()))
+          .AndThen(m_shooter.execute_auto_shot().WithTimeout(1.5_s)));
 
   // Buddy Climber
 
