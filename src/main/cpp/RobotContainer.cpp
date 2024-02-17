@@ -76,13 +76,17 @@ void RobotContainer::ConfigureBindings()
 
   //on teleop
 
-
-/*
   frc2::Trigger{[this] -> bool {
-    return frc::RobotState.isEnabled();
+    return frc::RobotState::IsTeleop();
   }}
-  .OnTrue()
-  */
+  .OnTrue(SetBrakeCommand(false));
+
+  frc2::Trigger{[this] -> bool {
+    return frc::RobotState::IsDisabled();
+  }}
+  .OnTrue(frc2::ConditionalCommand{SetBrakeCommand(false).Unwrap(), SetBrakeCommand(true).Unwrap(), [this] -> bool {
+    return m_brakeButton.Get();
+  }}.ToPtr());
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
@@ -132,11 +136,11 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
   }
 }
 
-frc2::CommandPtr SetBrakeCommand(bool enabled) {
+frc2::CommandPtr RobotContainer::SetBrakeCommand(bool enabled) {
   
-  return Shooter.SetBrakeCommand(enabled)
-    .AndThen(Intake.SetBrakeCommand(enabled))
-    .AndThen(Climber.SetBrakeCommand(enabled))
-    .AndThen(BuddyClimber.SetBrakeCommand(enabled));
+  return m_shooter.SetBrakeCommand(enabled)
+    .AndThen(m_intake.SetBrakeCommand(enabled))
+    .AndThen(m_climber.SetBrakeCommand(enabled))
+    .AndThen(m_buddyClimber.SetBrakeCommand(enabled));
 
 }

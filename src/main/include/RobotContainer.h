@@ -20,6 +20,7 @@
 #include <frc/DataLogManager.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc2/command/button/Trigger.h>
+#include <frc2/command/ConditionalCommand.h>
 #include <pathplanner/lib/auto/NamedCommands.h>
 #include <subsystems/Shooter.h>
 #include <frc/DigitalInput.h>
