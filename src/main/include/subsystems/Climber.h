@@ -21,6 +21,8 @@ public:
    */
   void Periodic() override;
 
+  frc2::CommandPtr SetBrakeCommand(bool enabled);
+
 private:
 
   frc::XboxController* m_stick;

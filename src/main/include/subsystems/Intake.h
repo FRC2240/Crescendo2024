@@ -28,6 +28,8 @@ public:
    */
   void Periodic() override;
 
+  frc2::CommandPtr SetBrakeCommand(bool enabled);
+  frc2::CommandPtr ResetEncodersCommand();
   frc2::CommandPtr ExtendCommand();
   frc2::CommandPtr RetractCommand();
   frc2::CommandPtr BraceCommand();

@@ -23,6 +23,8 @@ public:
   // Overloaded so it can be used with vision
   frc2::CommandPtr set_angle_cmd(units::degree_t angle);
   frc2::CommandPtr set_angle_cmd(std::optional<units::degree_t> angle);
+  frc2::CommandPtr SetBrakeCommand(bool enabled);
+  frc2::CommandPtr ResetEncodersCommand();
 
   units::degree_t get_angle();
 

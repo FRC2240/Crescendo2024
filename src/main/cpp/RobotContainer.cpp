@@ -65,7 +65,38 @@ void RobotContainer::ConfigureBindings()
                   frc::SmartDashboard::PutBoolean("Threshold", CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30));
                   return CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30);
                 }}
-      .OnTrue(m_intake.RetractCommand()); 
+      .OnTrue(m_intake.RetractCommand());
+
+  // brake button
+  // disable when robot enabled
+  frc2::Trigger{[this] -> bool {
+    m_brakeEnabled = false;
+    return frc::RobotState::IsEnabled();
+  }}
+  .OnTrue(SetBrakeCommand(false));
+
+  // toggle brakes on button press (probably implemented badly) 
+  frc2::Trigger{[this] -> bool {
+    return !m_brakeButton.Get(); //remove NOT operator if broken
+  }}
+  .OnTrue(frc2::ConditionalCommand{
+    SetBrakeCommand(false).Unwrap(),
+    SetBrakeCommand(true).Unwrap(),
+    [this] -> bool {
+      if(frc::RobotState::IsDisabled()){ // ensure doesn't run when disabled
+        m_brakeEnabled = !m_brakeEnabled; // very stupid toggle
+        return m_brakeEnabled;
+      } else {
+        m_brakeEnabled = false;
+        return false;
+      }
+  }}.ToPtr());
+
+  // Reset encoder button
+  frc2::Trigger{[this] -> bool {
+    return (!m_resetButton.Get()) && frc::RobotState::IsDisabled(); //remove NOT operator if broken
+  }}
+  .OnTrue(ResetEncodersCommand());
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
@@ -113,4 +144,18 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
     frc::DataLogManager::Log("WARN: NO ERROR SELECTED");
     break;
   }
+}
+
+frc2::CommandPtr RobotContainer::SetBrakeCommand(bool enabled) {
+  
+  return m_shooter.SetBrakeCommand(enabled)
+    .AndThen(m_intake.SetBrakeCommand(enabled))
+    .AndThen(m_climber.SetBrakeCommand(enabled))
+    .AndThen(m_buddyClimber.SetBrakeCommand(enabled));
+
+}
+
+frc2::CommandPtr RobotContainer::ResetEncodersCommand() {
+  return m_shooter.ResetEncodersCommand()
+  .AndThen(m_intake.ResetEncodersCommand());
 }

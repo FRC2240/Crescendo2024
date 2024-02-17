@@ -34,6 +34,29 @@ void Shooter::set_angle(units::degree_t angle)
     fmt::println("SetAngle");
 }
 
+frc2::CommandPtr Shooter::ResetEncodersCommand() {
+    return RunOnce([this] {
+        m_angle_motor.SetPosition(0_tr);
+        m_angle_motor2.SetPosition(0_tr);
+    });
+}
+
+frc2::CommandPtr Shooter::SetBrakeCommand(bool enabled) {
+    return RunOnce([this, enabled] {
+        ctre::phoenix6::configs::TalonFXConfiguration brake_config{};
+        if(enabled) {
+            brake_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
+        } else {
+            brake_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Coast;
+        }
+        m_left_motor.GetConfigurator().Apply(brake_config);
+        m_right_motor.GetConfigurator().Apply(brake_config);
+        m_angle_motor.GetConfigurator().Apply(brake_config);
+        m_angle_motor2.GetConfigurator().Apply(brake_config);
+    })
+    .WithName("Brake");
+}
+
 frc2::CommandPtr Shooter::fender_shot()
 {
 

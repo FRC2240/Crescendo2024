@@ -23,6 +23,20 @@ BuddyClimber::BuddyClimber()
     m_leftMotor.GetConfigurator().Apply(left_config);
 };
 
+frc2::CommandPtr BuddyClimber::SetBrakeCommand(bool enabled) {
+    return RunOnce([this, enabled] {
+        ctre::phoenix6::configs::TalonFXConfiguration brake_config{};
+        if(enabled) {
+            brake_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
+        } else {
+            brake_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Coast;
+        }
+        m_rightMotor.GetConfigurator().Apply(brake_config);
+        m_leftMotor.GetConfigurator().Apply(brake_config);
+    })
+    .WithName("Brake");
+}
+
 frc2::CommandPtr BuddyClimber::DeployCommand()
 {
     return RunOnce([this]
