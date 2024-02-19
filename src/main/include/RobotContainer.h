@@ -59,6 +59,7 @@ public:
     POS_2_LINE,
     POS_3_LINE,
     POS_1_GP2,
+    POS_2_GP1,
     POS_2_GP2,
     POS_3_GP2,
     POS_1_GP3,
