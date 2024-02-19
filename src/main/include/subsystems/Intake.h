@@ -22,6 +22,7 @@ public:
 
   // TODO: FIX
   bool is_loaded();
+  bool is_lower_tof_loaded();
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -42,7 +43,9 @@ public:
   ctre::phoenix6::hardware::TalonFX m_beltMotor{CONSTANTS::INTAKE::BELT_ID};
 
 private:
+  frc::Timer m_timer;
   frc::TimeOfFlight m_tof{CONSTANTS::INTAKE::TOF_ID};
+  frc::TimeOfFlight m_lower_tof{CONSTANTS::INTAKE::LOWER_TOF_ID};
   ctre::phoenix6::hardware::TalonFX m_angleMotor{CONSTANTS::INTAKE::ANGLE_ID};
 
   const units::angle::turn_t START_ROTATIONS{0};    // intake retracted position         (CHANGEME)

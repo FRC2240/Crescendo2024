@@ -164,7 +164,7 @@ frc2::CommandPtr Trajectory::auto_pickup()
     std::function<bool()> is_finished = [this]() -> bool
     {
         frc::DataLogManager::Log("fegij");
-        return m_intake->is_loaded();
+        return m_intake->is_lower_tof_loaded();
     };
 
     std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted)
@@ -176,7 +176,9 @@ frc2::CommandPtr Trajectory::auto_pickup()
 
 frc2::CommandPtr Trajectory::auto_score_align()
 {
-    std::function<void()> init = [this]() { /*no data currently needed */ };
+    std::function<void()> init = [this]() { /*no data currently needed */
+                                            frc::SmartDashboard::PutBoolean("shooter/is auto aligning", false);
+    };
     std::function<void()> periodic = [this]()
     {
         try
@@ -185,7 +187,10 @@ frc2::CommandPtr Trajectory::auto_score_align()
 
             if (angle)
             {
-                m_drivetrain->face_direction(0_deg, angle.value().value());
+                frc::DataLogManager::Log("here");
+                frc::SmartDashboard::PutBoolean("shooter/is auto aligning", true);
+                frc::SmartDashboard::PutNumber("auto score bot angle", angle.value().value());
+                m_drivetrain->face_direction(0_deg, -angle.value().value());
             }
         }
         catch (const std::exception &e)
@@ -201,11 +206,14 @@ frc2::CommandPtr Trajectory::auto_score_align()
 
         if (angle)
         {
-            return (CONSTANTS::IN_THRESHOLD<units::degree_t>(angle.value(), 0_deg, 1_deg));
+            return (CONSTANTS::IN_THRESHOLD<units::degree_t>(angle.value(), 0_deg, 5_deg));
         }
     };
 
-    std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
+    std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted)
+    {
+        fmt::println("end");
+    };
 
     return frc2::FunctionalCommand(init, periodic, end, is_finished, {this}).ToPtr();
 }

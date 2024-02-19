@@ -30,6 +30,8 @@ public:
 
   void set_angle(units::degree_t angle);
 
+  void set_angle(units::turn_t angle);
+
   frc2::CommandPtr execute_auto_shot();
 
   frc2::CommandPtr amp_shot();

@@ -58,6 +58,11 @@ bool Intake::is_loaded()
     return m_tof.GetRange() < CONSTANTS::INTAKE::LOADED_DIST;
 };
 
+bool Intake::is_lower_tof_loaded()
+{
+
+    return m_lower_tof.GetRange() < CONSTANTS::INTAKE::LOWER_LOADED_DIST;
+};
 frc2::CommandPtr Intake::ExtendCommand()
 {
     return frc2::RunCommand([this] -> void
@@ -91,13 +96,22 @@ frc2::CommandPtr Intake::BraceCommand()
 
 frc2::CommandPtr Intake::StartSpinCommand()
 {
-    return frc2::RunCommand([this]
-                            {
+    return frc2::InstantCommand([this]
+                                {m_timer.Reset(); m_timer.Stop(); },
+                                {this})
+        .ToPtr()
+        .AndThen(
+            frc2::RunCommand([this]
+                             {
                                 is_intaking = true;
                                  m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{-12})); },
-                            {this})
-        .Until([this] -> bool
-               { return is_loaded(); })
+                             {this})
+                .Until([this] -> bool
+                       { 
+                        if (is_loaded()) {
+                        m_timer.Start();
+                       }
+                       return m_timer.Get() >= 0.25_s; }))
         .WithName("StartSpin");
 };
 

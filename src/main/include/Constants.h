@@ -54,7 +54,9 @@ namespace CONSTANTS
   namespace INTAKE
   {
     constexpr double LOADED_DIST = 350;
+    constexpr double LOWER_LOADED_DIST = 350;
     constexpr int TOF_ID = 33;
+    constexpr int LOWER_TOF_ID = 33;
     constexpr int BELT_ID = 4;
     constexpr int ANGLE_ID = 3;
     constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
@@ -65,9 +67,9 @@ namespace CONSTANTS
   }                                                      // namespace INTAKE
   namespace VISION
   {
-    static const auto LEFT_CAMERA_A_TF = frc::Transform3d{0_in, -11_in, 22_in, frc::Rotation3d(0_rad, 0_rad, 180_deg)};
+    static const auto LEFT_CAMERA_A_TF = frc::Transform3d{0.307_m, -0.112_m, 0.558_m, frc::Rotation3d(0_rad, 0_rad, 180_deg)};
     static const auto LEFT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
-    static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{0_m, 11_in, 22_in, frc::Rotation3d(0_rad, 0_rad, 180_deg)};
+    static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{0.307_m, 0.112_m, 0.558_m, frc::Rotation3d(0_rad, 0_rad, 180_deg)};
     static const auto RIGHT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
 
   } // namespace VISION

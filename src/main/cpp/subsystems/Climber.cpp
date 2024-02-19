@@ -18,6 +18,7 @@ Climber::Climber(frc::XboxController *stick)
    right_climber_config.Slot0.kP = 1;
    right_climber_config.Slot0.kI = 0.1;
    right_climber_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
+   // right_climber_config.CurrentLimits.
    right_climber.GetConfigurator().Apply(right_climber_config);
    /*ctre::phoenix6::controls::Follower req{5, false};
    right_climber.SetControl(req);*/
