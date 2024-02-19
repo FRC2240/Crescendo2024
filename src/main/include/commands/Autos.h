@@ -20,4 +20,5 @@ namespace autos
     frc2::CommandPtr pos_1_gp4(Trajectory *traj);
     frc2::CommandPtr pos_2_gp4(Trajectory *traj);
     frc2::CommandPtr pos_3_gp4(Trajectory *traj);
+    frc2::CommandPtr test(Trajectory *traj);
 } // namespace autos

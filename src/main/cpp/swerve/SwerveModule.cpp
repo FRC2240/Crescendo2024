@@ -158,11 +158,13 @@ void SwerveModule::setDesiredState(frc::SwerveModuleState const &desired_state)
 inline units::turns_per_second_t SwerveModule::bot_speed_to_wheel_speed(units::meters_per_second_t bot_speed)
 {
     return units::turns_per_second_t{(bot_speed.value() / WHEEL_CIRCUMFERENCE.value())};
+    // return units::turns_per_second_t{(bot_speed.value())};
 }
 
 inline units::meters_per_second_t SwerveModule::wheel_speed_to_bot_speed(units::turns_per_second_t wheel_speed)
 {
     return units::meters_per_second_t{wheel_speed.value() * WHEEL_CIRCUMFERENCE.value()};
+    // return units::meters_per_second_t{wheel_speed.value()};
 }
 
 void SwerveModule::percentOutputControl(double const &percent_output)

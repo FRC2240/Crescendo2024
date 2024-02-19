@@ -6,6 +6,7 @@
 
 RobotContainer::RobotContainer()
 {
+  add_named_commands();
 
   // m_odometry.resetPosition(frc::Pose2d(1.6_m, 5_m, frc::Rotation2d(0_rad)),
   // frc::Rotation2d(0_rad)); Initialize all of your commands and subsystems
@@ -23,10 +24,19 @@ RobotContainer::RobotContainer()
   m_chooser.AddOption("Position 1 four game piece", AUTOS::POS_1_GP4);
   m_chooser.AddOption("Position 2 four game piece", AUTOS::POS_2_GP4);
   m_chooser.AddOption("Position 3 four game piece", AUTOS::POS_3_GP4);
+  m_chooser.AddOption("TEST", AUTOS::TEST);
 
   frc::SmartDashboard::PutData(&m_chooser);
   m_odometry.putField2d();
   ConfigureBindings();
+}
+
+void RobotContainer::add_named_commands()
+{
+  using namespace pathplanner;
+
+  NamedCommands::registerCommand("intake", std::move(m_intake.StartCommand()));
+  NamedCommands::registerCommand("score", std::move(m_shooter.fender_shot()));
 }
 
 void RobotContainer::ConfigureBindings()
@@ -44,7 +54,6 @@ void RobotContainer::ConfigureBindings()
   m_stick0.LeftBumper().ToggleOnTrue(m_intake.StartCommand());
   m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup());
   m_stick0.LeftTrigger().ToggleOnTrue(m_intake.StartCommand());
-
   // m_stick0.RightTrigger().ToggleOnTrue(
   // frc2::PrintCommand("button pressed").ToPtr().AndThen(m_trajectory.auto_score_align().AlongWith(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())).AndThen(m_shooter.execute_auto_shot().WithTimeout(1.5_s))));
 
@@ -132,6 +141,9 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
   case AUTOS::POS_3_GP4:
     return autos::pos_3_gp4(&m_trajectory);
     m_candle.auto_selected = true;
+    break;
+  case AUTOS::TEST:
+    return autos ::test(&m_trajectory);
     break;
   default:
     frc::DataLogManager::Log("WARN: NO ERROR SELECTED");

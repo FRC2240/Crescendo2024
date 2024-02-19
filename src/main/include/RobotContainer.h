@@ -36,6 +36,8 @@ class RobotContainer
 public:
   RobotContainer();
 
+  void add_named_commands();
+
   frc2::CommandPtr GetAutonomousCommand();
 
   frc2::CommandXboxController m_stick0{0};
@@ -52,6 +54,7 @@ public:
 
   enum AUTOS
   {
+    TEST,
     POS_1_LINE,
     POS_2_LINE,
     POS_3_LINE,

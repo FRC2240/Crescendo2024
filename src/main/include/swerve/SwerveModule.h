@@ -60,7 +60,7 @@ private:
     static constexpr units::length::meter_t WHEEL_RADIUS = 2.42_in; // measured
     static constexpr units::meter_t WHEEL_CIRCUMFERENCE = 1_in;     // Should be 12 but 2 is better.
 
-    static constexpr auto DRIVER_GEAR_RATIO = 6.75;
+    static constexpr auto DRIVER_GEAR_RATIO = 4.72;
     static constexpr auto TURNER_GEAR_RATIO = 150 / 7;
 
     static constexpr auto HUNDREDMILLISECONDS_TO_1SECOND = 10; // Ticks / 100 milliseconds * 10 = Ticks / 1 second
