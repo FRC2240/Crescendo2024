@@ -1,5 +1,6 @@
 #include "swerve/Vision.h"
 #include "swerve/Drivetrain.h"
+#include <frc/DataLogManager.h>
 
 Vision::Vision(std::function<units::degree_t()> get_angle_fn)
     : get_angle{get_angle_fn} {
@@ -67,9 +68,12 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
 
 std::optional<units::degree_t> Vision::get_coral_angle()
 {
+  std::string_view tclass = "tclass: " + m_fore_limelight->GetString("tclass", "NULL");
+  frc::DataLogManager::Log(tclass);
   if (m_fore_limelight->GetString("tclass", "ERROR") ==
       "note") // Assuming "note" is the correct key
   {
+    fmt::println("here!!!");
     units::degree_t tx{m_fore_limelight->GetNumber("tx", 0.0)};
     // Target is valid, return info
 
@@ -77,7 +81,8 @@ std::optional<units::degree_t> Vision::get_coral_angle()
   }
   else
   {
-    return std::nullopt;
+    fmt::println("there!!!");
+    return {};
   }
 }
 
@@ -127,5 +132,4 @@ std::optional<units::degree_t> Vision::get_apriltag_angle()
   }
 }
 
-std::optional<units::degree_t> Vision::get_shooter_angle() {}
 Vision::~Vision() = default;

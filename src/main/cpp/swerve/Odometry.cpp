@@ -151,4 +151,23 @@ std::optional<units::meter_t> Odometry::get_dist_to_tgt()
         return std::nullopt;
     }
 }
+
+units::turn_t Odometry::get_shooter_angle()
+{
+    auto pose = getPose();
+    double x = pose.X().convert<units::foot>().value();
+    double y = units::math::fabs(pose.Y() - 5.548_m).convert<units::foot>().value();
+    x = std::sqrt(std::pow(x, 2) + std::pow(y, 2));
+    units::turn_t angle = units::turn_t{-(0.047 * std::pow(x, 2)) + (1.62 * x) - 17.3};
+    frc::SmartDashboard::PutNumber("shooter/auto angle", angle.value());
+    if (angle < 0_tr && angle > -11_tr)
+    {
+
+        return angle;
+    }
+    else
+    {
+        return 0_tr;
+    }
+}
 #endif

@@ -1,5 +1,4 @@
 #include "swerve/Trajectory.h"
-
 #ifndef CFG_NO_DRIVEBASE
 /******************************************************************/
 /*                        Private Variables                       */
@@ -20,8 +19,8 @@
 
 frc::Timer m_trajTimer;
 
-Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc::XboxController *stick, Vision *vision)
-    : m_drivetrain{drivetrain}, m_odometry{odometry}, m_stick{stick}, m_vision{vision}
+Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc::XboxController *stick, Vision *vision, Intake *intake)
+    : m_drivetrain{drivetrain}, m_odometry{odometry}, m_stick{stick}, m_vision{vision}, m_intake{intake}
 {
     AutoBuilder::configureHolonomic(
         [this]() -> frc::Pose2d
@@ -123,9 +122,13 @@ frc2::CommandPtr Trajectory::extract(std::string auton)
     return PathPlannerAuto(auton).ToPtr();
 }
 
-frc2::CommandPtr Trajectory::auto_pickup(Intake *intake)
+frc2::CommandPtr Trajectory::auto_pickup()
 {
-    std::function<void()> init = [this]() { /*no data currently needed */ };
+
+    std::function<void()> init = [this]()
+    {
+        /*no data currently needed */
+        frc::DataLogManager::Log("posapo"); };
     std::function<void()> periodic = [this]()
     {
         try
@@ -134,37 +137,48 @@ frc2::CommandPtr Trajectory::auto_pickup(Intake *intake)
             if (angle)
             {
                 frc::SmartDashboard::PutString("coral intake state", "target locked");
+                frc::SmartDashboard::PutNumber("ima sicko mode", angle.value().value());
                 m_drivetrain->face_direction(0_deg, angle.value().value());
+                frc::DataLogManager::Log("3");
                 if (angle.value() < CONSTANTS::INTAKE::AUTO_PICKUP_THRESHOLD &&
                     angle.value() > -CONSTANTS::INTAKE::AUTO_PICKUP_THRESHOLD)
                 {
-                    m_drivetrain->drive(1_mps, 0_mps, (0_deg / 1_s), false);
+                    frc::DataLogManager::Log("4");
+                    m_drivetrain->drive(-10_fps, 0_mps, (0_deg / 1_s), false);
                 }
             }
             else
             {
+                frc::DataLogManager::Log("5");
                 frc::SmartDashboard::PutString("coral intake state", "no target found");
             }
         }
         catch (const std::exception &e)
         {
+            frc::DataLogManager::Log("6");
             fmt::println("ERROR: coral optional exeption");
             std::cerr << e.what() << '\n';
         }
-    };
+        frc::DataLogManager::Log("5.9"); };
 
-    std::function<bool()> is_finished = [this, &intake]() -> bool
+    std::function<bool()> is_finished = [this]() -> bool
     {
-        return intake->is_loaded();
+        frc::DataLogManager::Log("fegij");
+        return m_intake->is_lower_tof_loaded();
     };
 
-    std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
-    return frc2::FunctionalCommand(init, periodic, end, is_finished, {this, intake}).ToPtr();
+    std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted)
+    {
+        frc::DataLogManager::Log("end");
+    };
+    return frc2::FunctionalCommand(init, periodic, end, is_finished, {this}).ToPtr();
 }
 
 frc2::CommandPtr Trajectory::auto_score_align()
 {
-    std::function<void()> init = [this]() { /*no data currently needed */ };
+    std::function<void()> init = [this]() { /*no data currently needed */
+                                            frc::SmartDashboard::PutBoolean("shooter/is auto aligning", false);
+    };
     std::function<void()> periodic = [this]()
     {
         try
@@ -173,7 +187,10 @@ frc2::CommandPtr Trajectory::auto_score_align()
 
             if (angle)
             {
-                m_drivetrain->face_direction(0_deg, angle.value().value());
+                frc::DataLogManager::Log("here");
+                frc::SmartDashboard::PutBoolean("shooter/is auto aligning", true);
+                frc::SmartDashboard::PutNumber("auto score bot angle", angle.value().value());
+                m_drivetrain->face_direction(0_deg, -angle.value().value());
             }
         }
         catch (const std::exception &e)
@@ -189,11 +206,14 @@ frc2::CommandPtr Trajectory::auto_score_align()
 
         if (angle)
         {
-            return (CONSTANTS::IN_THRESHOLD<units::degree_t>(angle.value(), 0_deg, 1_deg));
+            return (CONSTANTS::IN_THRESHOLD<units::degree_t>(angle.value(), 0_deg, 5_deg));
         }
     };
 
-    std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
+    std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted)
+    {
+        fmt::println("end");
+    };
 
     return frc2::FunctionalCommand(init, periodic, end, is_finished, {this}).ToPtr();
 }

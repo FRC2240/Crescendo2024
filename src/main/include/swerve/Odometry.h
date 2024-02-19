@@ -68,5 +68,7 @@ public:
     std::optional<units::degree_t> get_coral();
 
     std::optional<units::meter_t> get_dist_to_tgt();
+
+    units::turn_t get_shooter_angle();
 };
 #endif

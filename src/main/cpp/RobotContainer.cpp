@@ -33,39 +33,31 @@ void RobotContainer::ConfigureBindings()
 {
   // Configure your trigger bindings here
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
+  m_shooter.SetDefaultCommand(m_shooter.default_cmd());
+  m_intake.SetDefaultCommand(m_intake.StopCommand());
   m_stick1.RightStick().OnTrue(m_trajectory.manual_drive());
 
   // Shooter
-  m_stick0.X().ToggleOnTrue(m_shooter.fender_shot());
+  m_stick0.X().ToggleOnTrue(m_shooter.test_shot());
+  m_stick0.RightBumper().ToggleOnTrue(m_shooter.fender_shot());
   m_stick0.A().ToggleOnTrue(m_shooter.amp_shot());
-  m_stick0.RightTrigger().OnTrue(m_shooter.execute_auto_shot());
+  m_stick0.LeftBumper().ToggleOnTrue(m_intake.StartCommand());
+  m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup());
+  m_stick0.LeftTrigger().ToggleOnTrue(m_intake.StartCommand());
 
-  //   m_stick.Y().OnTrue(
-  //       m_trajectory.auto_score_align()
-  //           .AlongWith(m_shooter.set_angle_cmd(m_vision.get_shooter_angle()))
-  //           .AndThen(m_shooter.execute_auto_shot().WithTimeout(0.5_s)));
+  // m_stick0.RightTrigger().ToggleOnTrue(
+  // frc2::PrintCommand("button pressed").ToPtr().AndThen(m_trajectory.auto_score_align().AlongWith(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())).AndThen(m_shooter.execute_auto_shot().WithTimeout(1.5_s))));
+
+  m_stick0.RightTrigger().ToggleOnTrue(frc2::cmd::DeferredProxy([this]
+                                                                { return m_shooter.set_angle_cmd(m_odometry.get_shooter_angle()); }));
 
   // Buddy Climber
-  m_stick1.LeftBumper().OnTrue(m_buddyClimber.StartLeftCommand());
+
+  m_stick1.LeftBumper()
+      .OnTrue(m_buddyClimber.StartLeftCommand());
   m_stick1.RightBumper().OnTrue(m_buddyClimber.StartRightCommand());
   m_stick1.Start().OnTrue(m_buddyClimber.DeployCommand());
   m_stick1.Back().OnTrue(m_buddyClimber.ResetCommand());
-
-  // Intake
-  frc2::Trigger{[this] -> bool
-                {
-                  int pov = m_stick1.GetPOV();
-                  return pov == 0;
-                }}
-      .OnTrue(m_intake.ExtendCommand()); 
-
-  frc2::Trigger{[this] -> bool
-                {
-                  frc::SmartDashboard::PutNumber("pov", m_stick1.GetPOV());
-                  frc::SmartDashboard::PutBoolean("Threshold", CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30));
-                  return CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30);
-                }}
-      .OnTrue(m_intake.RetractCommand()); 
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
