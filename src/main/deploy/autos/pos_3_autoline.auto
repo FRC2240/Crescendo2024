@@ -1,0 +1,25 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 9.760620425333704,
+      "y": 5.882980709150178
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "pos_3_autoline"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "cross_autoline",
+  "choreoAuto": false
+}
