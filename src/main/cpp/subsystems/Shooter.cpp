@@ -313,7 +313,7 @@ frc2::CommandPtr Shooter::amp_shot()
                periodic,
                end,
                is_finished,
-               {this})
+               {this}) t
         .ToPtr()
         .AndThen(frc2::RunCommand([this]
                                   {
@@ -322,4 +322,11 @@ frc2::CommandPtr Shooter::amp_shot()
                                   {this})
                      .ToPtr()
                      .WithTimeout(1.5_s));
+}
+
+frc2::CommandPtr Shooter::intake()
+{
+    return frc2::cmd::Run([this]
+                          { m_belt_motor.Set(.25); },
+                          {this});
 }

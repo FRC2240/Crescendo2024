@@ -6,7 +6,6 @@
 
 RobotContainer::RobotContainer()
 {
-  add_named_commands();
 
   // m_odometry.resetPosition(frc::Pose2d(1.6_m, 5_m, frc::Rotation2d(0_rad)),
   // frc::Rotation2d(0_rad)); Initialize all of your commands and subsystems
@@ -30,14 +29,16 @@ RobotContainer::RobotContainer()
   frc::SmartDashboard::PutData(&m_chooser);
   m_odometry.putField2d();
   ConfigureBindings();
+  add_named_commands();
 }
 
 void RobotContainer::add_named_commands()
 {
   using namespace pathplanner;
 
-  NamedCommands::registerCommand("intake", std::move(m_intake.StartCommand()));
-  NamedCommands::registerCommand("score", std::move(m_shooter.fender_shot()));
+  NamedCommands::registerCommand("intake", std::move(m_intake.StartCommand().AlongWith(m_shooter.intake())));
+  NamedCommands::registerCommand("score", std::move(m_shooter.fender_shot()
+                                                        .WithTimeout(1_s)));
 }
 
 void RobotContainer::ConfigureBindings()

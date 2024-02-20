@@ -38,6 +38,8 @@ public:
 
   frc2::CommandPtr default_cmd();
 
+  frc2::CommandPtr intake();
+
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
