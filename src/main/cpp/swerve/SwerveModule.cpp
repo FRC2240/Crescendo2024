@@ -56,6 +56,8 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
     driver_config.CurrentLimits.StatorCurrentLimit = 70;
     // driver_config.CurrentLimits.SupplyCurrentLimitEnable
     driver_config.MotorOutput.NeutralMode.value = driver_config.MotorOutput.NeutralMode.Brake;
+    driver_config.Feedback.SensorToMechanismRatio = 4.722;
+    driver_config.Feedback.RotorToSensorRatio = 1.0;
     //  TODO: TUNING
     driver.SetInverted(false);
     driver.GetConfigurator().Apply(driver_config);
@@ -94,7 +96,7 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
 frc::SwerveModuleState SwerveModule::getState()
 {
     frc::SwerveModuleState ret;
-    ret.speed = units::meters_per_second_t{wheel_speed_to_bot_speed(driver.GetVelocity().Refresh().GetValue())};
+    ret.speed = wheel_speed_to_bot_speed(driver.GetVelocity().Refresh().GetValue());
     ret.angle = frc::Rotation2d(getAngle());
 
     return ret;
@@ -103,7 +105,7 @@ frc::SwerveModuleState SwerveModule::getState()
 frc::SwerveModulePosition SwerveModule::getPosition()
 {
     frc::SwerveModulePosition ret;
-    ret.distance = units::meter_t{driver.GetPosition().Refresh().GetValue().value() * WHEEL_CIRCUMFERENCE.value()};
+    ret.distance = driver.GetPosition().Refresh().GetValue() * WHEEL_CIRCUMFERENCE;
     ret.angle = frc::Rotation2d(getAngle());
     return ret;
 }
@@ -157,12 +159,12 @@ void SwerveModule::setDesiredState(frc::SwerveModuleState const &desired_state)
 
 inline units::turns_per_second_t SwerveModule::bot_speed_to_wheel_speed(units::meters_per_second_t bot_speed)
 {
-    return units::turns_per_second_t{(bot_speed.value() / WHEEL_CIRCUMFERENCE.value())};
+    return bot_speed / WHEEL_CIRCUMFERENCE;
 }
 
 inline units::meters_per_second_t SwerveModule::wheel_speed_to_bot_speed(units::turns_per_second_t wheel_speed)
 {
-    return units::meters_per_second_t{wheel_speed.value() * WHEEL_CIRCUMFERENCE.value()};
+    return wheel_speed * WHEEL_CIRCUMFERENCE;
 }
 
 void SwerveModule::percentOutputControl(double const &percent_output)
