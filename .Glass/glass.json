@@ -116,8 +116,7 @@
         "open": true
       },
       "open": true
-    },
-    "visible": true
+    }
   },
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
@@ -211,7 +210,10 @@
             }
           ]
         }
-      ]
+      ],
+      "window": {
+        "visible": false
+      }
     },
     "Plot <2>": {
       "plots": [
@@ -222,7 +224,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 338,
+          "height": 331,
           "series": [
             {
               "color": [
@@ -244,7 +246,10 @@
             }
           ]
         }
-      ]
+      ],
+      "window": {
+        "visible": false
+      }
     },
     "Plot <3>": {
       "plots": [
@@ -255,7 +260,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 338,
+          "height": 849,
           "series": [
             {
               "color": [
@@ -359,7 +364,10 @@
             }
           ]
         }
-      ]
+      ],
+      "window": {
+        "visible": false
+      }
     }
   }
 }
