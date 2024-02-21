@@ -313,7 +313,7 @@ frc2::CommandPtr Shooter::amp_shot()
                periodic,
                end,
                is_finished,
-               {this}) t
+               {this})
         .ToPtr()
         .AndThen(frc2::RunCommand([this]
                                   {
