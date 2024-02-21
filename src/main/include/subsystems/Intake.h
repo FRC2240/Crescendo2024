@@ -29,6 +29,7 @@ public:
    */
   void Periodic() override;
 
+  frc2::CommandPtr BackCommand();
   frc2::CommandPtr ExtendCommand();
   frc2::CommandPtr RetractCommand();
   frc2::CommandPtr BraceCommand();
