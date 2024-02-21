@@ -66,8 +66,10 @@ void RobotContainer::ConfigureBindings()
                   return CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30);
                 }}
       .OnTrue(m_intake.RetractCommand());
-
+  // Candle
   m_candle.SetDefaultCommand(m_candle.run_disabled());
+  m_stick1.Y().OnTrue(m_candle.fast_yellow_blink());
+  m_stick1.A().OnTrue(m_candle.amp_blink());
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
