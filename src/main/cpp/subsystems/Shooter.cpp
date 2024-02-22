@@ -34,6 +34,13 @@ void Shooter::Periodic()
 {
 }
 
+frc2::CommandPtr Shooter::BackCommand()
+{
+    m_left_motor.SetControl(ctre::phoenix6::controls::VoltageOut{CONSTANTS::SHOOTER::BACKWARDS_VOLTAGE});
+    m_right_motor.SetControl(ctre::phoenix6::controls::VoltageOut{CONSTANTS::SHOOTER::BACKWARDS_VOLTAGE});
+    m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{CONSTANTS::SHOOTER::BACKWARDS_VOLTAGE});
+}
+
 frc2::CommandPtr Shooter::default_cmd()
 {
     return frc2::RunCommand(

@@ -58,6 +58,10 @@ void RobotContainer::ConfigureBindings()
   m_stick1.RightBumper().OnTrue(m_buddyClimber.StartRightCommand());
   m_stick1.Start().OnTrue(m_buddyClimber.DeployCommand());
   m_stick1.Back().OnTrue(m_buddyClimber.ResetCommand());
+  
+  // Back button
+  m_stick1.LeftBumper().OnTrue(BackCommand());
+  m_stick1.RightBumper().OnTrue(BackCommand());
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
@@ -105,4 +109,9 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
     frc::DataLogManager::Log("WARN: NO ERROR SELECTED");
     break;
   }
+}
+
+frc2::CommandPtr RobotContainer::BackCommand() {
+  return m_shooter.BackCommand()
+  .AndThen(m_intake.BackCommand());
 }

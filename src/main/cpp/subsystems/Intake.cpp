@@ -138,17 +138,7 @@ frc2::CommandPtr Intake::StopCommand()
     return StopSpinCommand().AndThen(RetractCommand()).WithName("Stop");
 };
 
-/*
-New position [DONE]
-Belt combined
-Motor in intake
-Shooter gets pointer to class in constructor
-How does Shooter access Belt?
-
-*/
-
-/*
-
-
-
-*/
+frc2::CommandPtr Intake::BackCommand()
+{
+    m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut{CONSTANTS::INTAKE::BACKWARDS_VOLTAGE});
+}
