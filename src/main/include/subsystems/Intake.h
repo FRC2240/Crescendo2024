@@ -15,6 +15,15 @@
 #include "frc2/command/PrintCommand.h"
 #include "frc/smartdashboard/SmartDashboard.h"
 #include <TimeOfFlight.h>
+
+#include "Constants.h"
+#include <frc2/command/SubsystemBase.h>
+#include <frc2/command/CommandPtr.h>
+#include <ctre/phoenix6/TalonFX.hpp>
+#include <ctre/phoenix6/CANcoder.hpp>
+#include <frc2/command/RunCommand.h>
+#include "subsystems/Intake.h"
+#include "swerve/Odometry.h"
 class Intake : public frc2::SubsystemBase
 {
 public:

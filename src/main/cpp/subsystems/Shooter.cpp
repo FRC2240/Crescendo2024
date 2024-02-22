@@ -32,6 +32,18 @@ Shooter::Shooter(Odometry *odometry, Intake *intake) : m_odometry{odometry}, m_i
 // This method will be called once per scheduler run
 void Shooter::Periodic()
 {
+    if (m_intake->is_intaking)
+    {
+        frc::SmartDashboard::PutBoolean("intaking", 1);
+        m_belt_motor.Set(.25);
+        set_angle(0_tr);
+    }
+    else
+    {
+
+        m_belt_motor.SetControl(ctre::phoenix6::controls::VelocityVoltage(0_tr / 1_s));
+        frc::SmartDashboard::PutBoolean("intaking", 0);
+    }
 }
 
 frc2::CommandPtr Shooter::default_cmd()
@@ -56,19 +68,19 @@ frc2::CommandPtr Shooter::default_cmd()
                    //            set_angle(m_odometry->get_shooter_angle());
                    //        }
                    //    }
-                   if (m_intake->is_intaking)
-                   {
-                       frc::SmartDashboard::PutBoolean("intaking", 1);
-                       m_belt_motor.Set(.25);
-                       set_angle(0_tr);
-                   }
-                   else
-                   {
+                   //    if (m_intake->is_intaking)
+                   //    {
+                   //        frc::SmartDashboard::PutBoolean("intaking", 1);
+                   //        m_belt_motor.Set(.25);
+                   //        set_angle(0_tr);
+                   //    }
+                   //    else
+                   //    {
 
-                       m_belt_motor.SetControl(ctre::phoenix6::controls::VelocityVoltage(0_tr / 1_s));
-                       frc::SmartDashboard::PutBoolean("intaking", 0);
-                   }
-                   //    m_left_motor.SetControl(req);
+                   //        m_belt_motor.SetControl(ctre::phoenix6::controls::VelocityVoltage(0_tr / 1_s));
+                   //        frc::SmartDashboard::PutBoolean("intaking", 0);
+                   //    }
+                   //    //    m_left_motor.SetControl(req);
                    //    m_right_motor.SetControl(req);
                    set_angle(0_tr);
                    m_left_motor.Set(0);
@@ -177,11 +189,16 @@ frc2::CommandPtr Shooter::fender_shot()
         .ToPtr()
         .AndThen(frc2::RunCommand([this]
                                   {
-                                      m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{12}}); // changeme
+                                      m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{8}}); // changeme
                                   },
                                   {this})
                      .ToPtr()
-                     .WithTimeout(1.5_s));
+                     .WithTimeout(1.5_s))
+        .AndThen(frc2::cmd::RunOnce([this]
+                                    {
+                                    m_left_motor.Set(0); 
+                                    m_right_motor.Set(0); 
+                                    m_angle_motor.SetControl(ctre::phoenix6::controls::PositionVoltage{0_tr}); }));
 }
 
 units::degree_t Shooter::get_angle()
@@ -324,9 +341,14 @@ frc2::CommandPtr Shooter::amp_shot()
                      .WithTimeout(1.5_s));
 }
 
-frc2::CommandPtr Shooter::intake()
+frc2::CommandPtr Shooter::intake_cmd()
 {
     return frc2::cmd::Run([this]
                           { m_belt_motor.Set(.25); },
                           {this});
+}
+
+void Shooter::intake()
+{
+    m_belt_motor.Set(.25);
 }

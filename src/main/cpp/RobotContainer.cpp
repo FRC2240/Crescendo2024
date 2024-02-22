@@ -36,9 +36,9 @@ void RobotContainer::add_named_commands()
 {
   using namespace pathplanner;
 
-  NamedCommands::registerCommand("intake", std::move(m_intake.StartCommand().AlongWith(m_shooter.intake())));
-  NamedCommands::registerCommand("score", std::move(m_shooter.fender_shot()
-                                                        .WithTimeout(1_s)));
+  NamedCommands::registerCommand("intake", std::move(m_intake.StartCommand()));
+  NamedCommands::registerCommand("score", std::move(m_shooter.fender_shot()));
+  NamedCommands::registerCommand("auto_score", std::move(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())));
 }
 
 void RobotContainer::ConfigureBindings()
@@ -55,7 +55,6 @@ void RobotContainer::ConfigureBindings()
   m_stick0.A().ToggleOnTrue(m_shooter.amp_shot());
   m_stick0.LeftBumper().ToggleOnTrue(m_intake.StartCommand());
   m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup());
-  m_stick0.LeftTrigger().ToggleOnTrue(m_intake.StartCommand());
   // m_stick0.RightTrigger().ToggleOnTrue(
   // frc2::PrintCommand("button pressed").ToPtr().AndThen(m_trajectory.auto_score_align().AlongWith(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())).AndThen(m_shooter.execute_auto_shot().WithTimeout(1.5_s))));
 

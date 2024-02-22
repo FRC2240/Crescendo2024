@@ -37,18 +37,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "score"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "pos_2_gp2_speaker"
@@ -58,12 +46,6 @@
           "type": "named",
           "data": {
             "name": "score"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
           }
         }
       ]

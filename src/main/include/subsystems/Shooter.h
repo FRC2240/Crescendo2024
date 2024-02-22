@@ -38,7 +38,9 @@ public:
 
   frc2::CommandPtr default_cmd();
 
-  frc2::CommandPtr intake();
+  frc2::CommandPtr intake_cmd();
+
+  void intake();
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
