@@ -14,50 +14,95 @@ Candle::Candle()
     m_candle.SetLEDs(0, 0, 0);
 }
 
-frc2::CommandPtr Candle::Purple()
+bool Candle::is_red()
+{
+    if (frc::DriverStation::GetAlliance())
+    {
+        if (frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kBlue)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+void Candle::Periodic(){}
+
+frc2::CommandPtr Candle::fast_yellow_blink()
 {
     return frc2::RunCommand([this]
-                            { m_candle.SetLEDs(82, 28, 200); },
+                            { m_candle.Animate(yellow_strobe_anim); },
                             {this})
-        .WithName("Purple");
+        .WithName("Fast Yellow Blink");
 };
 
-frc2::CommandPtr Candle::Yellow()
+frc2::CommandPtr Candle::amp_blink()
 {
-    return frc2::RunCommand([this]
-                            { m_candle.SetLEDs(254, 162, 1); },
-                            {this})
-        .WithName("Yellow");
+    return frc2::RunCommand([this] { 
+        if (m_alliance == frc::DriverStation::Alliance::kRed) {
+            m_candle.Animate(red_amp_anim);
+        }
+        else {
+            m_candle.Animate(blue_amp_anim);
+        }
+    },
+    {this})
+    .WithName("Amp Blink");
 };
 
-frc2::CommandPtr Candle::Red()
+frc2::CommandPtr Candle::not_driver_controlled()
 {
-    return frc2::RunCommand([this]
-                            { m_candle.SetLEDs(255, 0, 0); },
-                            {this})
-        .WithName("Red");
+    return frc2::RunCommand([this] { 
+        if (m_alliance == frc::DriverStation::Alliance::kRed) {
+            m_candle.Animate(red_no_control_anim);
+        }
+        else {
+            m_candle.Animate(blue_no_control_anim);
+        }
+    },
+    {this})
+    .WithName("No Control");
 };
 
-frc2::CommandPtr Candle::Blue()
+frc2::CommandPtr Candle::off()
 {
     return frc2::RunCommand([this]
-                            { m_candle.SetLEDs(0, 0, 255); },
-                            {this})
-        .WithName("Blue");
-};
-
-frc2::CommandPtr Candle::Rainbow()
-{
-    return frc2::RunCommand([this]
-                            { m_candle.Animate(rainbow_anim); },
-                            {this})
-        .WithName("Rainbow");
-};
-
-frc2::CommandPtr Candle::Off()
-{
-    return frc2::RunCommand([this]
-                            { m_candle.SetLEDs(0, 0, 0); },
+                            { m_candle.SetLEDs(0, 0, 0);
+                              m_candle.ClearAnimation(0); },
                             {this})
         .WithName("Off");
 };
+
+frc2::CommandPtr Candle::run_disabled()
+{
+    return frc2::RunCommand([this]
+                            {       
+        m_candle_timer.Start();          
+        if (!frc::DriverStation::IsFMSAttached()) {
+            if (m_candle_timer.Get() < units::time::second_t(0.5)) {
+                m_candle.SetLEDs(0, 0, 0);
+            } else if (m_candle_timer.Get() < units::time::second_t(1.0)) {
+                m_candle.SetLEDs(255, 0, 0);
+            } else {
+                m_candle_timer.Reset();
+            }
+        }
+
+        else if (!has_vision || !auto_selected) {
+            if (m_candle_timer.Get() < units::time::second_t(0.5)) {
+                m_candle.SetLEDs(0, 0, 0);
+            } else if (m_candle_timer.Get() < units::time::second_t(1.0)) {
+                m_candle.SetLEDs(255, 234, 0);
+            } else {
+                m_candle_timer.Reset();
+                m_candle.SetLEDs(0, 0, 0);
+            }
+        }
+        else if (frc::DriverStation::IsFMSAttached() && has_vision && auto_selected) {
+            m_candle.Animate(rainbow_anim);
+            m_candle_timer.Stop();
+            m_candle_timer.Reset();
+        } },
+                            {this})
+        .WithName("Run Disabled").IgnoringDisable(true);
+}

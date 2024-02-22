@@ -20,7 +20,12 @@ void Robot::RobotPeriodic()
 
 void Robot::DisabledInit() {}
 
-void Robot::DisabledPeriodic() {}
+void Robot::DisabledPeriodic()
+{
+  m_container.m_vision.get_bot_position();
+  std::optional<frc::Pose2d> sample = m_container.m_vision.get_bot_position().size() > 0 ? m_container.m_vision.get_bot_position()[0] : std::nullopt;
+  m_container.m_candle.has_vision = (sample.has_value());
+}
 
 void Robot::DisabledExit() {}
 
