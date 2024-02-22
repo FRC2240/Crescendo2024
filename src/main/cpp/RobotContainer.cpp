@@ -60,8 +60,8 @@ void RobotContainer::ConfigureBindings()
   m_stick1.Back().OnTrue(m_buddyClimber.ResetCommand());
   
   // Back button
-  m_stick1.LeftBumper.OnTrue(BackCommand());
-  m_stick1.RightBumper.OnTrue(BackCommand());
+  m_stick1.LeftBumper().OnTrue(BackCommand());
+  m_stick1.RightBumper().OnTrue(BackCommand());
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()

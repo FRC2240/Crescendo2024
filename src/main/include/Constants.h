@@ -65,7 +65,7 @@ namespace CONSTANTS
     constexpr units::turn_t BRACE_POSITION = 2.33_tr;
     constexpr units::turn_t UP_POSITION = 0_tr;          // Change to 0 for prod
     constexpr units::turn_t ROTATION_THRESHOLD = 0.2_tr; // CHANGEME
-    constexpr units::voltage::volt_t BACKWARDS_VOLTAGE{-6.0}
+    constexpr units::voltage::volt_t BACKWARDS_VOLTAGE{-6.0};
   }                                                      // namespace INTAKE
   namespace VISION
   {
@@ -101,7 +101,7 @@ namespace CONSTANTS
     constexpr int BELT_ID = 7;
     constexpr units::turns_per_second_t LEFT_VELOCITY{10};  // CHANGEME;
     constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; // CHANGEME;
-    constexpr units::voltage::volt_t BACKWARDS_VOLTAGE{-6.0}
+    constexpr units::voltage::volt_t BACKWARDS_VOLTAGE{-6.0};
 
   } // namespace SHOOTER
 
