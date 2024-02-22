@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.65,
+        "y": 4.1
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.9538304740769885,
+        "y": 4.228096275741424
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.7,
+        "y": 4.9
+      },
+      "prevControl": {
+        "x": 1.8543064730490892,
+        "y": 4.416493920975299
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -25.560000000000002,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "gp2_speaker",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}

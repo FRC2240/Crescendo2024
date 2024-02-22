@@ -4,6 +4,9 @@
       "open": false
     },
     "retained": {
+      "SmartDashboard": {
+        "open": true
+      },
       "limelight": {
         "double[]##v_/limelight/botpose": {
           "open": true
@@ -17,6 +20,19 @@
         "double[]##v_/limelight/botpose_wpired": {
           "open": true
         }
+      },
+      "limelight-aft": {
+        "double[]##v_/limelight-aft/botpose_wpiblue": {
+          "open": true
+        },
+        "double[]##v_/limelight-aft/botpose_wpired": {
+          "open": true
+        }
+      },
+      "limelight-fore": {
+        "double[]##v_/limelight-fore/botpose_wpiblue": {
+          "open": true
+        }
       }
     },
     "transitory": {
@@ -25,6 +41,9 @@
       },
       "SmartDashboard": {
         "Talon FX (v6) 60": {
+          "open": true
+        },
+        "cspeed": {
           "open": true
         },
         "odometry": {
@@ -42,6 +61,9 @@
             "open": true
           },
           "open": true
+        },
+        "shooter": {
+          "open": true
         }
       },
       "limelight-jank": {
@@ -56,13 +78,15 @@
         "left_camera_a": {
           "double[]##v_/photonvision/left_camera_a/targetPose": {
             "open": true
-          },
-          "open": true
+          }
         },
         "photon-left-n": {
           "open": true
         },
         "photon-right-a": {
+          "open": true
+        },
+        "right_camera_a": {
           "open": true
         }
       }
@@ -163,7 +187,10 @@
             }
           ]
         }
-      ]
+      ],
+      "window": {
+        "visible": false
+      }
     },
     "Plot <1>": {
       "plots": [
@@ -184,6 +211,154 @@
                 1.0
               ],
               "id": "NT:/SmartDashboard/Talon FX (v6) 60/vout"
+            }
+          ]
+        }
+      ]
+    },
+    "Plot <2>": {
+      "plots": [
+        {
+          "backgroundColor": [
+            0.0,
+            0.0,
+            0.0,
+            0.8500000238418579
+          ],
+          "height": 338,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/tof"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/intaking"
+            }
+          ]
+        }
+      ]
+    },
+    "Plot <3>": {
+      "plots": [
+        {
+          "backgroundColor": [
+            0.0,
+            0.0,
+            0.0,
+            0.8500000238418579
+          ],
+          "height": 338,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/odometry/X",
+              "marker": "Circle"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/odometry/Y",
+              "marker": "Circle"
+            }
+          ]
+        }
+      ]
+    },
+    "Plot <4>": {
+      "plots": [
+        {
+          "backgroundColor": [
+            0.0,
+            0.0,
+            0.0,
+            0.8500000238418579
+          ],
+          "height": 338,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/PID target"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/PID out"
+            },
+            {
+              "color": [
+                0.3333333432674408,
+                0.658823549747467,
+                0.4078431725502014,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/Current  rotation"
+            }
+          ]
+        }
+      ],
+      "window": {
+        "visible": false
+      }
+    },
+    "Plot <5>": {
+      "plots": [
+        {
+          "backgroundColor": [
+            0.0,
+            0.0,
+            0.0,
+            0.8500000238418579
+          ],
+          "height": 338,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/shooter/auto angle",
+              "marker": "Square"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/auto score bot angle",
+              "marker": "Circle"
             }
           ]
         }

@@ -108,7 +108,7 @@ units::degree_t Drivetrain::getAngle()
     navx.ZeroYaw(); // This can't be called in init() since the gyro will still be calibrating
     first_time_getting_angle = false;
   }
-  return units::degree_t{navx.GetAngle()};
+  return units::degree_t{-navx.GetAngle()};
 }
 // IMPORTANT: CCW (counterclockwise) must not be inverted and CW (clockwise)
 // must be. If CCW is negative and CW is positive, a 90 degree turn will
@@ -382,7 +382,7 @@ bool Drivetrain::face_direction(units::degree_t tgt, double feedback_device)
 {
   turn_coral_pid.SetSetpoint(tgt.value());
   double pid_out = turn_coral_pid.Calculate(feedback_device);
-  drive(0_mps, 0_mps, units::degrees_per_second_t{pid_out}, false);
+  drive(0_mps, 0_mps, units::degrees_per_second_t{-pid_out}, false);
   frc::SmartDashboard::PutNumber("PID out", pid_out);
   frc::SmartDashboard::PutNumber("PID target", tgt.value());
   frc::SmartDashboard::PutNumber("Current  rotation", feedback_device);

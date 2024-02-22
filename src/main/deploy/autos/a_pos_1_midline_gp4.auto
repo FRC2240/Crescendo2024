@@ -1,0 +1,121 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "pos_1_midline"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "midline_shot_1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "shot_midline_2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "midline_shot_2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "shot_midline_3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "midline_shot_3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        }
+      ]
+    }
+  },
+  "folder": "midlines",
+  "choreoAuto": false
+}

@@ -156,7 +156,7 @@ private:
     AHRS navx{frc::SPI::Port::kMXP};
     CONSTANTS::PidCoeff pid_coef{6, 0.0, 0.0, 0.0, 0.0, -1, 1};
     frc::PIDController turn_pid{pid_coef.p, pid_coef.i, pid_coef.d};
-    CONSTANTS::PidCoeff pid_coral_coef{-6.0, 0.0, 0.0, 0.0, 0.0, -1, 1};
+    CONSTANTS::PidCoeff pid_coral_coef{6.0, 0.0, 0.0, 0.0, 0.0, -1, 1};
     frc::PIDController turn_coral_pid{pid_coral_coef.p, pid_coral_coef.i, pid_coral_coef.d};
 };
 

@@ -1,0 +1,25 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "pos_1_gp1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "pos_1_gp2_speaker"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "gp2",
+  "choreoAuto": false
+}

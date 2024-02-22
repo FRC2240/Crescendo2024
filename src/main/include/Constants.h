@@ -14,7 +14,8 @@
 #include <frc/geometry/Transform3d.h>
 #include <numbers>
 
-// #define BETABOT
+// #define COLFAX_BOT
+ #define BETABOT
 //  When using the second robot, uncomment the above line
 
 // #define MOD_AMP
@@ -52,24 +53,32 @@ namespace CONSTANTS
 
   namespace INTAKE
   {
-    constexpr int BELT_ID = 20;
-    constexpr int ANGLE_ID = 10;
+    constexpr double LOADED_DIST = 350;
+    constexpr double LOWER_LOADED_DIST = 350;
+    constexpr int TOF_ID = 33;
+    constexpr int LOWER_TOF_ID = 34;
+    constexpr int BELT_ID = 4;
+    constexpr int ANGLE_ID = 3;
     constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
-  } // namespace INTAKE
+    constexpr units::turn_t DOWN_POSITION = 7.7_tr;
+    constexpr units::turn_t BRACE_POSITION = 2.33_tr;
+    constexpr units::turn_t UP_POSITION = 0_tr;          // Change to 0 for prod
+    constexpr units::turn_t ROTATION_THRESHOLD = 0.2_tr; // CHANGEME
+  }                                                      // namespace INTAKE
   namespace VISION
   {
-    static const auto LEFT_CAMERA_A_TF = frc::Transform3d{0_in, -11_in, 22_in, frc::Rotation3d(0_rad, 0_rad, 180_deg)};
+    static const auto LEFT_CAMERA_A_TF = frc::Transform3d{0.307_m, -0.112_m, 0.558_m, frc::Rotation3d(0_rad, 0_rad, 180_deg)};
     static const auto LEFT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
-    static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{0_m, 11_in, 22_in, frc::Rotation3d(0_rad, 0_rad, 180_deg)};
+    static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{0.307_m, 0.112_m, 0.558_m, frc::Rotation3d(0_rad, 0_rad, 180_deg)};
     static const auto RIGHT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
 
   } // namespace VISION
 
   namespace CLIMBER
   {
-    constexpr int left_climber = 4;  // CHANGEME
-    constexpr int right_climber = 5; // CHANGEME
-  }                                  // namespace CLIMBER
+    constexpr int LEFT_ID = 9;   // CHANGEME
+    constexpr int RIGHT_ID = 11; // CHANGEME
+  }                              // namespace CLIMBER
   namespace CANDLE
   {
     constexpr int CANDLE_ID = 10;
@@ -77,16 +86,17 @@ namespace CONSTANTS
 
   namespace SHOOTER
   {
-    constexpr int LEFT_ID = 1;      // CHANGEME
-    constexpr int RIGHT_ID = 11;    // CHANGEME
-    constexpr int ANGLE_ID = 2;     // CHANGME
+    constexpr int LEFT_ID = 2;
+    constexpr int RIGHT_ID = 5;
+    constexpr int ANGLE_ID = 6;
+    constexpr int ANGLE2_ID = 2;
     constexpr int CANCODER_ID = 13; // CHANGEME
     constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
-    constexpr double ANGLE_RATIO = 1;                    // CHANGEME
-    constexpr units::degree_t FENDER_ANGLE = 15_deg;     // CHANGEME
-    constexpr units::degree_t FENDER_TOLERANCE = 15_deg; // CHANGEME
-    constexpr units::degree_t AMP_ANGLE = 30_deg;
-    constexpr int BELT_ID = 4;
+    constexpr double ANGLE_RATIO = 1; // CHANGEME
+    constexpr units::turn_t FENDER_ANGLE = -11_tr;
+    constexpr units::turn_t FENDER_TOLERANCE = 15_deg; // CHANGEME
+    constexpr units::turn_t AMP_ANGLE = -10_tr;
+    constexpr int BELT_ID = 7;
     constexpr units::turns_per_second_t LEFT_VELOCITY{10};  // CHANGEME;
     constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; // CHANGEME;
 
@@ -112,6 +122,14 @@ namespace CONSTANTS
         int cancoder;
         units::turn_t offset;
       };
+#ifdef COLFAX_BOT
+#pragma message("Using Colfax bot")
+      constexpr ModuleConfig FL{60, 61, 14, -0.279_tr};
+      constexpr ModuleConfig FR{50, 51, 13, -0.182_tr}; // Was not set becouse no cancoder
+      constexpr ModuleConfig BL{30, 31, 11, 0.173_tr};
+      constexpr ModuleConfig BR{40, 41, 12, -0.445_tr};
+#endif // COLFAX_BOT
+
 #ifndef BETABOT
 #pragma message("First Robot Config active")
       /* -------------------------------------------------------------------------- */
@@ -134,10 +152,10 @@ namespace CONSTANTS
 /*                       BEGIN SECOND ROBOT CONFIGUATION                      */
 /* -------------------------------------------------------------------------- */
 #pragma warning("Values extraordinary wrong")
-      constxpr ModuleConfig FL{60, 61, 14, 0.22_tr};
-      constexpr ModuleConfig FR{50, 51, 13, -0.304_tr};
-      constexpr ModuleConfig BL{30, 31, 11, -0.335_tr};
-      constexpr ModuleConfig BR{40, 41, 12, 0.052_tr};
+      constexpr ModuleConfig FL{60, 61, 14, -0.405_tr};
+      constexpr ModuleConfig FR{50, 51, 13, -0.324_tr};
+      constexpr ModuleConfig BL{30, 31, 11, 0.322_tr};
+      constexpr ModuleConfig BR{40, 41, 12, -0.25_tr};
 
 /* -------------------------------------------------------------------------- */
 /*                        END SECOND ROBOT CONFIGUATION                       */

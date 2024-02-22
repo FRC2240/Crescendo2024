@@ -48,7 +48,6 @@ public:
         return m_drivetrain.getAngle();
       }};
   Odometry m_odometry{&m_drivetrain, &m_vision};
-  Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick0, &m_vision};
   void ConfigureBindings();
 
   enum AUTOS
@@ -67,12 +66,14 @@ public:
     POS_3_GP4
   };
   Intake m_intake;
-  Climber m_climber{&m_stick0};
-  Shooter m_shooter{&m_intake};
+  Climber m_climber{&m_stick1};
+  Shooter m_shooter{&m_odometry, &m_intake};
   BuddyClimber m_buddyClimber;
   Candle m_candle;
 
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
+
+  Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick0, &m_vision, &m_intake};
 
 private:
   // Replace with CommandPS4Controller or CommandJoystick if needed

@@ -15,6 +15,7 @@ void Robot::RobotPeriodic()
   m_container.m_odometry.update_from_vision();
   m_container.m_odometry.update();
   frc2::CommandScheduler::GetInstance().Run();
+  m_container.m_odometry.get_shooter_angle();
 }
 
 void Robot::DisabledInit() {}

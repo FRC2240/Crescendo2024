@@ -3,13 +3,14 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #pragma once
-//#include <ctre/phoenix6/controls/Follower.hpp>
+// #include <ctre/phoenix6/controls/Follower.hpp>
 #include <units/angle.h>
 #include <ctre/phoenix6/TalonFX.hpp>
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/SubsystemBase.h>
 #include <frc2/command/button/CommandXboxController.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include "Constants.h"
 class Climber : public frc2::SubsystemBase
 {
 public:
@@ -22,9 +23,8 @@ public:
   void Periodic() override;
 
 private:
+  frc::XboxController *m_stick;
 
-  frc::XboxController* m_stick;
-
-  ctre::phoenix6::hardware::TalonFX left_climber{5}; //CHANGEME (Make sure you change constants as well)
-  ctre::phoenix6::hardware::TalonFX right_climber{4}; //CHANGEME (Make sure you change constants as well)
+  ctre::phoenix6::hardware::TalonFX left_climber{CONSTANTS::CLIMBER::LEFT_ID};   // CHANGEME (Make sure you change constants as well)
+  ctre::phoenix6::hardware::TalonFX right_climber{CONSTANTS::CLIMBER::RIGHT_ID}; // CHANGEME (Make sure you change constants as well)
 };

@@ -1,0 +1,61 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "pos_3_autoline"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "pos_3_gp2_speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "pos_3_gp2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "pos_2_gp2_speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "gp3",
+  "choreoAuto": false
+}
