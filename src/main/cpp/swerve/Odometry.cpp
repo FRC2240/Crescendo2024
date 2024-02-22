@@ -50,7 +50,7 @@ frc::Pose2d Odometry::getPose() { return estimator.Update(m_drivetrain->getCCWHe
 
 frc::ChassisSpeeds const Odometry::getFieldRelativeSpeeds()
 {
-    // Init for first time
+    // Init for first
     static frc::Timer speed_timer;
     speed_timer.Start();
     static frc::Pose2d previous_pose{};

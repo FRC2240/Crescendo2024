@@ -47,11 +47,11 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc::XboxCont
         {
             return m_drivetrain->drive(speeds);
         },
-        HolonomicPathFollowerConfig(PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-                                    PIDConstants(5.0, 0.0, 0.0), // Rotation PID constants
-                                    4.5_mps,                     // Max module speed, in m/s
-                                    10_in,                       // Drive base radius in meters. Distance from robot center to furthest module.
-                                    ReplanningConfig()           // Default path replanning config. See the API for the options here),
+        HolonomicPathFollowerConfig(PIDConstants(2.50, 0.0, 0.0), // Translation PID constants
+                                    PIDConstants(0.1, 0.0, 0.0),  // Rotation PID constants
+                                    4.5_mps,                      // Max module speed, in m/s
+                                    17.324_in,                    // Drive base radius in meters. Distance from robot center to furthest module.
+                                    ReplanningConfig()            // Default path replanning config. See the API for the options here),
                                     ),
         [this]() -> bool
         {
@@ -75,10 +75,10 @@ frc2::CommandPtr Trajectory::manual_drive(bool field_relative)
                 m_drivetrain->zero_yaw();
             }
 
-            const units::meters_per_second_t left_right{-frc::ApplyDeadband(m_stick->GetLeftX(), 0.1) * CONSTANTS::DRIVE::TELEOP_MAX_SPEED};
+            const units::meters_per_second_t left_right{frc::ApplyDeadband(m_stick->GetLeftX(), 0.1) * CONSTANTS::DRIVE::TELEOP_MAX_SPEED};
             const units::meters_per_second_t front_back{frc::ApplyDeadband(m_stick->GetLeftY(), 0.1) * CONSTANTS::DRIVE::TELEOP_MAX_SPEED};
             auto const rot = frc::ApplyDeadband(m_stick->GetRightX(), .1) * m_drivetrain->TELEOP_MAX_ANGULAR_SPEED;
-            m_drivetrain->drive(front_back, -left_right, rot, field_relative);
+            m_drivetrain->drive(front_back, left_right, rot, field_relative);
         },
         {this});
 }

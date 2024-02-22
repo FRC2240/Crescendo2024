@@ -6,21 +6,34 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "pos_2_gp1"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "intake"
+            "name": "score"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "pos_2_gp1"
+                }
+              }
+            ]
           }
         },
         {
@@ -33,12 +46,6 @@
           "type": "named",
           "data": {
             "name": "score"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
           }
         }
       ]

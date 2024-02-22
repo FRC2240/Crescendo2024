@@ -11,6 +11,7 @@ namespace autos
     frc2::CommandPtr pos_1_line(Trajectory *traj);
     frc2::CommandPtr pos_2_line(Trajectory *traj);
     frc2::CommandPtr pos_3_line(Trajectory *traj);
+    frc2::CommandPtr pos_2_gp1(Trajectory *traj);
     frc2::CommandPtr pos_1_gp2(Trajectory *traj);
     frc2::CommandPtr pos_2_gp2(Trajectory *traj);
     frc2::CommandPtr pos_3_gp2(Trajectory *traj);
@@ -20,4 +21,5 @@ namespace autos
     frc2::CommandPtr pos_1_gp4(Trajectory *traj);
     frc2::CommandPtr pos_2_gp4(Trajectory *traj);
     frc2::CommandPtr pos_3_gp4(Trajectory *traj);
+    frc2::CommandPtr test(Trajectory *traj);
 } // namespace autos

@@ -12,6 +12,7 @@
 #include <ctre/phoenix6/CANcoder.hpp>
 #include "Constants.h"
 #include <frc/DriverStation.h>
+#include <units/angle.h>
 
 class SwerveModule
 {
@@ -57,10 +58,11 @@ private:
     inline units::meters_per_second_t wheel_speed_to_bot_speed(units::turns_per_second_t wheel_speed);
     inline units::turns_per_second_t bot_speed_to_wheel_speed(units::meters_per_second_t bot_speed);
 
-    static constexpr units::length::meter_t WHEEL_RADIUS = 2.42_in; // measured
-    static constexpr units::meter_t WHEEL_CIRCUMFERENCE = 1_in;     // Should be 12 but 2 is better.
+    // static constexpr units::length::meter_t WHEEL_RADIUS = 2.42_in; // measured
+    // static constexpr auto WHEEL_CIRCUMFERENCE = 12.56_in / 1.0_tr;
+    static constexpr auto WHEEL_CIRCUMFERENCE = 11.93_in / 1.0_tr;
 
-    static constexpr auto DRIVER_GEAR_RATIO = 6.75;
+    static constexpr auto DRIVER_GEAR_RATIO = 4.72;
     static constexpr auto TURNER_GEAR_RATIO = 150 / 7;
 
     static constexpr auto HUNDREDMILLISECONDS_TO_1SECOND = 10; // Ticks / 100 milliseconds * 10 = Ticks / 1 second

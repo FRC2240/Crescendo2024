@@ -67,9 +67,9 @@ namespace CONSTANTS
   }                                                      // namespace INTAKE
   namespace VISION
   {
-    static const auto LEFT_CAMERA_A_TF = frc::Transform3d{0.307_m, -0.112_m, 0.558_m, frc::Rotation3d(0_rad, 0_rad, 180_deg)};
+    static const auto LEFT_CAMERA_A_TF = frc::Transform3d{0.307_m, -0.112_m, 0.558_m, frc::Rotation3d(0_rad, 7_deg, -90_deg)};
     static const auto LEFT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
-    static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{0.307_m, 0.112_m, 0.558_m, frc::Rotation3d(0_rad, 0_rad, 180_deg)};
+    static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{0.307_m, 0.112_m, 0.558_m, frc::Rotation3d(0_rad, 7_deg, 90_deg)};
     static const auto RIGHT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
 
   } // namespace VISION
@@ -104,7 +104,7 @@ namespace CONSTANTS
 
   namespace DRIVE
   {
-    constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 18.533_fps;
+    constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 23.533_fps;
     constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi * 1.25};
     constexpr units::meters_per_second_t TELEOP_MAX_SPEED = ROBOT_MAX_SPEED;
     constexpr units::radians_per_second_t TELEOP_MAX_ANGULAR_SPEED{std::numbers::pi * 2.25};
@@ -138,7 +138,7 @@ namespace CONSTANTS
 
       constexpr ModuleConfig FL{60, 61, 14, 0.31_tr};
       constexpr ModuleConfig FR{50, 51, 13, -0.182_tr};
-      constexpr ModuleConfig BL{30, 31, 11, -0.286_tr};
+      constexpr ModuleConfig BL{30, 31, 11, -0.286_tr - 0.029_tr};
       constexpr ModuleConfig BR{40, 41, 12, 0.03_tr};
 
       /* -------------------------------------------------------------------------- */
