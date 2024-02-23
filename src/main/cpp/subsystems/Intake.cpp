@@ -110,7 +110,7 @@ frc2::CommandPtr Intake::StartSpinCommand()
                         if (is_loaded()) {
                         m_timer.Start();
                        }
-                       return m_timer.Get() >= 0.2_s; }))
+                       return m_timer.Get() >= 0.6_s; }))
         .AndThen(StopSpinCommand())
         .WithName("StartSpin");
 };

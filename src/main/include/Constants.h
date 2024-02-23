@@ -15,7 +15,7 @@
 #include <numbers>
 
 // #define COLFAX_BOT
- #define BETABOT
+#define BETABOT
 //  When using the second robot, uncomment the above line
 
 // #define MOD_AMP
@@ -60,11 +60,11 @@ namespace CONSTANTS
     constexpr int BELT_ID = 4;
     constexpr int ANGLE_ID = 3;
     constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
-    constexpr units::turn_t DOWN_POSITION = 7.7_tr;
+    constexpr units::turn_t DOWN_POSITION = 7.3_tr;
     constexpr units::turn_t BRACE_POSITION = 2.33_tr;
-    constexpr units::turn_t UP_POSITION = 0_tr;          // Change to 0 for prod
-    constexpr units::turn_t ROTATION_THRESHOLD = 0.2_tr; // CHANGEME
-  }                                                      // namespace INTAKE
+    constexpr units::turn_t UP_POSITION = -0.1_tr;
+    constexpr units::turn_t ROTATION_THRESHOLD = 0.2_tr;
+  } // namespace INTAKE
   namespace VISION
   {
     static const auto LEFT_CAMERA_A_TF = frc::Transform3d{0.307_m, -0.112_m, 0.558_m, frc::Rotation3d(0_rad, 7_deg, -90_deg)};
@@ -93,9 +93,9 @@ namespace CONSTANTS
     constexpr int CANCODER_ID = 13; // CHANGEME
     constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
     constexpr double ANGLE_RATIO = 1; // CHANGEME
-    constexpr units::turn_t FENDER_ANGLE = -11_tr;
+    constexpr units::turn_t FENDER_ANGLE = 11_tr;
     constexpr units::turn_t FENDER_TOLERANCE = 15_deg; // CHANGEME
-    constexpr units::turn_t AMP_ANGLE = -10_tr;
+    constexpr units::turn_t AMP_ANGLE = 10_tr;
     constexpr int BELT_ID = 7;
     constexpr units::turns_per_second_t LEFT_VELOCITY{10};  // CHANGEME;
     constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; // CHANGEME;
