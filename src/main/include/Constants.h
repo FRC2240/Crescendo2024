@@ -53,6 +53,16 @@ namespace CONSTANTS
 
   namespace INTAKE
   {
+#ifdef BETABOT
+    constexpr auto DELAY = 0.6_s;
+    constexpr units::turn_t UP_POSITION = -0.1_tr;
+    constexpr units::turn_t DOWN_POSITION = 7.3_tr;
+#endif
+#ifndef BETABOT
+    constexpr auto DELAY = 0.35_s;
+    constexpr units::turn_t UP_POSITION = -0.1_tr;
+    constexpr units::turn_t DOWN_POSITION = 7.3_tr;
+#endif
     constexpr double LOADED_DIST = 350;
     constexpr double LOWER_LOADED_DIST = 350;
     constexpr int TOF_ID = 33;
@@ -60,9 +70,7 @@ namespace CONSTANTS
     constexpr int BELT_ID = 4;
     constexpr int ANGLE_ID = 3;
     constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
-    constexpr units::turn_t DOWN_POSITION = 7.3_tr;
     constexpr units::turn_t BRACE_POSITION = 2.33_tr;
-    constexpr units::turn_t UP_POSITION = -0.1_tr;
     constexpr units::turn_t ROTATION_THRESHOLD = 0.2_tr;
   } // namespace INTAKE
   namespace VISION
@@ -93,9 +101,15 @@ namespace CONSTANTS
     constexpr int CANCODER_ID = 13; // CHANGEME
     constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
     constexpr double ANGLE_RATIO = 1; // CHANGEME
+#ifdef BETABOT                        // Main robot config
     constexpr units::turn_t FENDER_ANGLE = 11_tr;
-    constexpr units::turn_t FENDER_TOLERANCE = 15_deg; // CHANGEME
     constexpr units::turn_t AMP_ANGLE = 10_tr;
+#endif
+#ifndef BETABOT
+    constexpr units::turn_t FENDER_ANGLE = -11_tr;
+    constexpr units::turn_t AMP_ANGLE = -10_tr;
+#endif
+
     constexpr int BELT_ID = 7;
     constexpr units::turns_per_second_t LEFT_VELOCITY{10};  // CHANGEME;
     constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; // CHANGEME;
