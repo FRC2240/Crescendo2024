@@ -11,6 +11,8 @@ Climber::Climber(frc::XboxController *stick)
    left_climber_config.Slot0.kP = 1;
    left_climber_config.Slot0.kI = 0.1;
    left_climber_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
+   left_climber_config.SoftwareLimitSwitch.WithReverseSoftLimitEnable(true);
+   left_climber_config.SoftwareLimitSwitch.WithReverseSoftLimitThreshold(0);
    left_climber.GetConfigurator().Apply(left_climber_config);
    // ctre::phoenix6::controls::Follower req{4, true};
 
@@ -18,7 +20,8 @@ Climber::Climber(frc::XboxController *stick)
    right_climber_config.Slot0.kP = 1;
    right_climber_config.Slot0.kI = 0.1;
    right_climber_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
-   // right_climber_config.CurrentLimits.
+   right_climber_config.SoftwareLimitSwitch.WithReverseSoftLimitEnable(true);
+   right_climber_config.SoftwareLimitSwitch.WithReverseSoftLimitThreshold(0);
    right_climber.GetConfigurator().Apply(right_climber_config);
    /*ctre::phoenix6::controls::Follower req{5, false};
    right_climber.SetControl(req);*/
@@ -27,8 +30,8 @@ Climber::Climber(frc::XboxController *stick)
 frc2::CommandPtr Climber::UpCommand()
 {
     return frc2::RunCommand([this]
-                            { right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-.5});
-                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{.5}); },
+                            { right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-.1});
+                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{.1}); },
                             {this})
         .WithName("Up");
 };
@@ -36,8 +39,8 @@ frc2::CommandPtr Climber::UpCommand()
 frc2::CommandPtr Climber::DownCommand()
 {
     return frc2::RunCommand([this]
-                            { right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{.5});
-                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-.5}); },
+                            { right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-.1});
+                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{.1}); },
                             {this})
         .WithName("Down");
 };
