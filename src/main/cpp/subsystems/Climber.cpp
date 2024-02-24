@@ -30,8 +30,8 @@ Climber::Climber(frc::XboxController *stick)
 frc2::CommandPtr Climber::UpCommand()
 {
     return frc2::RunCommand([this]
-                            { right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-.1});
-                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{.1}); },
+                            { right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-0.5});
+                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0.5}); },
                             {this})
         .WithName("Up");
 };
@@ -39,8 +39,8 @@ frc2::CommandPtr Climber::UpCommand()
 frc2::CommandPtr Climber::DownCommand()
 {
     return frc2::RunCommand([this]
-                            { right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-.1});
-                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{.1}); },
+                            { right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0.5});
+                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-0.5}); },
                             {this})
         .WithName("Down");
 };
