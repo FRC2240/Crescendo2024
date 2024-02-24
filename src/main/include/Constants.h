@@ -54,14 +54,16 @@ namespace CONSTANTS
   namespace INTAKE
   {
 #ifdef BETABOT
-    constexpr auto DELAY = 0.5_s;
+    constexpr auto DELAY = 0.4_s;
     constexpr units::turn_t UP_POSITION = -0.1_tr;
     constexpr units::turn_t DOWN_POSITION = 7.3_tr;
+    constexpr int INTAKE_VOLTAGE = -10;
 #endif
 #ifndef BETABOT
     constexpr auto DELAY = 0.35_s;
     constexpr units::turn_t UP_POSITION = -0.1_tr;
     constexpr units::turn_t DOWN_POSITION = 7.3_tr;
+    constexpr units::volt_t INTAKE_VOLTAGE = -12;
 #endif
     constexpr double LOADED_DIST = 350;
     constexpr double LOWER_LOADED_DIST = 350;
@@ -104,10 +106,12 @@ namespace CONSTANTS
 #ifdef BETABOT                        // Main robot config
     constexpr units::turn_t FENDER_ANGLE = 11_tr;
     constexpr units::turn_t AMP_ANGLE = 10_tr;
+    constexpr units::turns_per_second_t SHOOTER_VELOCITY = 100_tps;
 #endif
 #ifndef BETABOT
     constexpr units::turn_t FENDER_ANGLE = -11_tr;
     constexpr units::turn_t AMP_ANGLE = -10_tr;
+    constexpr units::turns_per_second_t SHOOTER_VELOCITY = 80_tps:
 #endif
 
     constexpr int BELT_ID = 7;
