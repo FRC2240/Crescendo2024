@@ -11,12 +11,11 @@
     "gp2_speaker"
   ],
   "autoFolders": [
-    "midlines",
-    "del lat",
     "cross_autoline",
     "gp2",
     "gp3",
-    "gp4"
+    "gp4",
+    "midlines"
   ],
   "defaultMaxVel": 1.0,
   "defaultMaxAccel": 3.0,
