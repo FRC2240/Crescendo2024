@@ -54,7 +54,7 @@ namespace CONSTANTS
   namespace INTAKE
   {
 #ifdef BETABOT
-    constexpr auto DELAY = 0.6_s;
+    constexpr auto DELAY = 0.5_s;
     constexpr units::turn_t UP_POSITION = -0.1_tr;
     constexpr units::turn_t DOWN_POSITION = 7.3_tr;
 #endif
