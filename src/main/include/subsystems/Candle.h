@@ -26,7 +26,7 @@ public:
     frc2::CommandPtr off();
     frc2::CommandPtr run_disabled();
     bool auto_selected = false;
-    bool has_vision = false;
+    bool *has_vision = nullptr;
 
 private:
     ctre::phoenix::led::CANdle m_candle{CONSTANTS::CANDLE::CANDLE_ID};

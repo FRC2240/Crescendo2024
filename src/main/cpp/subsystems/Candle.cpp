@@ -88,7 +88,7 @@ frc2::CommandPtr Candle::run_disabled()
             }
         }
 
-        else if (!has_vision || !auto_selected) {
+        else if (has_vision != nullptr && ! *has_vision || !auto_selected) {
             if (m_candle_timer.Get() < units::time::second_t(0.5)) {
                 m_candle.SetLEDs(0, 0, 0);
             } else if (m_candle_timer.Get() < units::time::second_t(1.0)) {
@@ -98,7 +98,7 @@ frc2::CommandPtr Candle::run_disabled()
                 m_candle.SetLEDs(0, 0, 0);
             }
         }
-        else if (frc::DriverStation::IsFMSAttached() && has_vision && auto_selected) {
+        else if (frc::DriverStation::IsFMSAttached() && has_vision != nullptr && *has_vision && auto_selected) {
             m_candle.Animate(rainbow_anim);
             m_candle_timer.Stop();
             m_candle_timer.Reset();
