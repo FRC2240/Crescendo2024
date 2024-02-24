@@ -47,6 +47,7 @@ void RobotContainer::ConfigureBindings()
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
   m_shooter.SetDefaultCommand(m_shooter.default_cmd());
   m_intake.SetDefaultCommand(m_intake.StopCommand());
+  m_climber.SetDefaultCommand(m_climber.StopCommand());
   m_stick1.RightStick().OnTrue(m_trajectory.manual_drive());
 
   // Shooter
@@ -69,13 +70,13 @@ void RobotContainer::ConfigureBindings()
   m_stick1.Start().OnTrue(m_buddyClimber.DeployCommand());
   m_stick1.Back().OnTrue(m_buddyClimber.ResetCommand());
 
-  // Intake
+  // Climber
   frc2::Trigger{[this] -> bool
                 {
                   int pov = m_stick1.GetPOV();
                   return pov == 0;
                 }}
-      .OnTrue(m_intake.ExtendCommand());
+      .WhileTrue(m_climber.UpCommand());
 
   frc2::Trigger{[this] -> bool
                 {
@@ -83,7 +84,7 @@ void RobotContainer::ConfigureBindings()
                   frc::SmartDashboard::PutBoolean("Threshold", CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30));
                   return CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30);
                 }}
-      .OnTrue(m_intake.RetractCommand());
+      .WhileTrue(m_climber.DownCommand());
   // Candle
   m_candle.SetDefaultCommand(m_candle.run_disabled());
   m_stick1.Y().OnTrue(m_candle.fast_yellow_blink());
