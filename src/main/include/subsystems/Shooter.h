@@ -19,6 +19,7 @@ public:
 
   frc2::CommandPtr fender_shot();
   frc2::CommandPtr test_shot();
+  frc2::CommandPtr ManualFeedCommand();
 
   // This is a wrapper for set angle that is a cmdptr so it can be used in the auto shot compisiton
   // Overloaded so it can be used with vision
