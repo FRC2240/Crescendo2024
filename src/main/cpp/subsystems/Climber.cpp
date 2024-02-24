@@ -24,27 +24,29 @@ Climber::Climber(frc::XboxController *stick)
    right_climber.SetControl(req);*/
 }
 
-void Climber::Periodic()
+frc2::CommandPtr Climber::UpCommand()
 {
-   /*ctre::phoenix6::controls::Follower req{5, 1};
-   right_climber.SetControl(req);*/
-   double rightTrigger = m_stick->GetRightTriggerAxis();
-   double leftTrigger = m_stick->GetLeftTriggerAxis();
-   if (m_stick->GetPOV() == 0)
-   {
-      frc::SmartDashboard::PutString("climbers", "up");
-      right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{1});
-      left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{1});
-   }
-   else if (m_stick->GetPOV() == 180)
-   {
-      frc::SmartDashboard::PutString("climbers", "down");
-      right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-1});
-      left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-1});
-   }
-   else
-   {
-      right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0});
-      left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0});
-   }
+    return frc2::RunCommand([this]
+                            { right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-.1});
+                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{.1}); },
+                            {this})
+        .WithName("Up");
+};
+
+frc2::CommandPtr Climber::DownCommand()
+{
+    return frc2::RunCommand([this]
+                            { right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-.1});
+                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{.1}); },
+                            {this})
+        .WithName("Down");
+};
+
+frc2::CommandPtr Climber::StopCommand()
+{
+    return frc2::RunCommand([this]
+                            { right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0});
+                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0}); },
+                            {this})
+        .WithName("Stop");
 };
