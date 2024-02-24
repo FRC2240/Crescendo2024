@@ -51,11 +51,12 @@ void RobotContainer::ConfigureBindings()
   m_stick1.RightStick().OnTrue(m_trajectory.manual_drive());
 
   // Shooter
-  m_stick0.X().ToggleOnTrue(m_shooter.test_shot());
+  m_stick1.X().ToggleOnTrue(m_shooter.test_shot()); // testing ONLY
   m_stick0.RightBumper().ToggleOnTrue(m_shooter.fender_shot());
   m_stick0.A().ToggleOnTrue(m_shooter.amp_shot());
   m_stick0.LeftBumper().ToggleOnTrue(m_intake.StartCommand());
   m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup());
+  m_stick1.RightTrigger().OnTrue(m_shooter.ManualFeedCommand());
   // m_stick0.RightTrigger().ToggleOnTrue(
   // frc2::PrintCommand("button pressed").ToPtr().AndThen(m_trajectory.auto_score_align().AlongWith(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())).AndThen(m_shooter.execute_auto_shot().WithTimeout(1.5_s))));
 
