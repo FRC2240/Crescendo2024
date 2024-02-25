@@ -54,7 +54,7 @@ namespace CONSTANTS
   namespace INTAKE
   {
 #ifdef BETABOT
-    constexpr auto DELAY = 0.4_s;
+    constexpr auto DELAY = 0.2_s;
     constexpr units::turn_t UP_POSITION = -0.1_tr;
     constexpr units::turn_t DOWN_POSITION = 7.3_tr;
     constexpr int INTAKE_VOLTAGE = -10;
@@ -106,15 +106,15 @@ namespace CONSTANTS
 #ifdef BETABOT                        // Main robot config
     constexpr units::turn_t FENDER_ANGLE = 11_tr;
     constexpr units::turn_t AMP_ANGLE = 10_tr;
-    constexpr units::turns_per_second_t SHOOTER_VELOCITY = 100_tps;
+    constexpr units::turns_per_second_t SHOOTER_VELOCITY = 60_tps;
 #endif
 #ifndef BETABOT
     constexpr units::turn_t FENDER_ANGLE = -11_tr;
     constexpr units::turn_t AMP_ANGLE = -10_tr;
-    constexpr units::turns_per_second_t SHOOTER_VELOCITY = 80_tps:
+    constexpr units::turns_per_second_t SHOOTER_VELOCITY = 80_tps :
 #endif
 
-    constexpr int BELT_ID = 7;
+        constexpr int BELT_ID = 7;
     constexpr units::turns_per_second_t LEFT_VELOCITY{10};  // CHANGEME;
     constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; // CHANGEME;
 
@@ -125,11 +125,12 @@ namespace CONSTANTS
     constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 23.533_fps;
     constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi * 1.25};
     constexpr units::meters_per_second_t TELEOP_MAX_SPEED = ROBOT_MAX_SPEED;
-    constexpr units::radians_per_second_t TELEOP_MAX_ANGULAR_SPEED{std::numbers::pi * 2.25};
+    constexpr units::radians_per_second_t TELEOP_MAX_ANGULAR_SPEED{std::numbers::pi};
     constexpr units::meters_per_second_t TRAJ_MAX_SPEED = ROBOT_MAX_SPEED;
     constexpr units::acceleration::meters_per_second_squared_t TRAJ_MAX_ACCELERATION = TRAJ_MAX_SPEED / 0.5_s;
     constexpr units::radians_per_second_t TRAJ_MAX_ANGULAR_SPEED = CONSTANTS::DRIVE::ROBOT_MAX_ANGULAR_SPEED;
     constexpr units::radians_per_second_squared_t TRAJ_MAX_ANGULAR_ACCELERATION{std::numbers::pi};
+    static constexpr auto WHEEL_CIRCUMFERENCE = 11.992_in / 1.0_tr;
 
     namespace CONFIG
     {

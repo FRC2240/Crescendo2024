@@ -60,7 +60,7 @@ private:
 
     // static constexpr units::length::meter_t WHEEL_RADIUS = 2.42_in; // measured
     // static constexpr auto WHEEL_CIRCUMFERENCE = 12.56_in / 1.0_tr;
-    static constexpr auto WHEEL_CIRCUMFERENCE = 11.93_in / 1.0_tr;
+    static constexpr auto WHEEL_CIRCUMFERENCE = CONSTANTS::DRIVE::WHEEL_CIRCUMFERENCE;
 
     static constexpr auto DRIVER_GEAR_RATIO = 4.72;
     static constexpr auto TURNER_GEAR_RATIO = 150 / 7;

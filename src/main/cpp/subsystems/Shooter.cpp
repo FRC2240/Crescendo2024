@@ -187,6 +187,7 @@ frc2::CommandPtr Shooter::fender_shot()
                is_finished,
                {this})
         .ToPtr()
+        .WithTimeout(0.5_s)
         .AndThen(frc2::RunCommand([this]
                                   {
                                       m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{12}}); // changeme
