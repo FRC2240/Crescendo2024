@@ -12,7 +12,7 @@ RobotContainer::RobotContainer()
   // here Configure the button bindings
 
   m_chooser.AddOption("Center 1gp", AUTOS::POS_2_GP1);
-  m_chooser.AddOption("Feederside 1gp", AUTOS::POS_3_GP1);
+  // m_chooser.AddOption("Feederside 1gp", AUTOS::POS_3_GP1);
   // m_chooser.AddOption("Position 2 autoline", AUTOS::POS_2_LINE);
   // m_chooser.AddOption("Position 3 autoline", AUTOS::POS_3_LINE);
   // m_chooser.AddOption("Position 1 two game piece", AUTOS::POS_1_GP2);
@@ -97,7 +97,7 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
   case AUTOS::POS_2_GP1:
     return autos::pos_2_gp1(&m_trajectory);
     break;
-  case AUTOS::POS_1_GP1:
+  // case AUTOS::?POS_1_GP1:
   default:
     frc::DataLogManager::Log("WARN: NO ERROR SELECTED");
     m_candle.auto_selected = false;
