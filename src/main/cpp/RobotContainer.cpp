@@ -11,7 +11,7 @@ RobotContainer::RobotContainer()
   // frc::Rotation2d(0_rad)); Initialize all of your commands and subsystems
   // here Configure the button bindings
 
-  m_chooser.AddOption("Center 1gp", AUTOS::POS_2_GP1);
+  m_chooser.AddOption("Side auto", AUTOS::POS_3_LINE);
   // m_chooser.AddOption("Feederside 1gp", AUTOS::POS_3_GP1);
   // m_chooser.AddOption("Position 2 autoline", AUTOS::POS_2_LINE);
   // m_chooser.AddOption("Position 3 autoline", AUTOS::POS_3_LINE);
@@ -49,14 +49,14 @@ void RobotContainer::ConfigureBindings()
   m_shooter.SetDefaultCommand(m_shooter.default_cmd());
   m_intake.SetDefaultCommand(m_intake.StopCommand());
   m_climber.SetDefaultCommand(m_climber.StopCommand());
-  m_stick1.RightStick().OnTrue(m_trajectory.manual_drive());
+  m_stick1.RightStick().ToggleOnTrue(m_trajectory.manual_drive());
 
   // Shooter
   m_stick1.X().ToggleOnTrue(m_shooter.test_shot()); // testing ONLY
   m_stick0.RightBumper().ToggleOnTrue(m_shooter.fender_shot());
   m_stick0.A().ToggleOnTrue(m_shooter.amp_shot());
   m_stick0.LeftBumper().ToggleOnTrue(m_intake.StartCommand());
-  m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup());
+  // m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup());
   m_stick1.RightTrigger().OnTrue(m_shooter.ManualFeedCommand());
   // m_stick0.RightTrigger().ToggleOnTrue(
   // frc2::PrintCommand("button pressed").ToPtr().AndThen(m_trajectory.auto_score_align().AlongWith(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())).AndThen(m_shooter.execute_auto_shot().WithTimeout(1.5_s))));
@@ -94,12 +94,12 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
   case AUTOS::POS_2_GP2:
     return autos::pos_2_gp2(&m_trajectory);
     break;
-  case AUTOS::POS_2_GP1:
-    return autos::pos_2_gp1(&m_trajectory);
+  case AUTOS::POS_3_LINE:
+    return autos::pos_3_line(&m_trajectory);
     break;
   // case AUTOS::?POS_1_GP1:
   default:
-    frc::DataLogManager::Log("WARN: NO ERROR SELECTED");
+    frc::DataLogManager::Log("WARN: NO AUTO SELECTED");
     m_candle.auto_selected = false;
     break;
   }

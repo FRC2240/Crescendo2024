@@ -47,8 +47,8 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc::XboxCont
         {
             return m_drivetrain->drive(speeds);
         },
-        HolonomicPathFollowerConfig(PIDConstants(2.5, 0.0, 0.0), // Translation PID constants
-                                    PIDConstants(0.1, 0.0, 0.0), // Rotation PID constants
+        HolonomicPathFollowerConfig(PIDConstants(5, 0.0, 0.0),   // Translation PID constants
+                                    PIDConstants(0.5, 0.0, 0.0), // Rotation PID constants
                                     4.5_mps,                     // Max module speed, in m/s
                                     17.324_in,                   // Drive base radius in meters. Distance from robot center to furthest module.
                                     ReplanningConfig()           // Default path replanning config. See the API for the options here),
