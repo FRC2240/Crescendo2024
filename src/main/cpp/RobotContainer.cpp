@@ -11,20 +11,21 @@ RobotContainer::RobotContainer()
   // frc::Rotation2d(0_rad)); Initialize all of your commands and subsystems
   // here Configure the button bindings
 
-  m_chooser.AddOption("Position 1 autoline", AUTOS::POS_1_LINE);
-  m_chooser.AddOption("Position 2 autoline", AUTOS::POS_2_LINE);
-  m_chooser.AddOption("Position 3 autoline", AUTOS::POS_3_LINE);
-  m_chooser.AddOption("Position 1 two game piece", AUTOS::POS_1_GP2);
-  m_chooser.AddOption("Position 2 two game piece", AUTOS::POS_2_GP2);
-  m_chooser.AddOption("Position 3 two game piece", AUTOS::POS_3_GP2);
-  m_chooser.AddOption("Position 1 three game piece", AUTOS::POS_1_GP3);
-  m_chooser.AddOption("Position 2 three game piece", AUTOS::POS_2_GP3);
-  m_chooser.AddOption("Position 3 three game piece", AUTOS::POS_3_GP3);
-  m_chooser.AddOption("Position 1 four game piece", AUTOS::POS_1_GP4);
-  m_chooser.AddOption("Position 2 four game piece", AUTOS::POS_2_GP4);
-  m_chooser.AddOption("Position 3 four game piece", AUTOS::POS_3_GP4);
+  m_chooser.AddOption("Center 1gp", AUTOS::POS_2_GP1);
+  m_chooser.AddOption("Feederside 1gp", AUTOS::POS_3_GP1);
+  // m_chooser.AddOption("Position 2 autoline", AUTOS::POS_2_LINE);
+  // m_chooser.AddOption("Position 3 autoline", AUTOS::POS_3_LINE);
+  // m_chooser.AddOption("Position 1 two game piece", AUTOS::POS_1_GP2);
+  m_chooser.AddOption("2 GP", AUTOS::POS_2_GP2);
+  // m_chooser.AddOption("Position 3 two game piece", AUTOS::POS_3_GP2);
+  // m_chooser.AddOption("Position 1 three game piece", AUTOS::POS_1_GP3);
+  // m_chooser.AddOption("Position 2 three game piece", AUTOS::POS_2_GP3);
+  // m_chooser.AddOption("Position 3 three game piece", AUTOS::POS_3_GP3);
+  // m_chooser.AddOption("Position 1 four game piece", AUTOS::POS_1_GP4);
+  // m_chooser.AddOption("Position 2 four game piece", AUTOS::POS_2_GP4);
+  // m_chooser.AddOption("Position 3 four game piece", AUTOS::POS_3_GP4);
   m_chooser.AddOption("Position 2 one game piece", AUTOS::POS_3_GP4);
-  m_chooser.AddOption("TEST", AUTOS::TEST);
+  // m_chooser.AddOption("TEST", AUTOS::TEST);
 
   frc::SmartDashboard::PutData(&m_chooser);
   m_odometry.putField2d();
@@ -64,13 +65,6 @@ void RobotContainer::ConfigureBindings()
                                                                 { return m_shooter.set_angle_cmd(m_odometry.get_shooter_angle()); }));
 
   // Buddy Climber
-
-  m_stick1.LeftBumper()
-      .OnTrue(m_buddyClimber.StartLeftCommand());
-  m_stick1.RightBumper().OnTrue(m_buddyClimber.StartRightCommand());
-  m_stick1.Start().OnTrue(m_buddyClimber.DeployCommand());
-  m_stick1.Back().OnTrue(m_buddyClimber.ResetCommand());
-
   // Climber
   frc2::Trigger{[this] -> bool
                 {
@@ -97,60 +91,13 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
   fmt::println("get auto cmd");
   switch (m_chooser.GetSelected())
   {
-  case AUTOS::POS_1_LINE:
-    return autos::pos_1_line(&m_trajectory);
-    m_candle.auto_selected = true;
-    break;
-  case AUTOS::POS_2_LINE:
-    return autos::pos_2_line(&m_trajectory);
-    m_candle.auto_selected = true;
-    break;
-  case AUTOS::POS_3_LINE:
-    return autos::pos_3_line(&m_trajectory);
-    m_candle.auto_selected = true;
-    break;
-  case AUTOS::POS_1_GP2:
-    return autos::pos_1_gp2(&m_trajectory);
-    m_candle.auto_selected = true;
+  case AUTOS::POS_2_GP2:
+    return autos::pos_2_gp2(&m_trajectory);
     break;
   case AUTOS::POS_2_GP1:
     return autos::pos_2_gp1(&m_trajectory);
     break;
-  case AUTOS::POS_2_GP2:
-    return autos::pos_2_gp2(&m_trajectory);
-    m_candle.auto_selected = true;
-    break;
-  case AUTOS::POS_3_GP2:
-    return autos::pos_3_gp2(&m_trajectory);
-    m_candle.auto_selected = true;
-    break;
-  case AUTOS::POS_1_GP3:
-    return autos::pos_1_gp3(&m_trajectory);
-    m_candle.auto_selected = true;
-    break;
-  case AUTOS::POS_2_GP3:
-    return autos::pos_2_gp3(&m_trajectory);
-    m_candle.auto_selected = true;
-    break;
-  case AUTOS::POS_3_GP3:
-    return autos::pos_3_gp3(&m_trajectory);
-    m_candle.auto_selected = true;
-    break;
-  case AUTOS::POS_1_GP4:
-    return autos::pos_1_gp4(&m_trajectory);
-    m_candle.auto_selected = true;
-    break;
-  case AUTOS::POS_2_GP4:
-    return autos::pos_2_gp4(&m_trajectory);
-    m_candle.auto_selected = true;
-    break;
-  case AUTOS::POS_3_GP4:
-    return autos::pos_3_gp4(&m_trajectory);
-    m_candle.auto_selected = true;
-    break;
-  case AUTOS::TEST:
-    return autos ::test(&m_trajectory);
-    break;
+  case AUTOS::POS_1_GP1:
   default:
     frc::DataLogManager::Log("WARN: NO ERROR SELECTED");
     m_candle.auto_selected = false;
