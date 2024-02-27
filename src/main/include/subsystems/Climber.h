@@ -10,6 +10,7 @@
 #include <frc2/command/SubsystemBase.h>
 #include <frc2/command/button/CommandXboxController.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <frc2/command/RunCommand.h>
 #include "Constants.h"
 class Climber : public frc2::SubsystemBase
 {
@@ -20,7 +21,10 @@ public:
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
-  void Periodic() override;
+
+  frc2::CommandPtr UpCommand();
+  frc2::CommandPtr DownCommand();
+  frc2::CommandPtr StopCommand();
 
 private:
   frc::XboxController *m_stick;

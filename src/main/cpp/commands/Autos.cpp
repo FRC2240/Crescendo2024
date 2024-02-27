@@ -14,7 +14,7 @@ frc2::CommandPtr autos::pos_2_line(Trajectory *traj)
 
 frc2::CommandPtr autos::pos_3_line(Trajectory *traj)
 {
-  return frc2::PrintCommand("start cross line pos_3").ToPtr().AndThen(traj->extract("pos_3_autoline").AndThen(frc2::PrintCommand("autoline completed").ToPtr()));
+  return frc2::PrintCommand("start cross line pos_3").ToPtr().AndThen(traj->extract("a_pos_3").AndThen(frc2::PrintCommand("autoline completed").ToPtr()));
 }
 
 frc2::CommandPtr autos::pos_1_gp2(Trajectory *traj)

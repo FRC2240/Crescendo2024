@@ -15,7 +15,7 @@
 #include <numbers>
 
 // #define COLFAX_BOT
- #define BETABOT
+#define BETABOT
 //  When using the second robot, uncomment the above line
 
 // #define MOD_AMP
@@ -53,6 +53,18 @@ namespace CONSTANTS
 
   namespace INTAKE
   {
+#ifdef BETABOT
+    constexpr auto DELAY = 0.2_s;
+    constexpr units::turn_t UP_POSITION = -0.1_tr;
+    constexpr units::turn_t DOWN_POSITION = 7.3_tr;
+    constexpr int INTAKE_VOLTAGE = -10;
+#endif
+#ifndef BETABOT
+    constexpr auto DELAY = 0.35_s;
+    constexpr units::turn_t UP_POSITION = -0.1_tr;
+    constexpr units::turn_t DOWN_POSITION = 7.3_tr;
+    constexpr units::volt_t INTAKE_VOLTAGE = -12;
+#endif
     constexpr double LOADED_DIST = 350;
     constexpr double LOWER_LOADED_DIST = 350;
     constexpr int TOF_ID = 33;
@@ -60,11 +72,9 @@ namespace CONSTANTS
     constexpr int BELT_ID = 4;
     constexpr int ANGLE_ID = 3;
     constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
-    constexpr units::turn_t DOWN_POSITION = 7.7_tr;
     constexpr units::turn_t BRACE_POSITION = 2.33_tr;
-    constexpr units::turn_t UP_POSITION = 0_tr;          // Change to 0 for prod
-    constexpr units::turn_t ROTATION_THRESHOLD = 0.2_tr; // CHANGEME
-  }                                                      // namespace INTAKE
+    constexpr units::turn_t ROTATION_THRESHOLD = 0.2_tr;
+  } // namespace INTAKE
   namespace VISION
   {
     static const auto LEFT_CAMERA_A_TF = frc::Transform3d{0.307_m, -0.112_m, 0.558_m, frc::Rotation3d(0_rad, 7_deg, -90_deg)};
@@ -93,10 +103,18 @@ namespace CONSTANTS
     constexpr int CANCODER_ID = 13; // CHANGEME
     constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
     constexpr double ANGLE_RATIO = 1; // CHANGEME
+#ifdef BETABOT                        // Main robot config
+    constexpr units::turn_t FENDER_ANGLE = 11.5_tr;
+    constexpr units::turn_t AMP_ANGLE = 10_tr;
+    constexpr units::turns_per_second_t SHOOTER_VELOCITY = 60_tps;
+#endif
+#ifndef BETABOT
     constexpr units::turn_t FENDER_ANGLE = -11_tr;
-    constexpr units::turn_t FENDER_TOLERANCE = 15_deg; // CHANGEME
     constexpr units::turn_t AMP_ANGLE = -10_tr;
-    constexpr int BELT_ID = 7;
+    constexpr units::turns_per_second_t SHOOTER_VELOCITY = 80_tps :
+#endif
+
+        constexpr int BELT_ID = 7;
     constexpr units::turns_per_second_t LEFT_VELOCITY{10};  // CHANGEME;
     constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; // CHANGEME;
 
@@ -107,11 +125,12 @@ namespace CONSTANTS
     constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 23.533_fps;
     constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi * 1.25};
     constexpr units::meters_per_second_t TELEOP_MAX_SPEED = ROBOT_MAX_SPEED;
-    constexpr units::radians_per_second_t TELEOP_MAX_ANGULAR_SPEED{std::numbers::pi * 2.25};
+    constexpr units::radians_per_second_t TELEOP_MAX_ANGULAR_SPEED{std::numbers::pi * 0.75};
     constexpr units::meters_per_second_t TRAJ_MAX_SPEED = ROBOT_MAX_SPEED;
     constexpr units::acceleration::meters_per_second_squared_t TRAJ_MAX_ACCELERATION = TRAJ_MAX_SPEED / 0.5_s;
     constexpr units::radians_per_second_t TRAJ_MAX_ANGULAR_SPEED = CONSTANTS::DRIVE::ROBOT_MAX_ANGULAR_SPEED;
     constexpr units::radians_per_second_squared_t TRAJ_MAX_ANGULAR_ACCELERATION{std::numbers::pi};
+    static constexpr auto WHEEL_CIRCUMFERENCE = 11.992_in / 1.0_tr;
 
     namespace CONFIG
     {

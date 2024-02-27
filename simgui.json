@@ -44,6 +44,7 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Odometry Field": "Field2d",
       "/SmartDashboard/SendableChooser[0]": "String Chooser"
     },
     "windows": {

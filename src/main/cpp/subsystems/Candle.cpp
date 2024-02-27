@@ -26,7 +26,7 @@ bool Candle::is_red()
     return true;
 }
 
-void Candle::Periodic(){}
+void Candle::Periodic() {}
 
 frc2::CommandPtr Candle::fast_yellow_blink()
 {
@@ -38,30 +38,30 @@ frc2::CommandPtr Candle::fast_yellow_blink()
 
 frc2::CommandPtr Candle::amp_blink()
 {
-    return frc2::RunCommand([this] { 
+    return frc2::RunCommand([this]
+                            { 
         if (m_alliance == frc::DriverStation::Alliance::kRed) {
             m_candle.Animate(red_amp_anim);
         }
         else {
             m_candle.Animate(blue_amp_anim);
-        }
-    },
-    {this})
-    .WithName("Amp Blink");
+        } },
+                            {this})
+        .WithName("Amp Blink");
 };
 
 frc2::CommandPtr Candle::not_driver_controlled()
 {
-    return frc2::RunCommand([this] { 
+    return frc2::RunCommand([this]
+                            { 
         if (m_alliance == frc::DriverStation::Alliance::kRed) {
             m_candle.Animate(red_no_control_anim);
         }
         else {
             m_candle.Animate(blue_no_control_anim);
-        }
-    },
-    {this})
-    .WithName("No Control");
+        } },
+                            {this})
+        .WithName("No Control");
 };
 
 frc2::CommandPtr Candle::off()
@@ -73,36 +73,84 @@ frc2::CommandPtr Candle::off()
         .WithName("Off");
 };
 
+frc2::CommandPtr Candle::get_command()
+{
+    return frc2::RunCommand(
+               [this]
+               {
+                   m_candle.Animate(rainbow_anim);
+               },
+               {this})
+        .ToPtr();
+    // if (frc::DriverStation::IsEStopped())
+    // {
+    //     return frc2::RunCommand(
+    //                [this]
+    //                {
+    //                    m_candle.SetLEDs(255, 255, 255);
+    //                },
+    //                {this})
+    //         .ToPtr();
+    // }
+    // if (frc::DriverStation::IsTeleopEnabled())
+    // {
+    //     if (!is_red())
+    //     {
+    //         return frc2::RunCommand(
+    //                    [this]
+    //                    {
+    //                        m_candle.SetLEDs(0, 0, 255);
+    //                    },
+    //                    {this})
+    //             .ToPtr();
+    //     }
+    //     else
+    //     {
+    //         return frc2::RunCommand(
+    //                    [this]
+    //                    {
+    //                        m_candle.SetLEDs(255, 0, 0);
+    //                    },
+    //                    {this})
+    //             .ToPtr()
+    //     }
+    // }
+    // else
+    // {
+    //     return run_disabled();
+    // }
+}
 frc2::CommandPtr Candle::run_disabled()
 {
     return frc2::RunCommand([this]
-                            {       
-        m_candle_timer.Start();          
-        if (!frc::DriverStation::IsFMSAttached()) {
-            if (m_candle_timer.Get() < units::time::second_t(0.5)) {
-                m_candle.SetLEDs(0, 0, 0);
-            } else if (m_candle_timer.Get() < units::time::second_t(1.0)) {
-                m_candle.SetLEDs(255, 0, 0);
-            } else {
-                m_candle_timer.Reset();
-            }
-        }
+                            { 
+                            m_candle_timer.Start();
+                            // if (!frc::DriverStation::IsFMSAttached()) {
+                            //     if (m_candle_timer.Get() < units::time::second_t(0.5)) {
+                            //         m_candle.SetLEDs(0, 0, 0);
+                            //     } else if (m_candle_timer.Get() < units::time::second_t(1.0)) {
+                            //         m_candle.SetLEDs(255, 0, 0);
+                            //     } else {
+                            //         m_candle_timer.Reset();
+                            //     }
+                            // }
 
-        else if (!has_vision || !auto_selected) {
-            if (m_candle_timer.Get() < units::time::second_t(0.5)) {
-                m_candle.SetLEDs(0, 0, 0);
-            } else if (m_candle_timer.Get() < units::time::second_t(1.0)) {
-                m_candle.SetLEDs(255, 234, 0);
-            } else {
-                m_candle_timer.Reset();
-                m_candle.SetLEDs(0, 0, 0);
-            }
-        }
-        else if (frc::DriverStation::IsFMSAttached() && has_vision && auto_selected) {
-            m_candle.Animate(rainbow_anim);
-            m_candle_timer.Stop();
-            m_candle_timer.Reset();
-        } },
+                            if (!has_vision || !auto_selected || !frc::DriverStation::IsJoystickConnected(0) || !frc::DriverStation::IsJoystickConnected(1)) {
+                                if (m_candle_timer.Get() < units::time::second_t(0.5)) {
+                                    m_candle.SetLEDs(0, 0, 0);
+                                } else if (m_candle_timer.Get() < units::time::second_t(1.0)) {
+                                    m_candle.SetLEDs(255, 234, 0);
+                                } else {
+                                    m_candle_timer.Reset();
+                                    m_candle.SetLEDs(0, 0, 0);
+                                }
+                            }
+                            else if (/*frc::DriverStation::IsFMSAttached() &&*/ has_vision && auto_selected) {
+                                m_candle.Animate(rainbow_anim);
+                                m_candle_timer.Stop();
+                                m_candle_timer.Reset();
+                            } },
                             {this})
-        .WithName("Run Disabled").IgnoringDisable(true);
+        .WithName("Run Disabled")
+        .IgnoringDisable(true);
 }

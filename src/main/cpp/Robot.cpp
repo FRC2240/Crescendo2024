@@ -8,6 +8,7 @@
 
 void Robot::RobotInit()
 {
+  m_container.m_odometry.putField2d();
 }
 
 void Robot::RobotPeriodic()

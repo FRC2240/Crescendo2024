@@ -172,7 +172,7 @@ frc2::CommandPtr Shooter::fender_shot()
         frc::SmartDashboard::PutNumber("shooter/turns", get_angle().value() / 360);
         frc::SmartDashboard::PutNumber("shooter/velocity", m_left_motor.GetVelocity().GetValueAsDouble());
         return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), CONSTANTS::SHOOTER::FENDER_ANGLE, 2_tr) &&
-               CONSTANTS::IN_THRESHOLD<units::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(), 80_tps, 5_tps);
+               CONSTANTS::IN_THRESHOLD<units::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(), CONSTANTS::SHOOTER::SHOOTER_VELOCITY, 5_tps);
 
         // change threshold?
         //    && CONSTANTS::IN_THRESHOLD<units::angular_velocity::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(), CONSTANTS::SHOOTER::LEFT_VELOCITY, units::angular_velocity::turns_per_second_t{1})    // change threshold?
@@ -187,9 +187,10 @@ frc2::CommandPtr Shooter::fender_shot()
                is_finished,
                {this})
         .ToPtr()
+        .WithTimeout(0.5_s)
         .AndThen(frc2::RunCommand([this]
                                   {
-                                      m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{8}}); // changeme
+                                      m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{12}}); // changeme
                                   },
                                   {this})
                      .ToPtr()
@@ -199,6 +200,16 @@ frc2::CommandPtr Shooter::fender_shot()
                                     m_left_motor.Set(0); 
                                     m_right_motor.Set(0); 
                                     m_angle_motor.SetControl(ctre::phoenix6::controls::PositionVoltage{0_tr}); }));
+}
+
+frc2::CommandPtr Shooter::ManualFeedCommand()
+{
+    return frc2::RunCommand([this]
+    {
+        m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{12}}); // changeme
+    }, {this})
+    .ToPtr()
+    .WithTimeout(1.5_s);
 }
 
 units::degree_t Shooter::get_angle()

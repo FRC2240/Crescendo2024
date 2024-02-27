@@ -103,14 +103,15 @@ frc2::CommandPtr Intake::StartSpinCommand()
             frc2::RunCommand([this]
                              {
                                 is_intaking = true;
-                                 m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{-12})); },
+                                 m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{CONSTANTS::INTAKE::INTAKE_VOLTAGE})); },
                              {this})
                 .Until([this] -> bool
                        { 
                         if (is_loaded()) {
                         m_timer.Start();
                        }
-                       return m_timer.Get() >= 0.2_s; }))
+                       return m_timer.Get() >= CONSTANTS::INTAKE::DELAY; }))
+
         .AndThen(StopSpinCommand())
         .WithName("StartSpin");
 };

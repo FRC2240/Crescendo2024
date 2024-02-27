@@ -27,6 +27,7 @@ private:
     // std::shared_ptr<nt::NetworkTable> m_limelight =
     Vision *m_vision;
     // nt::NetworkTableInstance::GetDefault().GetTable("limelight-dev");?
+    frc::Field2d field2d;
 
 public:
     // static frc::SwerveDriveKinematics<4> *kinematics_ptr;
