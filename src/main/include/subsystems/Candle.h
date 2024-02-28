@@ -14,6 +14,7 @@
 #include "ctre/phoenix/led/LarsonAnimation.h"
 #include <frc/Timer.h>
 #include <cmath>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 class Candle : public frc2::SubsystemBase
 {
