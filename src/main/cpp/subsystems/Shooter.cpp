@@ -46,6 +46,18 @@ void Shooter::Periodic()
     }
 }
 
+frc2::CommandPtr Shooter::spool_cmd()
+{
+    return frc2::cmd::Run(
+        [this]
+        {
+            fmt::println("spool");
+            set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
+            m_left_motor.Set(1);
+            m_right_motor.Set(1);
+        });
+}
+
 frc2::CommandPtr Shooter::default_cmd()
 {
     return frc2::RunCommand(
@@ -161,6 +173,7 @@ frc2::CommandPtr Shooter::fender_shot()
     std::function<void()> init = [this] {};
     std::function<void()> periodic = [this]
     {
+        fmt::println("shoot");
         set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
         // m_left_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(CONSTANTS::SHOOTER::LEFT_VELOCITY));
         m_left_motor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
@@ -205,11 +218,12 @@ frc2::CommandPtr Shooter::fender_shot()
 frc2::CommandPtr Shooter::ManualFeedCommand()
 {
     return frc2::RunCommand([this]
-    {
-        m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{12}}); // changeme
-    }, {this})
-    .ToPtr()
-    .WithTimeout(1.5_s);
+                            {
+                                m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{12}}); // changeme
+                            },
+                            {this})
+        .ToPtr()
+        .WithTimeout(1.5_s);
 }
 
 units::degree_t Shooter::get_angle()

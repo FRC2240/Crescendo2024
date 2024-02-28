@@ -39,6 +39,8 @@ public:
 
   frc2::CommandPtr default_cmd();
 
+  frc2::CommandPtr spool_cmd();
+
   frc2::CommandPtr intake_cmd();
 
   void intake();

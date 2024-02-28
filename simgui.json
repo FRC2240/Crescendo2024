@@ -4,6 +4,16 @@
       " Talon FX (v6)[2]": {
         "name": "Intake::belt_motor (ID 2)"
       },
+      " Talon FX (v6)[3]": {
+        "header": {
+          "open": true
+        }
+      },
+      " Talon FX (v6)[41]": {
+        "header": {
+          "open": true
+        }
+      },
       " Talon FX (v6)[4]": {
         "header": {
           "open": true
@@ -25,6 +35,16 @@
         }
       },
       "Talon FX (v6)[0]/Rotor Sensor": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon FX (v6)[40]/Rev Limit": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon FX (v6)[41]/Fwd Limit": {
         "header": {
           "open": true
         }

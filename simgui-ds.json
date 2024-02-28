@@ -1,4 +1,9 @@
 {
+  "Keyboard 0 Settings": {
+    "window": {
+      "visible": true
+    }
+  },
   "keyboardJoysticks": [
     {
       "axisConfig": [
@@ -91,8 +96,7 @@
   ],
   "robotJoysticks": [
     {
-      "guid": "030000005e040000000b00000d050000",
-      "useGamepad": true
+      "guid": "Keyboard0"
     },
     {
       "useGamepad": true
