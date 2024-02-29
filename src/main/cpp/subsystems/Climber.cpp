@@ -30,8 +30,8 @@ Climber::Climber(frc::XboxController *stick)
 frc2::CommandPtr Climber::UpCommand()
 {
     return frc2::RunCommand([this]
-                            { right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-1.0});
-                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-1.0}); },
+                            { right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-0.25});
+                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-0.25}); },
                             {this})
         .WithName("Up");
 };
@@ -39,8 +39,16 @@ frc2::CommandPtr Climber::UpCommand()
 frc2::CommandPtr Climber::DownCommand()
 {
     return frc2::RunCommand([this]
-                            { right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{1.0});
-                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{1.0}); },
+                            { if (left_limit_switch.Get()) {
+                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0.0});
+                            } else {
+                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0.25});
+                            }
+                            if (right_limit_switch.Get()) {
+                              right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0.0});
+                            } else {
+                              right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0.25});
+                            }},
                             {this})
         .WithName("Down");
 };
