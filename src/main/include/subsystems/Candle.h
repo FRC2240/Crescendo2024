@@ -35,9 +35,9 @@ public:
 private:
     ctre::phoenix::led::CANdle m_candle{CONSTANTS::CANDLE::CANDLE_ID};
     ctre::phoenix::led::RainbowAnimation rainbow_anim{0.5, 0.5, -1};
-    ctre::phoenix::led::StrobeAnimation yellow_strobe_anim{255, 234, 0, 0, 1};
-    ctre::phoenix::led::StrobeAnimation red_amp_anim{255, 0, 0, 0, 1};
-    ctre::phoenix::led::StrobeAnimation blue_amp_anim{0, 0, 255, 0, 1};
+    ctre::phoenix::led::StrobeAnimation yellow_strobe_anim{255, 234, 0, 0, 0.1};
+    ctre::phoenix::led::StrobeAnimation red_amp_anim{255, 0, 0, 0, 0.1};
+    ctre::phoenix::led::StrobeAnimation blue_amp_anim{0, 0, 255, 0, 0.1};
     ctre::phoenix::led::LarsonAnimation red_no_control_anim{255, 0, 0};
     ctre::phoenix::led::LarsonAnimation blue_no_control_anim{0, 0, 255};
 
