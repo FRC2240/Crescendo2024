@@ -66,6 +66,9 @@ void RobotContainer::ConfigureBindings()
 
   m_stick1.LeftTrigger().WhileTrue(m_shooter.ManualFeedCommand(false));
   m_stick1.LeftTrigger().WhileTrue(m_intake.ManualFeedCommand(false));
+  // m_stick1.Start().OnTrue(m_intake.zero());
+  // m_stick1.Start().OnTrue(m_shooter.zero());
+
   // m_stick0.RightTrigger().ToggleOnTrue(
   // frc2::PrintCommand("button pressed").ToPtr().AndThen(m_trajectory.auto_score_align().AlongWith(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())).AndThen(m_shooter.execute_auto_shot().WithTimeout(1.5_s))));
 

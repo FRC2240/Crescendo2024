@@ -381,6 +381,13 @@ frc2::CommandPtr Shooter::amp_shot()
                      .WithTimeout(1.5_s));
 }
 
+frc2::CommandPtr Shooter::zero()
+{
+    return frc2::cmd::RunOnce([this]
+                              { m_angle_motor.SetPosition(0_tr); },
+                              {this});
+}
+
 frc2::CommandPtr Shooter::intake_cmd()
 {
     return frc2::cmd::Run([this]

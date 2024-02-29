@@ -16,6 +16,7 @@ Intake::Intake()
     angle_config.CurrentLimits.SupplyCurrentLimit = 25; // CHANGEME
     angle_config.Slot0.kP = 0.25;
     angle_config.Slot0.kD = 0.01;
+    angle_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
     m_angleMotor.GetConfigurator().Apply(angle_config);
 
     // belt motor (pid stuff may be unnecessary)
@@ -50,6 +51,16 @@ void Intake::Periodic()
     }
     */
 };
+
+frc2::CommandPtr Intake::zero()
+{
+    return frc2::cmd::RunOnce(
+        [this]
+        {
+            m_angleMotor.SetPosition(0_tr);
+        },
+        {this});
+}
 
 bool Intake::is_loaded()
 {
