@@ -54,7 +54,6 @@ frc2::CommandPtr Shooter::spool_cmd()
     return frc2::cmd::Run(
         [this]
         {
-            fmt::println("spool");
             set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
             m_left_motor.Set(1);
             m_right_motor.Set(1);
@@ -177,7 +176,6 @@ frc2::CommandPtr Shooter::fender_shot()
     std::function<void()> init = [this] {};
     std::function<void()> periodic = [this]
     {
-        fmt::println("shoot");
         set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
         // m_left_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(CONSTANTS::SHOOTER::LEFT_VELOCITY));
         m_left_motor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
@@ -343,8 +341,10 @@ frc2::CommandPtr Shooter::amp_shot()
     std::function<void()> init = [this] {};
     std::function<void()> periodic = [this]
     {
-        units::turn_t angle = units::turn_t{frc::SmartDashboard::GetNumber("amp/dangle", 0.0)};
-        units::volt_t vout = units::volt_t{frc::SmartDashboard::GetNumber("amp/desired velocity", 0.0)};
+        // units::turn_t angle = units::turn_t{frc::SmartDashboard::GetNumber("amp/dangle", 0.0)};
+        units::turn_t angle = units::turn_t{9};
+        units::volt_t vout = units::volt_t{4};
+        // units::volt_t vout = units::volt_t{frc::SmartDashboard::GetNumber("amp/desired velocity", 0.0)};
         set_angle(angle);
         // set_angle(CONSTANTS::SHOOTER::AMP_ANGLE);
         // m_left_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(CONSTANTS::SHOOTER::LEFT_VELOCITY));

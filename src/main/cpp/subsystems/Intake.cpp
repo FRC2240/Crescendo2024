@@ -31,9 +31,8 @@ Intake::Intake()
 }
 
 // This method will be called once per scheduler run
-void Intake::Periodic()
-{
-    frc::SmartDashboard::PutNumber("tof", m_tof.GetRange());
+void Intake::Periodic(){
+    // frc::SmartDashboard::PutNumber("tof", m_tof.GetRange());
     /*
     auto result = m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
 
@@ -151,7 +150,7 @@ frc2::CommandPtr Intake::StopSpinCommand()
 
 frc2::CommandPtr Intake::StartCommand()
 {
-    return frc2::PrintCommand("Start Intake").ToPtr().AndThen(ExtendCommand().AndThen(StartSpinCommand())).WithName("Start");
+    return ExtendCommand().AndThen(StartSpinCommand()).WithName("Start");
 };
 
 frc2::CommandPtr Intake::StopCommand()

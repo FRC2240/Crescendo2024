@@ -16,16 +16,16 @@ void Robot::RobotPeriodic()
   auto candle_cmd = m_container.m_candle.get_command(&m_container.m_stick1);
   candle_cmd.Schedule();
 
-  m_container.m_odometry.update_from_vision();
+  // m_container.m_odometry.update_from_vision();
   m_container.m_odometry.update();
   frc2::CommandScheduler::GetInstance().Run();
-  m_container.m_odometry.get_shooter_angle();
 }
 
 void Robot::DisabledInit() {}
 
 void Robot::DisabledPeriodic()
 {
+  m_container.m_odometry.update_from_vision();
   switch (m_container.m_chooser.GetSelected())
   {
   case RobotContainer::AUTOS::POS_2_GP2:

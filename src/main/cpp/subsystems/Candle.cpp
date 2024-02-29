@@ -80,7 +80,7 @@ frc2::CommandPtr Candle::get_command(frc2::CommandXboxController *m_stick)
         return frc2::InstantCommand(
                    [this]
                    {
-                        m_candle.ClearAnimation(0);
+                       m_candle.ClearAnimation(0);
                        m_candle.SetLEDs(255, 255, 255);
                    },
                    {this})
@@ -93,7 +93,7 @@ frc2::CommandPtr Candle::get_command(frc2::CommandXboxController *m_stick)
             return frc2::InstantCommand(
                        [this]
                        {
-                            m_candle.SetLEDs(0,0,0);
+                           m_candle.SetLEDs(0, 0, 0);
                            m_candle.Animate(red_no_control_anim);
                        })
                 .ToPtr();
@@ -104,7 +104,7 @@ frc2::CommandPtr Candle::get_command(frc2::CommandXboxController *m_stick)
             return frc2::InstantCommand(
                        [this]
                        {
-                            m_candle.SetLEDs(0,0,0);
+                           m_candle.SetLEDs(0, 0, 0);
                            m_candle.Animate(blue_no_control_anim);
                        })
                 .ToPtr();
@@ -117,7 +117,7 @@ frc2::CommandPtr Candle::get_command(frc2::CommandXboxController *m_stick)
             return frc2::InstantCommand(
                        [this]
                        {
-                            m_candle.ClearAnimation(0);
+                           m_candle.ClearAnimation(0);
                            m_candle.SetLEDs(0, 0, 255);
                        },
                        {this})
@@ -128,43 +128,45 @@ frc2::CommandPtr Candle::get_command(frc2::CommandXboxController *m_stick)
             return frc2::InstantCommand(
                        [this]
                        {
-                            m_candle.ClearAnimation(0);
+                           m_candle.ClearAnimation(0);
                            m_candle.SetLEDs(255, 0, 0);
                        },
                        {this})
                 .ToPtr();
         }
     }
-    if (m_stick->GetYButtonPressed()){
+    if (m_stick->GetYButtonPressed())
+    {
         return frc2::InstantCommand(
-            [this]
-            {
-                m_candle.SetLEDs(0,0,0);
-                m_candle.Animate(yellow_strobe_anim);
-            })
-        .ToPtr();
+                   [this]
+                   {
+                       m_candle.SetLEDs(0, 0, 0);
+                       m_candle.Animate(yellow_strobe_anim);
+                   })
+            .ToPtr();
     }
-    if (m_stick->GetAButtonPressed()){
+    if (m_stick->GetAButtonPressed())
+    {
         if (is_red())
         {
-             return frc2::InstantCommand(
-            [this]
-            {
-                m_candle.SetLEDs(0,0,0);
-                m_candle.Animate(red_amp_anim);
-            })
-        .ToPtr();
+            return frc2::InstantCommand(
+                       [this]
+                       {
+                           m_candle.SetLEDs(0, 0, 0);
+                           m_candle.Animate(red_amp_anim);
+                       })
+                .ToPtr();
         }
         else
         {
 
             return frc2::InstantCommand(
-            [this]
-            {
-                m_candle.SetLEDs(0,0,0);
-                m_candle.Animate(blue_amp_anim);
-            })
-        .ToPtr();
+                       [this]
+                       {
+                           m_candle.SetLEDs(0, 0, 0);
+                           m_candle.Animate(blue_amp_anim);
+                       })
+                .ToPtr();
         }
     }
     else
@@ -188,12 +190,12 @@ frc2::CommandPtr Candle::run_disabled()
                 if (m_candle_timer.Get() < units::time::second_t(0.5))
                 {
                     m_candle.SetLEDs(0, 0, 0);
-                    frc::SmartDashboard::PutString("led/color", "black");
+                    // frc::SmartDashboard::PutString("led/color", "black");
                 }
                 else if (m_candle_timer.Get() < units::time::second_t(1.0))
                 {
                     m_candle.SetLEDs(255, 0, 0);
-                    frc::SmartDashboard::PutString("led/color", "red");
+                    // frc::SmartDashboard::PutString("led/color", "red");
                 }
                 else
                 {
@@ -207,12 +209,12 @@ frc2::CommandPtr Candle::run_disabled()
                 if (m_candle_timer.Get() < units::time::second_t(0.5))
                 {
                     m_candle.SetLEDs(0, 0, 0);
-                    frc::SmartDashboard::PutString("led/color", "black");
+                    // frc::SmartDashboard::PutString("led/color", "black");
                 }
                 else if (m_candle_timer.Get() < units::time::second_t(1.0))
                 {
                     m_candle.SetLEDs(255, 234, 0);
-                    frc::SmartDashboard::PutString("led/color", "Yellow");
+                    // frc::SmartDashboard::PutString("led/color", "Yellow");
                 }
                 else
                 {
