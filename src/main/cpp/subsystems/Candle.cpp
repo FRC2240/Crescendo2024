@@ -110,6 +110,31 @@ frc2::CommandPtr Candle::get_command(frc2::CommandXboxController *m_stick)
                 .ToPtr();
         }
     }
+    if (frc::DriverStation::IsTeleopEnabled())
+    {
+        if (!is_red())
+        {
+            return frc2::InstantCommand(
+                       [this]
+                       {
+                            m_candle.ClearAnimation(0);
+                           m_candle.SetLEDs(0, 0, 255);
+                       },
+                       {this})
+                .ToPtr();
+        }
+        else
+        {
+            return frc2::InstantCommand(
+                       [this]
+                       {
+                            m_candle.ClearAnimation(0);
+                           m_candle.SetLEDs(255, 0, 0);
+                       },
+                       {this})
+                .ToPtr();
+        }
+    }
     if (m_stick->GetYButtonPressed()){
         return frc2::InstantCommand(
             [this]
@@ -140,31 +165,6 @@ frc2::CommandPtr Candle::get_command(frc2::CommandXboxController *m_stick)
                 m_candle.Animate(blue_amp_anim);
             })
         .ToPtr();
-        }
-    }
-    if (frc::DriverStation::IsTeleopEnabled())
-    {
-        if (!is_red())
-        {
-            return frc2::InstantCommand(
-                       [this]
-                       {
-                            m_candle.ClearAnimation(0);
-                           m_candle.SetLEDs(0, 0, 255);
-                       },
-                       {this})
-                .ToPtr();
-        }
-        else
-        {
-            return frc2::InstantCommand(
-                       [this]
-                       {
-                            m_candle.ClearAnimation(0);
-                           m_candle.SetLEDs(255, 0, 0);
-                       },
-                       {this})
-                .ToPtr();
         }
     }
     else
