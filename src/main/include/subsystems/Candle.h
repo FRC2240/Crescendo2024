@@ -15,6 +15,7 @@
 #include <frc/Timer.h>
 #include <cmath>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <frc2/command/InstantCommand.h>
 
 class Candle : public frc2::SubsystemBase
 {

@@ -26,9 +26,24 @@ void Robot::DisabledInit() {}
 
 void Robot::DisabledPeriodic()
 {
-  m_container.m_vision.get_bot_position();
-  std::optional<frc::Pose2d> sample = m_container.m_vision.get_bot_position().size() > 0 ? m_container.m_vision.get_bot_position()[0] : std::nullopt;
-  m_container.m_candle.has_vision = (sample.has_value());
+  switch (m_container.m_chooser.GetSelected())
+  {
+  case RobotContainer::AUTOS::POS_2_GP2:
+    m_container.m_candle.auto_selected = true;
+    break;
+  case RobotContainer::AUTOS::POS_2_GP1:
+    m_container.m_candle.auto_selected = true;
+    break;
+  case RobotContainer::AUTOS::SHOOT:
+    m_container.m_candle.auto_selected = true;
+    break;
+  case RobotContainer::AUTOS::POS_2_GP3:
+    m_container.m_candle.auto_selected = true;
+  default:
+    frc::DataLogManager::Log("WARN: NO AUTO SELECTED");
+    m_container.m_candle.auto_selected = false;
+  }
+  m_container.m_candle.has_vision = (m_container.m_odometry.getPose().X().value() != 0);
 }
 
 void Robot::DisabledExit() {}

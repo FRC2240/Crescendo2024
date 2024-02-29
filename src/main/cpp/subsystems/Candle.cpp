@@ -77,7 +77,7 @@ frc2::CommandPtr Candle::get_command()
 {
     if (frc::DriverStation::IsEStopped())
     {
-        return frc2::RunCommand(
+        return frc2::InstantCommand(
                    [this]
                    {
                        m_candle.SetLEDs(255, 255, 255);
@@ -89,7 +89,7 @@ frc2::CommandPtr Candle::get_command()
     {
         if (is_red())
         {
-            return frc2::RunCommand(
+            return frc2::InstantCommand(
                        [this]
                        {
                            m_candle.Animate(red_no_control_anim);
@@ -99,7 +99,7 @@ frc2::CommandPtr Candle::get_command()
         else
         {
 
-            return frc2::RunCommand(
+            return frc2::InstantCommand(
                        [this]
                        {
                            m_candle.Animate(blue_no_control_anim);
@@ -111,7 +111,7 @@ frc2::CommandPtr Candle::get_command()
     {
         if (!is_red())
         {
-            return frc2::RunCommand(
+            return frc2::InstantCommand(
                        [this]
                        {
                            m_candle.SetLEDs(0, 0, 255);
@@ -121,7 +121,7 @@ frc2::CommandPtr Candle::get_command()
         }
         else
         {
-            return frc2::RunCommand(
+            return frc2::InstantCommand(
                        [this]
                        {
                            m_candle.SetLEDs(255, 0, 0);
@@ -139,41 +139,56 @@ frc2::CommandPtr Candle::run_disabled()
 {
     return frc2::RunCommand([this]
                             {
-        frc::SmartDashboard::PutBoolean("checklist/vision", has_vision);
-        frc::SmartDashboard::PutBoolean("checklist/autos", auto_selected);
-        frc::SmartDashboard::PutBoolean("checklist/js0", frc::DriverStation::IsJoystickConnected(0));
-        frc::SmartDashboard::PutBoolean("checklist/js1", frc::DriverStation::IsJoystickConnected(1));
-        m_candle_timer.Start();
-        // if (!frc::DriverStation::IsFMSAttached()) {
-        //     if (m_candle_timer.Get() < units::time::second_t(0.5)) {
-        //         m_candle.SetLEDs(0, 0, 0);
-        //     } else if (m_candle_timer.Get() < units::time::second_t(1.0)) {
-        //         m_candle.SetLEDs(255, 0, 0);
-        //     } else {
-        //         m_candle_timer.Reset();
-        //     }
-        // }
+        if (frc::DriverStation::IsDisabled())
+        {
+            frc::SmartDashboard::PutBoolean("checklist/vision", has_vision);
+            frc::SmartDashboard::PutBoolean("checklist/autos", auto_selected);
+            frc::SmartDashboard::PutBoolean("checklist/js0", frc::DriverStation::IsJoystickConnected(0));
+            frc::SmartDashboard::PutBoolean("checklist/js1", frc::DriverStation::IsJoystickConnected(1));
+            m_candle_timer.Start();
+            if (!frc::DriverStation::IsFMSAttached())
+            {
+                if (m_candle_timer.Get() < units::time::second_t(0.5))
+                {
+                    m_candle.SetLEDs(0, 0, 0);
+                    frc::SmartDashboard::PutString("led/color", "black");
+                }
+                else if (m_candle_timer.Get() < units::time::second_t(1.0))
+                {
+                    m_candle.SetLEDs(255, 0, 0);
+                    frc::SmartDashboard::PutString("led/color", "red");
+                }
+                else
+                {
+                    m_candle_timer.Reset();
+                }
+            }
 
-        if (!has_vision || !auto_selected || !frc::DriverStation::IsJoystickConnected(0) || !frc::DriverStation::IsJoystickConnected(1)){
-            if (m_candle_timer.Get() < units::time::second_t(0.5))
+            if (!has_vision || !auto_selected || !frc::DriverStation::IsJoystickConnected(0) || !frc::DriverStation::IsJoystickConnected(1))
             {
-                m_candle.SetLEDs(0, 0, 0);
+                if (m_candle_timer.Get() < units::time::second_t(0.5))
+                {
+                    m_candle.SetLEDs(0, 0, 0);
+                    frc::SmartDashboard::PutString("led/color", "black");
+                }
+                else if (m_candle_timer.Get() < units::time::second_t(1.0))
+                {
+                    m_candle.SetLEDs(255, 234, 0);
+                    frc::SmartDashboard::PutString("led/color", "Yellow");
+                }
+                else
+                {
+                    m_candle_timer.Reset();
+                    m_candle.SetLEDs(0, 0, 0);
+                }
             }
-            else if (m_candle_timer.Get() < units::time::second_t(1.0))
+            else if (frc::DriverStation::IsFMSAttached() && has_vision && auto_selected && frc::DriverStation::IsJoystickConnected(0) && frc::DriverStation::IsJoystickConnected(1))
             {
-                m_candle.SetLEDs(255, 234, 0);
-            }
-            else
-            {
+                m_candle.Animate(rainbow_anim);
+                m_candle_timer.Stop();
                 m_candle_timer.Reset();
-                m_candle.SetLEDs(0, 0, 0);
             }
-                            }
-                            else if (frc::DriverStation::IsFMSAttached() && has_vision && auto_selected && frc::DriverStation::IsJoystickConnected(0) && frc::DriverStation::IsJoystickConnected(1)){
-        m_candle.Animate(rainbow_anim);
-        m_candle_timer.Stop();
-        m_candle_timer.Reset();
-                            } },
+        } },
                             {this})
         .WithName("Run Disabled")
         .IgnoringDisable(true);
