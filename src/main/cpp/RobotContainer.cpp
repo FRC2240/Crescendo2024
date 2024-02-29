@@ -58,7 +58,7 @@ void RobotContainer::ConfigureBindings()
   m_stick1.X().ToggleOnTrue(m_shooter.test_shot()); // testing ONLY
   m_stick0.RightBumper().ToggleOnTrue(m_shooter.fender_shot());
   m_stick1.A().ToggleOnTrue(m_shooter.amp_shot());
-  m_stick0.B().ToggleOnTrue(m_shooter.spool_cmd());
+  m_stick0.B().WhileTrue(m_shooter.spool_cmd());
   m_stick0.LeftBumper().ToggleOnTrue(m_intake.StartCommand());
   // m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup());
   m_stick1.RightTrigger().WhileTrue(m_shooter.ManualFeedCommand(true));
