@@ -62,6 +62,15 @@ bool Intake::is_lower_tof_loaded()
 
     return m_lower_tof.GetRange() < CONSTANTS::INTAKE::LOWER_LOADED_DIST;
 };
+
+frc2::CommandPtr Intake::ManualFeedCommand(bool back)
+{
+    return frc2::cmd::Run([this, back]
+                          { if (back) {m_beltMotor.Set(0.3);}
+                          else { m_beltMotor.Set(-0.3);} },
+                          {this});
+}
+
 frc2::CommandPtr Intake::ExtendCommand()
 {
     return frc2::RunCommand([this] -> void

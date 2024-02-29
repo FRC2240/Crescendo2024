@@ -218,15 +218,23 @@ frc2::CommandPtr Shooter::fender_shot()
                                     m_angle_motor.SetControl(ctre::phoenix6::controls::PositionVoltage{0_tr}); }));
 }
 
-frc2::CommandPtr Shooter::ManualFeedCommand()
+frc2::CommandPtr Shooter::ManualFeedCommand(bool back)
 {
-    return frc2::RunCommand([this]
+    return frc2::RunCommand([this, back]
                             {
-                                m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{12}}); // changeme
-                            },
+                                if (back)
+                                {
+                                m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{-10}}); // changeme
+                                m_left_motor.Set(-.5);
+                                m_right_motor.Set(-.5);
+                             }
+                             else {
+                                 m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{10}}); // changeme
+                                m_left_motor.Set(.5);
+                                m_right_motor.Set(.5);                               
+                             } },
                             {this})
-        .ToPtr()
-        .WithTimeout(1.5_s);
+        .ToPtr();
 }
 
 units::degree_t Shooter::get_angle()
