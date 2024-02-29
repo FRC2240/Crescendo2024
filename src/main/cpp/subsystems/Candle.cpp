@@ -164,7 +164,7 @@ frc2::CommandPtr Candle::run_disabled()
                 }
             }
 
-            if (!has_vision || !auto_selected || !frc::DriverStation::IsJoystickConnected(0) || !frc::DriverStation::IsJoystickConnected(1))
+            else if (!has_vision || !auto_selected || !frc::DriverStation::IsJoystickConnected(0) || !frc::DriverStation::IsJoystickConnected(1))
             {
                 if (m_candle_timer.Get() < units::time::second_t(0.5))
                 {
