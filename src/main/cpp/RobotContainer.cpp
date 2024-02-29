@@ -11,7 +11,8 @@ RobotContainer::RobotContainer()
   // frc::Rotation2d(0_rad)); Initialize all of your commands and subsystems
   // here Configure the button bindings
 
-  m_chooser.AddOption("Side auto", AUTOS::POS_3_LINE);
+  m_chooser.AddOption("just shoot", AUTOS::SHOOT);
+  m_chooser.AddOption("DO NOT USE IN COMP (3gp)", AUTOS::POS_2_GP3);
   // m_chooser.AddOption("Feederside 1gp", AUTOS::POS_3_GP1);
   // m_chooser.AddOption("Position 2 autoline", AUTOS::POS_2_LINE);
   // m_chooser.AddOption("Position 3 autoline", AUTOS::POS_3_LINE);
@@ -24,7 +25,7 @@ RobotContainer::RobotContainer()
   // m_chooser.AddOption("Position 1 four game piece", AUTOS::POS_1_GP4);
   // m_chooser.AddOption("Position 2 four game piece", AUTOS::POS_2_GP4);
   // m_chooser.AddOption("Position 3 four game piece", AUTOS::POS_3_GP4);
-  m_chooser.AddOption("Position 2 one game piece", AUTOS::POS_3_GP4);
+  m_chooser.AddOption("Position 2 one game piece", AUTOS::POS_2_GP1);
   // m_chooser.AddOption("TEST", AUTOS::TEST);
 
   frc::SmartDashboard::PutData(&m_chooser);
@@ -44,6 +45,8 @@ void RobotContainer::add_named_commands()
 
 void RobotContainer::ConfigureBindings()
 {
+  auto ampshot = m_shooter.amp_shot();
+  ampshot.Schedule();
   // Configure your trigger bindings here
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
   m_shooter.SetDefaultCommand(m_shooter.default_cmd());
@@ -54,7 +57,7 @@ void RobotContainer::ConfigureBindings()
   // Shooter
   m_stick1.X().ToggleOnTrue(m_shooter.test_shot()); // testing ONLY
   m_stick0.RightBumper().ToggleOnTrue(m_shooter.fender_shot());
-  m_stick0.A().ToggleOnTrue(m_shooter.amp_shot());
+  m_stick1.A().ToggleOnTrue(m_shooter.amp_shot());
   m_stick0.B().ToggleOnTrue(m_shooter.spool_cmd());
   m_stick0.LeftBumper().ToggleOnTrue(m_intake.StartCommand());
   // m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup());
@@ -95,10 +98,15 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
   case AUTOS::POS_2_GP2:
     return autos::pos_2_gp2(&m_trajectory);
     break;
-  case AUTOS::POS_3_LINE:
-    return autos::pos_3_line(&m_trajectory);
+  case AUTOS::POS_2_GP1:
+    return autos::pos_2_gp1(&m_trajectory);
     break;
-  // case AUTOS::?POS_1_GP1:
+  case RobotContainer::AUTOS::SHOOT:
+    return m_shooter.fender_shot();
+    break;
+  case RobotContainer::AUTOS::POS_2_GP3:
+    return autos::pos_2_gp3(&m_trajectory);
+    break;
   default:
     frc::DataLogManager::Log("WARN: NO AUTO SELECTED");
     m_candle.auto_selected = false;
