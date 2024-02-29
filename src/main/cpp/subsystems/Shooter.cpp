@@ -331,10 +331,8 @@ frc2::CommandPtr Shooter::execute_auto_shot()
                                 m_left_motor.SetControl(ctre::phoenix6::controls::DutyCycleOut(1)); 
                              m_right_motor.SetControl(ctre::phoenix6::controls::DutyCycleOut(1)); 
 
-if (              CONSTANTS::IN_THRESHOLD<units::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(), 80_tps, 5_tps))
-{
-                                m_belt_motor.Set(1);
- } })
+                                m_belt_motor.Set(1); },
+                            {this})
 
         .ToPtr();
 }

@@ -39,6 +39,7 @@ void Robot::DisabledPeriodic()
     break;
   case RobotContainer::AUTOS::POS_2_GP3:
     m_container.m_candle.auto_selected = true;
+    break;
   default:
     m_container.m_candle.auto_selected = false;
   }
