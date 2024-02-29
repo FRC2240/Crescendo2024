@@ -16,13 +16,14 @@
 #include <cmath>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/InstantCommand.h>
+#include <frc2/command/button/CommandXboxController.h>
 
 class Candle : public frc2::SubsystemBase
 {
 public:
     Candle();
     void Periodic() override;
-    frc2::CommandPtr get_command();
+    frc2::CommandPtr get_command(frc2::CommandXboxController *m_stick);
     frc2::CommandPtr fast_yellow_blink();
     frc2::CommandPtr amp_blink();
     frc2::CommandPtr not_driver_controlled();

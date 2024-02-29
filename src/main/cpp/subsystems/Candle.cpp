@@ -73,13 +73,14 @@ frc2::CommandPtr Candle::off()
         .WithName("Off");
 };
 
-frc2::CommandPtr Candle::get_command()
+frc2::CommandPtr Candle::get_command(frc2::CommandXboxController *m_stick)
 {
     if (frc::DriverStation::IsEStopped())
     {
         return frc2::InstantCommand(
                    [this]
                    {
+                        m_candle.ClearAnimation(0);
                        m_candle.SetLEDs(255, 255, 255);
                    },
                    {this})
@@ -92,6 +93,7 @@ frc2::CommandPtr Candle::get_command()
             return frc2::InstantCommand(
                        [this]
                        {
+                            m_candle.SetLEDs(0,0,0);
                            m_candle.Animate(red_no_control_anim);
                        })
                 .ToPtr();
@@ -102,9 +104,42 @@ frc2::CommandPtr Candle::get_command()
             return frc2::InstantCommand(
                        [this]
                        {
+                            m_candle.SetLEDs(0,0,0);
                            m_candle.Animate(blue_no_control_anim);
                        })
                 .ToPtr();
+        }
+    }
+    if (m_stick->GetYButtonPressed()){
+        return frc2::InstantCommand(
+            [this]
+            {
+                m_candle.SetLEDs(0,0,0);
+                m_candle.Animate(yellow_strobe_anim);
+            })
+        .ToPtr();
+    }
+    if (m_stick->GetAButtonPressed()){
+        if (is_red())
+        {
+             return frc2::InstantCommand(
+            [this]
+            {
+                m_candle.SetLEDs(0,0,0);
+                m_candle.Animate(red_amp_anim);
+            })
+        .ToPtr();
+        }
+        else
+        {
+
+            return frc2::InstantCommand(
+            [this]
+            {
+                m_candle.SetLEDs(0,0,0);
+                m_candle.Animate(blue_amp_anim);
+            })
+        .ToPtr();
         }
     }
     if (frc::DriverStation::IsTeleopEnabled())
@@ -114,6 +149,7 @@ frc2::CommandPtr Candle::get_command()
             return frc2::InstantCommand(
                        [this]
                        {
+                            m_candle.ClearAnimation(0);
                            m_candle.SetLEDs(0, 0, 255);
                        },
                        {this})
@@ -124,6 +160,7 @@ frc2::CommandPtr Candle::get_command()
             return frc2::InstantCommand(
                        [this]
                        {
+                            m_candle.ClearAnimation(0);
                            m_candle.SetLEDs(255, 0, 0);
                        },
                        {this})

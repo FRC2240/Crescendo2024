@@ -13,7 +13,7 @@ void Robot::RobotInit()
 
 void Robot::RobotPeriodic()
 {
-  auto candle_cmd = m_container.m_candle.get_command();
+  auto candle_cmd = m_container.m_candle.get_command(&m_container.m_stick1);
   candle_cmd.Schedule();
 
   m_container.m_odometry.update_from_vision();
