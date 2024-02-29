@@ -29,8 +29,8 @@ public:
 
 private:
 
-  frc::DigitalInput left_limit_switch{1};
-  frc::DigitalInput right_limit_switch{2};
+  frc::DigitalInput left_limit_switch{0};
+  frc::DigitalInput right_limit_switch{1};
 
   frc::XboxController *m_stick;
 

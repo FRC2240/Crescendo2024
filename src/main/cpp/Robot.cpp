@@ -40,7 +40,6 @@ void Robot::DisabledPeriodic()
   case RobotContainer::AUTOS::POS_2_GP3:
     m_container.m_candle.auto_selected = true;
   default:
-    frc::DataLogManager::Log("WARN: NO AUTO SELECTED");
     m_container.m_candle.auto_selected = false;
   }
   m_container.m_candle.has_vision = (m_container.m_odometry.getPose().X().value() != 0);

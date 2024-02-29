@@ -30,8 +30,8 @@ Climber::Climber(frc::XboxController *stick)
 frc2::CommandPtr Climber::UpCommand()
 {
     return frc2::RunCommand([this]
-                            { right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-0.25});
-                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-0.25}); },
+                            { right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-0.5});
+                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{-0.5}); },
                             {this})
         .WithName("Up");
 };
@@ -42,13 +42,15 @@ frc2::CommandPtr Climber::DownCommand()
                             { if (left_limit_switch.Get()) {
                               left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0.0});
                             } else {
-                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0.25});
+                              left_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0.5});
                             }
                             if (right_limit_switch.Get()) {
                               right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0.0});
                             } else {
-                              right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0.25});
-                            }},
+                              right_climber.SetControl(ctre::phoenix6::controls::DutyCycleOut{0.5});
+                            }
+                            std::cout << "Left LS: " << left_limit_switch.Get() <<std::endl;
+                            std::cout << "Right Ls: " << right_limit_switch.Get() << std::endl;},
                             {this})
         .WithName("Down");
 };
