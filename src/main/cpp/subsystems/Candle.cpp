@@ -222,6 +222,7 @@ frc2::CommandPtr Candle::run_disabled()
             }
             else if (frc::DriverStation::IsFMSAttached() && has_vision && auto_selected && frc::DriverStation::IsJoystickConnected(0) && frc::DriverStation::IsJoystickConnected(1))
             {
+                m_candle.SetLEDs(0, 0, 0);
                 m_candle.Animate(rainbow_anim);
                 m_candle_timer.Stop();
                 m_candle_timer.Reset();
