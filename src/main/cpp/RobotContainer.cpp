@@ -92,7 +92,7 @@ void RobotContainer::ConfigureBindings()
                 }}
       .WhileTrue(m_climber.DownCommand());
   // Candle
-  m_candle.SetDefaultCommand(m_candle.off());
+  // m_candle.SetDefaultCommand(m_candle.off());
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
@@ -114,7 +114,7 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
     break;
   default:
     frc::DataLogManager::Log("WARN: NO AUTO SELECTED");
-    m_candle.auto_selected = false;
+    // m_candle.auto_selected = false;
     break;
   }
 }

@@ -13,8 +13,8 @@ void Robot::RobotInit()
 
 void Robot::RobotPeriodic()
 {
-  auto candle_cmd = m_container.m_candle.get_command(&m_container.m_stick1);
-  candle_cmd.Schedule();
+  // auto candle_cmd = m_container.m_candle.get_command(&m_container.m_stick1);
+  // candle_cmd.Schedule();
 
   // m_container.m_odometry.update_from_vision();
   m_container.m_odometry.update();
@@ -26,24 +26,6 @@ void Robot::DisabledInit() {}
 void Robot::DisabledPeriodic()
 {
   m_container.m_odometry.update_from_vision();
-  switch (m_container.m_chooser.GetSelected())
-  {
-  case RobotContainer::AUTOS::POS_2_GP2:
-    m_container.m_candle.auto_selected = true;
-    break;
-  case RobotContainer::AUTOS::POS_2_GP1:
-    m_container.m_candle.auto_selected = true;
-    break;
-  case RobotContainer::AUTOS::SHOOT:
-    m_container.m_candle.auto_selected = true;
-    break;
-  case RobotContainer::AUTOS::POS_2_GP3:
-    m_container.m_candle.auto_selected = true;
-    break;
-  default:
-    m_container.m_candle.auto_selected = false;
-  }
-  m_container.m_candle.has_vision = (m_container.m_odometry.getPose().X().value() != 0);
 }
 
 void Robot::DisabledExit() {}
