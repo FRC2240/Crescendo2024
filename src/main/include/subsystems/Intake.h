@@ -24,6 +24,7 @@
 #include <frc2/command/RunCommand.h>
 #include "subsystems/Intake.h"
 #include "swerve/Odometry.h"
+#include <frc/DataLogManager.h>
 class Intake : public frc2::SubsystemBase
 {
 public:

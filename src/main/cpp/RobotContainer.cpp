@@ -61,6 +61,7 @@ void RobotContainer::ConfigureBindings()
   // m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup());
   m_stick1.RightTrigger().WhileTrue(m_shooter.ManualFeedCommand(true));
   m_stick1.RightTrigger().WhileTrue(m_intake.ManualFeedCommand(true));
+  m_stick0.B().WhileTrue(m_shooter.spool_cmd());
 
   m_stick1.LeftTrigger().WhileTrue(m_shooter.ManualFeedCommand(false));
   m_stick1.LeftTrigger().WhileTrue(m_intake.ManualFeedCommand(false));
