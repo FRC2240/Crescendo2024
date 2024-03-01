@@ -45,8 +45,6 @@ void RobotContainer::add_named_commands()
 
 void RobotContainer::ConfigureBindings()
 {
-  auto ampshot = m_shooter.amp_shot();
-  ampshot.Schedule();
   // Configure your trigger bindings here
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
   m_shooter.SetDefaultCommand(m_shooter.default_cmd());
@@ -56,9 +54,9 @@ void RobotContainer::ConfigureBindings()
 
   // Shooter
   m_stick1.X().ToggleOnTrue(m_shooter.test_shot()); // testing ONLY
-  m_stick0.RightBumper().ToggleOnTrue(m_shooter.execute_auto_shot());
-  m_stick1.A().ToggleOnTrue(m_shooter.amp_shot());
-  m_stick0.B().WhileTrue(m_shooter.spool_cmd());
+  // m_stick0.RightBumper().ToggleOnTrue(m_shooter.execute_auto_shot());
+  m_stick0.A().ToggleOnTrue(m_shooter.amp_shot());
+  m_stick0.RightBumper().ToggleOnTrue(m_shooter.fender_shot());
   m_stick0.LeftBumper().ToggleOnTrue(m_intake.StartCommand());
   // m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup());
   m_stick1.RightTrigger().WhileTrue(m_shooter.ManualFeedCommand(true));
@@ -72,8 +70,8 @@ void RobotContainer::ConfigureBindings()
   // m_stick0.RightTrigger().ToggleOnTrue(
   // frc2::PrintCommand("button pressed").ToPtr().AndThen(m_trajectory.auto_score_align().AlongWith(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())).AndThen(m_shooter.execute_auto_shot().WithTimeout(1.5_s))));
 
-  m_stick0.RightTrigger().ToggleOnTrue(frc2::cmd::DeferredProxy([this]
-                                                                { return m_shooter.set_angle_cmd(m_odometry.get_shooter_angle()); }));
+  // m_stick0.RightTrigger().ToggleOnTrue(frc2::cmd::DeferredProxy([this]
+  // { return m_shooter.set_angle_cmd(m_odometry.get_shooter_angle()); }));
 
   // Buddy Climber
   // Climber
