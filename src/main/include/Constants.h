@@ -172,7 +172,7 @@ namespace CONSTANTS
 /* -------------------------------------------------------------------------- */
 #pragma warning("Values extraordinary wrong")
       constexpr ModuleConfig FL{60, 61, 14, -0.405_tr};
-      constexpr ModuleConfig FR{50, 51, 13, -0.324_tr};
+      constexpr ModuleConfig FR{50, 51, 13, -0.179_tr};
       constexpr ModuleConfig BL{30, 31, 11, 0.322_tr};
       constexpr ModuleConfig BR{40, 41, 12, -0.25_tr};
 
