@@ -55,8 +55,8 @@ namespace CONSTANTS
   {
 #ifdef BETABOT
     constexpr auto DELAY = 0.15_s;
-    constexpr units::turn_t UP_POSITION = -0.1_tr;
-    constexpr units::turn_t DOWN_POSITION = 7.3_tr;
+    constexpr units::turn_t UP_POSITION = 0.527_tr;
+    constexpr units::turn_t DOWN_POSITION = 8.1_tr;
     constexpr int INTAKE_VOLTAGE = -10;
 #endif
 #ifndef BETABOT
