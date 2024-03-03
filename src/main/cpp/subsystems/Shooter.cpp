@@ -129,7 +129,7 @@ frc2::CommandPtr Shooter::test_shot()
     std::function<void()> periodic = [this]
     {
         units::turn_t angle = units::turn_t{frc::SmartDashboard::GetNumber("shooter/dangle", 0.0)};
-        fmt::println("{}", angle.value());
+        //fmt::println("{}", angle.value());
         set_angle(angle);
         // m_left_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(CONSTANTS::SHOOTER::LEFT_VELOCITY));
 

@@ -59,6 +59,7 @@ void RobotContainer::ConfigureBindings()
   m_stick0.RightBumper().WhileTrue(m_shooter.ManualFeedCommand(false));
   m_stick0.RightBumper().WhileTrue(m_intake.ManualFeedCommand(false));
   m_stick0.LeftBumper().ToggleOnTrue(m_intake.StartCommand());
+  //m_stick0.LeftTrigger().WhileTrue(m_intake.Wes());
   // m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup());
   m_stick1.RightTrigger().WhileTrue(m_shooter.ManualFeedCommand(true));
   m_stick1.RightTrigger().WhileTrue(m_intake.ManualFeedCommand(true));
@@ -97,7 +98,7 @@ void RobotContainer::ConfigureBindings()
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
 {
-  fmt::println("get auto cmd");
+  //fmt::println("get auto cmd");
   switch (m_chooser.GetSelected())
   {
   case AUTOS::POS_2_GP2:

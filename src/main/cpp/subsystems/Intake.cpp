@@ -158,6 +158,21 @@ frc2::CommandPtr Intake::StopCommand()
     return StopSpinCommand().AndThen(RetractCommand()).WithName("Stop");
 };
 
+frc2::CommandPtr Intake::Wes()
+{
+    return frc2::cmd::Run([this]
+                          { m_beltMotor.Set(0.3); 
+                        
+                          },{this})
+                          .Until([this] -> bool
+                       { 
+                        if (is_loaded()) {
+                        m_timer.Start();
+                       }
+                       return m_timer.Get() >= CONSTANTS::INTAKE::DELAY; })
+
+        .AndThen(StopSpinCommand());
+}
 /*
 New position [DONE]
 Belt combined
