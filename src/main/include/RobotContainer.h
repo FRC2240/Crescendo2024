@@ -67,21 +67,23 @@ public:
     POS_3_GP3,
     POS_1_GP4,
     POS_2_GP4,
-    POS_3_GP4
+    POS_3_GP4,
+    SHOOT
   };
   Intake m_intake;
   Climber m_climber{&m_stick1};
   Shooter m_shooter{&m_odometry, &m_intake};
   BuddyClimber m_buddyClimber;
-  Candle m_candle;
+  // Candle m_candle;
 
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
 
   Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick0, &m_vision, &m_intake};
 
+  frc::SendableChooser<AUTOS> m_chooser;
+
 private:
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
   // The robot's subsystems are defined here...
-  frc::SendableChooser<AUTOS> m_chooser;
 };

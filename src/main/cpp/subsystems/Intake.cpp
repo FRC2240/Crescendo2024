@@ -16,6 +16,7 @@ Intake::Intake()
     angle_config.CurrentLimits.SupplyCurrentLimit = 25; // CHANGEME
     angle_config.Slot0.kP = 0.25;
     angle_config.Slot0.kD = 0.01;
+    angle_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
     m_angleMotor.GetConfigurator().Apply(angle_config);
 
     // belt motor (pid stuff may be unnecessary)
@@ -30,9 +31,8 @@ Intake::Intake()
 }
 
 // This method will be called once per scheduler run
-void Intake::Periodic()
-{
-    frc::SmartDashboard::PutNumber("tof", m_tof.GetRange());
+void Intake::Periodic(){
+    // frc::SmartDashboard::PutNumber("tof", m_tof.GetRange());
     /*
     auto result = m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
 
@@ -51,6 +51,16 @@ void Intake::Periodic()
     */
 };
 
+frc2::CommandPtr Intake::zero()
+{
+    return frc2::cmd::RunOnce(
+        [this]
+        {
+            m_angleMotor.SetPosition(0_tr);
+        },
+        {this});
+}
+
 bool Intake::is_loaded()
 {
 
@@ -62,6 +72,15 @@ bool Intake::is_lower_tof_loaded()
 
     return m_lower_tof.GetRange() < CONSTANTS::INTAKE::LOWER_LOADED_DIST;
 };
+
+frc2::CommandPtr Intake::ManualFeedCommand(bool back)
+{
+    return frc2::cmd::Run([this, back]
+                          { if (back) {m_beltMotor.Set(0.3);}
+                          else { m_beltMotor.Set(-0.3);} },
+                          {this});
+}
+
 frc2::CommandPtr Intake::ExtendCommand()
 {
     return frc2::RunCommand([this] -> void
@@ -131,7 +150,7 @@ frc2::CommandPtr Intake::StopSpinCommand()
 
 frc2::CommandPtr Intake::StartCommand()
 {
-    return frc2::PrintCommand("Start Intake").ToPtr().AndThen(ExtendCommand().AndThen(StartSpinCommand())).WithName("Start");
+    return ExtendCommand().AndThen(StartSpinCommand()).WithName("Start");
 };
 
 frc2::CommandPtr Intake::StopCommand()
@@ -139,6 +158,21 @@ frc2::CommandPtr Intake::StopCommand()
     return StopSpinCommand().AndThen(RetractCommand()).WithName("Stop");
 };
 
+frc2::CommandPtr Intake::Wes()
+{
+    return frc2::cmd::Run([this]
+                          { m_beltMotor.Set(0.3); 
+                        
+                          },{this})
+                          .Until([this] -> bool
+                       { 
+                        if (is_loaded()) {
+                        m_timer.Start();
+                       }
+                       return m_timer.Get() >= CONSTANTS::INTAKE::DELAY; })
+
+        .AndThen(StopSpinCommand());
+}
 /*
 New position [DONE]
 Belt combined

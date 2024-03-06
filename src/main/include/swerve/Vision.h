@@ -48,12 +48,12 @@ private:
     std::function<units::degree_t()> get_angle;
     bool is_hardware_zoomed = 0;
 
-    std::shared_ptr<photon::PhotonCamera> m_left_camera_a =
-        std::make_shared<photon::PhotonCamera>("left_camera_a");
+    // std::shared_ptr<photon::PhotonCamera> m_left_camera_a =
+    //     std::make_shared<photon::PhotonCamera>("left_camera_a");
     // std::shared_ptr<photon::PhotonCamera> m_left_camera_b =
     //     std::make_shared<photon::PhotonCamera>("left_camera_b");
-    std::shared_ptr<photon::PhotonCamera> m_right_camera_a =
-        std::make_shared<photon::PhotonCamera>("right_camera_a");
+    // std::shared_ptr<photon::PhotonCamera> m_right_camera_a =
+    //     std::make_shared<photon::PhotonCamera>("right_camera_a");
     // std::shared_ptr<photon::PhotonCamera> m_right_camera_b =
     //     std::make_shared<photon::PhotonCamera>("photon-right-b");
 
@@ -83,9 +83,9 @@ private:
     //                          {m_right_camera_a, m_right_estimator_a},
     //                          {m_right_camera_b, m_right_estimator_b}};
 
-    std::vector<std::pair<std::shared_ptr<photon::PhotonCamera>, photon::PhotonPoseEstimator>>
-        m_photoncam_vec = {{m_left_camera_a, m_left_estimator_a},
-                           {m_right_camera_a, m_right_estimator_a}};
+    // std::vector<std::pair<std::shared_ptr<photon::PhotonCamera>, photon::PhotonPoseEstimator>>
+    //     m_photoncam_vec = {{m_left_camera_a, m_left_estimator_a},
+    //                        {m_right_camera_a, m_right_estimator_a}};
     std::shared_ptr<nt::NetworkTable> m_aft_limelight =
         nt::NetworkTableInstance::GetDefault().GetTable("limelight-aft");
 

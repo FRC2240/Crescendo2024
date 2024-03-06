@@ -13,19 +13,19 @@ void Robot::RobotInit()
 
 void Robot::RobotPeriodic()
 {
-  m_container.m_odometry.update_from_vision();
+  // auto candle_cmd = m_container.m_candle.get_command(&m_container.m_stick1);
+  // candle_cmd.Schedule();
+
+  // m_container.m_odometry.update_from_vision();
   m_container.m_odometry.update();
   frc2::CommandScheduler::GetInstance().Run();
-  m_container.m_odometry.get_shooter_angle();
 }
 
 void Robot::DisabledInit() {}
 
 void Robot::DisabledPeriodic()
 {
-  m_container.m_vision.get_bot_position();
-  std::optional<frc::Pose2d> sample = m_container.m_vision.get_bot_position().size() > 0 ? m_container.m_vision.get_bot_position()[0] : std::nullopt;
-  m_container.m_candle.has_vision = (sample.has_value());
+  m_container.m_odometry.update_from_vision();
 }
 
 void Robot::DisabledExit() {}

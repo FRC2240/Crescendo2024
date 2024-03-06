@@ -54,10 +54,10 @@ namespace CONSTANTS
   namespace INTAKE
   {
 #ifdef BETABOT
-    constexpr auto DELAY = 0.2_s;
-    constexpr units::turn_t UP_POSITION = -0.1_tr;
-    constexpr units::turn_t DOWN_POSITION = 7.3_tr;
-    constexpr int INTAKE_VOLTAGE = -10;
+    constexpr auto DELAY = 0.15_s;
+    constexpr units::turn_t UP_POSITION = 0.953_tr;
+    constexpr units::turn_t DOWN_POSITION = 8.238_tr;
+    constexpr int INTAKE_VOLTAGE = -12;
 #endif
 #ifndef BETABOT
     constexpr auto DELAY = 0.35_s;
@@ -73,7 +73,7 @@ namespace CONSTANTS
     constexpr int ANGLE_ID = 3;
     constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
     constexpr units::turn_t BRACE_POSITION = 2.33_tr;
-    constexpr units::turn_t ROTATION_THRESHOLD = 0.2_tr;
+    constexpr units::turn_t ROTATION_THRESHOLD = 5_tr;
   } // namespace INTAKE
   namespace VISION
   {
@@ -172,7 +172,7 @@ namespace CONSTANTS
 /* -------------------------------------------------------------------------- */
 #pragma warning("Values extraordinary wrong")
       constexpr ModuleConfig FL{60, 61, 14, -0.405_tr};
-      constexpr ModuleConfig FR{50, 51, 13, -0.324_tr};
+      constexpr ModuleConfig FR{50, 51, 13, -0.179_tr};
       constexpr ModuleConfig BL{30, 31, 11, 0.322_tr};
       constexpr ModuleConfig BR{40, 41, 12, -0.25_tr};
 

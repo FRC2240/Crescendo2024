@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 1.4,
+        "x": 1.519102314598461,
         "y": 5.55
       },
       "prevControl": {
-        "x": 1.8856149625922656,
-        "y": 5.55
+        "x": 2.0046425146231073,
+        "y": 5.5414790814160515
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 1.0,
-    "maxAcceleration": 1.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -45,5 +45,5 @@
   "reversed": false,
   "folder": "gp2_speaker",
   "previewStartingState": null,
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
