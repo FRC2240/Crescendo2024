@@ -3,12 +3,13 @@
   "robotLength": 0.508,
   "holonomicMode": true,
   "pathFolders": [
-    "preloads",
-    "midline",
+    "testing",
     "autoline",
     "gp1",
     "gp2",
-    "gp2_speaker"
+    "gp2_speaker",
+    "midline",
+    "preloads"
   ],
   "autoFolders": [
     "cross_autoline",

@@ -6,15 +6,21 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "score"
+            "pathName": "1m"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "pos_3_gp1"
+            "pathName": "1m"
           }
         }
       ]
