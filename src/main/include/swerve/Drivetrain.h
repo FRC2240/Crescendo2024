@@ -17,6 +17,7 @@
 #include <frc/SPI.h>
 #include <frc/BuiltInAccelerometer.h>
 #include <frc/controller/PIDController.h>
+#include <ctre/phoenix6/Pigeon2.hpp>
 
 #include <iostream>
 #include <fmt/format.h>
@@ -153,6 +154,7 @@ public:
     bool face_direction(units::degree_t tgt);
 
 private:
+    ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID};
     AHRS navx{frc::SPI::Port::kMXP};
     CONSTANTS::PidCoeff pid_coef{6, 0.0, 0.0, 0.0, 0.0, -1, 1};
     frc::PIDController turn_pid{pid_coef.p, pid_coef.i, pid_coef.d};

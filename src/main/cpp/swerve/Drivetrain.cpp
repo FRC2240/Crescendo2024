@@ -101,14 +101,15 @@ void Drivetrain::init()
 // Returns values with 0 being front and positive angles going CW
 units::degree_t Drivetrain::getAngle()
 {
-  static bool first_time_getting_angle = true;
+  // static bool first_time_getting_angle = true;
 
-  if (first_time_getting_angle)
-  {
-    navx.ZeroYaw(); // This can't be called in init() since the gyro will still be calibrating
-    first_time_getting_angle = false;
-  }
-  return units::degree_t{-navx.GetAngle()};
+  // if (first_time_getting_angle)
+  // {
+  //   navx.ZeroYaw(); // This can't be called in init() since the gyro will still be calibrating
+  //   first_time_getting_angle = false;
+  // }
+  // return units::degree_t{-navx.GetAngle()};
+  return gyro.GetYaw().GetValue();
 }
 // IMPORTANT: CCW (counterclockwise) must not be inverted and CW (clockwise)
 // must be. If CCW is negative and CW is positive, a 90 degree turn will

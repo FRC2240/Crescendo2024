@@ -132,6 +132,7 @@ namespace CONSTANTS
     constexpr units::radians_per_second_t TRAJ_MAX_ANGULAR_SPEED = CONSTANTS::DRIVE::ROBOT_MAX_ANGULAR_SPEED;
     constexpr units::radians_per_second_squared_t TRAJ_MAX_ANGULAR_ACCELERATION{std::numbers::pi};
     static constexpr auto WHEEL_CIRCUMFERENCE = 11.992_in / 1.0_tr;
+    constexpr int GYRO_ID = 48; // CHANGEME
 
     namespace CONFIG
     {
