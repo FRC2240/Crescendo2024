@@ -38,8 +38,16 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
+<<<<<<< HEAD
     "maxVelocity": 6.0,
     "maxAcceleration": 4.0,
+||||||| parent of 2a2556d (3m path good, 1m very bad)
+    "maxVelocity": 1.0,
+    "maxAcceleration": 3.0,
+=======
+    "maxVelocity": 1.0,
+    "maxAcceleration": 1.0,
+>>>>>>> 2a2556d (3m path good, 1m very bad)
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

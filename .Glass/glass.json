@@ -100,12 +100,23 @@
     },
     "windows": {
       "/SmartDashboard/Odometry Field": {
+<<<<<<< HEAD
         "Robot": {
           "arrowSize": 63,
           "length": 0.9399999976158142,
           "style": "Box/Image",
           "width": 0.9399999976158142
         },
+||||||| parent of 2a2556d (3m path good, 1m very bad)
+=======
+        "Robot": {
+          "arrowSize": 63,
+          "image": "/home/laptop-main/Downloads/1000001460.jpg",
+          "length": 0.9399999976158142,
+          "style": "Box/Image",
+          "width": 0.9399999976158142
+        },
+>>>>>>> 2a2556d (3m path good, 1m very bad)
         "bottom": 1476,
         "height": 8.210550308227539,
         "left": 150,
@@ -395,7 +406,13 @@
             0.0,
             0.8500000238418579
           ],
+<<<<<<< HEAD
           "height": 1012,
+||||||| parent of 2a2556d (3m path good, 1m very bad)
+          "height": 934,
+=======
+          "height": 849,
+>>>>>>> 2a2556d (3m path good, 1m very bad)
           "series": [
             {
               "color": [

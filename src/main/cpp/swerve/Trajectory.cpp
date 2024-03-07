@@ -180,36 +180,45 @@ frc2::CommandPtr Trajectory::auto_pickup()
 
 frc2::CommandPtr Trajectory::auto_score_align()
 {
-    return frc2::cmd::Run([this]
-                          { auto botpose = m_odometry->getPose();
-                          frc::Pose2d speakerpose;
-                          if (frc::DriverStation::GetAlliance().has_value() && 
-                          frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kBlue ){
-                            speakerpose = frc::Pose2d(0_m, 5.5_m, frc::Rotation2d(0_rad)); //CHANGEME
-                          }
-                          else{
-                            speakerpose = frc::Pose2d(8_m, 5.5_m, frc::Rotation2d(0_rad)); //CHANGEME
-                          }
-                          botpose = botpose.RelativeTo(speakerpose);
-                          frc::SmartDashboard::PutNumber("as/rel x", botpose.X().value());
-                          frc::SmartDashboard::PutNumber("as/rel y", botpose.Y().value());
-                          frc::SmartDashboard::PutNumber("as/rel t", botpose.Rotation().Degrees().value());
-                          m_drivetrain->face_direction(botpose.Rotation().Degrees()); },
-                          {this})
-        .Until([this] -> bool
-               {
-                   auto botpose = m_odometry->getPose();
-                   frc::Pose2d speakerpose;
-                   if (frc::DriverStation::GetAlliance().has_value() &&
-                       frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kBlue)
-                   {
-                       speakerpose = frc::Pose2d(0_m, 5.5_m, frc::Rotation2d(0_rad)); // CHANGEME
-                   }
-                   else
-                   {
-                       speakerpose = frc::Pose2d(8_m, 5.5_m, frc::Rotation2d(0_rad)); // CHANGEME
-                   }
-                   botpose = botpose.RelativeTo(speakerpose);
-                   return CONSTANTS::IN_THRESHOLD<units::degree_t>(m_drivetrain->getAngle(), botpose.Rotation().Degrees(), 3_deg); });
+    std::function<void()> init = [this]() { /*no data currently needed */
+                                            frc::SmartDashboard::PutBoolean("shooter/is auto aligning", false);
+    };
+    std::function<void()> periodic = [this]()
+    {
+        try
+        {
+            std::optional<units::degree_t> angle = m_vision->get_apriltag_angle();
+
+            if (angle)
+            {
+                frc::DataLogManager::Log("here");
+                frc::SmartDashboard::PutBoolean("shooter/is auto aligning", true);
+                frc::SmartDashboard::PutNumber("auto score bot angle", angle.value().value());
+                m_drivetrain->face_direction(0_deg, -angle.value().value());
+            }
+        }
+        catch (const std::exception &e)
+        {
+            // fmt::println("ERROR: apriltag optional exeption");
+            std::cerr << e.what() << '\n';
+        }
+    };
+
+    std::function<bool()> is_finished = [this]() -> bool
+    {
+        std::optional<units::degree_t> angle = m_vision->get_apriltag_angle();
+
+        if (angle)
+        {
+            return (CONSTANTS::IN_THRESHOLD<units::degree_t>(angle.value(), 0_deg, 5_deg));
+        }
+    };
+
+    std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted)
+    {
+        // fmt::println("end");
+    };
+
+    return frc2::FunctionalCommand(init, periodic, end, is_finished, {this}).ToPtr();
 }
 #endif

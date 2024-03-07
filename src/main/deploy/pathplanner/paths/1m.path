@@ -39,7 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
+<<<<<<< HEAD
     "rotation": 90.0,
+||||||| parent of 2a2556d (3m path good, 1m very bad)
+    "rotation": 0,
+=======
+    "rotation": -178.6775350299727,
+>>>>>>> 2a2556d (3m path good, 1m very bad)
     "rotateFast": false
   },
   "reversed": false,
