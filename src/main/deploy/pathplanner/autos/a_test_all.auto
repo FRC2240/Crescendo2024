@@ -8,19 +8,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1m"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 3.0
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "1m"
+            "pathName": "3m"
           }
         }
       ]
