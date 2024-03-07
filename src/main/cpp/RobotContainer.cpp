@@ -10,6 +10,7 @@ RobotContainer::RobotContainer()
   m_chooser.AddOption("DO NOT USE IN COMP (3gp)", AUTOS::POS_2_GP3);
   m_chooser.AddOption("2 GP", AUTOS::POS_2_GP2);
   m_chooser.AddOption("Position 2 one game piece", AUTOS::POS_2_GP1);
+  m_chooser.AddOption("TEST", AUTOS::TEST);
 
   frc::SmartDashboard::PutData(&m_chooser);
   m_odometry.putField2d();
@@ -41,6 +42,14 @@ void RobotContainer::ConfigureBindings()
   m_stick0.RightBumper().WhileTrue(m_shooter.ManualFeedCommand(false));
   m_stick0.RightBumper().WhileTrue(m_intake.ManualFeedCommand(false));
   m_stick0.LeftBumper().ToggleOnTrue(m_intake.StartCommand());
+<<<<<<< HEAD
+||||||| parent of 2a2556d (3m path good, 1m very bad)
+  // m_stick0.LeftTrigger().WhileTrue(m_intake.Wes());
+  //  m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup());
+=======
+  // m_stick0.LeftTrigger().WhileTrue(m_intake.Wes());
+  //  m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup());
+>>>>>>> 2a2556d (3m path good, 1m very bad)
   m_stick1.RightTrigger().WhileTrue(m_shooter.ManualFeedCommand(true));
   m_stick1.RightTrigger().WhileTrue(m_intake.ManualFeedCommand(true));
   m_stick0.B().WhileTrue(m_shooter.spool_cmd());
@@ -71,9 +80,11 @@ void RobotContainer::ConfigureBindings()
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
 {
-  //fmt::println("get auto cmd");
+  // fmt::println("get auto cmd");
   switch (m_chooser.GetSelected())
   {
+  case AUTOS::TEST:
+    return autos::test(&m_trajectory);
   case AUTOS::POS_2_GP2:
     return autos::pos_2_gp2(&m_trajectory);
     break;

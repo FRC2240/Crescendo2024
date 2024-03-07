@@ -33,7 +33,7 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc::XboxCont
         },
         [this](frc::Pose2d pose) -> void
         {
-            //fmt::println("WARN: RESET POSE");
+            // fmt::println("WARN: RESET POSE");
 
             frc::SmartDashboard::PutNumber("pp/rp/X", pose.X().value());
             frc::SmartDashboard::PutNumber("pp/rp/Y", pose.Y().value());
@@ -90,13 +90,13 @@ frc2::CommandPtr Trajectory::make_relative_line_path(units::meter_t x, units::me
                [this, x, y, rot]
                {
                    auto pose = m_odometry->getPose();
-                   //fmt::println("Current Pose: {},{},{}", pose.X().value(), pose.Y().value(), pose.Rotation().Degrees().value());
+                   // fmt::println("Current Pose: {},{},{}", pose.X().value(), pose.Y().value(), pose.Rotation().Degrees().value());
                    std::vector<frc::Pose2d> points{
                        pose, // First point is always where you are
                        frc::Pose2d(pose.X() + x, pose.Y() + y, rot)};
                    frc::SmartDashboard::PutString("here?", "here");
 
-                   //fmt::println("Target Pose: {},{},{}", (pose.X() + x).value(), (pose.Y() + y).value(), rot.Degrees().value());
+                   // fmt::println("Target Pose: {},{},{}", (pose.X() + x).value(), (pose.Y() + y).value(), rot.Degrees().value());
 
                    std::vector<frc::Translation2d>
                        bezierPoints = PathPlannerPath::bezierFromPoses(points);
@@ -107,8 +107,8 @@ frc2::CommandPtr Trajectory::make_relative_line_path(units::meter_t x, units::me
         .AndThen(frc2::cmd::RunOnce(
             [=, this]
             {
-            auto pose = m_odometry->getPose();
-            //fmt::println("Current Pose: {},{},{}", pose.X().value(), pose.Y().value(), pose.Rotation().Degrees().value()); 
+                auto pose = m_odometry->getPose();
+                // fmt::println("Current Pose: {},{},{}", pose.X().value(), pose.Y().value(), pose.Rotation().Degrees().value());
             }));
 }
 
@@ -119,7 +119,7 @@ frc2::CommandPtr Trajectory::make_absolute_line_path(frc::Pose2d target_pose)
 
 frc2::CommandPtr Trajectory::extract(std::string auton)
 {
-    //fmt::println("{}", auton);
+    // fmt::println("{}", auton);
     return PathPlannerAuto(auton).ToPtr();
 }
 
@@ -196,7 +196,7 @@ frc2::CommandPtr Trajectory::auto_score_align()
         }
         catch (const std::exception &e)
         {
-            //fmt::println("ERROR: apriltag optional exeption");
+            // fmt::println("ERROR: apriltag optional exeption");
             std::cerr << e.what() << '\n';
         }
     };
@@ -213,7 +213,7 @@ frc2::CommandPtr Trajectory::auto_score_align()
 
     std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted)
     {
-        //fmt::println("end");
+        // fmt::println("end");
     };
 
     return frc2::FunctionalCommand(init, periodic, end, is_finished, {this}).ToPtr();

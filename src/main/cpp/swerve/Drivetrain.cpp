@@ -26,7 +26,9 @@ frc::SwerveDriveKinematics<4> kinematics{frc::Translation2d{12.25_in, -12.25_in}
 
 Drivetrain::Drivetrain()
 {
-  // navx = std::make_unique<AHRS>(frc::SPI::Port::kMXP);
+  ctre::phoenix6::configs::Pigeon2Configuration gyro_conf{};
+  gyro_conf.MountPose.MountPoseYaw = 0;
+  gyro.GetConfigurator().Apply(gyro_conf);
   using namespace Module;
   front_left = std::make_unique<SwerveModule>(60, 61, 14, CONSTANTS::DRIVE::CONFIG::FL.offset);
   front_right = std::make_unique<SwerveModule>(50, 51, 13, CONSTANTS::DRIVE::CONFIG::FR.offset);
@@ -36,16 +38,11 @@ Drivetrain::Drivetrain()
 
 double Drivetrain::get_pitch()
 {
-  return (double)navx.GetPitch();
+  return gyro.GetPitch().GetValue().value();
 }
 
 void Drivetrain::flip()
 {
-  // navx.ZeroYaw();
-  if (navx.GetAngleAdjustment() <= 0)
-  {
-    navx.SetAngleAdjustment(180);
-  }
 }
 
 double Drivetrain::get_offset()
@@ -61,8 +58,7 @@ void Drivetrain::zero_adjustment()
 
 void Drivetrain::zero_yaw()
 {
-  navx.SetAngleAdjustment(0);
-  navx.ZeroYaw();
+  gyro.SetYaw(0_deg);
 }
 
 void Drivetrain::print_angle()
