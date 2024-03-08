@@ -43,6 +43,8 @@ void Odometry::update()
     field2d.SetRobotPose(pose.X(), pose.Y(), pose.Rotation());
     frc::SmartDashboard::PutNumber("odometry/X", pose.X().value());
     frc::SmartDashboard::PutNumber("odometry/Y", pose.Y().value());
+    frc::SmartDashboard::PutNumber("odometry/rot", pose.Rotation().Degrees().value());
+    frc::SmartDashboard::PutNumber("odometry/CCW", m_drivetrain->getCCWHeading().Degrees().value());
     frc::SmartDashboard::PutString("Odometry: ", fmt::format("Pose X: {}, Y: {}, Z (Degrees): {}\n", pose.X().value(), pose.Y().value(), pose.Rotation().Degrees().value()));
 }
 

@@ -103,7 +103,6 @@
       "/SmartDashboard/Odometry Field": {
         "Robot": {
           "arrowSize": 63,
-          "image": "/home/laptop-main/Downloads/1000001460.jpg",
           "length": 0.9399999976158142,
           "style": "Box/Image",
           "width": 0.9399999976158142
@@ -398,7 +397,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 849,
+          "height": 927,
           "series": [
             {
               "color": [
@@ -410,6 +409,19 @@
               "id": "NT:/SmartDashboard/lower_tof"
             }
           ]
+        }
+      ]
+    },
+    "Plot <7>": {
+      "plots": [
+        {
+          "backgroundColor": [
+            0.0,
+            0.0,
+            0.0,
+            0.8500000238418579
+          ],
+          "height": 927
         }
       ]
     }
