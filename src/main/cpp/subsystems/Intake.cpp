@@ -3,9 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "subsystems/Intake.h"
-#include <iostream>
-#include "units/current.h"
-#include "units/voltage.h"
 
 Intake::Intake()
 {

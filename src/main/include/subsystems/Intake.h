@@ -6,7 +6,6 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <frc2/command/CommandPtr.h>
-#include <ctre/phoenix6/TalonFX.hpp>
 #include <units/angle.h>
 #include <units/time.h>
 #include <units/angular_velocity.h>
@@ -15,15 +14,13 @@
 #include "frc2/command/PrintCommand.h"
 #include "frc/smartdashboard/SmartDashboard.h"
 #include <TimeOfFlight.h>
-
-#include "Constants.h"
-#include <frc2/command/SubsystemBase.h>
-#include <frc2/command/CommandPtr.h>
 #include <ctre/phoenix6/TalonFX.hpp>
 #include <ctre/phoenix6/CANcoder.hpp>
-#include <frc2/command/RunCommand.h>
-#include "subsystems/Intake.h"
 #include "swerve/Odometry.h"
+#include <iostream>
+#include "units/current.h"
+#include "units/voltage.h"
+
 class Intake : public frc2::SubsystemBase
 {
 public:

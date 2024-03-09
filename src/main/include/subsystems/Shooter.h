@@ -12,6 +12,7 @@
 #include <frc2/command/RunCommand.h>
 #include "subsystems/Intake.h"
 #include "swerve/Odometry.h"
+
 class Shooter : public frc2::SubsystemBase
 {
 public:
