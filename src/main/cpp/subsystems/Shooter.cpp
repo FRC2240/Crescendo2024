@@ -179,22 +179,21 @@ frc2::CommandPtr Shooter::fender_shot()
         set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
         // m_left_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(CONSTANTS::SHOOTER::LEFT_VELOCITY));
         m_left_motor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
-        m_right_motor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
+        m_right_motor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{6}));
         // m_right_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(-CONSTANTS::SHOOTER::RIGHT_VELOCITY));
     };
     std::function<bool()> is_finished = [this] -> bool
     {
         if (frc::DriverStation::IsAutonomous())
         {
-            frc::DataLogManager::Log("AUTO");
             frc::SmartDashboard::PutNumber("shooter/turns", get_angle().value() / 360);
             frc::SmartDashboard::PutNumber("shooter/velocity", m_left_motor.GetVelocity().GetValueAsDouble());
             return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), CONSTANTS::SHOOTER::FENDER_ANGLE, 2_tr) &&
-                   CONSTANTS::IN_THRESHOLD<units::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(), CONSTANTS::SHOOTER::SHOOTER_VELOCITY, 5_tps);
+                   m_left_motor.GetVelocity().GetValue() > 75_tps;
+            //    CONSTANTS::IN_THRESHOLD<units::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(), CONSTANTS::SHOOTER::SHOOTER_VELOCITY, 5_tps);
         }
         else
         {
-            frc::DataLogManager::Log("TELE");
             frc::SmartDashboard::PutNumber("shooter/turns", get_angle().value() / 360);
             frc::SmartDashboard::PutNumber("shooter/velocity", m_left_motor.GetVelocity().GetValueAsDouble());
             return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), CONSTANTS::SHOOTER::FENDER_ANGLE, 2_tr) &&
