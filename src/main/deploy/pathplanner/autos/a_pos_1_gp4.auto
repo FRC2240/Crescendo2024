@@ -86,10 +86,28 @@
         {
           "type": "path",
           "data": {
+<<<<<<< HEAD
             "pathName": "pos_2_gp2_stg"
           }
         },
         {
+||||||| parent of e6d72b2 (followed a path for real this time)
+            "pathName": "pos_2_gp2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
+        },
+        {
+=======
+            "pathName": "pos_2_gp2"
+          }
+        },
+        {
+>>>>>>> e6d72b2 (followed a path for real this time)
           "type": "wait",
           "data": {
             "waitTime": 0.5

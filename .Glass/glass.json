@@ -407,12 +407,18 @@
             0.8500000238418579
           ],
 <<<<<<< HEAD
+<<<<<<< HEAD
           "height": 1012,
 ||||||| parent of 2a2556d (3m path good, 1m very bad)
           "height": 934,
 =======
           "height": 849,
 >>>>>>> 2a2556d (3m path good, 1m very bad)
+||||||| parent of e6d72b2 (followed a path for real this time)
+          "height": 927,
+=======
+          "height": 1012,
+>>>>>>> e6d72b2 (followed a path for real this time)
           "series": [
             {
               "color": [
@@ -436,6 +442,7 @@
             0.0,
             0.8500000238418579
           ],
+<<<<<<< HEAD
           "height": 934,
           "series": [
             {
@@ -457,6 +464,11 @@
               "id": "NT:/SmartDashboard/tof"
             }
           ]
+||||||| parent of e6d72b2 (followed a path for real this time)
+          "height": 927
+=======
+          "height": 1012
+>>>>>>> e6d72b2 (followed a path for real this time)
         }
       ]
     }

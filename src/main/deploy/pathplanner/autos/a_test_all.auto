@@ -9,7 +9,13 @@
           "type": "path",
           "data": {
 <<<<<<< HEAD
+<<<<<<< HEAD
             "pathName": "1m"
+||||||| parent of e6d72b2 (followed a path for real this time)
+            "pathName": "1mx_1my_diag"
+=======
+            "pathName": "1m"
+>>>>>>> e6d72b2 (followed a path for real this time)
           }
 ||||||| parent of 2a2556d (3m path good, 1m very bad)
             "pathName": "1m"

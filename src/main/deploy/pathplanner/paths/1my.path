@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "version": 1.0,
   "waypoints": [
@@ -50,3 +51,58 @@
   },
   "useDefaultConstraints": true
 }
+||||||| parent of e6d72b2 (followed a path for real this time)
+=======
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.368388567144869,
+        "y": 5.533233465636563
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.345907036416683,
+        "y": 4.938595075885288
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.368388567144869,
+        "y": 3.7084254951428055
+      },
+      "prevControl": {
+        "x": 1.3693776023376485,
+        "y": 4.346733592636817
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 1.0,
+    "maxAcceleration": 1.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "testing",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
+>>>>>>> e6d72b2 (followed a path for real this time)
