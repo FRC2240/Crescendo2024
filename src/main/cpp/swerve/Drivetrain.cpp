@@ -47,7 +47,7 @@ void Drivetrain::flip()
 
 double Drivetrain::get_offset()
 {
-  return navx.GetAngleAdjustment();
+  // return navx.GetAngleAdjustment();
 }
 
 void Drivetrain::zero_adjustment()
@@ -222,7 +222,7 @@ void Drivetrain::drive(frc::ChassisSpeeds const &speeds)
 // Sets each module to the desired state
 void Drivetrain::drive(wpi::array<frc::SwerveModuleState, 4> states)
 {
-  frc::SmartDashboard::PutNumber("robot speed", std::sqrt(std::pow(navx.GetVelocityX(), 2) + std::pow(navx.GetVelocityY(), 2)));
+  // frc::SmartDashboard::PutNumber("robot speed", std::sqrt(std::pow(navx.GetVelocityX(), 2) + std::pow(navx.GetVelocityY(), 2)));
   kinematics.DesaturateWheelSpeeds(&states, MODULE_MAX_SPEED);
 
   auto const [fl, fr, bl, br] = states;
