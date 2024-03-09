@@ -34,12 +34,12 @@ frc2::CommandPtr autos::pos_3_gp2(Trajectory *traj)
 
 frc2::CommandPtr autos::pos_1_gp3(Trajectory *traj)
 {
-  return frc2::PrintCommand("start three gamepiece pos_1").ToPtr().AndThen(traj->extract("a_pos_1_gp3").AndThen(frc2::PrintCommand("three piece completed").ToPtr()));
+  return frc2::PrintCommand("start three gamepiece pos_1").ToPtr().AndThen(traj->extract("a_pos_2_gp3v2").AndThen(frc2::PrintCommand("three piece completed").ToPtr()));
 }
 
 frc2::CommandPtr autos::pos_2_gp3(Trajectory *traj)
 {
-  return frc2::PrintCommand("start three gamepiece pos_2").ToPtr().AndThen(traj->extract("a_pos_2_gp3").AndThen(frc2::PrintCommand("three piece completed").ToPtr()));
+  return frc2::PrintCommand("start three gamepiece pos_2").ToPtr().AndThen(traj->extract("a_pos_2_gp3v2").AndThen(frc2::PrintCommand("three piece completed").ToPtr()));
 }
 
 frc2::CommandPtr autos::pos_3_gp3(Trajectory *traj)
@@ -54,7 +54,7 @@ frc2::CommandPtr autos::pos_1_gp4(Trajectory *traj)
 
 frc2::CommandPtr autos::pos_2_gp4(Trajectory *traj)
 {
-  return frc2::PrintCommand("start four gamepiece pos_2").ToPtr().AndThen(traj->extract("a_pos_2_gp4").AndThen(frc2::PrintCommand("four piece completed").ToPtr()));
+  return frc2::PrintCommand("start four gamepiece pos_2").ToPtr().AndThen(traj->extract("a_pos_2_gp4v2").AndThen(frc2::PrintCommand("four piece completed").ToPtr()));
 }
 
 frc2::CommandPtr autos::pos_3_gp4(Trajectory *traj)

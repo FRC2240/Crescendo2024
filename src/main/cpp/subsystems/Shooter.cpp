@@ -176,15 +176,14 @@ frc2::CommandPtr Shooter::fender_shot()
     {
         if (frc::DriverStation::IsAutonomous())
         {
-            frc::DataLogManager::Log("AUTO");
             frc::SmartDashboard::PutNumber("shooter/turns", get_angle().value() / 360);
             frc::SmartDashboard::PutNumber("shooter/velocity", m_left_motor.GetVelocity().GetValueAsDouble());
             return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), CONSTANTS::SHOOTER::FENDER_ANGLE, 2_tr) &&
-                   CONSTANTS::IN_THRESHOLD<units::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(), CONSTANTS::SHOOTER::SHOOTER_VELOCITY, 5_tps);
+                   m_left_motor.GetVelocity().GetValue() > 75_tps;
+            //    CONSTANTS::IN_THRESHOLD<units::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(), CONSTANTS::SHOOTER::SHOOTER_VELOCITY, 5_tps);
         }
         else
         {
-            frc::DataLogManager::Log("TELE");
             frc::SmartDashboard::PutNumber("shooter/turns", get_angle().value() / 360);
             frc::SmartDashboard::PutNumber("shooter/velocity", m_left_motor.GetVelocity().GetValueAsDouble());
             return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), CONSTANTS::SHOOTER::FENDER_ANGLE, 2_tr) &&

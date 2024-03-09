@@ -12,19 +12,19 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "pos_2_gp1"
-                }
-              },
               {
                 "type": "named",
                 "data": {
                   "name": "intake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "pos_2_gp1"
                 }
               }
             ]
@@ -43,7 +43,38 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "reverse_pos_2_gp2"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "reverse_pos_2_gp2_speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score"
+          }
+        },
+        {
+          "type": "race",
           "data": {
             "commands": [
               {
@@ -64,7 +95,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "pos_3_gp2_speaker"
+            "pathName": "pos_2_gp4_spk"
           }
         },
         {
@@ -76,6 +107,6 @@
       ]
     }
   },
-  "folder": "gp3",
+  "folder": "gp4",
   "choreoAuto": false
 }
