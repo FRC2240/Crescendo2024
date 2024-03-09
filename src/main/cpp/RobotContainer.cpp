@@ -23,8 +23,13 @@ void RobotContainer::add_named_commands()
   using namespace pathplanner;
 
   NamedCommands::registerCommand("intake", std::move(m_intake.StartCommand()));
+  NamedCommands::registerCommand("unintake", std::move(m_intake.StopCommand()));
   NamedCommands::registerCommand("score", std::move(m_shooter.fender_shot()));
-  NamedCommands::registerCommand("auto_score", std::move(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())));
+  // NamedCommands::registerCommand("score", std::move(m_shooter.fender_shot().RaceWith(frc2::cmd::Run([this]
+  //                                                                                                   { m_odometry.update_from_vision(); },
+  // {this}))));
+  NamedCommands::registerCommand("unscore", std::move(m_shooter.stop()));
+  // NamedCommands::registerCommand("score", std::move(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())));
 }
 
 void RobotContainer::ConfigureBindings()

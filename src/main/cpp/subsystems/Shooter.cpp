@@ -41,6 +41,11 @@ void Shooter::Periodic()
     }
     else
     {
+        if (frc::DriverStation::IsAutonomous())
+        {
+            m_left_motor.Set(0);
+            m_right_motor.Set(0);
+        }
 
         m_belt_motor.SetControl(ctre::phoenix6::controls::VelocityVoltage(0_tr / 1_s));
         frc::SmartDashboard::PutBoolean("intaking", 0);
@@ -50,6 +55,18 @@ void Shooter::Periodic()
 frc2::CommandPtr Shooter::spool_cmd()
 {
     return frc2::cmd::Run(
+        [this]
+        {
+            set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
+            m_left_motor.Set(1);
+            m_right_motor.Set(1);
+        },
+        {this});
+}
+
+frc2::CommandPtr Shooter::stop()
+{
+    return frc2::cmd::RunOnce(
         [this]
         {
             set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
@@ -179,7 +196,7 @@ frc2::CommandPtr Shooter::fender_shot()
             frc::SmartDashboard::PutNumber("shooter/turns", get_angle().value() / 360);
             frc::SmartDashboard::PutNumber("shooter/velocity", m_left_motor.GetVelocity().GetValueAsDouble());
             return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), CONSTANTS::SHOOTER::FENDER_ANGLE, 2_tr) &&
-                   m_left_motor.GetVelocity().GetValue() > 75_tps;
+                   m_left_motor.GetVelocity().GetValue() > 80_tps;
             //    CONSTANTS::IN_THRESHOLD<units::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(), CONSTANTS::SHOOTER::SHOOTER_VELOCITY, 5_tps);
         }
         else
@@ -206,7 +223,7 @@ frc2::CommandPtr Shooter::fender_shot()
                                   },
                                   {this})
                      .ToPtr()
-                     .WithTimeout(1.5_s))
+                     .WithTimeout(0.75_s))
         .AndThen(frc2::cmd::RunOnce([this]
                                     {
                                     m_left_motor.Set(0); 

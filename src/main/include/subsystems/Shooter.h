@@ -20,6 +20,7 @@ public:
 
   frc2::CommandPtr zero();
   frc2::CommandPtr fender_shot();
+  frc2::CommandPtr stop();
   frc2::CommandPtr test_shot();
   frc2::CommandPtr ManualFeedCommand(bool back);
 
