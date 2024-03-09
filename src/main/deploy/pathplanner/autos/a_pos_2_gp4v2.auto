@@ -12,6 +12,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "unscore"
+          }
+        },
+        {
           "type": "race",
           "data": {
             "commands": [
@@ -31,15 +37,40 @@
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "pos_2_gp2_speaker"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "pos_2_gp2_speaker"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "unintake"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "score"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "unscore"
           }
         },
         {
@@ -62,15 +93,34 @@
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "reverse_pos_2_gp2_speaker"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "reverse_pos_2_gp2_speaker"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
             "name": "score"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "unscore"
           }
         },
         {
@@ -93,9 +143,28 @@
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "pos_2_gp4_spk"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "pos_2_gp4_spk"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "unintake"
           }
         },
         {
