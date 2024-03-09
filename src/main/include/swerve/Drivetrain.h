@@ -25,10 +25,10 @@
 class Drivetrain
 {
 public:
-    frc::SwerveDriveKinematics<4> kinematics{frc::Translation2d{14.75_in, 14.75_in},
-                                             frc::Translation2d{14.75_in, -14.75_in},
-                                             frc::Translation2d{-14.75_in, 14.75_in},
-                                             frc::Translation2d{-14.75_in, -14.75_in}};
+    frc::SwerveDriveKinematics<4> kinematics{frc::Translation2d{12.18_in, 12.18_in},
+                                             frc::Translation2d{12.18_in, -12.18_in},
+                                             frc::Translation2d{-12.18_in, 12.18_in},
+                                             frc::Translation2d{-12.18_in, -12.18_in}};
 
     frc::BuiltInAccelerometer acc;
     Drivetrain();
@@ -155,7 +155,7 @@ public:
 
 private:
     ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID};
-    AHRS navx{frc::SPI::Port::kMXP};
+    // AHRS navx{frc::SPI::Port::kMXP};
     CONSTANTS::PidCoeff pid_coef{6, 0.0, 0.0, 0.0, 0.0, -1, 1};
     frc::PIDController turn_pid{pid_coef.p, pid_coef.i, pid_coef.d};
     CONSTANTS::PidCoeff pid_coral_coef{6.0, 0.0, 0.0, 0.0, 0.0, -1, 1};

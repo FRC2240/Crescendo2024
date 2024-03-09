@@ -22,7 +22,7 @@ RobotContainer::RobotContainer()
   // m_chooser.AddOption("Position 1 three game piece", AUTOS::POS_1_GP3);
   // m_chooser.AddOption("Position 2 three game piece", AUTOS::POS_2_GP3);
   // m_chooser.AddOption("Position 3 three game piece", AUTOS::POS_3_GP3);
-  // m_chooser.AddOption("Position 1 four game piece", AUTOS::POS_1_GP4);
+  m_chooser.AddOption("Position 1 four game piece", AUTOS::POS_1_GP4);
   // m_chooser.AddOption("Position 2 four game piece", AUTOS::POS_2_GP4);
   // m_chooser.AddOption("Position 3 four game piece", AUTOS::POS_3_GP4);
   m_chooser.AddOption("Position 2 one game piece", AUTOS::POS_2_GP1);
@@ -116,6 +116,9 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
     break;
   case RobotContainer::AUTOS::POS_2_GP3:
     return autos::pos_2_gp3(&m_trajectory);
+    break;
+  case AUTOS::POS_1_GP4:
+    return autos::pos_1_gp4(&m_trajectory);
     break;
   default:
     frc::DataLogManager::Log("WARN: NO AUTO SELECTED");

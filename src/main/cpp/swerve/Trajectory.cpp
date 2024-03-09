@@ -45,13 +45,16 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc::XboxCont
         },
         [this](frc::ChassisSpeeds speeds) -> void
         {
-            return m_drivetrain->drive(speeds);
+            // Hey, bozos, we changed this on 2024-03-08 to make pathplanner work
+            // Without this change pathplanner finds a barrier with remarkable efficency due to not correcting right
+            // This is a result of inverting the get_distance function
+            return m_drivetrain->drive(-speeds);
         },
-        HolonomicPathFollowerConfig(PIDConstants(5, 0.0, 0.0),   // Translation PID constants
-                                    PIDConstants(0.1, 0.0, 0.0), // Rotation PID constants
-                                    4.5_mps,                     // Max module speed, in m/s
-                                    17.324_in,                   // Drive base radius in meters. Distance from robot center to furthest module.
-                                    ReplanningConfig()           // Default path replanning config. See the API for the options here),
+        HolonomicPathFollowerConfig(PIDConstants(5, 0.0, 0.0), // Translation PID constants
+                                    PIDConstants(4, 0.0, 0.0), // Rotation PID constants
+                                    4.5_mps,                   // Max module speed, in m/s
+                                    17.324_in,                 // Drive base radius in meters. Distance from robot center to furthest module.
+                                    ReplanningConfig()         // Default path replanning config. See the API for the options here),
                                     ),
         [this]() -> bool
         {

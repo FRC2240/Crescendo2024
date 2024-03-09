@@ -73,7 +73,7 @@ std::optional<units::degree_t> Vision::get_coral_angle()
   if (m_fore_limelight->GetString("tclass", "ERROR") ==
       "note") // Assuming "note" is the correct key
   {
-    //fmt::println("here!!!");
+    // fmt::println("here!!!");
     units::degree_t tx{m_fore_limelight->GetNumber("tx", 0.0)};
     // Target is valid, return info
 
@@ -81,7 +81,7 @@ std::optional<units::degree_t> Vision::get_coral_angle()
   }
   else
   {
-    //fmt::println("there!!!");
+    // fmt::println("there!!!");
     return {};
   }
 }
@@ -102,7 +102,7 @@ std::optional<units::degree_t> Vision::get_apriltag_angle()
       }
       else
       {
-        //fmt::println("DEBUG: apriltag 4 not found");
+        // fmt::println("DEBUG: apriltag 4 not found");
         return std::nullopt;
       }
     }
@@ -116,14 +116,14 @@ std::optional<units::degree_t> Vision::get_apriltag_angle()
       }
       else
       {
-        //fmt::println("DEBUG: apriltag 7 not found");
+        // fmt::println("DEBUG: apriltag 7 not found");
         return std::nullopt;
       }
     }
   }
   else
   {
-    //fmt::println("WARN: Alliance color not set");
+    // fmt::println("WARN: Alliance color not set");
     return std::nullopt;
   }
   {

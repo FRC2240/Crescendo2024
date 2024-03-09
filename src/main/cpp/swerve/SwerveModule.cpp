@@ -24,7 +24,7 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
       cancoder{cancoder_adr, CAN_BUS_NAME}
 {
 
-    //fmt::println("Driver version: {}", driver.GetVersionMajor().GetValue());
+    // fmt::println("Driver version: {}", driver.GetVersionMajor().GetValue());
     std::cout << "Driver Pro: " << driver.GetIsProLicensed().GetValue() << "\n";
     std::cout << "Turner Pro: " << turner.GetIsProLicensed().GetValue() << "\n";
     std::cout << "Cancoder Pro" << cancoder.GetIsProLicensed().GetValue() << "\n";
@@ -59,7 +59,7 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
     driver_config.Feedback.SensorToMechanismRatio = 4.722;
     driver_config.Feedback.RotorToSensorRatio = 1.0;
     //  TODO: TUNING
-    driver.SetInverted(false);
+    driver.SetInverted(true);
     driver.GetConfigurator().Apply(driver_config);
 
     // Configure Turner
@@ -105,7 +105,7 @@ frc::SwerveModuleState SwerveModule::getState()
 frc::SwerveModulePosition SwerveModule::getPosition()
 {
     frc::SwerveModulePosition ret;
-    ret.distance = driver.GetPosition().Refresh().GetValue() * WHEEL_CIRCUMFERENCE;
+    ret.distance = -driver.GetPosition().Refresh().GetValue() * WHEEL_CIRCUMFERENCE;
     ret.angle = frc::Rotation2d(getAngle());
     return ret;
 }
