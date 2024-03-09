@@ -60,10 +60,10 @@ namespace CONSTANTS
     constexpr int INTAKE_VOLTAGE = -12;
 #endif
 #ifndef BETABOT
-    constexpr auto DELAY = 0.35_s;
-    constexpr units::turn_t UP_POSITION = -0.1_tr;
-    constexpr units::turn_t DOWN_POSITION = 7.3_tr;
-    constexpr units::volt_t INTAKE_VOLTAGE = -12;
+    constexpr auto DELAY = 0.2_s;
+    constexpr units::turn_t UP_POSITION = 0.349_tr;
+    constexpr units::turn_t DOWN_POSITION = 7.924_tr;
+    constexpr int INTAKE_VOLTAGE = -12;
 #endif
     constexpr double LOADED_DIST = 350;
     constexpr double LOWER_LOADED_DIST = 350;
@@ -111,7 +111,7 @@ namespace CONSTANTS
 #ifndef BETABOT
     constexpr units::turn_t FENDER_ANGLE = -11_tr;
     constexpr units::turn_t AMP_ANGLE = -10_tr;
-    constexpr units::turns_per_second_t SHOOTER_VELOCITY = 80_tps :
+    constexpr units::turns_per_second_t SHOOTER_VELOCITY = 80_tps;
 #endif
 
         constexpr int BELT_ID = 7;
@@ -155,10 +155,10 @@ namespace CONSTANTS
       /*                     BEGIN FIRST ROBOT CONFIGURATION                        */
       /* -------------------------------------------------------------------------- */
 
-      constexpr ModuleConfig FL{60, 61, 14, 0.31_tr};
-      constexpr ModuleConfig FR{50, 51, 13, -0.182_tr};
-      constexpr ModuleConfig BL{30, 31, 11, -0.286_tr - 0.029_tr};
-      constexpr ModuleConfig BR{40, 41, 12, 0.03_tr};
+      constexpr ModuleConfig FL{60, 61, 14, 0.311_tr};
+      constexpr ModuleConfig FR{50, 51, 13, 0.281_tr};
+      constexpr ModuleConfig BL{30, 31, 11, 0.175_tr};
+      constexpr ModuleConfig BR{40, 41, 12, -0.066_tr};
 
       /* -------------------------------------------------------------------------- */
       /*                        END FIRST ROBOT CONFIGURATION                       */
