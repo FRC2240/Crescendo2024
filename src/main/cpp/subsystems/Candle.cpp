@@ -60,10 +60,10 @@ frc2::CommandPtr Candle::not_driver_controlled()
 {
     return frc2::RunCommand([this] { 
         if (is_red()) {
-            m_candle.Animate(red_no_control_anim);
+            m_candle.Animate(red_larson);
         }
         else {
-            m_candle.Animate(blue_no_control_anim);
+            m_candle.Animate(blue_larson);
         }
     },
     {this})
@@ -97,7 +97,7 @@ frc2::CommandPtr Candle::default_command()
         }
 
         else if (!has_vision || !auto_selected) {
-        //if(false){
+        //else if(false){
             m_candle.ClearAnimation(0);
             if (m_candle_timer.Get() < units::time::second_t(0.5)) {
                 m_candle.SetLEDs(0, 0, 0);
@@ -108,7 +108,16 @@ frc2::CommandPtr Candle::default_command()
                 m_candle.SetLEDs(0, 0, 0);
             }
         }
-        else if (frc::DriverStation::IsEnabled()) {
+        else if (frc::DriverStation::IsAutonomousEnabled()) {
+        //else if (true) {
+            if (is_red()) {
+                m_candle.Animate(red_larson);
+            }
+            else {
+                m_candle.Animate(blue_larson);
+            }
+        }
+        else if (frc::DriverStation::IsTeleopEnabled()) {
             if (m_intake->is_loaded()) {
             //if(false){
                 m_candle.Animate(green_blink);
