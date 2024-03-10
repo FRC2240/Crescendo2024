@@ -5,25 +5,11 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
-#include <frc2/command/CommandPtr.h>
 #include <ctre/phoenix6/TalonFX.hpp>
-#include <units/angle.h>
-#include <units/time.h>
-#include <units/angular_velocity.h>
 #include <frc2/command/RunCommand.h>
 #include "Constants.h"
-#include "frc2/command/PrintCommand.h"
-#include "frc/smartdashboard/SmartDashboard.h"
 #include <TimeOfFlight.h>
-
-#include "Constants.h"
-#include <frc2/command/SubsystemBase.h>
-#include <frc2/command/CommandPtr.h>
-#include <ctre/phoenix6/TalonFX.hpp>
-#include <ctre/phoenix6/CANcoder.hpp>
-#include <frc2/command/RunCommand.h>
-#include "subsystems/Intake.h"
-#include "swerve/Odometry.h"
+#include <frc2/command/Commands.h>
 #include <frc/DataLogManager.h>
 class Intake : public frc2::SubsystemBase
 {
@@ -48,7 +34,6 @@ public:
   frc2::CommandPtr StopCommand();  // retracts + stops spinning
   frc2::CommandPtr ManualFeedCommand(bool back);
   frc2::CommandPtr zero();
-  frc2::CommandPtr Wes();
 
   bool is_intaking = false;
 

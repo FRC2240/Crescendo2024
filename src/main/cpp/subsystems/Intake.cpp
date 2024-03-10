@@ -32,23 +32,7 @@ Intake::Intake()
 
 // This method will be called once per scheduler run
 void Intake::Periodic(){
-    // frc::SmartDashboard::PutNumber("tof", m_tof.GetRange());
-    /*
-    auto result = m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
-
-    if (result.IsError())
-    {
-        frc::SmartDashboard::PutString("result", "ERROR");
-    }
-    if (result.IsWarning())
-    {
-        frc::SmartDashboard::PutString("result", "WARN");
-    }
-    if (result.IsOK())
-    {
-        frc::SmartDashboard::PutString("result", "GOOD");
-    }
-    */
+    
 };
 
 frc2::CommandPtr Intake::zero()
@@ -157,33 +141,3 @@ frc2::CommandPtr Intake::StopCommand()
 {
     return StopSpinCommand().AndThen(RetractCommand()).WithName("Stop");
 };
-
-frc2::CommandPtr Intake::Wes()
-{
-    return frc2::cmd::Run([this]
-                          { m_beltMotor.Set(0.3); 
-                        
-                          },{this})
-                          .Until([this] -> bool
-                       { 
-                        if (is_loaded()) {
-                        m_timer.Start();
-                       }
-                       return m_timer.Get() >= CONSTANTS::INTAKE::DELAY; })
-
-        .AndThen(StopSpinCommand());
-}
-/*
-New position [DONE]
-Belt combined
-Motor in intake
-Shooter gets pointer to class in constructor
-How does Shooter access Belt?
-
-*/
-
-/*
-
-
-
-*/

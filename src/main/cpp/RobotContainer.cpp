@@ -6,27 +6,10 @@
 
 RobotContainer::RobotContainer()
 {
-
-  // m_odometry.resetPosition(frc::Pose2d(1.6_m, 5_m, frc::Rotation2d(0_rad)),
-  // frc::Rotation2d(0_rad)); Initialize all of your commands and subsystems
-  // here Configure the button bindings
-
   m_chooser.AddOption("just shoot", AUTOS::SHOOT);
   m_chooser.AddOption("DO NOT USE IN COMP (3gp)", AUTOS::POS_2_GP3);
-  // m_chooser.AddOption("Feederside 1gp", AUTOS::POS_3_GP1);
-  // m_chooser.AddOption("Position 2 autoline", AUTOS::POS_2_LINE);
-  // m_chooser.AddOption("Position 3 autoline", AUTOS::POS_3_LINE);
-  // m_chooser.AddOption("Position 1 two game piece", AUTOS::POS_1_GP2);
   m_chooser.AddOption("2 GP", AUTOS::POS_2_GP2);
-  // m_chooser.AddOption("Position 3 two game piece", AUTOS::POS_3_GP2);
-  // m_chooser.AddOption("Position 1 three game piece", AUTOS::POS_1_GP3);
-  // m_chooser.AddOption("Position 2 three game piece", AUTOS::POS_2_GP3);
-  // m_chooser.AddOption("Position 3 three game piece", AUTOS::POS_3_GP3);
-  // m_chooser.AddOption("Position 1 four game piece", AUTOS::POS_1_GP4);
-  // m_chooser.AddOption("Position 2 four game piece", AUTOS::POS_2_GP4);
-  // m_chooser.AddOption("Position 3 four game piece", AUTOS::POS_3_GP4);
   m_chooser.AddOption("Position 2 one game piece", AUTOS::POS_2_GP1);
-  // m_chooser.AddOption("TEST", AUTOS::TEST);
 
   frc::SmartDashboard::PutData(&m_chooser);
   m_odometry.putField2d();
@@ -54,29 +37,17 @@ void RobotContainer::ConfigureBindings()
 
   // Shooter
   m_stick1.X().ToggleOnTrue(m_shooter.test_shot()); // testing ONLY
-  // m_stick0.RightBumper().ToggleOnTrue(m_shooter.execute_auto_shot());
   m_stick0.A().ToggleOnTrue(m_shooter.amp_shot());
   m_stick0.RightBumper().WhileTrue(m_shooter.ManualFeedCommand(false));
   m_stick0.RightBumper().WhileTrue(m_intake.ManualFeedCommand(false));
   m_stick0.LeftBumper().ToggleOnTrue(m_intake.StartCommand());
-  //m_stick0.LeftTrigger().WhileTrue(m_intake.Wes());
-  // m_stick0.LeftTrigger().ToggleOnTrue(m_trajectory.auto_pickup());
   m_stick1.RightTrigger().WhileTrue(m_shooter.ManualFeedCommand(true));
   m_stick1.RightTrigger().WhileTrue(m_intake.ManualFeedCommand(true));
   m_stick0.B().WhileTrue(m_shooter.spool_cmd());
 
   m_stick1.LeftTrigger().WhileTrue(m_shooter.ManualFeedCommand(false));
   m_stick1.LeftTrigger().WhileTrue(m_intake.ManualFeedCommand(false));
-  // m_stick1.Start().OnTrue(m_intake.zero());
-  // m_stick1.Start().OnTrue(m_shooter.zero());
 
-  // m_stick0.RightTrigger().ToggleOnTrue(
-  // frc2::PrintCommand("button pressed").ToPtr().AndThen(m_trajectory.auto_score_align().AlongWith(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())).AndThen(m_shooter.execute_auto_shot().WithTimeout(1.5_s))));
-
-  // m_stick0.RightTrigger().ToggleOnTrue(frc2::cmd::DeferredProxy([this]
-  // { return m_shooter.set_angle_cmd(m_odometry.get_shooter_angle()); }));
-
-  // Buddy Climber
   // Climber
   frc2::Trigger{[this] -> bool
                 {
