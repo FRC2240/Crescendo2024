@@ -9,6 +9,13 @@ RobotContainer::RobotContainer()
   m_chooser.AddOption("just shoot", AUTOS::SHOOT);
   m_chooser.AddOption("DO NOT USE IN COMP (3gp)", AUTOS::POS_2_GP3);
   m_chooser.AddOption("2 GP", AUTOS::POS_2_GP2);
+  // m_chooser.AddOption("Position 3 two game piece", AUTOS::POS_3_GP2);
+  // m_chooser.AddOption("Position 1 three game piece", AUTOS::POS_1_GP3);
+  // m_chooser.AddOption("Position 2 three game piece", AUTOS::POS_2_GP3);
+  // m_chooser.AddOption("Position 3 three game piece", AUTOS::POS_3_GP3);
+  m_chooser.AddOption("Bearbotics\'s baby", AUTOS::POS_3_GP2);
+  // m_chooser.AddOption("Position 2 four game piece", AUTOS::POS_2_GP4);
+  // m_chooser.AddOption("Position 3 four game piece", AUTOS::POS_3_GP4);
   m_chooser.AddOption("Position 2 one game piece", AUTOS::POS_2_GP1);
   m_chooser.AddOption("TEST", AUTOS::TEST);
 
@@ -96,6 +103,19 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
   case RobotContainer::AUTOS::POS_2_GP3:
     return autos::pos_2_gp3(&m_trajectory);
     break;
+<<<<<<< HEAD
+||||||| parent of 2b04079 (source side 3gp that scores 2gp)
+  case AUTOS::POS_2_GP4:
+    return autos::pos_2_gp4(&m_trajectory);
+    break;
+=======
+  case AUTOS::POS_2_GP4:
+    return autos::pos_2_gp4(&m_trajectory);
+    break;
+  case AUTOS::POS_3_GP2:
+    return autos::pos_3_gp2(&m_trajectory);
+    break;
+>>>>>>> 2b04079 (source side 3gp that scores 2gp)
   default:
     frc::DataLogManager::Log("WARN: NO AUTO SELECTED");
     // m_candle.auto_selected = false;
