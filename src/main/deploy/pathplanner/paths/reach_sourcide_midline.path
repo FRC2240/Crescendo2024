@@ -8,6 +8,7 @@
       },
       "prevControl": null,
       "nextControl": {
+<<<<<<< HEAD
         "x": 1.4614719947114867,
         "y": 1.8661572495149727
       },
@@ -16,12 +17,55 @@
     },
     {
       "anchor": {
+||||||| parent of fa314ba (path changes)
+        "x": 1.0092546727204963,
+        "y": 3.248638249945539
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.858484204512893,
+        "y": 1.5218969227974042
+      },
+      "prevControl": {
+        "x": 1.9068528191130114,
+        "y": 2.005731652266922
+      },
+      "nextControl": {
+        "x": 3.7861611755251983,
+        "y": 1.0502412552867808
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+=======
+        "x": 1.0092546727204963,
+        "y": 3.248638249945539
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+>>>>>>> fa314ba (path changes)
         "x": 7.891456061678435,
         "y": 0.7920269903410502
       },
       "prevControl": {
+<<<<<<< HEAD
         "x": 4.109347444673538,
         "y": 1.044192924684781
+||||||| parent of fa314ba (path changes)
+        "x": 5.984025612772459,
+        "y": 1.0064193882836159
+=======
+        "x": 4.250132800384225,
+        "y": 0.7475964862961755
+>>>>>>> fa314ba (path changes)
       },
       "nextControl": null,
       "isLocked": false,
