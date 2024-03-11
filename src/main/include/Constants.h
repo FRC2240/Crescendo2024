@@ -14,7 +14,7 @@
 #include <frc/geometry/Transform3d.h>
 #include <numbers>
 // #define COLFAX_BOT
-#define BETABOT
+// #define BETABOT
 //  When using the second robot, uncomment the above line
 
 // #define MOD_AMP
@@ -59,10 +59,22 @@ namespace CONSTANTS
     constexpr int INTAKE_VOLTAGE = -12;
 #endif
 #ifndef BETABOT
+<<<<<<< HEAD
     constexpr auto DELAY = 0.2_s;
     constexpr units::turn_t UP_POSITION = 0.349_tr;
     constexpr units::turn_t DOWN_POSITION = 7.924_tr;
     constexpr int INTAKE_VOLTAGE = -12;
+||||||| parent of c40c17b (path changes)
+    constexpr auto DELAY = 0.35_s;
+    constexpr units::turn_t UP_POSITION = -0.1_tr;
+    constexpr units::turn_t DOWN_POSITION = 7.3_tr;
+    constexpr units::volt_t INTAKE_VOLTAGE = -12;
+=======
+    constexpr auto DELAY = 0.35_s;
+    constexpr units::turn_t UP_POSITION = -0.1_tr;
+    constexpr units::turn_t DOWN_POSITION = 7.3_tr;
+    constexpr int INTAKE_VOLTAGE = -12;
+>>>>>>> c40c17b (path changes)
 #endif
     constexpr double LOADED_DIST = 350;
     constexpr double LOWER_LOADED_DIST = 350;
@@ -114,7 +126,7 @@ namespace CONSTANTS
     constexpr units::turns_per_second_t SHOOTER_VELOCITY = 80_tps;
 #endif
 
-        constexpr int BELT_ID = 7;
+    constexpr int BELT_ID = 7;
     constexpr units::turns_per_second_t LEFT_VELOCITY{10};  // CHANGEME;
     constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; // CHANGEME;
 

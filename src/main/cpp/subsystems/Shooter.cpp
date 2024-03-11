@@ -61,7 +61,7 @@ frc2::CommandPtr Shooter::spool_cmd()
         {
             set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
             m_left_motor.Set(1);
-            m_right_motor.Set(1);
+            m_right_motor.Set(0.75);
         },
         {this});
 }
