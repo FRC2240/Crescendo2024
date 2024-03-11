@@ -97,9 +97,22 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "parallel",
                 "data": {
-                  "pathName": "reverse_pos_2_gp2_speaker"
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "reverse_pos_2_gp2_speaker"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "spool"
+                      }
+                    }
+                  ]
                 }
               },
               {
