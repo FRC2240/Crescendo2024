@@ -21,7 +21,6 @@ class Candle : public frc2::SubsystemBase
 public:
     Candle(Intake *intake);
     void Periodic() override;
-    frc2::CommandPtr get_command(frc2::CommandXboxController *m_stick);
     frc2::CommandPtr fast_yellow_blink();
     frc2::CommandPtr amp_blink();
     frc2::CommandPtr not_driver_controlled();

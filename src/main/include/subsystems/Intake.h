@@ -20,6 +20,7 @@
 #include <iostream>
 #include "units/current.h"
 #include "units/voltage.h"
+#include <frc/DataLogManager.h>
 
 class Intake : public frc2::SubsystemBase
 {
