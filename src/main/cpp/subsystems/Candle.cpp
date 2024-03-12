@@ -13,7 +13,7 @@ Default: Alliance
 Candle::Candle(Intake *intake) : m_intake{intake}
 {
     ctre::phoenix::led::CANdleConfiguration config;
-    config.stripType = ctre::phoenix::led::LEDStripType::RGB; //GRB?
+    config.stripType = ctre::phoenix::led::LEDStripType::RGB; // GRB?
     config.brightnessScalar = 0.5;
     m_candle.ConfigAllSettings(config);
     m_candle.ClearAnimation(0);
@@ -44,7 +44,8 @@ frc2::CommandPtr Candle::fast_yellow_blink()
 
 frc2::CommandPtr Candle::amp_blink()
 {
-    return frc2::RunCommand([this] { 
+    return frc2::RunCommand([this]
+                            { 
         if (is_red()) {
             m_candle.Animate(red_amp_anim);
         }
@@ -57,16 +58,16 @@ frc2::CommandPtr Candle::amp_blink()
 
 frc2::CommandPtr Candle::not_driver_controlled()
 {
-    return frc2::RunCommand([this] { 
+    return frc2::RunCommand([this]
+                            { 
         if (is_red()) {
             m_candle.Animate(red_larson);
         }
         else {
             m_candle.Animate(blue_larson);
-        }
-    },
-    {this})
-    .WithName("No Control");
+        } },
+                            {this})
+        .WithName("No Control");
 };
 
 frc2::CommandPtr Candle::off()
@@ -80,10 +81,11 @@ frc2::CommandPtr Candle::off()
 
 frc2::CommandPtr Candle::default_command()
 {
-    return frc2::RunCommand([this] {       
+    return frc2::RunCommand([this]
+                            {       
 
         m_candle_timer.Start();
-        if (!frc::DriverStation::IsFMSAttached()) {
+        if (!frc::DriverStation::IsDSAttached()) {
         //if(false){
             m_candle.ClearAnimation(0);
             if (m_candle_timer.Get() < units::time::second_t(0.5)) {
@@ -137,5 +139,6 @@ frc2::CommandPtr Candle::default_command()
             m_candle_timer.Reset();
         } },
                             {this})
-        .WithName("Default Command").IgnoringDisable(true);
+        .WithName("Default Command")
+        .IgnoringDisable(true);
 }
