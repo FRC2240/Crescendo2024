@@ -74,7 +74,7 @@ public:
   Climber m_climber{&m_stick1};
   Shooter m_shooter{&m_odometry, &m_intake};
   BuddyClimber m_buddyClimber;
-  // Candle m_candle;
+  Candle m_candle{&m_intake};
 
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
 

@@ -5,6 +5,9 @@
     },
     "retained": {
       "SmartDashboard": {
+        "SendableChooser[0]": {
+          "open": true
+        },
         "open": true
       },
       "limelight": {
@@ -121,11 +124,13 @@
         "open": true
       },
       "open": true
-    }
+    },
+    "visible": true
   },
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
-    "serverTeam": "2240"
+    "serverTeam": "2240",
+    "visible": false
   },
   "Plots": {
     "Plot <0>": {
