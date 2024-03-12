@@ -14,7 +14,7 @@
 #include <units/velocity.h>
 #include <vector>
 // #define COLFAX_BOT
-// #define BETABOT
+#define BETABOT
 //  When using the second robot, uncomment the above line
 
 // #define MOD_AMP
@@ -69,6 +69,14 @@ constexpr int INTAKE_VOLTAGE = -12;
 constexpr auto DELAY = 0.2_s;
 constexpr units::turn_t UP_POSITION = 0.349_tr;
 constexpr units::turn_t DOWN_POSITION = 7.924_tr;
+constexpr int INTAKE_VOLTAGE = -12;
+constexpr auto DELAY = 0.2_s;
+constexpr units::turn_t UP_POSITION = 0.349_tr;
+constexpr units::turn_t DOWN_POSITION = 7.924_tr;
+constexpr int INTAKE_VOLTAGE = -12;
+constexpr auto DELAY = 0.35_s;
+constexpr units::turn_t UP_POSITION = 0.8_tr;
+constexpr units::turn_t DOWN_POSITION = 8_tr;
 constexpr int INTAKE_VOLTAGE = -12;
 #endif
 constexpr double LOADED_DIST = 300;

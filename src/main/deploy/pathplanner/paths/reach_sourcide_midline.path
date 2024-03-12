@@ -9,6 +9,7 @@
       "prevControl": null,
       "nextControl": {
 <<<<<<< HEAD
+<<<<<<< HEAD
         "x": 1.4614719947114867,
         "y": 1.8661572495149727
       },
@@ -20,6 +21,13 @@
 ||||||| parent of fa314ba (path changes)
         "x": 1.0092546727204963,
         "y": 3.248638249945539
+||||||| parent of 59af9f7 (pushing acceleration limits)
+        "x": 1.0092546727204963,
+        "y": 3.248638249945539
+=======
+        "x": 1.4614719947114867,
+        "y": 1.8661572495149727
+>>>>>>> 59af9f7 (pushing acceleration limits)
       },
       "isLocked": false,
       "linkedName": null
@@ -57,6 +65,7 @@
       },
       "prevControl": {
 <<<<<<< HEAD
+<<<<<<< HEAD
         "x": 4.109347444673538,
         "y": 1.044192924684781
 ||||||| parent of fa314ba (path changes)
@@ -66,6 +75,13 @@
         "x": 4.250132800384225,
         "y": 0.7475964862961755
 >>>>>>> fa314ba (path changes)
+||||||| parent of 59af9f7 (pushing acceleration limits)
+        "x": 4.250132800384225,
+        "y": 0.7475964862961755
+=======
+        "x": 4.109347444673538,
+        "y": 1.044192924684781
+>>>>>>> 59af9f7 (pushing acceleration limits)
       },
       "nextControl": null,
       "isLocked": false,

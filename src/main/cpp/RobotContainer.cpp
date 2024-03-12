@@ -10,7 +10,6 @@ RobotContainer::RobotContainer() {
   m_chooser.AddOption("2 GP", AUTOS::POS_2_GP2);
   m_chooser.AddOption("Bearbotics\'s baby", AUTOS::POS_3_GP2);
   m_chooser.AddOption("Position 2 four game piece", AUTOS::POS_2_GP4);
-  m_chooser.AddOption("Bearbotics\'s baby", AUTOS::POS_3_GP2);
   m_chooser.AddOption("TEST", AUTOS::TEST);
 
   frc::SmartDashboard::PutData(&m_chooser);
@@ -24,12 +23,11 @@ void RobotContainer::add_named_commands() {
 
   NamedCommands::registerCommand("intake", std::move(m_intake.StartCommand()));
   NamedCommands::registerCommand("unintake", std::move(m_intake.StopCommand()));
-  // NamedCommands::registerCommand("score",
-  // std::move(m_shooter.fender_shot()));
   NamedCommands::registerCommand("spool", std::move(m_shooter.spool_cmd()));
   NamedCommands::registerCommand(
       "score", std::move(m_shooter.fender_shot().RaceWith(frc2::cmd::Run(
                    [this] { m_odometry.update_from_vision(); }, {}))));
+
   NamedCommands::registerCommand("unscore", std::move(m_shooter.stop()));
   // NamedCommands::registerCommand("score",
   // std::move(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())));
@@ -106,19 +104,15 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
   case AUTOS::POS_2_GP4:
     return autos::pos_2_gp4(&m_trajectory);
     break;
-<<<<<<< HEAD
   case AUTOS::POS_3_GP2:
     return autos::pos_3_gp2(&m_trajectory);
     break;
   case AUTOS::POS_1_GP4:
     return autos::pos_1_gp4(&m_trajectory);
     break;
-||||||| parent of 2b04079 (source side 3gp that scores 2gp)
-=======
   case AUTOS::POS_3_GP2:
     return autos::pos_3_gp2(&m_trajectory);
     break;
->>>>>>> 2b04079 (source side 3gp that scores 2gp)
   default:
     frc::DataLogManager::Log("WARN: NO AUTO SELECTED");
     // m_candle.auto_selected = false;

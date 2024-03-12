@@ -9,6 +9,7 @@
       "prevControl": null,
       "nextControl": {
 <<<<<<< HEAD
+<<<<<<< HEAD
         "x": 6.49307441853318,
         "y": 0.5879814221075647
 ||||||| parent of fa314ba (path changes)
@@ -34,6 +35,13 @@
         "x": 6.645690156742117,
         "y": 0.572080779392875
 >>>>>>> fa314ba (path changes)
+||||||| parent of 59af9f7 (pushing acceleration limits)
+        "x": 6.645690156742117,
+        "y": 0.572080779392875
+=======
+        "x": 6.49307441853318,
+        "y": 0.5879814221075647
+>>>>>>> 59af9f7 (pushing acceleration limits)
       },
       "isLocked": false,
       "linkedName": null
