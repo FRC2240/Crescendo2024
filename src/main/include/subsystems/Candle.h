@@ -38,7 +38,7 @@ private:
     ctre::phoenix::led::StrobeAnimation red_amp_anim       {255, 0,   0,   0, 0.5};
     ctre::phoenix::led::StrobeAnimation blue_amp_anim      {0,   0,   255, 0, 0.5};
     ctre::phoenix::led::StrobeAnimation red_static         {255, 0,   0,   0, 1  };
-    ctre::phoenix::led::StrobeAnimation green_blink        {0,   255, 0,   0, 0.5};
+    ctre::phoenix::led::StrobeAnimation green_blink        {0,   255, 0,   0, 1  };
     ctre::phoenix::led::StrobeAnimation blue_static        {0,   0,   255, 0, 1  };
     
     //                                               r    g  b    w  spd num
