@@ -323,7 +323,6 @@ frc2::CommandPtr Shooter::set_angle_cmd(units::turn_t angle) {
     return ret;
   };
   std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
-
   return frc2::cmd::Run(
              [this, angle] {
                frc::SmartDashboard::PutNumber(
@@ -385,7 +384,6 @@ frc2::CommandPtr Shooter::amp_shot() {
     //    units::angular_velocity::turns_per_second_t{1}); // change threshold?
   };
   std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
-
   return frc2::FunctionalCommand(init, periodic, end, is_finished, {this})
       .ToPtr()
       .WithTimeout(0.5_s)
