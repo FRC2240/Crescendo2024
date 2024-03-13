@@ -92,6 +92,7 @@ namespace CONSTANTS
   namespace CANDLE
   {
     constexpr int CANDLE_ID = 10;
+    constexpr int NUM_LEDS = 39;
   }
 
   namespace SHOOTER

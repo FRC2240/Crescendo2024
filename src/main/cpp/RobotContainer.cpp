@@ -64,7 +64,9 @@ void RobotContainer::ConfigureBindings()
                 }}
       .WhileTrue(m_climber.DownCommand());
   // Candle
-  // m_candle.SetDefaultCommand(m_candle.off());
+  m_candle.SetDefaultCommand(m_candle.default_command());
+  m_stick1.Y().ToggleOnTrue(m_candle.fast_yellow_blink());
+  m_stick1.A().ToggleOnTrue(m_candle.amp_blink());
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
