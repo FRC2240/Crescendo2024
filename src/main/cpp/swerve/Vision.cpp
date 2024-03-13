@@ -3,9 +3,7 @@
 #include <frc/DataLogManager.h>
 
 Vision::Vision(std::function<units::degree_t()> get_angle_fn)
-    : get_angle{get_angle_fn} {
-
-      };
+    : get_angle{get_angle_fn} {};
 
 std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
 {
@@ -14,34 +12,37 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
 
   frc::SmartDashboard::PutNumber("vision step", 1);
   std::vector<std::optional<frc::Pose2d>> ret;
-  // for (auto &i : m_photoncam_vec)
-  // {
-  //   frc::SmartDashboard::PutNumber("vision step", 2);
-  //   // First is the camera, second is the estimator
-  //   auto result = i.first->GetLatestResult();
-  //   frc::SmartDashboard::PutNumber("vision step", 2.5);
-  //   frc::SmartDashboard::PutNumber("vision is present", result.HasTargets());
-  //   if (result.MultiTagResult().result.isPresent)
-  //   {
+  for (auto &i : m_photoncam_vec)
+  {
+    frc::SmartDashboard::PutNumber("vision step", 2);
+    auto result = i.camera->GetLatestResult();
+    frc::SmartDashboard::PutNumber("vision step", 2.5);
+    frc::SmartDashboard::PutNumber("vision is present", result.HasTargets());
+    if (result.MultiTagResult().result.isPresent)
+    {
 
-  //     frc::SmartDashboard::PutNumber("vision step", 3);
-  //     auto pose = i.second.Update(result);
-  //     if (pose)
-  //     {
+      frc::SmartDashboard::PutNumber("vision step", 3);
+      auto pose = i.multitag_estimator.Update(result);
+      if (pose)
+      {
 
-  //       frc::SmartDashboard::PutNumber("vision step", 4);
-  //       frc::SmartDashboard::PutNumber("pv/x", pose.value().estimatedPose.X().value());
-  //       frc::SmartDashboard::PutNumber("pv/y", pose.value().estimatedPose.Y().value());
-  //       frc::SmartDashboard::PutNumber("pv/get_angle()", get_angle().value());
-  //       // if (CONSTANTS::IN_THRESHOLD<units::degree_t>(
-  //       //         pose.value().estimatedPose.Rotation().ToRotation2d().Degrees(),
-  //       //         get_angle(), 3_deg))
-  //       // {
-  //       ret.push_back(pose.value().estimatedPose.ToPose2d());
-  //       // }
-  //     }
-  //   }
-  // }
+        frc::SmartDashboard::PutNumber("vision step", 4);
+        frc::SmartDashboard::PutNumber("pv/x", pose.value().estimatedPose.X().value());
+        frc::SmartDashboard::PutNumber("pv/y", pose.value().estimatedPose.Y().value());
+        frc::SmartDashboard::PutNumber("pv/get_angle()", get_angle().value());
+        // if (CONSTANTS::IN_THRESHOLD<units::degree_t>(
+        //         pose.value().estimatedPose.Rotation().ToRotation2d().Degrees(),
+        //         get_angle(), 3_deg))
+        // {
+        ret.push_back(pose.value().estimatedPose.ToPose2d());
+        // }
+      }
+    }
+    else if (result.HasTargets())
+    {
+      auto pose = i.singletag_estimator.Update(result);
+    }
+  }
 
   if (!is_hardware_zoomed && m_aft_limelight->GetNumber("tv", 0) >= 0.5)
   {

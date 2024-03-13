@@ -331,6 +331,8 @@ frc2::CommandPtr Shooter::set_angle_cmd(units::turn_t angle)
     {
         auto ret = CONSTANTS::IN_THRESHOLD<units::degree_t>(get_angle(), angle, 1_deg);
         frc::SmartDashboard::PutBoolean("shooter/ret", ret);
+        m_left_motor.Set(1);
+        m_right_motor.Set(0.75);
         return ret;
     };
     std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
@@ -355,9 +357,10 @@ frc2::CommandPtr Shooter::execute_auto_shot()
     return frc2::RunCommand([this]
                             { 
                                 m_left_motor.SetControl(ctre::phoenix6::controls::DutyCycleOut(1)); 
-                             m_right_motor.SetControl(ctre::phoenix6::controls::DutyCycleOut(1)); 
-
-                                m_belt_motor.Set(1); },
+                             m_right_motor.SetControl(ctre::phoenix6::controls::DutyCycleOut(.75)); 
+                             if (m_left_motor.GetVelocity().GetValue() > 75_tps){
+                                m_belt_motor.Set(1);
+                             } },
                             {this})
 
         .ToPtr();
