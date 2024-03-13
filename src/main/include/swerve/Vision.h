@@ -45,11 +45,26 @@ public:
     std::optional<units::degree_t> get_apriltag_angle();
 
 private:
+    struct PhotonGroup
+    {
+        std::shared_ptr<photon::PhotonCamera> camera;
+        photon::PhotonPoseEstimator multitag_estimator;
+        photon::PhotonPoseEstimator singletag_estimator;
+        PhotonGroup(std::shared_ptr<photon::PhotonCamera> acamera,
+                    photon::PhotonPoseEstimator amultitag_estimator,
+                    photon::PhotonPoseEstimator asingletag_estimator)
+            : camera{acamera},
+              multitag_estimator{amultitag_estimator},
+              singletag_estimator{asingletag_estimator}
+        {
+        }
+    };
+
     std::function<units::degree_t()> get_angle;
     bool is_hardware_zoomed = 0;
 
-    // std::shared_ptr<photon::PhotonCamera> m_left_camera_a =
-    //     std::make_shared<photon::PhotonCamera>("left_camera_a");
+    std::shared_ptr<photon::PhotonCamera> m_left_camera_a =
+        std::make_shared<photon::PhotonCamera>("left_camera_a");
     // std::shared_ptr<photon::PhotonCamera> m_left_camera_b =
     //     std::make_shared<photon::PhotonCamera>("left_camera_b");
     // std::shared_ptr<photon::PhotonCamera> m_right_camera_a =
@@ -64,6 +79,9 @@ private:
         layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
         CONSTANTS::VISION::LEFT_CAMERA_A_TF};
 
+    photon::PhotonPoseEstimator m_single_left_estimator{
+        layout, photon::PoseStrategy::LOWEST_AMBIGUITY,
+        CONSTANTS::VISION::LEFT_CAMERA_A_TF};
     // photon::PhotonPoseEstimator m_left_estimator_b{
     //     layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
     //     CONSTANTS::VISION::LEFT_CAMERA_B_TF};
@@ -76,9 +94,8 @@ private:
     //     layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
     //     CONSTANTS::VISION::LEFT_CAMERA_A_TF};
 
-    //   std::vector<std::pair<std::shared_ptr<photon::PhotonCamera>,
-    //                         photon::PhotonPoseEstimator>>
-    //       m_photoncam_vec = {{m_left_camera_a, m_left_estimator_a},
+    std::vector<PhotonGroup>
+        m_photoncam_vec = {{m_left_camera_a, m_left_estimator_a, m_single_left_estimator}};
     //                          {m_left_camera_b, m_left_estimator_b},
     //                          {m_right_camera_a, m_right_estimator_a},
     //                          {m_right_camera_b, m_right_estimator_b}};
