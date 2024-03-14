@@ -14,7 +14,7 @@
 #include <frc/geometry/Transform3d.h>
 #include <numbers>
 // #define COLFAX_BOT
-#define BETABOT
+// #define BETABOT
 //  When using the second robot, uncomment the above line
 
 // #define MOD_AMP

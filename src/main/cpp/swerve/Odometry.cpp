@@ -166,7 +166,7 @@ units::turn_t Odometry::get_shooter_angle()
     if (angle < 0_tr && angle > -11_tr)
     {
 
-        return -angle;
+        return angle;
     }
     else
     {
