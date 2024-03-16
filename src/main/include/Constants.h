@@ -51,65 +51,8 @@ struct PidCoeff {
 };
 
 namespace INTAKE {
-#ifdef BETABOT
-constexpr auto DELAY = 0.15_s;
-constexpr units::turn_t UP_POSITION = 0.02_tr;
-constexpr units::turn_t DOWN_POSITION = 7.881_tr;
-constexpr int INTAKE_VOLTAGE = -12;
-#endif
-#ifndef BETABOT
-constexpr auto DELAY = 0.35_s;
-constexpr units::turn_t UP_POSITION = 0.8_tr;
-constexpr units::turn_t DOWN_POSITION = 8_tr;
-constexpr int INTAKE_VOLTAGE = -12;
-constexpr auto DELAY = 0.2_s;
-constexpr units::turn_t UP_POSITION = 0.349_tr;
-constexpr units::turn_t DOWN_POSITION = 7.924_tr;
-constexpr int INTAKE_VOLTAGE = -12;
-constexpr auto DELAY = 0.2_s;
-constexpr units::turn_t UP_POSITION = 0.349_tr;
-constexpr units::turn_t DOWN_POSITION = 7.924_tr;
-constexpr int INTAKE_VOLTAGE = -12;
-constexpr auto DELAY = 0.2_s;
-constexpr units::turn_t UP_POSITION = 0.349_tr;
-constexpr units::turn_t DOWN_POSITION = 7.924_tr;
-constexpr int INTAKE_VOLTAGE = -12;
-constexpr auto DELAY = 0.35_s;
-constexpr units::turn_t UP_POSITION = 0.8_tr;
-constexpr units::turn_t DOWN_POSITION = 8_tr;
-constexpr int INTAKE_VOLTAGE = -12;
-#endif
-constexpr double LOADED_DIST = 300;
-constexpr double LOWER_LOADED_DIST = 350;
-constexpr int TOF_ID = 34;
-constexpr int LOWER_TOF_ID = 33;
-constexpr int BELT_ID = 4;
-constexpr int ANGLE_ID = 3;
-constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
-constexpr units::turn_t BRACE_POSITION = 2.33_tr;
-constexpr units::turn_t ROTATION_THRESHOLD = 5_tr;
-} // namespace INTAKE
-namespace VISION {
-static const auto LEFT_CAMERA_A_TF = frc::Transform3d{
-    0.307_m, -0.112_m, 0.558_m, frc::Rotation3d(0_rad, 7_deg, -90_deg)};
-static const auto LEFT_CAMERA_B_TF =
-    frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
-static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{
-    0.307_m, 0.112_m, 0.558_m, frc::Rotation3d(0_rad, 7_deg, 90_deg)};
-static const auto RIGHT_CAMERA_B_TF =
-    frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
-
-} // namespace VISION
-
-namespace CLIMBER {
-constexpr int LEFT_ID = 9;   // CHANGEME
-constexpr int RIGHT_ID = 11; // CHANGEME
-} // namespace CLIMBER
-namespace CANDLE {
-constexpr int CANDLE_ID = 10;
-constexpr int NUM_LEDS = 39;
-} // namespace CANDLE
-
+constexpr units::turn_t AMP_ANGLE = 10_tr;
+constexpr units::turns_per_second_t SHOOTER_VELOCITY = 60_tps;
 namespace SHOOTER {
 constexpr int LEFT_ID = 2;
 constexpr int RIGHT_ID = 5;

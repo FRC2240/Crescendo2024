@@ -4,26 +4,24 @@
 
 #pragma once
 
-#include <frc2/command/SubsystemBase.h>
-#include <ctre/phoenix6/TalonFX.hpp>
-#include <frc2/command/CommandPtr.h>
-#include <units/angle.h>
-#include <units/time.h>
-#include <units/angular_velocity.h>
-#include <frc2/command/RunCommand.h>
 #include "Constants.h"
-#include <TimeOfFlight.h>
-#include <frc2/command/Commands.h>
-#include <ctre/phoenix6/TalonFX.hpp>
-#include <ctre/phoenix6/CANcoder.hpp>
 #include "swerve/Odometry.h"
-#include <iostream>
 #include "units/current.h"
 #include "units/voltage.h"
+#include <TimeOfFlight.h>
+#include <ctre/phoenix6/CANcoder.hpp>
+#include <ctre/phoenix6/TalonFX.hpp>
 #include <frc/DataLogManager.h>
+#include <frc2/command/CommandPtr.h>
+#include <frc2/command/Commands.h>
+#include <frc2/command/RunCommand.h>
+#include <frc2/command/SubsystemBase.h>
+#include <iostream>
+#include <units/angle.h>
+#include <units/angular_velocity.h>
+#include <units/time.h>
 
-class Intake : public frc2::SubsystemBase
-{
+class Intake : public frc2::SubsystemBase {
 public:
   Intake();
 
@@ -47,8 +45,7 @@ public:
   frc2::CommandPtr zero();
   frc2::CommandPtr Wes();
 
-  enum IntakeState
-  {
+  enum IntakeState {
     INTAKING,
     DEFAULT,
     SLOWFEED,
@@ -62,16 +59,19 @@ public:
   ctre::phoenix6::hardware::TalonFX m_beltMotor{CONSTANTS::INTAKE::BELT_ID};
 
 private:
-  units::turn_t backspin_position = 0_tr;
   units::volt_t m_belt_velocity = 0_V;
   frc::Timer m_timer;
   frc::TimeOfFlight m_tof{CONSTANTS::INTAKE::TOF_ID};
   frc::TimeOfFlight m_lower_tof{CONSTANTS::INTAKE::LOWER_TOF_ID};
   ctre::phoenix6::hardware::TalonFX m_angleMotor{CONSTANTS::INTAKE::ANGLE_ID};
 
-  const units::angle::turn_t START_ROTATIONS{0};    // intake retracted position         (CHANGEME)
-  const units::angle::turn_t END_ROTATIONS{100};    // intake extended position          (CHANGEME)
-  const units::voltage::volt_t BELT_SPEED{12};      // volts to drive belt motor at      (CHANGEME)
-  const units::angle::turn_t BRACE_ROTATIONS{150};  // brace position                    (CHANGEME)
-  const units::angle::turn_t ROTATION_THRESHOLD{1}; // number of rotations to stop motor (CHANGEME)
+  const units::angle::turn_t START_ROTATIONS{
+      0}; // intake retracted position         (CHANGEME)
+  const units::angle::turn_t END_ROTATIONS{
+      100}; // intake extended position          (CHANGEME)
+  const units::voltage::volt_t BELT_SPEED{
+      12}; // volts to drive belt motor at      (CHANGEME)
+  const units::angle::turn_t BRACE_ROTATIONS{150}; // brace position (CHANGEME)
+  const units::angle::turn_t ROTATION_THRESHOLD{
+      1}; // number of rotations to stop motor (CHANGEME)
 };

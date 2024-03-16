@@ -159,5 +159,59 @@ units::turn_t Odometry::get_shooter_angle() {
   units::turn_t angle = units::turn_t{
       19.5 - (8.1 * x) + (1.31 * std::pow(x, 2)) + (-0.0752 * std::pow(x, 3))};
   frc::SmartDashboard::PutNumber("shooter/auto angle", angle.value());
-}
+  std::optional<units::meter_t> Odometry::get_dist_to_tgt() {
+    frc::SmartDashboard::PutBoolean("tv", m_limelight->GetBoolean("tv", 0));
+    if (m_limelight->GetNumber("tv", 0)) {
+      auto results = m_limelight->GetNumberArray("targetpose_robotspace",
+                                                 std::vector<double>(6));
+      return units::meter_t{
+          (std::sqrt(std::pow(results[0], 0) + std::pow(results[1], 2)))};
+    } else {
+      return std::nullopt;
+    }
+  }
+
+  units::turn_t Odometry::get_shooter_angle() {
+    auto pose = getPose();
+    double x = pose.X().convert<units::foot>().value();
+    double y =
+        units::math::fabs(pose.Y() - 5.548_m).convert<units::foot>().value();
+    x = std::sqrt(std::pow(x, 2) + std::pow(y, 2));
+    units::turn_t angle =
+        units::turn_t{-(0.047 * std::pow(x, 2)) + (1.62 * x) - 17.3};
+    frc::SmartDashboard::PutNumber("shooter/auto angle", angle.value());
+    if (angle < 0_tr && angle > -11_tr) {
+
+      return angle;
+    } else {
+      return 0_tr;
+    }
+    std::optional<units::meter_t> Odometry::get_dist_to_tgt() {
+      frc::SmartDashboard::PutBoolean("tv", m_limelight->GetBoolean("tv", 0));
+      if (m_limelight->GetNumber("tv", 0)) {
+        auto results = m_limelight->GetNumberArray("targetpose_robotspace",
+                                                   std::vector<double>(6));
+        return units::meter_t{
+            (std::sqrt(std::pow(results[0], 0) + std::pow(results[1], 2)))};
+      } else {
+        return std::nullopt;
+      }
+    }
+
+    units::turn_t Odometry::get_shooter_angle() {
+      auto pose = getPose();
+      double x = pose.X().convert<units::foot>().value();
+      double y =
+          units::math::fabs(pose.Y() - 5.548_m).convert<units::foot>().value();
+      x = std::sqrt(std::pow(x, 2) + std::pow(y, 2));
+      units::turn_t angle =
+          units::turn_t{-(0.047 * std::pow(x, 2)) + (1.62 * x) - 17.3};
+      frc::SmartDashboard::PutNumber("shooter/auto angle", angle.value());
+      if (angle < 0_tr && angle > -11_tr) {
+
+        return -angle;
+      } else {
+        return 0_tr;
+      }
+    }
 #endif
