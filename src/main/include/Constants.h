@@ -14,7 +14,7 @@
 #include <units/velocity.h>
 #include <vector>
 // #define COLFAX_BOT
-#define BETABOT
+// #define BETABOT
 //  When using the second robot, uncomment the above line
 
 // #define MOD_AMP
@@ -81,6 +81,7 @@ constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; // CHANGEME;
 
 } // namespace SHOOTER
 
+<<<<<<< HEAD
 namespace DRIVE {
 constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 23.533_fps;
 constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi *
@@ -104,6 +105,55 @@ struct ModuleConfig {
   int cancoder;
   units::turn_t offset;
 };
+||||||| parent of 3a40904 (auto_score_allign works)
+  namespace DRIVE
+  {
+    constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 0.5_fps;
+    constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi * 1.25 * 0.05};
+    constexpr units::meters_per_second_t TELEOP_MAX_SPEED = ROBOT_MAX_SPEED;
+    constexpr units::radians_per_second_t TELEOP_MAX_ANGULAR_SPEED{std::numbers::pi * 0.75};
+    constexpr units::meters_per_second_t TRAJ_MAX_SPEED = ROBOT_MAX_SPEED;
+    constexpr units::acceleration::meters_per_second_squared_t TRAJ_MAX_ACCELERATION = TRAJ_MAX_SPEED / 0.5_s;
+    constexpr units::radians_per_second_t TRAJ_MAX_ANGULAR_SPEED = CONSTANTS::DRIVE::ROBOT_MAX_ANGULAR_SPEED;
+    constexpr units::radians_per_second_squared_t TRAJ_MAX_ANGULAR_ACCELERATION{std::numbers::pi};
+    static constexpr auto WHEEL_CIRCUMFERENCE = 12.11_in / 1.0_tr;
+    // static constexpr auto WHEEL_CIRCUMFERENCE = 11.992_in / 1.0_tr;
+    constexpr int GYRO_ID = 48; // CHANGEME
+
+    namespace CONFIG
+    {
+      struct ModuleConfig
+      {
+        int driver;
+        int azimuth;
+        int cancoder;
+        units::turn_t offset;
+      };
+=======
+  namespace DRIVE
+  {
+    constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 0.5_fps;
+    constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi * 1.25};
+    constexpr units::meters_per_second_t TELEOP_MAX_SPEED = ROBOT_MAX_SPEED;
+    constexpr units::radians_per_second_t TELEOP_MAX_ANGULAR_SPEED{std::numbers::pi * 0.75};
+    constexpr units::meters_per_second_t TRAJ_MAX_SPEED = ROBOT_MAX_SPEED;
+    constexpr units::acceleration::meters_per_second_squared_t TRAJ_MAX_ACCELERATION = TRAJ_MAX_SPEED / 0.5_s;
+    constexpr units::radians_per_second_t TRAJ_MAX_ANGULAR_SPEED = CONSTANTS::DRIVE::ROBOT_MAX_ANGULAR_SPEED;
+    constexpr units::radians_per_second_squared_t TRAJ_MAX_ANGULAR_ACCELERATION{std::numbers::pi};
+    static constexpr auto WHEEL_CIRCUMFERENCE = 12.11_in / 1.0_tr;
+    // static constexpr auto WHEEL_CIRCUMFERENCE = 11.992_in / 1.0_tr;
+    constexpr int GYRO_ID = 48; // CHANGEME
+
+    namespace CONFIG
+    {
+      struct ModuleConfig
+      {
+        int driver;
+        int azimuth;
+        int cancoder;
+        units::turn_t offset;
+      };
+>>>>>>> 3a40904 (auto_score_allign works)
 #ifdef COLFAX_BOT
 #pragma message("Using Colfax bot")
 constexpr ModuleConfig FL{60, 61, 14, -0.279_tr};

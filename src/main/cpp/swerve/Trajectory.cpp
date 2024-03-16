@@ -330,11 +330,71 @@ frc2::CommandPtr Trajectory::auto_pickup()
 
 frc2::CommandPtr Trajectory::auto_score_align()
 {
+<<<<<<< HEAD
       return frc2::cmd::Run(
                  [this] {
+||||||| parent of 3a40904 (auto_score_allign works)
+    return frc2::cmd::Run([this]
+                          { auto botpose = m_odometry->getPose();
+                          frc::Pose2d speakerpose;
+                          if (frc::DriverStation::GetAlliance().has_value() && 
+                          frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kBlue ){
+                            speakerpose = frc::Pose2d(0_m, 5.5_m, frc::Rotation2d(0_rad)); //CHANGEME
+                          }
+                          else{
+                            speakerpose = frc::Pose2d(16.46_m, 5.5_m, frc::Rotation2d(3.1415_rad)); //CHANGEME
+                          }
+                          botpose = botpose.RelativeTo(speakerpose);
+                          // angle of relative vector
+                          desired_angle = units::degree_t{-(atan2(botpose.Y().value(),botpose.X().value())/std::numbers::pi*180)};
+                          /*
+                          if (desired_angle.value() < 0){
+                            desired_angle += units::degree_t{180};
+                          } else {
+                            desired_angle -= units::degree_t{180};
+                          } */
+                          frc::SmartDashboard::PutNumber("as/rel x", botpose.X().value());
+                          frc::SmartDashboard::PutNumber("as/rel y", botpose.Y().value());
+                          frc::SmartDashboard::PutNumber("as/rel t", botpose.Rotation().Degrees().value());
+                          frc::SmartDashboard::PutNumber("as/desired angle", desired_angle.value());
+                          m_drivetrain->face_direction(units::degree_t{0}); 
+                          },
+                          {this})
+        .Until([this] -> bool
+               {
+=======
+    return frc2::cmd::Run([this]
+                          { auto botpose = m_odometry->getPose();
+                          frc::Pose2d speakerpose;
+                          if (frc::DriverStation::GetAlliance().has_value() && 
+                          frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kBlue ){
+                            speakerpose = frc::Pose2d(0_m, 5.5_m, frc::Rotation2d(0_rad));
+                          }
+                          else{
+                            speakerpose = frc::Pose2d(16.46_m, 5.5_m, frc::Rotation2d(units::radian_t{std::numbers::pi})); //CHANGEME
+                          }
+                          botpose = botpose.RelativeTo(speakerpose);
+                          // angle of relative vector
+                          desired_angle = units::degree_t{(atan2(botpose.Y().value(),botpose.X().value())/std::numbers::pi*180)};
+                        //   if (desired_angle.value() < 0){
+                        //     desired_angle += units::degree_t{180};
+                        //   } else {
+                        //     desired_angle -= units::degree_t{180};
+                        //   } 
+                          frc::SmartDashboard::PutNumber("as/rel x", botpose.X().value());
+                          frc::SmartDashboard::PutNumber("as/rel y", botpose.Y().value());
+                          frc::SmartDashboard::PutNumber("as/rel t", botpose.Rotation().Degrees().value());
+                          frc::SmartDashboard::PutNumber("as/desired angle", desired_angle.value());
+                          m_drivetrain->face_direction(desired_angle); 
+                          },
+                          {this})
+        .Until([this] -> bool
+               {
+>>>>>>> 3a40904 (auto_score_allign works)
                    auto botpose = m_odometry->getPose();
                    frc::Pose2d speakerpose;
                    if (frc::DriverStation::GetAlliance().has_value() &&
+<<<<<<< HEAD
                        frc::DriverStation::GetAlliance().value() ==
                            frc::DriverStation::Alliance::kBlue) {
                      speakerpose = frc::Pose2d(
@@ -343,6 +403,23 @@ frc2::CommandPtr Trajectory::auto_score_align()
                      speakerpose =
                          frc::Pose2d(16.46_m, 5.5_m,
                                      frc::Rotation2d(3.1415_rad)); // CHANGEME
+||||||| parent of 3a40904 (auto_score_allign works)
+                       frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kBlue)
+                   {
+                       speakerpose = frc::Pose2d(0_m, 5.5_m, frc::Rotation2d(0_rad)); // CHANGEME
+                   }
+                   else
+                   {
+                       speakerpose = frc::Pose2d(8_m, 5.5_m, frc::Rotation2d(3.1415_rad)); // CHANGEME
+=======
+                       frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kBlue)
+                   {
+                       speakerpose = frc::Pose2d(0_m, 5.5_m, frc::Rotation2d(0_rad));
+                   }
+                   else
+                   {
+                       speakerpose = frc::Pose2d(16.46_m, 5.5_m, frc::Rotation2d(units::radian_t{std::numbers::pi})); // CHANGEME
+>>>>>>> 3a40904 (auto_score_allign works)
                    }
                    botpose = botpose.RelativeTo(speakerpose);
                    // angle of relative vector
