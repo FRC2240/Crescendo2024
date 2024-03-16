@@ -5,15 +5,15 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
+#include <ctre/phoenix6/TalonFX.hpp>
 #include <frc2/command/CommandPtr.h>
 #include <units/angle.h>
 #include <units/time.h>
 #include <units/angular_velocity.h>
 #include <frc2/command/RunCommand.h>
 #include "Constants.h"
-#include "frc2/command/PrintCommand.h"
-#include "frc/smartdashboard/SmartDashboard.h"
 #include <TimeOfFlight.h>
+#include <frc2/command/Commands.h>
 #include <ctre/phoenix6/TalonFX.hpp>
 #include <ctre/phoenix6/CANcoder.hpp>
 #include "swerve/Odometry.h"
@@ -47,12 +47,23 @@ public:
   frc2::CommandPtr zero();
   frc2::CommandPtr Wes();
 
+  enum IntakeState
+  {
+    INTAKING,
+    DEFAULT,
+    SLOWFEED,
+  };
+
+  IntakeState intake_state = DEFAULT;
+
   bool is_intaking = false;
 
   // Move all CAN ids to constants as well as all constants in this file.
   ctre::phoenix6::hardware::TalonFX m_beltMotor{CONSTANTS::INTAKE::BELT_ID};
 
 private:
+  units::turn_t backspin_position = 0_tr;
+  units::volt_t m_belt_velocity = 0_V;
   frc::Timer m_timer;
   frc::TimeOfFlight m_tof{CONSTANTS::INTAKE::TOF_ID};
   frc::TimeOfFlight m_lower_tof{CONSTANTS::INTAKE::LOWER_TOF_ID};

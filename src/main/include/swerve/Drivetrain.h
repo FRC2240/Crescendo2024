@@ -17,6 +17,7 @@
 #include <frc/SPI.h>
 #include <frc/BuiltInAccelerometer.h>
 #include <frc/controller/PIDController.h>
+#include <ctre/phoenix6/Pigeon2.hpp>
 
 #include <iostream>
 #include <fmt/format.h>
@@ -24,10 +25,10 @@
 class Drivetrain
 {
 public:
-    frc::SwerveDriveKinematics<4> kinematics{frc::Translation2d{7.33_in, 7.33_in},
-                                             frc::Translation2d{7.33_in, -7.33_in},
-                                             frc::Translation2d{-7.33_in, 7.33_in},
-                                             frc::Translation2d{-7.33_in, -7.33_in}};
+    frc::SwerveDriveKinematics<4> kinematics{frc::Translation2d{12.18_in, 12.18_in},
+                                             frc::Translation2d{12.18_in, -12.18_in},
+                                             frc::Translation2d{-12.18_in, 12.18_in},
+                                             frc::Translation2d{-12.18_in, -12.18_in}};
 
     frc::BuiltInAccelerometer acc;
     Drivetrain();
@@ -153,8 +154,10 @@ public:
     bool face_direction(units::degree_t tgt);
 
 private:
-    AHRS navx{frc::SPI::Port::kMXP};
-    CONSTANTS::PidCoeff pid_coef{6, 0.0, 0.0, 0.0, 0.0, -1, 1};
+    // ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, "swervecan"};
+    ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, "rio"};
+    // AHRS navx{frc::SPI::Port::kMXP};
+    CONSTANTS::PidCoeff pid_coef{0.95, 0.0, 0.25, 0.0, 0.0, -1, 1};
     frc::PIDController turn_pid{pid_coef.p, pid_coef.i, pid_coef.d};
     CONSTANTS::PidCoeff pid_coral_coef{6.0, 0.0, 0.0, 0.0, 0.0, -1, 1};
     frc::PIDController turn_coral_pid{pid_coral_coef.p, pid_coral_coef.i, pid_coral_coef.d};

@@ -1,14 +1,16 @@
 {
-  "robotWidth": 0.508,
-  "robotLength": 0.508,
+  "robotWidth": 0.94,
+  "robotLength": 0.94,
   "holonomicMode": true,
   "pathFolders": [
-    "preloads",
-    "midline",
+    "side",
     "autoline",
     "gp1",
     "gp2",
-    "gp2_speaker"
+    "gp2_speaker",
+    "midline",
+    "preloads",
+    "testing"
   ],
   "autoFolders": [
     "cross_autoline",
@@ -17,9 +19,9 @@
     "gp4",
     "midlines"
   ],
-  "defaultMaxVel": 1.0,
-  "defaultMaxAccel": 1.0,
+  "defaultMaxVel": 6.0,
+  "defaultMaxAccel": 4.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
-  "maxModuleSpeed": 0.5
+  "maxModuleSpeed": 4.0
 }

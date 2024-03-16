@@ -12,7 +12,6 @@
 #include "subsystems/Climber.h"
 #include "subsystems/Intake.h"
 #include "subsystems/Shooter.h"
-#include "subsystems/BuddyClimber.h"
 #include "swerve/Drivetrain.h"
 #include "swerve/Odometry.h"
 #include "swerve/Trajectory.h"
@@ -71,9 +70,9 @@ public:
     SHOOT
   };
   Intake m_intake;
-  Climber m_climber{&m_stick1};
+  Climber m_climber{};
   Shooter m_shooter{&m_odometry, &m_intake};
-  BuddyClimber m_buddyClimber;
+ 
   Candle m_candle{&m_intake};
 
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();

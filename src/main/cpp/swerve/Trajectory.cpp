@@ -33,7 +33,7 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc::XboxCont
         },
         [this](frc::Pose2d pose) -> void
         {
-            //fmt::println("WARN: RESET POSE");
+            // fmt::println("WARN: RESET POSE");
 
             frc::SmartDashboard::PutNumber("pp/rp/X", pose.X().value());
             frc::SmartDashboard::PutNumber("pp/rp/Y", pose.Y().value());
@@ -45,13 +45,16 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc::XboxCont
         },
         [this](frc::ChassisSpeeds speeds) -> void
         {
-            return m_drivetrain->drive(speeds);
+            // Hey, bozos, we changed this on 2024-03-08 to make pathplanner work
+            // Without this change pathplanner finds a barrier with remarkable efficency due to not correcting right
+            // This is a result of inverting the get_distance function
+            return m_drivetrain->drive(-speeds);
         },
-        HolonomicPathFollowerConfig(PIDConstants(5, 0.0, 0.0),   // Translation PID constants
-                                    PIDConstants(0.5, 0.0, 0.0), // Rotation PID constants
-                                    4.5_mps,                     // Max module speed, in m/s
-                                    17.324_in,                   // Drive base radius in meters. Distance from robot center to furthest module.
-                                    ReplanningConfig()           // Default path replanning config. See the API for the options here),
+        HolonomicPathFollowerConfig(PIDConstants(10, 0.0, 0), // Translation PID constants
+                                    PIDConstants(5, 0.0, 0),  // Rotation PID constants
+                                    4.5_mps,                  // Max module speed, in m/s
+                                    17.324_in,                // Drive base radius in meters. Distance from robot center to furthest module.
+                                    ReplanningConfig()        // Default path replanning config. See the API for the options here),
                                     ),
         [this]() -> bool
         {
@@ -90,13 +93,13 @@ frc2::CommandPtr Trajectory::make_relative_line_path(units::meter_t x, units::me
                [this, x, y, rot]
                {
                    auto pose = m_odometry->getPose();
-                   //fmt::println("Current Pose: {},{},{}", pose.X().value(), pose.Y().value(), pose.Rotation().Degrees().value());
+                   // fmt::println("Current Pose: {},{},{}", pose.X().value(), pose.Y().value(), pose.Rotation().Degrees().value());
                    std::vector<frc::Pose2d> points{
                        pose, // First point is always where you are
                        frc::Pose2d(pose.X() + x, pose.Y() + y, rot)};
                    frc::SmartDashboard::PutString("here?", "here");
 
-                   //fmt::println("Target Pose: {},{},{}", (pose.X() + x).value(), (pose.Y() + y).value(), rot.Degrees().value());
+                   // fmt::println("Target Pose: {},{},{}", (pose.X() + x).value(), (pose.Y() + y).value(), rot.Degrees().value());
 
                    std::vector<frc::Translation2d>
                        bezierPoints = PathPlannerPath::bezierFromPoses(points);
@@ -107,8 +110,8 @@ frc2::CommandPtr Trajectory::make_relative_line_path(units::meter_t x, units::me
         .AndThen(frc2::cmd::RunOnce(
             [=, this]
             {
-            auto pose = m_odometry->getPose();
-            //fmt::println("Current Pose: {},{},{}", pose.X().value(), pose.Y().value(), pose.Rotation().Degrees().value()); 
+                auto pose = m_odometry->getPose();
+                // fmt::println("Current Pose: {},{},{}", pose.X().value(), pose.Y().value(), pose.Rotation().Degrees().value());
             }));
 }
 
@@ -119,7 +122,7 @@ frc2::CommandPtr Trajectory::make_absolute_line_path(frc::Pose2d target_pose)
 
 frc2::CommandPtr Trajectory::extract(std::string auton)
 {
-    //fmt::println("{}", auton);
+    // fmt::println("{}", auton);
     return PathPlannerAuto(auton).ToPtr();
 }
 
@@ -177,45 +180,36 @@ frc2::CommandPtr Trajectory::auto_pickup()
 
 frc2::CommandPtr Trajectory::auto_score_align()
 {
-    std::function<void()> init = [this]() { /*no data currently needed */
-                                            frc::SmartDashboard::PutBoolean("shooter/is auto aligning", false);
-    };
-    std::function<void()> periodic = [this]()
-    {
-        try
-        {
-            std::optional<units::degree_t> angle = m_vision->get_apriltag_angle();
-
-            if (angle)
-            {
-                frc::DataLogManager::Log("here");
-                frc::SmartDashboard::PutBoolean("shooter/is auto aligning", true);
-                frc::SmartDashboard::PutNumber("auto score bot angle", angle.value().value());
-                m_drivetrain->face_direction(0_deg, -angle.value().value());
-            }
-        }
-        catch (const std::exception &e)
-        {
-            //fmt::println("ERROR: apriltag optional exeption");
-            std::cerr << e.what() << '\n';
-        }
-    };
-
-    std::function<bool()> is_finished = [this]() -> bool
-    {
-        std::optional<units::degree_t> angle = m_vision->get_apriltag_angle();
-
-        if (angle)
-        {
-            return (CONSTANTS::IN_THRESHOLD<units::degree_t>(angle.value(), 0_deg, 5_deg));
-        }
-    };
-
-    std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted)
-    {
-        //fmt::println("end");
-    };
-
-    return frc2::FunctionalCommand(init, periodic, end, is_finished, {this}).ToPtr();
+    return frc2::cmd::Run([this]
+                          { auto botpose = m_odometry->getPose();
+                          frc::Pose2d speakerpose;
+                          if (frc::DriverStation::GetAlliance().has_value() && 
+                          frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kBlue ){
+                            speakerpose = frc::Pose2d(0_m, 5.5_m, frc::Rotation2d(0_rad)); //CHANGEME
+                          }
+                          else{
+                            speakerpose = frc::Pose2d(8_m, 5.5_m, frc::Rotation2d(0_rad)); //CHANGEME
+                          }
+                          botpose = botpose.RelativeTo(speakerpose);
+                          frc::SmartDashboard::PutNumber("as/rel x", botpose.X().value());
+                          frc::SmartDashboard::PutNumber("as/rel y", botpose.Y().value());
+                          frc::SmartDashboard::PutNumber("as/rel t", botpose.Rotation().Degrees().value());
+                          m_drivetrain->face_direction(botpose.Rotation().Degrees()); },
+                          {this})
+        .Until([this] -> bool
+               {
+                   auto botpose = m_odometry->getPose();
+                   frc::Pose2d speakerpose;
+                   if (frc::DriverStation::GetAlliance().has_value() &&
+                       frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kBlue)
+                   {
+                       speakerpose = frc::Pose2d(0_m, 5.5_m, frc::Rotation2d(0_rad)); // CHANGEME
+                   }
+                   else
+                   {
+                       speakerpose = frc::Pose2d(8_m, 5.5_m, frc::Rotation2d(0_rad)); // CHANGEME
+                   }
+                   botpose = botpose.RelativeTo(speakerpose);
+                   return CONSTANTS::IN_THRESHOLD<units::degree_t>(m_drivetrain->getAngle(), botpose.Rotation().Degrees(), 3_deg); });
 }
 #endif

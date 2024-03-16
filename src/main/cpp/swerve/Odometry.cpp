@@ -43,6 +43,8 @@ void Odometry::update()
     field2d.SetRobotPose(pose.X(), pose.Y(), pose.Rotation());
     frc::SmartDashboard::PutNumber("odometry/X", pose.X().value());
     frc::SmartDashboard::PutNumber("odometry/Y", pose.Y().value());
+    frc::SmartDashboard::PutNumber("odometry/rot", pose.Rotation().Degrees().value());
+    frc::SmartDashboard::PutNumber("odometry/CCW", m_drivetrain->getCCWHeading().Degrees().value());
     frc::SmartDashboard::PutString("Odometry: ", fmt::format("Pose X: {}, Y: {}, Z (Degrees): {}\n", pose.X().value(), pose.Y().value(), pose.Rotation().Degrees().value()));
 }
 
@@ -156,19 +158,13 @@ std::optional<units::meter_t> Odometry::get_dist_to_tgt()
 units::turn_t Odometry::get_shooter_angle()
 {
     auto pose = getPose();
-    double x = pose.X().convert<units::foot>().value();
-    double y = units::math::fabs(pose.Y() - 5.548_m).convert<units::foot>().value();
+    double x = pose.X().value();
+    double y = units::math::fabs(pose.Y() - 5.548_m).value();
     x = std::sqrt(std::pow(x, 2) + std::pow(y, 2));
-    units::turn_t angle = units::turn_t{-(0.047 * std::pow(x, 2)) + (1.62 * x) - 17.3};
+    // units::turn_t angle = units::turn_t{-(0.047 * std::pow(x, 2)) + (1.62 * x) - 17.3};
+    units::turn_t angle = units::turn_t{19.5 - (8.1 * x) + (1.31 * std::pow(x, 2)) + (-0.0752 * std::pow(x, 3))};
     frc::SmartDashboard::PutNumber("shooter/auto angle", angle.value());
-    if (angle < 0_tr && angle > -11_tr)
-    {
 
-        return angle;
-    }
-    else
-    {
-        return 0_tr;
-    }
+    return angle;
 }
 #endif

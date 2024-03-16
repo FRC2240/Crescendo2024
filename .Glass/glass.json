@@ -46,10 +46,10 @@
         "Talon FX (v6) 60": {
           "open": true
         },
-        "cspeed": {
+        "as": {
           "open": true
         },
-        "odometry": {
+        "cspeed": {
           "open": true
         },
         "open": true,
@@ -62,8 +62,7 @@
           },
           "double[]##v_/SmartDashboard/pv/y arr": {
             "open": true
-          },
-          "open": true
+          }
         },
         "shooter": {
           "open": true
@@ -101,6 +100,12 @@
     },
     "windows": {
       "/SmartDashboard/Odometry Field": {
+        "Robot": {
+          "arrowSize": 63,
+          "length": 0.9399999976158142,
+          "style": "Box/Image",
+          "width": 0.9399999976158142
+        },
         "bottom": 1476,
         "height": 8.210550308227539,
         "left": 150,
@@ -124,8 +129,7 @@
         "open": true
       },
       "open": true
-    },
-    "visible": true
+    }
   },
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
@@ -391,7 +395,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 934,
+          "height": 1012,
           "series": [
             {
               "color": [
@@ -401,6 +405,39 @@
                 1.0
               ],
               "id": "NT:/SmartDashboard/lower_tof"
+            }
+          ]
+        }
+      ]
+    },
+    "Plot <7>": {
+      "plots": [
+        {
+          "backgroundColor": [
+            0.0,
+            0.0,
+            0.0,
+            0.8500000238418579
+          ],
+          "height": 934,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/lower tof"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/tof"
             }
           ]
         }

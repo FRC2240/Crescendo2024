@@ -12,13 +12,19 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
+          "data": {
+            "name": "unscore"
+          }
+        },
+        {
+          "type": "race",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "pos_2_gp1"
+                  "pathName": "reach_sourcide_midline"
                 }
               },
               {
@@ -31,9 +37,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "pos_2_gp2_speaker"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "return_sourcide_midline"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              }
+            ]
           }
         },
         {
@@ -43,13 +62,19 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
+          "data": {
+            "name": "unscore"
+          }
+        },
+        {
+          "type": "race",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "pos_2_gp2_stg"
+                  "pathName": "reach_sourcide_midline_2"
                 }
               },
               {
@@ -62,9 +87,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "pos_3_gp2_speaker"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "return_sourcide_midline_2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              }
+            ]
           }
         },
         {
@@ -76,6 +114,6 @@
       ]
     }
   },
-  "folder": "gp3",
+  "folder": "midlines",
   "choreoAuto": false
 }

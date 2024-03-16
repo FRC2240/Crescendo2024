@@ -13,7 +13,6 @@
 #include <frc/geometry/Rotation3d.h>
 #include <frc/geometry/Transform3d.h>
 #include <numbers>
-
 // #define COLFAX_BOT
 #define BETABOT
 //  When using the second robot, uncomment the above line
@@ -55,20 +54,20 @@ namespace CONSTANTS
   {
 #ifdef BETABOT
     constexpr auto DELAY = 0.15_s;
-    constexpr units::turn_t UP_POSITION = 0.953_tr;
-    constexpr units::turn_t DOWN_POSITION = 8.238_tr;
+    constexpr units::turn_t UP_POSITION = 0.02_tr;
+    constexpr units::turn_t DOWN_POSITION = 7.881_tr;
     constexpr int INTAKE_VOLTAGE = -12;
 #endif
 #ifndef BETABOT
-    constexpr auto DELAY = 0.2_s;
-    constexpr units::turn_t UP_POSITION = 0.349_tr;
-    constexpr units::turn_t DOWN_POSITION = 7.924_tr;
+    constexpr auto DELAY = 0.35_s;
+    constexpr units::turn_t UP_POSITION = 0.8_tr;
+    constexpr units::turn_t DOWN_POSITION = 8_tr;
     constexpr int INTAKE_VOLTAGE = -12;
 #endif
-    constexpr double LOADED_DIST = 350;
+    constexpr double LOADED_DIST = 300;
     constexpr double LOWER_LOADED_DIST = 350;
-    constexpr int TOF_ID = 33;
-    constexpr int LOWER_TOF_ID = 34;
+    constexpr int TOF_ID = 34;
+    constexpr int LOWER_TOF_ID = 33;
     constexpr int BELT_ID = 4;
     constexpr int ANGLE_ID = 3;
     constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
@@ -106,16 +105,19 @@ namespace CONSTANTS
     constexpr double ANGLE_RATIO = 1; // CHANGEME
 #ifdef BETABOT                        // Main robot config
     constexpr units::turn_t FENDER_ANGLE = 11.5_tr;
-    constexpr units::turn_t AMP_ANGLE = 10_tr;
+    constexpr units::turn_t AMP_ANGLE = 11_tr;
+    constexpr units::turns_per_second_t AMP_VELOCTITY = -6.5_tps;
+    constexpr units::turn_t REST_ANGLE = 0.5_tr;
     constexpr units::turns_per_second_t SHOOTER_VELOCITY = 60_tps;
 #endif
 #ifndef BETABOT
+    constexpr units::turn_t REST_ANGLE = -0.5_tr;
     constexpr units::turn_t FENDER_ANGLE = -11_tr;
     constexpr units::turn_t AMP_ANGLE = -10_tr;
     constexpr units::turns_per_second_t SHOOTER_VELOCITY = 80_tps;
 #endif
 
-        constexpr int BELT_ID = 7;
+    constexpr int BELT_ID = 7;
     constexpr units::turns_per_second_t LEFT_VELOCITY{10};  // CHANGEME;
     constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; // CHANGEME;
 
@@ -131,7 +133,9 @@ namespace CONSTANTS
     constexpr units::acceleration::meters_per_second_squared_t TRAJ_MAX_ACCELERATION = TRAJ_MAX_SPEED / 0.5_s;
     constexpr units::radians_per_second_t TRAJ_MAX_ANGULAR_SPEED = CONSTANTS::DRIVE::ROBOT_MAX_ANGULAR_SPEED;
     constexpr units::radians_per_second_squared_t TRAJ_MAX_ANGULAR_ACCELERATION{std::numbers::pi};
-    static constexpr auto WHEEL_CIRCUMFERENCE = 11.992_in / 1.0_tr;
+    static constexpr auto WHEEL_CIRCUMFERENCE = 12.11_in / 1.0_tr;
+    // static constexpr auto WHEEL_CIRCUMFERENCE = 11.992_in / 1.0_tr;
+    constexpr int GYRO_ID = 48; // CHANGEME
 
     namespace CONFIG
     {

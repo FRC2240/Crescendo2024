@@ -26,7 +26,9 @@ frc::SwerveDriveKinematics<4> kinematics{frc::Translation2d{12.25_in, -12.25_in}
 
 Drivetrain::Drivetrain()
 {
-  // navx = std::make_unique<AHRS>(frc::SPI::Port::kMXP);
+  ctre::phoenix6::configs::Pigeon2Configuration gyro_conf{};
+  gyro_conf.MountPose.MountPoseYaw = 0;
+  gyro.GetConfigurator().Apply(gyro_conf);
   using namespace Module;
   front_left = std::make_unique<SwerveModule>(60, 61, 14, CONSTANTS::DRIVE::CONFIG::FL.offset);
   front_right = std::make_unique<SwerveModule>(50, 51, 13, CONSTANTS::DRIVE::CONFIG::FR.offset);
@@ -36,21 +38,16 @@ Drivetrain::Drivetrain()
 
 double Drivetrain::get_pitch()
 {
-  return (double)navx.GetPitch();
+  return gyro.GetPitch().GetValue().value();
 }
 
 void Drivetrain::flip()
 {
-  // navx.ZeroYaw();
-  if (navx.GetAngleAdjustment() <= 0)
-  {
-    navx.SetAngleAdjustment(180);
-  }
 }
 
 double Drivetrain::get_offset()
 {
-  return navx.GetAngleAdjustment();
+  // return navx.GetAngleAdjustment();
 }
 
 void Drivetrain::zero_adjustment()
@@ -61,8 +58,7 @@ void Drivetrain::zero_adjustment()
 
 void Drivetrain::zero_yaw()
 {
-  navx.SetAngleAdjustment(0);
-  navx.ZeroYaw();
+  gyro.SetYaw(0_deg);
 }
 
 void Drivetrain::print_angle()
@@ -101,14 +97,15 @@ void Drivetrain::init()
 // Returns values with 0 being front and positive angles going CW
 units::degree_t Drivetrain::getAngle()
 {
-  static bool first_time_getting_angle = true;
+  // static bool first_time_getting_angle = true;
 
-  if (first_time_getting_angle)
-  {
-    navx.ZeroYaw(); // This can't be called in init() since the gyro will still be calibrating
-    first_time_getting_angle = false;
-  }
-  return units::degree_t{-navx.GetAngle()};
+  // if (first_time_getting_angle)
+  // {
+  //   navx.ZeroYaw(); // This can't be called in init() since the gyro will still be calibrating
+  //   first_time_getting_angle = false;
+  // }
+  // return units::degree_t{-navx.GetAngle()};
+  return gyro.GetYaw().GetValue();
 }
 // IMPORTANT: CCW (counterclockwise) must not be inverted and CW (clockwise)
 // must be. If CCW is negative and CW is positive, a 90 degree turn will
@@ -225,7 +222,7 @@ void Drivetrain::drive(frc::ChassisSpeeds const &speeds)
 // Sets each module to the desired state
 void Drivetrain::drive(wpi::array<frc::SwerveModuleState, 4> states)
 {
-  frc::SmartDashboard::PutNumber("robot speed", std::sqrt(std::pow(navx.GetVelocityX(), 2) + std::pow(navx.GetVelocityY(), 2)));
+  // frc::SmartDashboard::PutNumber("robot speed", std::sqrt(std::pow(navx.GetVelocityX(), 2) + std::pow(navx.GetVelocityY(), 2)));
   kinematics.DesaturateWheelSpeeds(&states, MODULE_MAX_SPEED);
 
   auto const [fl, fr, bl, br] = states;

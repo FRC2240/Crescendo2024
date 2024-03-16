@@ -12,7 +12,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
               {
@@ -43,13 +43,13 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "reverse_pos_2_gp2_speaker"
+                  "pathName": "reverse_pos_2_gp2"
                 }
               },
               {
@@ -62,15 +62,15 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "score"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "reverse_pos_2_gp2_speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score"
           }
         }
       ]

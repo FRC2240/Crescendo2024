@@ -85,7 +85,23 @@ frc2::CommandPtr Candle::default_command()
                             {       
 
         m_candle_timer.Start();
-        if (!frc::DriverStation::IsDSAttached()) {
+        
+        if (frc::DriverStation::IsTeleopEnabled()) {
+            if (m_intake->is_loaded()) {
+            //if(false){
+                m_candle.Animate(green_blink);
+            }
+            else {
+                m_candle.ClearAnimation(0);
+                if (is_red()) {
+                    m_candle.SetLEDs(255, 0, 0);
+                }
+                else {
+                    m_candle.SetLEDs(0, 0, 255);
+                }
+            }
+        }
+        else if (!frc::DriverStation::IsDSAttached()) {
         //if(false){
             m_candle.ClearAnimation(0);
             if (m_candle_timer.Get() < units::time::second_t(0.5)) {
@@ -103,7 +119,7 @@ frc2::CommandPtr Candle::default_command()
             if (m_candle_timer.Get() < units::time::second_t(0.5)) {
                 m_candle.SetLEDs(0, 0, 0);
             } else if (m_candle_timer.Get() < units::time::second_t(1.0)) {
-                m_candle.SetLEDs(255, 234, 0);
+                m_candle.SetLEDs(255, 100, 2);
             } else {
                 m_candle_timer.Reset();
                 m_candle.SetLEDs(0, 0, 0);
@@ -116,21 +132,6 @@ frc2::CommandPtr Candle::default_command()
             }
             else {
                 m_candle.Animate(blue_larson);
-            }
-        }
-        else if (frc::DriverStation::IsTeleopEnabled()) {
-            if (m_intake->is_loaded()) {
-            //if(false){
-                m_candle.Animate(green_blink);
-            }
-            else {
-                m_candle.ClearAnimation(0);
-                if (is_red()) {
-                    m_candle.SetLEDs(255, 0, 0);
-                }
-                else {
-                    m_candle.SetLEDs(0, 0, 255);
-                }
             }
         }
         else {
