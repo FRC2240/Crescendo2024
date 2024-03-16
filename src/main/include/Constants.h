@@ -14,7 +14,7 @@
 #include <frc/geometry/Transform3d.h>
 #include <numbers>
 // #define COLFAX_BOT
-#define BETABOT
+// #define BETABOT
 //  When using the second robot, uncomment the above line
 
 // #define MOD_AMP
@@ -126,7 +126,7 @@ namespace CONSTANTS
   namespace DRIVE
   {
     constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 0.5_fps;
-    constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi * 1.25 * 0.05};
+    constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi * 1.25};
     constexpr units::meters_per_second_t TELEOP_MAX_SPEED = ROBOT_MAX_SPEED;
     constexpr units::radians_per_second_t TELEOP_MAX_ANGULAR_SPEED{std::numbers::pi * 0.75};
     constexpr units::meters_per_second_t TRAJ_MAX_SPEED = ROBOT_MAX_SPEED;
