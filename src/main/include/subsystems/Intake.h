@@ -52,6 +52,7 @@ public:
   ctre::phoenix6::hardware::TalonFX m_beltMotor{CONSTANTS::INTAKE::BELT_ID};
 
 private:
+  units::volt_t m_belt_velocity = 0_V;
   frc::Timer m_timer;
   frc::TimeOfFlight m_tof{CONSTANTS::INTAKE::TOF_ID};
   frc::TimeOfFlight m_lower_tof{CONSTANTS::INTAKE::LOWER_TOF_ID};

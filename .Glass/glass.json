@@ -46,10 +46,10 @@
         "Talon FX (v6) 60": {
           "open": true
         },
-        "cspeed": {
+        "as": {
           "open": true
         },
-        "odometry": {
+        "cspeed": {
           "open": true
         },
         "open": true,
@@ -62,8 +62,7 @@
           },
           "double[]##v_/SmartDashboard/pv/y arr": {
             "open": true
-          },
-          "open": true
+          }
         },
         "shooter": {
           "open": true
@@ -130,8 +129,7 @@
         "open": true
       },
       "open": true
-    },
-    "visible": true
+    }
   },
   "NetworkTables Settings": {
     "mode": "Client (NT4)",

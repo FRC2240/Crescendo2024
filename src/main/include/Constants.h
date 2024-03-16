@@ -14,7 +14,7 @@
 #include <frc/geometry/Transform3d.h>
 #include <numbers>
 // #define COLFAX_BOT
-// #define BETABOT
+#define BETABOT
 //  When using the second robot, uncomment the above line
 
 // #define MOD_AMP
@@ -55,7 +55,7 @@ namespace CONSTANTS
 #ifdef BETABOT
     constexpr auto DELAY = 0.15_s;
     constexpr units::turn_t UP_POSITION = 0.02_tr;
-    constexpr units::turn_t DOWN_POSITION = 6.9_tr;
+    constexpr units::turn_t DOWN_POSITION = 7.881_tr;
     constexpr int INTAKE_VOLTAGE = -12;
 #endif
 #ifndef BETABOT
@@ -64,7 +64,7 @@ namespace CONSTANTS
     constexpr units::turn_t DOWN_POSITION = 8_tr;
     constexpr int INTAKE_VOLTAGE = -12;
 #endif
-    constexpr double LOADED_DIST = 350;
+    constexpr double LOADED_DIST = 300;
     constexpr double LOWER_LOADED_DIST = 350;
     constexpr int TOF_ID = 33;
     constexpr int LOWER_TOF_ID = 34;
@@ -105,10 +105,13 @@ namespace CONSTANTS
     constexpr double ANGLE_RATIO = 1; // CHANGEME
 #ifdef BETABOT                        // Main robot config
     constexpr units::turn_t FENDER_ANGLE = 11.5_tr;
-    constexpr units::turn_t AMP_ANGLE = 10_tr;
+    constexpr units::turn_t AMP_ANGLE = 11_tr;
+    constexpr units::turns_per_second_t AMP_VELOCTITY = -6.5_tps;
+    constexpr units::turn_t REST_ANGLE = 0.5_tr;
     constexpr units::turns_per_second_t SHOOTER_VELOCITY = 60_tps;
 #endif
 #ifndef BETABOT
+    constexpr units::turn_t REST_ANGLE = -0.5_tr;
     constexpr units::turn_t FENDER_ANGLE = -11_tr;
     constexpr units::turn_t AMP_ANGLE = -10_tr;
     constexpr units::turns_per_second_t SHOOTER_VELOCITY = 80_tps;

@@ -28,8 +28,49 @@ Intake::Intake()
 }
 
 // This method will be called once per scheduler run
+<<<<<<< HEAD
 void Intake::Periodic(){
     
+||||||| parent of e743995 (intake rewrite)
+void Intake::Periodic(){
+    // frc::SmartDashboard::PutNumber("tof", m_tof.GetRange());
+    /*
+    auto result = m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
+
+    if (result.IsError())
+    {
+        frc::SmartDashboard::PutString("result", "ERROR");
+    }
+    if (result.IsWarning())
+    {
+        frc::SmartDashboard::PutString("result", "WARN");
+    }
+    if (result.IsOK())
+    {
+        frc::SmartDashboard::PutString("result", "GOOD");
+    }
+    */
+=======
+void Intake::Periodic()
+{
+    frc::SmartDashboard::PutNumber("tof", m_tof.GetRange());
+    /*
+    auto result = m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
+
+    if (result.IsError())
+    {
+        frc::SmartDashboard::PutString("result", "ERROR");
+    }
+    if (result.IsWarning())
+    {
+        frc::SmartDashboard::PutString("result", "WARN");
+    }
+    if (result.IsOK())
+    {
+        frc::SmartDashboard::PutString("result", "GOOD");
+    }
+    */
+>>>>>>> e743995 (intake rewrite)
 };
 
 frc2::CommandPtr Intake::zero()
@@ -103,14 +144,16 @@ frc2::CommandPtr Intake::StartSpinCommand()
             frc2::RunCommand([this]
                              {
                                 is_intaking = true;
-                                 m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{CONSTANTS::INTAKE::INTAKE_VOLTAGE})); },
+                                 m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(m_belt_velocity)); },
                              {this})
                 .Until([this] -> bool
                        { 
-                        if (is_loaded()) {
-                        m_timer.Start();
-                       }
-                       return m_timer.Get() >= CONSTANTS::INTAKE::DELAY; }))
+                        if (is_lower_tof_loaded()) {
+                            m_belt_velocity = -6_V;
+                            if (is_loaded()){
+                                return true;
+                            }
+                       } }))
 
         .AndThen(StopSpinCommand())
         .WithName("StartSpin");
@@ -138,3 +181,66 @@ frc2::CommandPtr Intake::StopCommand()
 {
     return StopSpinCommand().AndThen(RetractCommand()).WithName("Stop");
 };
+<<<<<<< HEAD
+||||||| parent of e743995 (intake rewrite)
+
+frc2::CommandPtr Intake::Wes()
+{
+    return frc2::cmd::Run([this]
+                          { m_beltMotor.Set(0.3); 
+                        
+                          },{this})
+                          .Until([this] -> bool
+                       { 
+                        if (is_loaded()) {
+                        m_timer.Start();
+                       }
+                       return m_timer.Get() >= CONSTANTS::INTAKE::DELAY; })
+
+        .AndThen(StopSpinCommand());
+}
+/*
+New position [DONE]
+Belt combined
+Motor in intake
+Shooter gets pointer to class in constructor
+How does Shooter access Belt?
+
+*/
+
+/*
+
+
+
+*/
+=======
+
+frc2::CommandPtr Intake::Wes()
+{
+    return frc2::cmd::Run([this]
+                          { m_beltMotor.Set(0.3); },
+                          {this})
+        .Until([this] -> bool
+               { 
+                        if (is_loaded()) {
+                        m_timer.Start();
+                       }
+                       return m_timer.Get() >= CONSTANTS::INTAKE::DELAY; })
+
+        .AndThen(StopSpinCommand());
+}
+/*
+New position [DONE]
+Belt combined
+Motor in intake
+Shooter gets pointer to class in constructor
+How does Shooter access Belt?
+
+*/
+
+/*
+
+
+
+*/
+>>>>>>> e743995 (intake rewrite)
