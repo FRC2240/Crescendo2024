@@ -47,12 +47,22 @@ public:
   frc2::CommandPtr zero();
   frc2::CommandPtr Wes();
 
+  enum IntakeState
+  {
+    INTAKING,
+    DEFAULT,
+    SLOWFEED,
+  };
+
+  IntakeState intake_state = DEFAULT;
+
   bool is_intaking = false;
 
   // Move all CAN ids to constants as well as all constants in this file.
   ctre::phoenix6::hardware::TalonFX m_beltMotor{CONSTANTS::INTAKE::BELT_ID};
 
 private:
+  units::turn_t backspin_position = 0_tr;
   units::volt_t m_belt_velocity = 0_V;
   frc::Timer m_timer;
   frc::TimeOfFlight m_tof{CONSTANTS::INTAKE::TOF_ID};

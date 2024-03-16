@@ -66,8 +66,8 @@ namespace CONSTANTS
 #endif
     constexpr double LOADED_DIST = 300;
     constexpr double LOWER_LOADED_DIST = 350;
-    constexpr int TOF_ID = 33;
-    constexpr int LOWER_TOF_ID = 34;
+    constexpr int TOF_ID = 34;
+    constexpr int LOWER_TOF_ID = 33;
     constexpr int BELT_ID = 4;
     constexpr int ANGLE_ID = 3;
     constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;

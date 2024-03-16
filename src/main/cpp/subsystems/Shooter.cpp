@@ -16,7 +16,7 @@ Shooter::Shooter(Odometry *odometry, Intake *intake) : m_odometry{odometry}, m_i
     left_conf.Slot0.kV = 0.225;
 
     ctre::phoenix6::configs::TalonFXConfiguration right_conf{};
-    right_conf.MotorOutput.Inverted = right_conf.MotorOutput.Inverted.CounterClockwise_Positive;
+    right_conf.MotorOutput.Inverted = right_conf.MotorOutput.Inverted.Clockwise_Positive;
     right_conf.Slot0.kP = 0.8;
     right_conf.Slot0.kV = 0.225;
     ctre::phoenix6::configs::TalonFXConfiguration angle_conf{};
@@ -38,11 +38,24 @@ Shooter::Shooter(Odometry *odometry, Intake *intake) : m_odometry{odometry}, m_i
 // This method will be called once per scheduler run
 void Shooter::Periodic()
 {
-    if (m_intake->is_intaking)
+    if (m_intake->intake_state == Intake::IntakeState::INTAKING)
     {
+        frc::DataLogManager::Log("here b");
         frc::SmartDashboard::PutBoolean("intaking", 1);
-        m_belt_motor.Set(.75);
+        m_belt_motor.Set(.22);
         set_angle(0_tr);
+    }
+    else if (m_intake->is_lower_tof_loaded())
+    {
+        if (!m_intake->is_loaded())
+        {
+            frc::DataLogManager::Log("here a");
+            m_belt_motor.Set(0.12);
+        }
+        else
+        {
+            m_belt_motor.Set(0);
+        }
     }
     else
     {
@@ -63,8 +76,8 @@ frc2::CommandPtr Shooter::spool_cmd()
         [this]
         {
             set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
-            m_left_motor.Set(-1);
-            m_right_motor.Set(-0.75);
+            m_left_motor.Set(-.8);
+            m_right_motor.Set(-0.6);
         },
         {this});
 }
@@ -89,7 +102,7 @@ frc2::CommandPtr Shooter::default_cmd()
                    //    ctre::phoenix6::controls::VoltageOut req = 0_V;
                    //    if (frc::DriverStation::GetAlliance() && frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kBlue)
                    //    {
-                   //        if (m_odometry->getPose().X() <= 5_m)
+                   //        if (m_odometry->getPose().X() <=119 5_m)
                    //        {
                    //            req = 12_V;
                    //            set_angle(m_odometry->get_shooter_angle());
@@ -140,48 +153,41 @@ void Shooter::set_angle(units::turn_t angle)
 }
 frc2::CommandPtr Shooter::test_shot()
 {
-
     std::function<void()> init = [this]
     {
         frc::SmartDashboard::PutBoolean("shooter/fire", false);
-        frc::SmartDashboard::PutNumber("shooter/desired velocity", 0.0);
+        // frc::SmartDashboard::PutNumber("shooter/desired velocity", 0.0);
     };
     std::function<void()> periodic = [this]
     {
         units::turn_t angle = units::turn_t{frc::SmartDashboard::GetNumber("shooter/dangle", 0.0)};
         // fmt::println("{}", angle.value());
         set_angle(angle);
-        double vout = frc::SmartDashboard::GetNumber("shooter/desired velocity", 0.0);
-        m_left_motor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
-        m_right_motor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
-    };
+        units::turns_per_second_t vel{frc::SmartDashboard::GetNumber("shooter/desired velocity", 0.0)};
+        // m_left_motor.SetControl(ctre::phoenix6::controls::VelocityVoltage(vel));
+        // m_right_motor.SetControl(ctre::phoenix6::controls::VelocityVoltage(vel * 0.8));
+        m_left_motor.Set(-0.8);
+        m_right_motor.Set(-0.4); };
     std::function<bool()> is_finished = [this] -> bool
     {
+        frc::DataLogManager::Log("here");
         frc::SmartDashboard::PutNumber("shooter/turns", get_angle().value() / 360);
         frc::SmartDashboard::PutNumber("shooter/speed", m_left_motor.GetVelocity().GetValue().value());
         frc::SmartDashboard::PutBoolean("shooter/speed_threshold", m_left_motor.GetVelocity().GetValue() > 75_tps);
-        frc::SmartDashboard::PutBoolean("shooter/angle_threshold", CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), units::turn_t{frc::SmartDashboard::GetNumber("shooter/dangle", 0.0)}, 2_tr));
+        frc::SmartDashboard::PutBoolean("shooter/angle_threshold", CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), units::turn_t{frc::SmartDashboard::GetNumber("shooter/dangle", 0.0)}, 0.25_tr));
 
-        return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), units::turn_t{frc::SmartDashboard::GetNumber("shooter/dangle", 0.0)}, 2_tr) &&
-               (m_left_motor.GetVelocity().GetValue() > 75_tps) &&
-               frc::SmartDashboard::GetBoolean("shooter/fire", false);
+        return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), units::turn_t{frc::SmartDashboard::GetNumber("shooter/dangle", 0.0)}, 0.25_tr) &&
+               m_left_motor.GetVelocity().GetValue() < -60_tps;
     };
     std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
 
-    return frc2::FunctionalCommand(
-               init,
-               periodic,
-               end,
-               is_finished,
-               {this})
-        .ToPtr()
-        .AndThen(frc2::RunCommand([this]
-                                  {
-                                      m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{12}}); // changeme
-                                  },
-                                  {this})
-                     .ToPtr()
-                     .WithTimeout(1.5_s));
+    return frc2::FunctionalCommand(init, periodic, end, is_finished, {this}).ToPtr().AndThen(frc2::RunCommand([this]
+                                                                                                              {
+                                                                                                                  m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{12}}); // changeme
+                                                                                                              },
+                                                                                                              {this})
+                                                                                                 .ToPtr()
+                                                                                                 .WithTimeout(1.5_s));
 }
 
 frc2::CommandPtr Shooter::fender_shot()
@@ -192,7 +198,7 @@ frc2::CommandPtr Shooter::fender_shot()
     {
         set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
         // m_left_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(CONSTANTS::SHOOTER::LEFT_VELOCITY));
-        m_left_motor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{-12}));
+        m_left_motor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
         m_right_motor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{6}));
         // m_right_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(-CONSTANTS::SHOOTER::RIGHT_VELOCITY));
     };
@@ -244,14 +250,14 @@ frc2::CommandPtr Shooter::ManualFeedCommand(bool back)
                             {
                                 if (back)
                                 {
-                                m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{-10}}); // changeme
-                                m_left_motor.Set(1);
-                                m_right_motor.Set(1);
+                                m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{-3}}); // changeme
+                                m_left_motor.Set(0.5);
+                                m_right_motor.Set(0.5);
                              }
                              else {
-                                 m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{10}}); // changeme
-                                m_left_motor.Set(-1);
-                                m_right_motor.Set(-1);                               
+                                 m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{3}}); // changeme
+                                m_left_motor.Set(-0.5);
+                                m_right_motor.Set(-0.5);
                              } },
                             {this})
         .ToPtr();
@@ -323,8 +329,8 @@ frc2::CommandPtr Shooter::set_angle_cmd(units::turn_t angle)
     {
         auto ret = CONSTANTS::IN_THRESHOLD<units::degree_t>(get_angle(), angle, 1_deg);
         frc::SmartDashboard::PutBoolean("shooter/ret", ret);
-        m_left_motor.Set(1);
-        m_right_motor.Set(0.75);
+        m_left_motor.Set(-0.8);
+        m_right_motor.Set(-0.4);
         return ret;
     };
     std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
@@ -337,20 +343,6 @@ frc2::CommandPtr Shooter::set_angle_cmd(units::turn_t angle)
         .AndThen(execute_auto_shot());
 }
 
-frc2::CommandPtr Shooter::execute_auto_shot()
-{
-    return frc2::RunCommand([this]
-                            { 
-                                m_left_motor.SetControl(ctre::phoenix6::controls::DutyCycleOut(1)); 
-                             m_right_motor.SetControl(ctre::phoenix6::controls::DutyCycleOut(.75)); 
-                             if (m_left_motor.GetVelocity().GetValue() > 75_tps){
-                                m_belt_motor.Set(1);
-                             } },
-                            {this})
-
-        .ToPtr();
-}
-
 frc2::CommandPtr Shooter::amp_shot()
 {
 
@@ -358,9 +350,11 @@ frc2::CommandPtr Shooter::amp_shot()
     std::function<void()> periodic = [this]
     {
         units::turn_t angle = units::turn_t{frc::SmartDashboard::GetNumber("amp/dangle", 0.0)};
+        // units::turn_t angle = units::turn_t{11};
         // units::turn_t angle = units::turn_t{9};
         // units::volt_t vout = units::volt_t{-4};
         ctre::phoenix6::controls::VelocityVoltage req = units::turns_per_second_t{frc::SmartDashboard::GetNumber("amp/desired velocity", 0.0)};
+        // ctre::phoenix6::controls::VelocityVoltage req = units::turns_per_second_t{-6.5};
         set_angle(angle);
         // set_angle(CONSTANTS::SHOOTER::AMP_ANGLE);
         // m_left_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(CONSTANTS::SHOOTER::LEFT_VELOCITY));
@@ -371,9 +365,11 @@ frc2::CommandPtr Shooter::amp_shot()
     std::function<bool()> is_finished = [this] -> bool
     {
         frc::SmartDashboard::PutNumber("shooter/turns", get_angle().value() / 360);
-        frc::SmartDashboard::PutNumber("shooter/velocity", m_left_motor.GetVelocity().GetValueAsDouble());
+        frc::SmartDashboard::PutNumber("shooter/lvelocity", m_left_motor.GetVelocity().GetValueAsDouble());
+        frc::SmartDashboard::PutNumber("shooter/rvelocity", m_right_motor.GetVelocity().GetValueAsDouble());
         return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), CONSTANTS::SHOOTER::AMP_ANGLE, 0.25_tr) &&
-               CONSTANTS::IN_THRESHOLD<units::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(), units::turns_per_second_t{frc::SmartDashboard::GetNumber("amp/desired velocity", 0.0)}, 0.25_tps);
+               CONSTANTS::IN_THRESHOLD<units::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(), units::turns_per_second_t{frc::SmartDashboard::GetNumber("amp/desired velocity", 0.0)}, 0.25_tps) &&
+               CONSTANTS::IN_THRESHOLD<units::turns_per_second_t>(m_right_motor.GetVelocity().GetValue(), units::turns_per_second_t{frc::SmartDashboard::GetNumber("amp/desired velocity", 0.0)}, 0.25_tps);
         // change threshold?
         //    && CONSTANTS::IN_THRESHOLD<units::angular_velocity::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(), CONSTANTS::SHOOTER::LEFT_VELOCITY, units::angular_velocity::turns_per_second_t{1})    // change threshold?
         //    && CONSTANTS::IN_THRESHOLD<units::angular_velocity::turns_per_second_t>(m_right_motor.GetVelocity().GetValue(), CONSTANTS::SHOOTER::RIGHT_VELOCITY, units::angular_velocity::turns_per_second_t{1}); // change threshold?
@@ -390,7 +386,7 @@ frc2::CommandPtr Shooter::amp_shot()
         .WithTimeout(0.5_s)
         .AndThen(frc2::RunCommand([this]
                                   {
-                                      m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{12}}); // changeme
+                                      m_belt_motor.Set(0.3); // changeme
                                   },
                                   {this})
                      .ToPtr()
@@ -414,4 +410,34 @@ frc2::CommandPtr Shooter::intake_cmd()
 void Shooter::intake()
 {
     m_belt_motor.Set(.25);
+}
+
+frc2::CommandPtr Shooter::execute_auto_shot()
+{
+    std::function<void()> init = [this]
+    {
+        frc::SmartDashboard::PutBoolean("shooter/fire", false);
+        // frc::SmartDashboard::PutNumber("shooter/desired velocity", 0.0);
+    };
+    std::function<void()> periodic = [this]
+    {
+        units::turn_t angle = m_odometry->get_shooter_angle();
+        set_angle(angle);
+        frc::SmartDashboard::PutNumber("ANGLE THINGY", angle.value());
+        m_left_motor.Set(-0.8);
+        m_right_motor.Set(-0.4); };
+    std::function<bool()> is_finished = [this] -> bool
+    {
+        return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), m_odometry->get_shooter_angle(), 0.25_tr) &&
+               m_left_motor.GetVelocity().GetValue() < -60_tps;
+    };
+    std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
+
+    return frc2::FunctionalCommand(init, periodic, end, is_finished, {this}).ToPtr().AndThen(frc2::RunCommand([this]
+                                                                                                              {
+                                                                                                                  m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{units::volt_t{12}}); // changeme
+                                                                                                              },
+                                                                                                              {this})
+                                                                                                 .ToPtr()
+                                                                                                 .WithTimeout(1.5_s));
 }

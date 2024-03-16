@@ -119,7 +119,7 @@ frc2::CommandPtr Candle::default_command()
             if (m_candle_timer.Get() < units::time::second_t(0.5)) {
                 m_candle.SetLEDs(0, 0, 0);
             } else if (m_candle_timer.Get() < units::time::second_t(1.0)) {
-                m_candle.SetLEDs(255, 234, 0);
+                m_candle.SetLEDs(255, 100, 2);
             } else {
                 m_candle_timer.Reset();
                 m_candle.SetLEDs(0, 0, 0);

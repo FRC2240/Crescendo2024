@@ -21,9 +21,9 @@ Intake::Intake()
     belt_config.Audio.BeepOnBoot = true;
     belt_config.CurrentLimits.SupplyCurrentLimitEnable = true;
     belt_config.CurrentLimits.SupplyCurrentLimit = 40; // CHANGEME
-    belt_config.Slot0.kP = 0.5;
+    belt_config.Slot0.kP = 1;
     belt_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
-    belt_config.Slot0.kD = 0.2;
+    belt_config.Slot0.kD = 0;
     m_beltMotor.GetConfigurator().Apply(belt_config);
 }
 
@@ -31,6 +31,7 @@ Intake::Intake()
 void Intake::Periodic()
 {
     frc::SmartDashboard::PutNumber("tof", m_tof.GetRange());
+    frc::SmartDashboard::PutNumber("lower tof", m_lower_tof.GetRange());
     /*
     auto result = m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
 
@@ -62,13 +63,13 @@ frc2::CommandPtr Intake::zero()
 bool Intake::is_loaded()
 {
 
-    return m_tof.GetRange() < CONSTANTS::INTAKE::LOADED_DIST;
+    return m_tof.GetRange() < 150;
 };
 
 bool Intake::is_lower_tof_loaded()
 {
 
-    return m_lower_tof.GetRange() < CONSTANTS::INTAKE::LOWER_LOADED_DIST;
+    return m_lower_tof.GetRange() < 150;
 };
 
 frc2::CommandPtr Intake::ManualFeedCommand(bool back)
@@ -83,7 +84,8 @@ frc2::CommandPtr Intake::ExtendCommand()
 {
     return frc2::RunCommand([this] -> void
                             { 
-                                is_intaking=true;
+                                intake_state = INTAKING;
+                                // is_intaking=true;
                                 m_angleMotor.SetControl(ctre::phoenix6::controls::PositionDutyCycle{CONSTANTS::INTAKE::DOWN_POSITION}); },
                             {this})
         .Until([this] -> bool // stop when done (to allow StartSpinCommand to run)
@@ -119,17 +121,25 @@ frc2::CommandPtr Intake::StartSpinCommand()
         .AndThen(
             frc2::RunCommand([this]
                              {
-                                is_intaking = true;
+                            frc::DataLogManager::Log("here0");
+                            intake_state = INTAKING;
+                                m_belt_velocity = -12_V;
                                  m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(m_belt_velocity)); },
                              {this})
                 .Until([this] -> bool
                        { 
                         if (is_lower_tof_loaded()) {
-                            m_belt_velocity = -6_V;
-                            if (is_loaded()){
-                                return true;
-                            }
-                       } }))
+                            frc::DataLogManager::Log("here1");
+                            intake_state = SLOWFEED;
+                            return true;
+                            // m_belt_velocity = -0_V;
+                            // if (is_loaded()){
+                            // frc::DataLogManager::Log("here1");
+                                // m_beltMotor.SetControl(ctre::phoenix6::controls::PositionVoltage(m_beltMotor.GetPosition().GetValue()-0.5_tr));
+                                // return true;
+                            // }
+                       } 
+                       return false; }))
 
         .AndThen(StopSpinCommand())
         .WithName("StartSpin");
@@ -139,7 +149,7 @@ frc2::CommandPtr Intake::StopSpinCommand()
 {
     return frc2::RunCommand([this]
                             {
-                                is_intaking = false;
+                                intake_state = DEFAULT;
                                 m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut{units::voltage::volt_t{0}}); // wrong type?
                             },
                             {this})
