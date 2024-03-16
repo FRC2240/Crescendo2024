@@ -80,5 +80,7 @@ private:
     frc::XboxController *m_stick;
     Vision *m_vision;
     Intake *m_intake;
+
+    units::degree_t desired_angle;
 };
 #endif
