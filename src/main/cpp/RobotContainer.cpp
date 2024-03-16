@@ -111,19 +111,12 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
   case RobotContainer::AUTOS::POS_2_GP3:
     return autos::pos_2_gp3(&m_trajectory);
     break;
-<<<<<<< HEAD
-||||||| parent of 2b04079 (source side 3gp that scores 2gp)
-  case AUTOS::POS_2_GP4:
-    return autos::pos_2_gp4(&m_trajectory);
-    break;
-=======
   case AUTOS::POS_2_GP4:
     return autos::pos_2_gp4(&m_trajectory);
     break;
   case AUTOS::POS_3_GP2:
     return autos::pos_3_gp2(&m_trajectory);
     break;
->>>>>>> 2b04079 (source side 3gp that scores 2gp)
   default:
     frc::DataLogManager::Log("WARN: NO AUTO SELECTED");
     // m_candle.auto_selected = false;

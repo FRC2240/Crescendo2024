@@ -191,20 +191,10 @@ frc2::CommandPtr Shooter::fender_shot()
     std::function<void()> periodic = [this]
     {
         set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
-<<<<<<< HEAD
-        m_left_motor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
-        m_right_motor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
-||||||| parent of e743995 (intake rewrite)
-        // m_left_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(CONSTANTS::SHOOTER::LEFT_VELOCITY));
-        m_left_motor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
-        m_right_motor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{6}));
-        // m_right_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(-CONSTANTS::SHOOTER::RIGHT_VELOCITY));
-=======
         // m_left_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(CONSTANTS::SHOOTER::LEFT_VELOCITY));
         m_left_motor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{-12}));
         m_right_motor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{6}));
         // m_right_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(-CONSTANTS::SHOOTER::RIGHT_VELOCITY));
->>>>>>> e743995 (intake rewrite)
     };
     std::function<bool()> is_finished = [this] -> bool
     {
@@ -367,56 +357,26 @@ frc2::CommandPtr Shooter::amp_shot()
     std::function<void()> init = [this] {};
     std::function<void()> periodic = [this]
     {
-<<<<<<< HEAD
-        units::turn_t angle = units::turn_t{9};
-        units::volt_t vout = units::volt_t{4};
-||||||| parent of e743995 (intake rewrite)
-        // units::turn_t angle = units::turn_t{frc::SmartDashboard::GetNumber("amp/dangle", 0.0)};
-        units::turn_t angle = units::turn_t{9};
-        units::volt_t vout = units::volt_t{4};
-        // units::volt_t vout = units::volt_t{frc::SmartDashboard::GetNumber("amp/desired velocity", 0.0)};
-=======
         units::turn_t angle = units::turn_t{frc::SmartDashboard::GetNumber("amp/dangle", 0.0)};
         // units::turn_t angle = units::turn_t{9};
         // units::volt_t vout = units::volt_t{-4};
         ctre::phoenix6::controls::VelocityVoltage req = units::turns_per_second_t{frc::SmartDashboard::GetNumber("amp/desired velocity", 0.0)};
->>>>>>> e743995 (intake rewrite)
         set_angle(angle);
-<<<<<<< HEAD
-        m_left_motor.SetControl(ctre::phoenix6::controls::VoltageOut(vout));
-        m_right_motor.SetControl(ctre::phoenix6::controls::VoltageOut(vout));
-||||||| parent of e743995 (intake rewrite)
-        // set_angle(CONSTANTS::SHOOTER::AMP_ANGLE);
-        // m_left_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(CONSTANTS::SHOOTER::LEFT_VELOCITY));
-        m_left_motor.SetControl(ctre::phoenix6::controls::VoltageOut(vout));
-        m_right_motor.SetControl(ctre::phoenix6::controls::VoltageOut(vout));
-        // m_right_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(-CONSTANTS::SHOOTER::RIGHT_VELOCITY));
-=======
         // set_angle(CONSTANTS::SHOOTER::AMP_ANGLE);
         // m_left_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(CONSTANTS::SHOOTER::LEFT_VELOCITY));
         m_left_motor.SetControl(req);
         m_right_motor.SetControl(req);
         // m_right_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(-CONSTANTS::SHOOTER::RIGHT_VELOCITY));
->>>>>>> e743995 (intake rewrite)
     };
     std::function<bool()> is_finished = [this] -> bool
     {
         frc::SmartDashboard::PutNumber("shooter/turns", get_angle().value() / 360);
         frc::SmartDashboard::PutNumber("shooter/velocity", m_left_motor.GetVelocity().GetValueAsDouble());
-<<<<<<< HEAD
-        return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), CONSTANTS::SHOOTER::AMP_ANGLE, 2_tr);
-||||||| parent of e743995 (intake rewrite)
-        return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), CONSTANTS::SHOOTER::AMP_ANGLE, 2_tr);
-        // change threshold?
-        //    && CONSTANTS::IN_THRESHOLD<units::angular_velocity::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(), CONSTANTS::SHOOTER::LEFT_VELOCITY, units::angular_velocity::turns_per_second_t{1})    // change threshold?
-        //    && CONSTANTS::IN_THRESHOLD<units::angular_velocity::turns_per_second_t>(m_right_motor.GetVelocity().GetValue(), CONSTANTS::SHOOTER::RIGHT_VELOCITY, units::angular_velocity::turns_per_second_t{1}); // change threshold?
-=======
         return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), CONSTANTS::SHOOTER::AMP_ANGLE, 0.25_tr) &&
                CONSTANTS::IN_THRESHOLD<units::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(), units::turns_per_second_t{frc::SmartDashboard::GetNumber("amp/desired velocity", 0.0)}, 0.25_tps);
         // change threshold?
         //    && CONSTANTS::IN_THRESHOLD<units::angular_velocity::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(), CONSTANTS::SHOOTER::LEFT_VELOCITY, units::angular_velocity::turns_per_second_t{1})    // change threshold?
         //    && CONSTANTS::IN_THRESHOLD<units::angular_velocity::turns_per_second_t>(m_right_motor.GetVelocity().GetValue(), CONSTANTS::SHOOTER::RIGHT_VELOCITY, units::angular_velocity::turns_per_second_t{1}); // change threshold?
->>>>>>> e743995 (intake rewrite)
     };
     std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
 

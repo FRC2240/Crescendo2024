@@ -45,6 +45,7 @@ public:
   frc2::CommandPtr StopCommand();  // retracts + stops spinning
   frc2::CommandPtr ManualFeedCommand(bool back);
   frc2::CommandPtr zero();
+  frc2::CommandPtr Wes();
 
   bool is_intaking = false;
 
