@@ -404,6 +404,7 @@ bool Drivetrain::face_direction(units::degree_t tgt)
   frc::SmartDashboard::PutNumber("Current rotation", angle);
 
   drive(0_mps, 0_mps, units::degrees_per_second_t{pid_out}, false);
+  frc::SmartDashboard::PutNumber("PID Setpoint", turn_pid.GetSetpoint());
   if ((angle >= turn_pid.GetSetpoint() - 5) && (angle <= turn_pid.GetSetpoint() + 5))
   {
     return true;

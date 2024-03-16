@@ -14,7 +14,7 @@
 #include <units/velocity.h>
 #include <vector>
 // #define COLFAX_BOT
-#define BETABOT
+// #define BETABOT
 //  When using the second robot, uncomment the above line
 
 // #define MOD_AMP
@@ -97,7 +97,6 @@ constexpr units::radians_per_second_squared_t TRAJ_MAX_ANGULAR_ACCELERATION{
     std::numbers::pi};
 static constexpr auto WHEEL_CIRCUMFERENCE = 12.11_in / 1.0_tr;
 constexpr int GYRO_ID = 48; // CHANGEME
-
 namespace CONFIG {
 struct ModuleConfig {
   int driver;

@@ -215,5 +215,96 @@ frc2::CommandPtr Trajectory::auto_score_align() {
 
   return frc2::FunctionalCommand(init, periodic, end, is_finished, {this})
       .ToPtr();
-}
+  frc2::CommandPtr Trajectory::auto_score_align() {
+    return frc2::cmd::Run(
+               [this] {
+                 auto botpose = m_odometry->getPose();
+                 frc::Pose2d speakerpose;
+                 if (frc::DriverStation::GetAlliance().has_value() &&
+                     frc::DriverStation::GetAlliance().value() ==
+                         frc::DriverStation::Alliance::kBlue) {
+                   speakerpose = frc::Pose2d(
+                       0_m, 5.5_m, frc::Rotation2d(0_rad)); // CHANGEME
+                 } else {
+                   speakerpose = frc::Pose2d(
+                       8_m, 5.5_m, frc::Rotation2d(0_rad)); // CHANGEME
+                 }
+                 botpose = botpose.RelativeTo(speakerpose);
+                 frc::SmartDashboard::PutNumber("as/rel x",
+                                                botpose.X().value());
+                 frc::SmartDashboard::PutNumber("as/rel y",
+                                                botpose.Y().value());
+                 frc::SmartDashboard::PutNumber(
+                     "as/rel t", botpose.Rotation().Degrees().value());
+                 m_drivetrain->face_direction(botpose.Rotation().Degrees());
+               },
+               {this})
+        .Until([this] -> bool {
+          auto botpose = m_odometry->getPose();
+          frc::Pose2d speakerpose;
+          if (frc::DriverStation::GetAlliance().has_value() &&
+              frc::DriverStation::GetAlliance().value() ==
+                  frc::DriverStation::Alliance::kBlue) {
+            speakerpose =
+                frc::Pose2d(0_m, 5.5_m, frc::Rotation2d(0_rad)); // CHANGEME
+          } else {
+            speakerpose =
+                frc::Pose2d(8_m, 5.5_m, frc::Rotation2d(0_rad)); // CHANGEME
+          }
+          botpose = botpose.RelativeTo(speakerpose);
+          return CONSTANTS::IN_THRESHOLD<units::degree_t>(
+              m_drivetrain->getAngle(), botpose.Rotation().Degrees(), 3_deg);
+        });
+    frc2::CommandPtr Trajectory::auto_score_align() {
+      return frc2::cmd::Run(
+                 [this] {
+                   auto botpose = m_odometry->getPose();
+                   frc::Pose2d speakerpose;
+                   if (frc::DriverStation::GetAlliance().has_value() &&
+                       frc::DriverStation::GetAlliance().value() ==
+                           frc::DriverStation::Alliance::kBlue) {
+                     speakerpose = frc::Pose2d(
+                         0_m, 5.5_m, frc::Rotation2d(0_rad)); // CHANGEME
+                   } else {
+                     speakerpose = frc::Pose2d(
+                         8_m, 5.5_m, frc::Rotation2d(3.1415_rad)); // CHANGEME
+                   }
+                   botpose = botpose.RelativeTo(speakerpose);
+                   // angle of relative vector
+                   desired_angle = units::degree_t{
+                       -(atan2(botpose.Y().value(), botpose.X().value()) /
+                         std::numbers::pi * 180)};
+                   if (desired_angle.value() < 0) {
+                     desired_angle += units::degree_t{180};
+                   } else {
+                     desired_angle -= units::degree_t{180};
+                   }
+                   frc::SmartDashboard::PutNumber("as/rel x",
+                                                  botpose.X().value());
+                   frc::SmartDashboard::PutNumber("as/rel y",
+                                                  botpose.Y().value());
+                   frc::SmartDashboard::PutNumber(
+                       "as/rel t", botpose.Rotation().Degrees().value());
+                   frc::SmartDashboard::PutNumber("as/desired angle",
+                                                  desired_angle.value());
+                   m_drivetrain->face_direction(units::degree_t{0});
+                 },
+                 {this})
+          .Until([this] -> bool {
+            auto botpose = m_odometry->getPose();
+            frc::Pose2d speakerpose;
+            if (frc::DriverStation::GetAlliance().has_value() &&
+                frc::DriverStation::GetAlliance().value() ==
+                    frc::DriverStation::Alliance::kBlue) {
+              speakerpose =
+                  frc::Pose2d(0_m, 5.5_m, frc::Rotation2d(0_rad)); // CHANGEME
+            } else {
+              speakerpose = frc::Pose2d(
+                  8_m, 5.5_m, frc::Rotation2d(3.1415_rad)); // CHANGEME
+            }
+            botpose = botpose.RelativeTo(speakerpose);
+            return CONSTANTS::IN_THRESHOLD<units::degree_t>(
+                m_drivetrain->getAngle(), botpose.Rotation().Degrees(), 3_deg);
+          });
+    }
 #endif
