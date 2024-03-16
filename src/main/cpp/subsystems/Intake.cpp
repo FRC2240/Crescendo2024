@@ -28,8 +28,9 @@ Intake::Intake()
 }
 
 // This method will be called once per scheduler run
-void Intake::Periodic(){
-    // frc::SmartDashboard::PutNumber("tof", m_tof.GetRange());
+void Intake::Periodic()
+{
+    frc::SmartDashboard::PutNumber("tof", m_tof.GetRange());
     /*
     auto result = m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{12}));
 
@@ -119,14 +120,16 @@ frc2::CommandPtr Intake::StartSpinCommand()
             frc2::RunCommand([this]
                              {
                                 is_intaking = true;
-                                 m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(units::volt_t{CONSTANTS::INTAKE::INTAKE_VOLTAGE})); },
+                                 m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(m_belt_velocity)); },
                              {this})
                 .Until([this] -> bool
                        { 
-                        if (is_loaded()) {
-                        m_timer.Start();
-                       }
-                       return m_timer.Get() >= CONSTANTS::INTAKE::DELAY; }))
+                        if (is_lower_tof_loaded()) {
+                            m_belt_velocity = -6_V;
+                            if (is_loaded()){
+                                return true;
+                            }
+                       } }))
 
         .AndThen(StopSpinCommand())
         .WithName("StartSpin");
@@ -158,11 +161,10 @@ frc2::CommandPtr Intake::StopCommand()
 frc2::CommandPtr Intake::Wes()
 {
     return frc2::cmd::Run([this]
-                          { m_beltMotor.Set(0.3); 
-                        
-                          },{this})
-                          .Until([this] -> bool
-                       { 
+                          { m_beltMotor.Set(0.3); },
+                          {this})
+        .Until([this] -> bool
+               { 
                         if (is_loaded()) {
                         m_timer.Start();
                        }
