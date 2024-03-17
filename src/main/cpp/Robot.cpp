@@ -57,7 +57,7 @@ void Robot::TeleopInit()
 void Robot::TeleopPeriodic()
 {
 
-  m_container.m_odometry.update_from_vision();
+  // m_container.m_odometry.update_from_vision();
 }
 
 void Robot::TeleopExit() {}
