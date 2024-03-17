@@ -424,7 +424,7 @@ bool Drivetrain::face_direction(units::degree_t tgt)
 
   drive(0_mps, 0_mps, units::degrees_per_second_t{-pid_out}, false);
   frc::SmartDashboard::PutNumber("PID Setpoint", turn_pid.GetSetpoint());
-  if ((angle >= turn_pid.GetSetpoint() - 2) && (angle <= turn_pid.GetSetpoint() + 2))
+  if ((angle >= turn_pid.GetSetpoint() - .1) && (angle <= turn_pid.GetSetpoint() + .1))
   {
     return true;
     frc::SmartDashboard::PutBoolean("Face Direction", true);

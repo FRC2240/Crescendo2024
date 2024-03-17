@@ -125,7 +125,7 @@ namespace CONSTANTS
 
   namespace DRIVE
   {
-    constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 0.5_fps;
+    constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 25_fps;
     constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi * 1.25};
     constexpr units::meters_per_second_t TELEOP_MAX_SPEED = ROBOT_MAX_SPEED;
     constexpr units::radians_per_second_t TELEOP_MAX_ANGULAR_SPEED{std::numbers::pi * 0.75};
