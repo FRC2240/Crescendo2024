@@ -59,7 +59,7 @@ frc2::CommandPtr autos::pos_2_gp4(Trajectory *traj)
 
 frc2::CommandPtr autos::pos_3_gp4(Trajectory *traj)
 {
-  return frc2::PrintCommand("start four gamepiece pos_1").ToPtr().AndThen(traj->extract("a_pos_3_gp4").AndThen(frc2::PrintCommand("four piece completed").ToPtr()));
+  return frc2::PrintCommand("start four gamepiece pos_1").ToPtr().AndThen(traj->extract("a_sourcide_gp2v2").AndThen(frc2::PrintCommand("four piece completed").ToPtr()));
 }
 
 frc2::CommandPtr autos::pos_2_gp1(Trajectory *traj)

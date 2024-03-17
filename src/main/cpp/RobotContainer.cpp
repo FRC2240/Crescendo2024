@@ -15,7 +15,7 @@ RobotContainer::RobotContainer()
   // m_chooser.AddOption("Position 3 three game piece", AUTOS::POS_3_GP3);
   m_chooser.AddOption("Bearbotics\'s baby", AUTOS::POS_3_GP2);
   m_chooser.AddOption("Position 2 four game piece", AUTOS::POS_2_GP4);
-  // m_chooser.AddOption("Position 3 four game piece", AUTOS::POS_3_GP4);
+  m_chooser.AddOption("rangey thingy", AUTOS::POS_3_GP4);
   m_chooser.AddOption("Position 2 one game piece", AUTOS::POS_2_GP1);
   m_chooser.AddOption("TEST", AUTOS::TEST);
 
@@ -31,7 +31,7 @@ void RobotContainer::add_named_commands()
 
   NamedCommands::registerCommand("intake", std::move(m_intake.StartCommand()));
   NamedCommands::registerCommand("unintake", std::move(m_intake.StopCommand()));
-  // NamedCommands::registerCommand("score", std::move(m_shooter.fender_shot()));
+  NamedCommands::registerCommand("ascore", std::move(m_shooter.execute_auto_shot()));
   NamedCommands::registerCommand("spool", std::move(m_shooter.spool_cmd()));
   NamedCommands::registerCommand("score", std::move(m_shooter.fender_shot().RaceWith(frc2::cmd::Run([this]
                                                                                                     { m_odometry.update_from_vision(); },
@@ -118,6 +118,9 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
     break;
   case AUTOS::POS_3_GP2:
     return autos::pos_3_gp2(&m_trajectory);
+    break;
+  case AUTOS::POS_3_GP4:
+    return autos::pos_3_gp4(&m_trajectory);
     break;
   default:
     frc::DataLogManager::Log("WARN: NO AUTO SELECTED");
