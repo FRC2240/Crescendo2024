@@ -8,6 +8,7 @@ namespace autos
     /**
      * Example static factory for an autonomous command.
      */
+    frc2::CommandPtr auto_shot_gp4(Trajectory *traj);
     frc2::CommandPtr pos_1_line(Trajectory *traj);
     frc2::CommandPtr pos_2_line(Trajectory *traj);
     frc2::CommandPtr pos_3_line(Trajectory *traj);

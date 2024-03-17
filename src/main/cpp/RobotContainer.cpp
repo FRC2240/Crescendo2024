@@ -18,6 +18,7 @@ RobotContainer::RobotContainer()
   m_chooser.AddOption("rangey thingy", AUTOS::POS_3_GP4);
   m_chooser.AddOption("Position 2 one game piece", AUTOS::POS_2_GP1);
   m_chooser.AddOption("TEST", AUTOS::TEST);
+  m_chooser.AddOption("ranged gp4", AUTOS::AUTO_SHOT_GP4);
 
   frc::SmartDashboard::PutData(&m_chooser);
   m_odometry.putField2d();
@@ -70,7 +71,8 @@ void RobotContainer::ConfigureBindings()
   // m_stick0.RightTrigger().ToggleOnTrue(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle()));
   // m_stick0.RightTrigger().ToggleOnTrue(m_trajectory.auto_score_align());
   // m_stick0.RightTrigger().ToggleOnTrue(frc2::cmd::DeferredProxy(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())));
-  m_stick0.RightTrigger().ToggleOnTrue(m_shooter.execute_auto_shot());
+  m_stick0.RightTrigger().ToggleOnTrue(m_shooter.execute_auto_shot().RaceWith(frc2::cmd::Run([this]
+                                                                                             { m_odometry.update_from_vision(); })));
   m_stick0.LeftTrigger().ToggleOnTrue(m_shooter.test_shot());
 
   // Buddy Climber
@@ -102,6 +104,10 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
   {
   case AUTOS::TEST:
     return autos::test(&m_trajectory);
+    break;
+  case AUTOS::AUTO_SHOT_GP4:
+    return autos::auto_shot_gp4(&m_trajectory);
+    break;
   case AUTOS::POS_2_GP2:
     return autos::pos_2_gp2(&m_trajectory);
     break;
