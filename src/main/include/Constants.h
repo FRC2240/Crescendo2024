@@ -76,10 +76,11 @@ namespace CONSTANTS
   } // namespace INTAKE
   namespace VISION
   {
-    static const auto LEFT_CAMERA_A_TF = frc::Transform3d{0.307_m, -0.112_m, 0.558_m, frc::Rotation3d(0_rad, 7_deg, -90_deg)};
-    static const auto LEFT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
-    static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{0.307_m, 0.112_m, 0.558_m, frc::Rotation3d(0_rad, 7_deg, 90_deg)};
-    static const auto RIGHT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
+    static const auto LEFT_CAMERA_A_TF = frc::Transform3d{-0.151_m, -0.318687_m, 0.578_m, frc::Rotation3d(0_deg, 10_deg, -90_deg)};
+    // static const auto LEFT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
+    // static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{0.151_m, 0.319_m, 0.578_m, frc::Rotation3d(0_deg, 10_deg, 90_deg)};
+    static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{-0.151_m, 1.319_m, 0.578_m, frc::Rotation3d(0_deg, 10_deg, 90_deg)};
+    // static const auto RIGHT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
 
   } // namespace VISION
 

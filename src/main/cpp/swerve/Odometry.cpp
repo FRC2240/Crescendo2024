@@ -131,8 +131,9 @@ void Odometry::update_from_vision()
     {
         if (i)
         {
+            auto finali = frc::Pose2d(i.value().X(), i.value().Y(), frc::Rotation2d(m_drivetrain->getAngle()));
             frc::SmartDashboard::PutNumber("auto thing", i.value().X().value());
-            estimator.AddVisionMeasurement(i.value(), frc::Timer::GetFPGATimestamp());
+            estimator.AddVisionMeasurement(finali, frc::Timer::GetFPGATimestamp());
         }
     }
 }

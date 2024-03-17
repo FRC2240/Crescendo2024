@@ -41,6 +41,7 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
     else if (result.HasTargets())
     {
       auto pose = i.singletag_estimator.Update(result);
+      ret.push_back(pose.value().estimatedPose.ToPose2d());
     }
   }
 
@@ -49,7 +50,7 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
     frc::SmartDashboard::PutBoolean("ll functional", 1);
     ret.push_back(frc::Pose2d(units::meter_t{aft_results[0]},
                               units::meter_t{aft_results[1]},
-                              frc::Rotation2d(units::degree_t{aft_results[5]})));
+                              frc::Rotation2d(get_angle())));
   }
 
   std::vector<double> printvec_x;

@@ -71,6 +71,7 @@ void RobotContainer::ConfigureBindings()
   // m_stick0.RightTrigger().ToggleOnTrue(m_trajectory.auto_score_align());
   // m_stick0.RightTrigger().ToggleOnTrue(frc2::cmd::DeferredProxy(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())));
   m_stick0.RightTrigger().ToggleOnTrue(m_shooter.execute_auto_shot());
+  m_stick0.LeftTrigger().ToggleOnTrue(m_shooter.test_shot());
 
   // Buddy Climber
   // Climber

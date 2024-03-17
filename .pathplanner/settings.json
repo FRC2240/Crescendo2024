@@ -3,13 +3,14 @@
   "robotLength": 0.94,
   "holonomicMode": true,
   "pathFolders": [
-    "side",
+    "ranged_gp4",
     "autoline",
     "gp1",
     "gp2",
     "gp2_speaker",
     "midline",
     "preloads",
+    "side",
     "testing"
   ],
   "autoFolders": [
@@ -20,7 +21,7 @@
     "midlines"
   ],
   "defaultMaxVel": 6.0,
-  "defaultMaxAccel": 4.0,
+  "defaultMaxAccel": 3.2,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "maxModuleSpeed": 4.0

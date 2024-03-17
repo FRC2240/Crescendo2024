@@ -129,8 +129,7 @@
         "open": true
       },
       "open": true
-    },
-    "visible": true
+    }
   },
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
@@ -396,7 +395,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 1012,
+          "height": 927,
           "series": [
             {
               "color": [
@@ -420,7 +419,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 1012,
+          "height": 927,
           "series": [
             {
               "color": [
