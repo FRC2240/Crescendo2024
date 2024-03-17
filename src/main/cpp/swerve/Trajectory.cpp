@@ -216,9 +216,9 @@ frc2::CommandPtr Trajectory::auto_score_align()
                    }
                    else
                    {
-                       speakerpose = frc::Pose2d(16.46_m, 5.5_m, frc::Rotation2d(units::radian_t{std::numbers::pi})); // CHANGEME
+                       speakerpose = frc::Pose2d(16.46_m, 5.5_m, frc::Rotation2d(units::radian_t{std::numbers::pi}));
                    }
                    botpose = botpose.RelativeTo(speakerpose);
-                   return CONSTANTS::IN_THRESHOLD<units::degree_t>(m_drivetrain->getAngle(), botpose.Rotation().Degrees(), 3_deg); });
+                   return CONSTANTS::IN_THRESHOLD<units::degree_t>(m_drivetrain->getAngle(), desired_angle, 1_deg); });
 }
 #endif

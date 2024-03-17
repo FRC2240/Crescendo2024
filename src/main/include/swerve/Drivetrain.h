@@ -153,8 +153,10 @@ public:
 
     bool face_direction(units::degree_t tgt);
 
-private:
     ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, "swervecan"};
+
+private:
+    
     //ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, "rio"};
     // AHRS navx{frc::SPI::Port::kMXP};
     CONSTANTS::PidCoeff pid_coef{5.0, 0.0, 0.25, 0.0, 0.0, -1, 1};

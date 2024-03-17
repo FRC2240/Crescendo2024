@@ -24,8 +24,9 @@ Odometry::Odometry(Drivetrain *drivetrain, Vision *vision)
 
 frc2::CommandPtr Odometry::set_pose_cmd(frc::Pose2d pose)
 {
+
     return frc2::cmd::RunOnce([this, &pose]
-                              { resetPosition(pose, frc::Rotation2d(0_rad)); },
+                              {m_drivetrain->zero_yaw(); resetPosition(pose, frc::Rotation2d(0_rad)); },
                               {})
         .AndThen(frc2::PrintCommand("reset odometry").ToPtr());
 }
@@ -131,8 +132,19 @@ void Odometry::update_from_vision()
     {
         if (i)
         {
+
+            //estimator.AddVisionMeasurement(i.value(), frc::Timer::GetFPGATimestamp());
+
+
+            //auto finali = frc::Pose2d(i.value().X(), i.value().Y(), frc::Rotation2d(m_drivetrain->getCCWHeading()));
+            auto finali = frc::Pose2d(i.value().X(), i.value().Y(), frc::Rotation2d(pose.Rotation().Degrees()));
             frc::SmartDashboard::PutNumber("auto thing", i.value().X().value());
-            estimator.AddVisionMeasurement(i.value(), frc::Timer::GetFPGATimestamp());
+            //estimator.AddVisionMeasurement(i.value(), frc::Timer::GetFPGATimestamp());
+            //estimator.AddVisionMeasurement(finali, frc::Timer::GetFPGATimestamp());
+            //auto temp = pose.Rotation().Degrees();
+            //m_drivetrain->gyro.SetYaw(temp);
+            //auto finali = frc::Pose2d(i.value().X(), i.value().Y(), frc::Rotation2d(temp.value()));
+            estimator.AddVisionMeasurement(finali, frc::Timer::GetFPGATimestamp());
         }
     }
 }
@@ -158,19 +170,13 @@ std::optional<units::meter_t> Odometry::get_dist_to_tgt()
 units::turn_t Odometry::get_shooter_angle()
 {
     auto pose = getPose();
-    double x = pose.X().convert<units::foot>().value();
-    double y = units::math::fabs(pose.Y() - 5.548_m).convert<units::foot>().value();
+    double x = pose.X().value();
+    double y = units::math::fabs(pose.Y() - 5.548_m).value();
     x = std::sqrt(std::pow(x, 2) + std::pow(y, 2));
-    units::turn_t angle = units::turn_t{-(0.047 * std::pow(x, 2)) + (1.62 * x) - 17.3};
+    // units::turn_t angle = units::turn_t{-(0.047 * std::pow(x, 2)) + (1.62 * x) - 17.3};
+    units::turn_t angle = units::turn_t{19.5 - (8.1 * x) + (1.31 * std::pow(x, 2)) + (-0.0752 * std::pow(x, 3))};
     frc::SmartDashboard::PutNumber("shooter/auto angle", angle.value());
-    if (angle < 0_tr && angle > -11_tr)
-    {
 
-        return -angle;
-    }
-    else
-    {
-        return 0_tr;
-    }
+    return angle;
 }
 #endif
