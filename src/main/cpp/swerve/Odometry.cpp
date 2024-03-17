@@ -164,6 +164,16 @@ units::turn_t Odometry::get_shooter_angle()
     x = std::sqrt(std::pow(x, 2) + std::pow(y, 2));
     // units::turn_t angle = units::turn_t{-(0.047 * std::pow(x, 2)) + (1.62 * x) - 17.3};
     units::turn_t angle = units::turn_t{19.5 - (8.1 * x) + (1.31 * std::pow(x, 2)) + (-0.0752 * std::pow(x, 3))};
+
+    if (x > 4.25)
+    {
+
+        angle = units::turn_t{26.9 - (11.8 * x) + (1.82 * std::pow(x, 2)) - (0.096 * std::pow(x, 3))};
+    }
+    if (x > 7.7)
+    {
+        angle = 0_tr;
+    }
     frc::SmartDashboard::PutNumber("shooter/auto angle", angle.value());
 
     return angle;
