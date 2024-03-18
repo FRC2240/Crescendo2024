@@ -8,44 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-<<<<<<< HEAD
         "x": 2.208269644890417,
         "y": 6.6771287457165664
-||||||| parent of 9280210 (4gp draft)
-        "x": 2.065049741012887,
-        "y": 6.9274687689351655
-=======
-        "x": 2.067234437647998,
-        "y": 6.9274687689351655
->>>>>>> 9280210 (4gp draft)
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-<<<<<<< HEAD
         "x": 1.4,
         "y": 5.520604247021068
-||||||| parent of 9280210 (4gp draft)
-        "x": 1.2416018633935255,
-        "y": 5.62757220710171
-=======
-        "x": 1.5,
-        "y": 5.62757220710171
->>>>>>> 9280210 (4gp draft)
       },
       "prevControl": {
-<<<<<<< HEAD
         "x": 1.956484455199041,
         "y": 6.337851634778002
-||||||| parent of 9280210 (4gp draft)
-        "x": 1.6181960329519716,
-        "y": 6.457410773659033
-=======
-        "x": 1.876594169558446,
-        "y": 6.457410773659033
->>>>>>> 9280210 (4gp draft)
       },
       "nextControl": null,
       "isLocked": false,
@@ -57,7 +33,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 6.0,
-    "maxAcceleration": 4.0,
+    "maxAcceleration": 3.2,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

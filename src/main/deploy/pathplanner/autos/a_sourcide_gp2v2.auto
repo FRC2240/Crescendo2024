@@ -8,120 +8,7 @@
         {
           "type": "named",
           "data": {
-            "name": "score"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "unscore"
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "intake"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "pos_2_gp1"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "pos_2_gp2_speaker"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "intake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "unintake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "score"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "unscore"
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "intake"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "reverse_pos_2_gp2"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "parallel",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "reverse_pos_2_gp2_speaker"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "intake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "score"
+            "name": "ascore"
           }
         },
         {
@@ -137,7 +24,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "pos_2_gp2_stg"
+                  "pathName": "reach_sourcide_midlinev2"
                 }
               },
               {
@@ -156,7 +43,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "pos_2_gp4_spk"
+                  "pathName": "return_sourcide_midlinev2"
                 }
               },
               {
@@ -171,18 +58,62 @@
         {
           "type": "named",
           "data": {
-            "name": "unintake"
+            "name": "ascore"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "score"
+            "name": "unscore"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "reach_sourcide_midline_2v2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "return_sourcide_midline_2v2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ascore"
           }
         }
       ]
     }
   },
-  "folder": "gp4",
+  "folder": "midlines",
   "choreoAuto": false
 }
