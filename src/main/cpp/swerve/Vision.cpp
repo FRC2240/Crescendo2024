@@ -41,6 +41,7 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
     else if (result.HasTargets())
     {
       auto pose = i.singletag_estimator.Update(result);
+      ret.push_back(pose.value().estimatedPose.ToPose2d());
     }
   }
 
