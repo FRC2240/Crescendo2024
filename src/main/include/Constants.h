@@ -14,7 +14,7 @@
 #include <units/velocity.h>
 #include <vector>
 // #define COLFAX_BOT
- #define BETABOT
+#define BETABOT
 //  When using the second robot, uncomment the above line
 
 // #define MOD_AMP
@@ -51,8 +51,51 @@ struct PidCoeff {
 };
 
 namespace INTAKE {
-constexpr units::turn_t AMP_ANGLE = 10_tr;
-constexpr units::turns_per_second_t SHOOTER_VELOCITY = 60_tps;
+#ifdef BETABOT
+constexpr auto DELAY = 0.15_s;
+constexpr units::turn_t UP_POSITION = 0.02_tr;
+constexpr units::turn_t DOWN_POSITION = 7.881_tr;
+constexpr int INTAKE_VOLTAGE = -12;
+#endif
+#ifndef BETABOT
+constexpr auto DELAY = 0.35_s;
+constexpr units::turn_t UP_POSITION = 0.8_tr;
+constexpr units::turn_t DOWN_POSITION = 8_tr;
+constexpr int INTAKE_VOLTAGE = -12;
+#endif
+constexpr double LOADED_DIST = 300;
+constexpr double LOWER_LOADED_DIST = 350;
+constexpr int TOF_ID = 34;
+constexpr int LOWER_TOF_ID = 33;
+constexpr int BELT_ID = 4;
+constexpr int ANGLE_ID = 3;
+constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
+constexpr units::turn_t BRACE_POSITION = 2.33_tr;
+constexpr units::turn_t ROTATION_THRESHOLD = 5_tr;
+} // namespace INTAKE
+namespace VISION {
+static const auto LEFT_CAMERA_A_TF = frc::Transform3d{
+    -0.151_m, -0.318687_m, 0.578_m, frc::Rotation3d(0_deg, 10_deg, -90_deg)};
+// static const auto LEFT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m,
+// frc::Rotation3d(0_rad, 0_rad, 0_rad)}; static const auto RIGHT_CAMERA_A_TF =
+// frc::Transform3d{0.151_m, 0.319_m, 0.578_m, frc::Rotation3d(0_deg, 10_deg,
+// 90_deg)};
+static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{
+    -0.151_m, 1.319_m, 0.578_m, frc::Rotation3d(0_deg, 10_deg, 90_deg)};
+// static const auto RIGHT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m,
+// frc::Rotation3d(0_rad, 0_rad, 0_rad)};
+
+} // namespace VISION
+
+namespace CLIMBER {
+constexpr int LEFT_ID = 9;   // CHANGEME
+constexpr int RIGHT_ID = 11; // CHANGEME
+} // namespace CLIMBER
+namespace CANDLE {
+constexpr int CANDLE_ID = 10;
+constexpr int NUM_LEDS = 39;
+} // namespace CANDLE
+
 namespace SHOOTER {
 constexpr int LEFT_ID = 2;
 constexpr int RIGHT_ID = 5;
@@ -81,7 +124,6 @@ constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; // CHANGEME;
 
 } // namespace SHOOTER
 
-<<<<<<< HEAD
 namespace DRIVE {
 constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 23.533_fps;
 constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi *
@@ -97,7 +139,9 @@ constexpr units::radians_per_second_t TRAJ_MAX_ANGULAR_SPEED =
 constexpr units::radians_per_second_squared_t TRAJ_MAX_ANGULAR_ACCELERATION{
     std::numbers::pi};
 static constexpr auto WHEEL_CIRCUMFERENCE = 12.11_in / 1.0_tr;
+// static constexpr auto WHEEL_CIRCUMFERENCE = 11.992_in / 1.0_tr;
 constexpr int GYRO_ID = 48; // CHANGEME
+
 namespace CONFIG {
 struct ModuleConfig {
   int driver;
@@ -105,55 +149,6 @@ struct ModuleConfig {
   int cancoder;
   units::turn_t offset;
 };
-||||||| parent of 3a40904 (auto_score_allign works)
-  namespace DRIVE
-  {
-    constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 0.5_fps;
-    constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi * 1.25 * 0.05};
-    constexpr units::meters_per_second_t TELEOP_MAX_SPEED = ROBOT_MAX_SPEED;
-    constexpr units::radians_per_second_t TELEOP_MAX_ANGULAR_SPEED{std::numbers::pi * 0.75};
-    constexpr units::meters_per_second_t TRAJ_MAX_SPEED = ROBOT_MAX_SPEED;
-    constexpr units::acceleration::meters_per_second_squared_t TRAJ_MAX_ACCELERATION = TRAJ_MAX_SPEED / 0.5_s;
-    constexpr units::radians_per_second_t TRAJ_MAX_ANGULAR_SPEED = CONSTANTS::DRIVE::ROBOT_MAX_ANGULAR_SPEED;
-    constexpr units::radians_per_second_squared_t TRAJ_MAX_ANGULAR_ACCELERATION{std::numbers::pi};
-    static constexpr auto WHEEL_CIRCUMFERENCE = 12.11_in / 1.0_tr;
-    // static constexpr auto WHEEL_CIRCUMFERENCE = 11.992_in / 1.0_tr;
-    constexpr int GYRO_ID = 48; // CHANGEME
-
-    namespace CONFIG
-    {
-      struct ModuleConfig
-      {
-        int driver;
-        int azimuth;
-        int cancoder;
-        units::turn_t offset;
-      };
-=======
-  namespace DRIVE
-  {
-    constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 0.5_fps;
-    constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi * 1.25};
-    constexpr units::meters_per_second_t TELEOP_MAX_SPEED = ROBOT_MAX_SPEED;
-    constexpr units::radians_per_second_t TELEOP_MAX_ANGULAR_SPEED{std::numbers::pi * 0.75};
-    constexpr units::meters_per_second_t TRAJ_MAX_SPEED = ROBOT_MAX_SPEED;
-    constexpr units::acceleration::meters_per_second_squared_t TRAJ_MAX_ACCELERATION = TRAJ_MAX_SPEED / 0.5_s;
-    constexpr units::radians_per_second_t TRAJ_MAX_ANGULAR_SPEED = CONSTANTS::DRIVE::ROBOT_MAX_ANGULAR_SPEED;
-    constexpr units::radians_per_second_squared_t TRAJ_MAX_ANGULAR_ACCELERATION{std::numbers::pi};
-    static constexpr auto WHEEL_CIRCUMFERENCE = 12.11_in / 1.0_tr;
-    // static constexpr auto WHEEL_CIRCUMFERENCE = 11.992_in / 1.0_tr;
-    constexpr int GYRO_ID = 48; // CHANGEME
-
-    namespace CONFIG
-    {
-      struct ModuleConfig
-      {
-        int driver;
-        int azimuth;
-        int cancoder;
-        units::turn_t offset;
-      };
->>>>>>> 3a40904 (auto_score_allign works)
 #ifdef COLFAX_BOT
 #pragma message("Using Colfax bot")
 constexpr ModuleConfig FL{60, 61, 14, -0.279_tr};
