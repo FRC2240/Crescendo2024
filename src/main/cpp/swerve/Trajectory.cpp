@@ -81,10 +81,7 @@ frc2::CommandPtr Trajectory::manual_drive(bool field_relative)
         const units::meters_per_second_t left_right{frc::ApplyDeadband(m_stick->GetLeftX(), 0.1) * CONSTANTS::DRIVE::TELEOP_MAX_SPEED};
         const units::meters_per_second_t front_back{frc::ApplyDeadband(m_stick->GetLeftY(), 0.1) * CONSTANTS::DRIVE::TELEOP_MAX_SPEED};
         auto const rot = frc::ApplyDeadband(m_stick->GetRightX(), .1) * m_drivetrain->TELEOP_MAX_ANGULAR_SPEED;
-        else
-        {
-          m_drivetrain->drive(front_back, left_right, rot, field_relative);
-        }
+        m_drivetrain->drive(front_back, left_right, rot, field_relative);
       },
       {this});
 }
