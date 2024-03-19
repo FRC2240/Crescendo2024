@@ -23,7 +23,7 @@ Shooter::Shooter(Odometry *odometry, Intake *intake)
   right_conf.Slot0.kV = 0.225;
   ctre::phoenix6::configs::TalonFXConfiguration angle_conf{};
   angle_conf.Feedback.RotorToSensorRatio = CONSTANTS::SHOOTER::ANGLE_RATIO;
-  angle_conf.Slot0.kP = 1.4;
+  angle_conf.Slot0.kP = 2;
   angle_conf.MotorOutput.NeutralMode =
       ctre::phoenix6::signals::NeutralModeValue::Coast;
   m_left_motor.GetConfigurator().Apply(left_conf);
@@ -255,7 +255,7 @@ frc2::CommandPtr Shooter::fender_shot()
       frc::SmartDashboard::PutNumber(
           "shooter/velocity", m_left_motor.GetVelocity().GetValueAsDouble());
       return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(
-                 get_angle(), CONSTANTS::SHOOTER::FENDER_ANGLE, 2_tr) &&
+                 get_angle(), CONSTANTS::SHOOTER::FENDER_ANGLE, 8_tr) &&
              CONSTANTS::IN_THRESHOLD<units::turns_per_second_t>(
                  m_left_motor.GetVelocity().GetValue(),
                  CONSTANTS::SHOOTER::SHOOTER_VELOCITY, 5_tps);

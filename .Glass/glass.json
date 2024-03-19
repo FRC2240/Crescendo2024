@@ -5,7 +5,10 @@
         "odometry": {
           "open": true
         },
-        "open": true
+        "open": true,
+        "shooter": {
+          "open": true
+        }
       },
       "photonvision": {
         "open": true
@@ -58,7 +61,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 928,
+          "height": -30,
           "series": [
             {
               "color": [
@@ -81,6 +84,19 @@
               "marker": "Circle"
             }
           ]
+        }
+      ]
+    },
+    "Plot <1>": {
+      "plots": [
+        {
+          "backgroundColor": [
+            0.0,
+            0.0,
+            0.0,
+            0.8500000238418579
+          ],
+          "height": 826
         }
       ]
     }
