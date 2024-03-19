@@ -193,7 +193,17 @@ frc2::CommandPtr Trajectory::auto_score_align()
                           botpose = botpose.RelativeTo(speakerpose);
                           // angle of relative vector
                           desired_angle = units::degree_t{(atan2(botpose.Y().value(),botpose.X().value())/std::numbers::pi*180)};
-
+                          if (frc::DriverStation::GetAlliance().has_value() && 
+                          frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kRed ){
+                            if (desired_angle.value() > 0)
+                            {
+                              desired_angle -= units::degree_t{180};
+                            }
+                            else
+                            {
+                              desired_angle += units::degree_t{180};
+                            }
+                          }
                           // if (frc::DriverStation::GetAlliance().has_value() && frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kRed){
                           // desired_angle = units::degree_t{(atan2(botpose.Y().value(),botpose.X().value())/std::numbers::pi*180)}+180_deg;
                           // }

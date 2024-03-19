@@ -26,7 +26,7 @@ frc2::CommandPtr Odometry::set_pose_cmd(frc::Pose2d pose)
 {
 
   return frc2::cmd::RunOnce([this, &pose]
-                            {m_drivetrain->zero_yaw(); resetPosition(pose, frc::Rotation2d(0_rad)); },
+                            {resetPosition(pose, frc::Rotation2d(0_rad)); },
                             {})
       .AndThen(frc2::PrintCommand("reset odometry").ToPtr());
 }
