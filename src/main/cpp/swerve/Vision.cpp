@@ -34,14 +34,14 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
         //         pose.value().estimatedPose.Rotation().ToRotation2d().Degrees(),
         //         get_angle(), 3_deg))
         // {
-        ret.push_back(pose.value().estimatedPose.ToPose2d());
+        // ret.push_back(pose.value().estimatedPose.ToPose2d());
         // }
       }
     }
     else if (result.HasTargets())
     {
       auto pose = i.singletag_estimator.Update(result);
-      ret.push_back(pose.value().estimatedPose.ToPose2d());
+      // ret.push_back(pose.value().estimatedPose.ToPose2d());
     }
   }
 
