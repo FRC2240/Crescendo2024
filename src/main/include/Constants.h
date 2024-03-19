@@ -60,8 +60,8 @@ namespace CONSTANTS
 #endif
 #ifndef BETABOT
     constexpr auto DELAY = 0.35_s;
-    constexpr units::turn_t UP_POSITION = 0.8_tr;
-    constexpr units::turn_t DOWN_POSITION = 8_tr;
+    constexpr units::turn_t UP_POSITION = 0.38_tr;
+    constexpr units::turn_t DOWN_POSITION = 7.64_tr;
     constexpr int INTAKE_VOLTAGE = -12;
 #endif
     constexpr double LOADED_DIST = 300;
