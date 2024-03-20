@@ -75,9 +75,9 @@ frc2::CommandPtr Shooter::spool_cmd()
     return frc2::cmd::Run(
         [this]
         {
-            set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
-            m_left_motor.Set(-.8);
-            m_right_motor.Set(-0.6);
+            set_angle(m_odometry->get_shooter_angle());
+            m_left_motor.Set(-0.8);
+            m_right_motor.Set(-0.4);
         },
         {this});
 }
