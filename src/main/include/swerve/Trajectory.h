@@ -75,6 +75,7 @@ public:
     frc2::CommandPtr extract(std::string auton);
 
 private:
+    int cyclecounter = 0;
     Drivetrain *m_drivetrain;
     Odometry *m_odometry;
     frc::XboxController *m_stick;

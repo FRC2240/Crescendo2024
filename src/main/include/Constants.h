@@ -129,7 +129,7 @@ namespace CONSTANTS
   {
     constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 23.533_fps;
     constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi *
-                                                                  1.25};
+                                                                  0.5};
     constexpr units::meters_per_second_t TELEOP_MAX_SPEED = ROBOT_MAX_SPEED;
     constexpr units::radians_per_second_t TELEOP_MAX_ANGULAR_SPEED{
         std::numbers::pi * 0.5};

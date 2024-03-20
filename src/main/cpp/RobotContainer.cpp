@@ -33,7 +33,8 @@ void RobotContainer::add_named_commands()
   NamedCommands::registerCommand("unintake", std::move(m_intake.StopCommand()));
 
   NamedCommands::registerCommand("ascore", std::move(m_shooter.execute_auto_shot().AlongWith(m_trajectory.auto_score_align()).RaceWith(frc2::cmd::Run([this]
-                                                                                                                                                      { m_odometry.update_from_vision(); }))));
+                                                                                                                                                      { m_odometry.update_from_vision(); }))
+                                                         .WithTimeout(1.5_s)));
 
   NamedCommands::registerCommand("spool", std::move(m_shooter.spool_cmd()));
   NamedCommands::registerCommand(
@@ -41,7 +42,7 @@ void RobotContainer::add_named_commands()
                                                               [this]
                                                               { m_odometry.update_from_vision(); },
                                                               {}))
-                             .WithTimeout(0.5_s)));
+                             .WithTimeout(2_s)));
   NamedCommands::registerCommand("unscore", std::move(m_shooter.stop()));
   // NamedCommands::registerCommand("score",
   // std::move(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())));

@@ -121,7 +121,6 @@ frc2::CommandPtr Intake::StartSpinCommand()
       .AndThen(
           frc2::RunCommand([this]
                            {
-                            frc::DataLogManager::Log("here0");
                             intake_state = INTAKING;
                                 m_belt_velocity = -12_V;
                                  m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(m_belt_velocity)); },
@@ -129,7 +128,6 @@ frc2::CommandPtr Intake::StartSpinCommand()
               .Until([this] -> bool
                      { 
                         if (is_lower_tof_loaded()) {
-                            frc::DataLogManager::Log("here1");
                             intake_state = SLOWFEED;
                             return true;
                             // m_belt_velocity = -0_V;

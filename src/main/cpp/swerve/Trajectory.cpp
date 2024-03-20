@@ -50,11 +50,11 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc::XboxCont
         // This is a result of inverting the get_distance function
         return m_drivetrain->drive(-speeds);
       },
-      HolonomicPathFollowerConfig(PIDConstants(10, 0.0, 0), // Translation PID constants
-                                  PIDConstants(5, 0.0, 0),  // Rotation PID constants
-                                  4.5_mps,                  // Max module speed, in m/s
-                                  17.324_in,                // Drive base radius in meters. Distance from robot center to furthest module.
-                                  ReplanningConfig()        // Default path replanning config. See the API for the options here),
+      HolonomicPathFollowerConfig(PIDConstants(10, 0.0, 0),  // Translation PID constants
+                                  PIDConstants(2.5, 0.0, 0), // Rotation PID constants
+                                  4.5_mps,                   // Max module speed, in m/s
+                                  17.324_in,                 // Drive base radius in meters. Distance from robot center to furthest module.
+                                  ReplanningConfig()         // Default path replanning config. See the API for the options here),
                                   ),
       [this]() -> bool
       {
@@ -180,15 +180,19 @@ frc2::CommandPtr Trajectory::auto_pickup()
 
 frc2::CommandPtr Trajectory::auto_score_align()
 {
-  return frc2::cmd::Run([this]
-                        { auto botpose = m_odometry->getPose();
+  return frc2::cmd::RunOnce([this]
+                            { cyclecounter = 0; },
+                            {this})
+      .AndThen(
+          frc2::cmd::Run([this]
+                         { auto botpose = m_odometry->getPose();
                           frc::Pose2d speakerpose;
                           if (frc::DriverStation::GetAlliance().has_value() && 
                           frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kBlue ){
-                            speakerpose = frc::Pose2d(0_m, 5.5_m, frc::Rotation2d(0_rad));
+                            speakerpose = frc::Pose2d(0.22_m, 5.5_m, frc::Rotation2d(0_rad));
                           }
                           else{
-                            speakerpose = frc::Pose2d(16.46_m, 5.5_m, frc::Rotation2d(0_deg)); //CHANGEME
+                            speakerpose = frc::Pose2d(16.46_m-0.22_m, 5.5_m, frc::Rotation2d(0_deg)); //CHANGEME
                           }
                           botpose = botpose.RelativeTo(speakerpose);
                           // angle of relative vector
@@ -216,21 +220,24 @@ frc2::CommandPtr Trajectory::auto_score_align()
                           frc::SmartDashboard::PutNumber("as/rel t", botpose.Rotation().Degrees().value());
                           frc::SmartDashboard::PutNumber("as/desired angle", desired_angle.value());
                           m_drivetrain->face_direction(desired_angle); },
-                        {this})
-      .Until([this] -> bool
-             {
+                         {this})
+              .Until([this] -> bool
+                     {
                    auto botpose = m_odometry->getPose();
                    frc::Pose2d speakerpose;
                    if (frc::DriverStation::GetAlliance().has_value() &&
                        frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kBlue)
                    {
-                       speakerpose = frc::Pose2d(0_m, 5.5_m, frc::Rotation2d(0_rad));
+                       speakerpose = frc::Pose2d(0.22_m, 5.5_m, frc::Rotation2d(0_rad));
                    }
                    else
                    {
-                       speakerpose = frc::Pose2d(16.46_m, 5.5_m, frc::Rotation2d(units::radian_t{std::numbers::pi}));
+                       speakerpose = frc::Pose2d(16.46_m-0.22_m, 5.5_m, frc::Rotation2d(units::radian_t{std::numbers::pi}));
                    }
                    botpose = botpose.RelativeTo(speakerpose);
-                   return CONSTANTS::IN_THRESHOLD<units::degree_t>(m_drivetrain->getAngle(), desired_angle, .1_deg); });
+                   if (CONSTANTS::IN_THRESHOLD<units::degree_t>(m_drivetrain->getAngle(), desired_angle, .1_deg)){
+                    cyclecounter++;
+                   }
+                   return cyclecounter>25; }));
 }
 #endif

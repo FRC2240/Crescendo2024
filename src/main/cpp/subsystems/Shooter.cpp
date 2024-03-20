@@ -44,7 +44,6 @@ void Shooter::Periodic()
 {
   if (m_intake->intake_state == Intake::IntakeState::INTAKING)
   {
-    frc::DataLogManager::Log("here b");
     frc::SmartDashboard::PutBoolean("intaking", 1);
     m_belt_motor.Set(.22);
     set_angle(0_tr);
@@ -53,7 +52,6 @@ void Shooter::Periodic()
   {
     if (!m_intake->is_loaded())
     {
-      frc::DataLogManager::Log("here a");
       m_belt_motor.Set(0.12);
     }
     else
@@ -93,14 +91,15 @@ frc2::CommandPtr Shooter::stop()
       [this]
       {
         set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
-        m_left_motor.Set(1);
-        m_right_motor.Set(1);
+        m_left_motor.Set(-.8);
+        m_right_motor.Set(-.6);
       },
       {this});
 }
 
 frc2::CommandPtr Shooter::default_cmd()
 {
+
   return frc2::RunCommand(
              [this]
              {
@@ -243,7 +242,7 @@ frc2::CommandPtr Shooter::fender_shot()
       frc::SmartDashboard::PutNumber(
           "shooter/velocity", m_left_motor.GetVelocity().GetValueAsDouble());
       return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(
-                 get_angle(), CONSTANTS::SHOOTER::FENDER_ANGLE, 2_tr) &&
+                 get_angle(), CONSTANTS::SHOOTER::FENDER_ANGLE, 8_tr) &&
              m_left_motor.GetVelocity().GetValue() < -60_tps;
       //    CONSTANTS::IN_THRESHOLD<units::turns_per_second_t>(m_left_motor.GetVelocity().GetValue(),
       //    CONSTANTS::SHOOTER::SHOOTER_VELOCITY, 5_tps);
@@ -255,7 +254,7 @@ frc2::CommandPtr Shooter::fender_shot()
       frc::SmartDashboard::PutNumber(
           "shooter/velocity", m_left_motor.GetVelocity().GetValueAsDouble());
       return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(
-                 get_angle(), CONSTANTS::SHOOTER::FENDER_ANGLE, 8_tr) &&
+                 get_angle(), CONSTANTS::SHOOTER::FENDER_ANGLE, 2_tr) &&
              CONSTANTS::IN_THRESHOLD<units::turns_per_second_t>(
                  m_left_motor.GetVelocity().GetValue(),
                  CONSTANTS::SHOOTER::SHOOTER_VELOCITY, 5_tps);
