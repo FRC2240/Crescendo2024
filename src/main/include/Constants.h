@@ -1,18 +1,18 @@
 #pragma once
 
-#include <units/length.h>
-#include <units/angle.h>
 #include <frc/DriverStation.h>
-#include <iostream>
-#include <vector>
-#include <units/time.h>
-#include <units/velocity.h>
-#include <units/acceleration.h>
-#include <units/angular_velocity.h>
-#include <units/angular_acceleration.h>
 #include <frc/geometry/Rotation3d.h>
 #include <frc/geometry/Transform3d.h>
+#include <iostream>
 #include <numbers>
+#include <units/acceleration.h>
+#include <units/angle.h>
+#include <units/angular_acceleration.h>
+#include <units/angular_velocity.h>
+#include <units/length.h>
+#include <units/time.h>
+#include <units/velocity.h>
+#include <vector>
 // #define COLFAX_BOT
 #define BETABOT
 //  When using the second robot, uncomment the above line
@@ -29,8 +29,8 @@
 namespace CONSTANTS
 {
 
-  // An additive threshold (+/- value) that checks if 2 values (target & source) are within a range
-  // A template so it can be used with units. Call it by:
+  // An additive threshold (+/- value) that checks if 2 values (target & source)
+  // are within a range A template so it can be used with units. Call it by:
   // CONSTANTS::IN_THRESHOLD<type>(x,y,z)
   template <typename T>
   static bool IN_THRESHOLD(T source, T target, T range)
@@ -40,14 +40,18 @@ namespace CONSTANTS
 
   struct PidCoeff
   {
-    const double
-        p = .0,   /// Proportional. Based off distance from setpoint, most important but high values cause oscilation.
-        i = .0,   /// Integral. Based off the error over time, try to avoid if possible.
-        d = .0,   /// Derivative. Based off velocity from setpoint, can be used to smooth out oscilation caused by high P values.
-        ff = .0,  /// Feed Forward. Provides a constant boost to the output. Used to fight gravity or similar things.
-        iz = .0,  /// I Zone. A deadband (distance from zero) for when I takes effect. Try to avoid if possible.
-        min = .0, /// Minimum output for control loop.
-        max = .0; /// Maximum output for control loop.
+    const double p = .0, /// Proportional. Based off distance from setpoint, most
+                         /// important but high values cause oscilation.
+        i = .0,          /// Integral. Based off the error over time, try to avoid if
+                         /// possible.
+        d = .0,          /// Derivative. Based off velocity from setpoint, can be used to
+                         /// smooth out oscilation caused by high P values.
+        ff = .0,         /// Feed Forward. Provides a constant boost to the output. Used
+                         /// to fight gravity or similar things.
+        iz = .0,         /// I Zone. A deadband (distance from zero) for when I takes
+                         /// effect. Try to avoid if possible.
+        min = .0,        /// Minimum output for control loop.
+        max = .0;        /// Maximum output for control loop.
   };
 
   namespace INTAKE
@@ -60,8 +64,8 @@ namespace CONSTANTS
 #endif
 #ifndef BETABOT
     constexpr auto DELAY = 0.35_s;
-    constexpr units::turn_t UP_POSITION = 0.38_tr;
-    constexpr units::turn_t DOWN_POSITION = 7.64_tr;
+    constexpr units::turn_t UP_POSITION = 0.8_tr;
+    constexpr units::turn_t DOWN_POSITION = 8_tr;
     constexpr int INTAKE_VOLTAGE = -12;
 #endif
     constexpr double LOADED_DIST = 300;
@@ -76,10 +80,8 @@ namespace CONSTANTS
   } // namespace INTAKE
   namespace VISION
   {
-    static const auto LEFT_CAMERA_A_TF = frc::Transform3d{0.307_m, -0.112_m, 0.558_m, frc::Rotation3d(0_rad, 7_deg, -90_deg)};
-    static const auto LEFT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
-    static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{0.307_m, 0.112_m, 0.558_m, frc::Rotation3d(0_rad, 7_deg, 90_deg)};
-    static const auto RIGHT_CAMERA_B_TF = frc::Transform3d{0_m, 0_m, 0_m, frc::Rotation3d(0_rad, 0_rad, 0_rad)};
+    static const auto LEFT_CAMERA_A_TF = frc::Transform3d{0.151_m, 0.319_m, 0.578_m, frc::Rotation3d(180_deg, -10_deg, 90_deg)};
+    static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{0.151_m, -0.319_m, 0.578_m, frc::Rotation3d(180_deg, -10_deg, -90_deg)};
 
   } // namespace VISION
 
@@ -92,7 +94,7 @@ namespace CONSTANTS
   {
     constexpr int CANDLE_ID = 10;
     constexpr int NUM_LEDS = 39;
-  }
+  } // namespace CANDLE
 
   namespace SHOOTER
   {
@@ -126,13 +128,18 @@ namespace CONSTANTS
   namespace DRIVE
   {
     constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 23.533_fps;
-    constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi * 1.25};
+    constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi *
+                                                                  0.5};
     constexpr units::meters_per_second_t TELEOP_MAX_SPEED = ROBOT_MAX_SPEED;
-    constexpr units::radians_per_second_t TELEOP_MAX_ANGULAR_SPEED{std::numbers::pi * 0.75};
+    constexpr units::radians_per_second_t TELEOP_MAX_ANGULAR_SPEED{
+        std::numbers::pi * 0.5};
     constexpr units::meters_per_second_t TRAJ_MAX_SPEED = ROBOT_MAX_SPEED;
-    constexpr units::acceleration::meters_per_second_squared_t TRAJ_MAX_ACCELERATION = TRAJ_MAX_SPEED / 0.5_s;
-    constexpr units::radians_per_second_t TRAJ_MAX_ANGULAR_SPEED = CONSTANTS::DRIVE::ROBOT_MAX_ANGULAR_SPEED;
-    constexpr units::radians_per_second_squared_t TRAJ_MAX_ANGULAR_ACCELERATION{std::numbers::pi};
+    constexpr units::acceleration::meters_per_second_squared_t
+        TRAJ_MAX_ACCELERATION = TRAJ_MAX_SPEED / 0.5_s;
+    constexpr units::radians_per_second_t TRAJ_MAX_ANGULAR_SPEED =
+        CONSTANTS::DRIVE::ROBOT_MAX_ANGULAR_SPEED;
+    constexpr units::radians_per_second_squared_t TRAJ_MAX_ANGULAR_ACCELERATION{
+        std::numbers::pi};
     static constexpr auto WHEEL_CIRCUMFERENCE = 12.11_in / 1.0_tr;
     // static constexpr auto WHEEL_CIRCUMFERENCE = 11.992_in / 1.0_tr;
     constexpr int GYRO_ID = 48; // CHANGEME
@@ -149,7 +156,8 @@ namespace CONSTANTS
 #ifdef COLFAX_BOT
 #pragma message("Using Colfax bot")
       constexpr ModuleConfig FL{60, 61, 14, -0.279_tr};
-      constexpr ModuleConfig FR{50, 51, 13, -0.182_tr}; // Was not set becouse no cancoder
+      constexpr ModuleConfig FR{50, 51, 13,
+                                -0.182_tr}; // Was not set becouse no cancoder
       constexpr ModuleConfig BL{30, 31, 11, 0.173_tr};
       constexpr ModuleConfig BR{40, 41, 12, -0.445_tr};
 #endif // COLFAX_BOT
@@ -165,9 +173,9 @@ namespace CONSTANTS
       constexpr ModuleConfig BL{30, 31, 11, 0.175_tr};
       constexpr ModuleConfig BR{40, 41, 12, -0.066_tr};
 
-      /* -------------------------------------------------------------------------- */
-      /*                        END FIRST ROBOT CONFIGURATION                       */
-      /* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+/*                        END FIRST ROBOT CONFIGURATION                       */
+/* -------------------------------------------------------------------------- */
 #endif // BETABOT
 
 #ifdef BETABOT
@@ -185,6 +193,6 @@ namespace CONSTANTS
 /*                        END SECOND ROBOT CONFIGUATION                       */
 /* -------------------------------------------------------------------------- */
 #endif // BETABOT
-    }
-  }
-}
+    }  // namespace CONFIG
+  }    // namespace DRIVE
+} // namespace CONSTANTS
