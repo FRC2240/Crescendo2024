@@ -15,7 +15,7 @@ RobotContainer::RobotContainer()
   // m_chooser.AddOption("Position 3 three game piece", AUTOS::POS_3_GP3);
   m_chooser.AddOption("Bearbotics\'s baby", AUTOS::POS_3_GP2);
   m_chooser.AddOption("Position 2 four game piece", AUTOS::POS_2_GP4);
-  // m_chooser.AddOption("Position 3 four game piece", AUTOS::POS_3_GP4);
+  m_chooser.AddOption("rangey thingy", AUTOS::POS_3_GP4);
   m_chooser.AddOption("Position 2 one game piece", AUTOS::POS_2_GP1);
   m_chooser.AddOption("TEST", AUTOS::TEST);
 
@@ -31,13 +31,22 @@ void RobotContainer::add_named_commands()
 
   NamedCommands::registerCommand("intake", std::move(m_intake.StartCommand()));
   NamedCommands::registerCommand("unintake", std::move(m_intake.StopCommand()));
-  // NamedCommands::registerCommand("score", std::move(m_shooter.fender_shot()));
+
+  NamedCommands::registerCommand("ascore", std::move(frc2::cmd::Wait(0.2_s).AndThen(frc2::cmd::Print("ENTER").AndThen(m_shooter.execute_auto_shot().AlongWith(m_trajectory.auto_score_align()).RaceWith(frc2::cmd::Run([this]
+                                                                                                                                                                                                                       { m_odometry.update_from_vision(); }))
+                                                                                                                          .WithTimeout(1.5_s))))
+                                               .AndThen(frc2::cmd::Print("EXIT")));
+
   NamedCommands::registerCommand("spool", std::move(m_shooter.spool_cmd()));
-  NamedCommands::registerCommand("score", std::move(m_shooter.fender_shot().RaceWith(frc2::cmd::Run([this]
-                                                                                                    { m_odometry.update_from_vision(); },
-                                                                                                    {}))));
+  NamedCommands::registerCommand(
+      "score", std::move(m_shooter.fender_shot().RaceWith(frc2::cmd::Run(
+                                                              [this]
+                                                              { m_odometry.update_from_vision(); },
+                                                              {}))
+                             .WithTimeout(2_s)));
   NamedCommands::registerCommand("unscore", std::move(m_shooter.stop()));
-  // NamedCommands::registerCommand("score", std::move(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())));
+  // NamedCommands::registerCommand("score",
+  // std::move(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())));
 }
 
 void RobotContainer::ConfigureBindings()
@@ -65,12 +74,15 @@ void RobotContainer::ConfigureBindings()
   m_stick1.LeftTrigger().WhileTrue(m_intake.ManualFeedCommand(false));
 
   // m_stick0.RightTrigger().ToggleOnTrue(
-  // frc2::PrintCommand("button pressed").ToPtr().AndThen(m_trajectory.auto_score_align().AlongWith(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())).AndThen(m_shooter.execute_auto_shot().WithTimeout(1.5_s))));
+  // frc2::PrintCommand("button
+  // pressed").ToPtr().AndThen(m_trajectory.auto_score_align().AlongWith(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())).AndThen(m_shooter.execute_auto_shot().WithTimeout(1.5_s))));
 
   // m_stick0.RightTrigger().ToggleOnTrue(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle()));
   // m_stick0.RightTrigger().ToggleOnTrue(m_trajectory.auto_score_align());
   // m_stick0.RightTrigger().ToggleOnTrue(frc2::cmd::DeferredProxy(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())));
-  m_stick0.RightTrigger().ToggleOnTrue(m_shooter.execute_auto_shot());
+  m_stick0.RightTrigger().ToggleOnTrue(m_shooter.execute_auto_shot().AlongWith(m_trajectory.auto_score_align()).RaceWith(frc2::cmd::Run([this]
+                                                                                                                                        { m_odometry.update_from_vision(); })));
+  m_stick0.LeftTrigger().ToggleOnTrue(m_shooter.test_shot());
 
   // Buddy Climber
   // Climber
@@ -84,7 +96,8 @@ void RobotContainer::ConfigureBindings()
   frc2::Trigger{[this] -> bool
                 {
                   frc::SmartDashboard::PutNumber("pov", m_stick1.GetPOV());
-                  frc::SmartDashboard::PutBoolean("Threshold", CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30));
+                  frc::SmartDashboard::PutBoolean(
+                      "Threshold", CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30));
                   return CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30);
                 }}
       .WhileTrue(m_climber.DownCommand());
@@ -118,6 +131,9 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
     break;
   case AUTOS::POS_3_GP2:
     return autos::pos_3_gp2(&m_trajectory);
+    break;
+  case AUTOS::POS_3_GP4:
+    return autos::pos_3_gp4(&m_trajectory);
     break;
   default:
     frc::DataLogManager::Log("WARN: NO AUTO SELECTED");

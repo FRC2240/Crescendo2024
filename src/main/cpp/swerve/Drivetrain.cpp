@@ -121,9 +121,18 @@ units::degree_t Drivetrain::get_absolute_angle()
 {
   auto angle = Drivetrain::getAngle().value();
   auto a = angle / 360.0;
-  auto b = 360.0 * (a - round(a));
-  units::degree_t c{b};
-  return c;
+  double b = 0.0;
+  double c = 0.0;
+  b = 360.0 * (a - floor(a));
+  if (b < -180.0)
+    c = b + 360.0;
+  else if (b > 180.0)
+    c = b - 360.0;
+  else
+    c = b;
+
+  units::degree_t d{c};
+  return d;
 }
 
 wpi::array<double, 4> Drivetrain::getDriverTemps()
@@ -398,19 +407,32 @@ bool Drivetrain::face_direction(units::degree_t tgt)
 {
   auto angle = get_absolute_angle().value();
   turn_pid.SetSetpoint(tgt.value());
+  auto delta = angle - tgt.value();
+  if (delta > 180.0)
+  {
+    delta -= 360.0;
+  }
+  else if (delta < -180.0)
+  {
+    delta += 360.0;
+  }
   double pid_out = turn_pid.Calculate(angle);
   frc::SmartDashboard::PutNumber("PID out", pid_out);
   frc::SmartDashboard::PutNumber("PID target", tgt.value());
   frc::SmartDashboard::PutNumber("Current rotation", angle);
+  frc::SmartDashboard::PutNumber("Delta", delta);
 
-  drive(0_mps, 0_mps, units::degrees_per_second_t{pid_out}, false);
-  if ((angle >= turn_pid.GetSetpoint() - 5) && (angle <= turn_pid.GetSetpoint() + 5))
+  drive(0_mps, 0_mps, units::degrees_per_second_t{-pid_out}, false);
+  frc::SmartDashboard::PutNumber("PID Setpoint", turn_pid.GetSetpoint());
+  if ((angle >= turn_pid.GetSetpoint() - .1) && (angle <= turn_pid.GetSetpoint() + .1))
   {
     return true;
+    frc::SmartDashboard::PutBoolean("Face Direction", true);
   }
   else
   {
     return false;
+    frc::SmartDashboard::PutBoolean("Face Direction", false);
   }
 }
 #endif
