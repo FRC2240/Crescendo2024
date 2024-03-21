@@ -161,19 +161,20 @@ units::turn_t Odometry::get_shooter_angle()
 {
   auto pose = getPose();
   double x = pose.X().value();
-  double y = units::math::fabs(pose.Y() - 5.548_m).value();
-  x = std::sqrt(std::pow(x, 2) + std::pow(y, 2));
-  // units::turn_t angle = units::turn_t{-(0.047 * std::pow(x, 2)) + (1.62 * x) - 17.3};
+  frc::SmartDashboard::PutNumber("shooter/x1", x);
   if (frc::DriverStation::GetAlliance().has_value() && frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kRed)
   {
-    x = (16.9) - x;
+    x = 16.55 - x;
   }
+  frc::SmartDashboard::PutNumber("shooter/x2", x);
+  double y = units::math::fabs(pose.Y() - 5.548_m).value();
+  x = std::sqrt(std::pow(x, 2) + std::pow(y, 2));
+  frc::SmartDashboard::PutNumber("shooter/x3", x);
+  // units::turn_t angle = units::turn_t{-(0.047 * std::pow(x, 2)) + (1.62 * x) - 17.3};
   units::turn_t angle = units::turn_t{19.5 - (8.1 * x) + (1.31 * std::pow(x, 2)) + (-0.0752 * std::pow(x, 3))};
-  frc::SmartDashboard::PutNumber("shooter/eq", 0);
 
   if (x > 4.25)
   {
-    frc::SmartDashboard::PutNumber("shooter/eq", 1);
 
     angle = units::turn_t{26.9 - (11.8 * x) + (1.82 * std::pow(x, 2)) - (0.096 * std::pow(x, 3))};
   }
@@ -182,7 +183,6 @@ units::turn_t Odometry::get_shooter_angle()
     angle = 0_tr;
   }
   frc::SmartDashboard::PutNumber("shooter/auto angle", angle.value());
-  frc::SmartDashboard::PutNumber("shooter/auto x", x);
 
   return angle;
 }

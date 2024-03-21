@@ -76,7 +76,7 @@ namespace CONSTANTS
     constexpr int ANGLE_ID = 3;
     constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
     constexpr units::turn_t BRACE_POSITION = 2.33_tr;
-    constexpr units::turn_t ROTATION_THRESHOLD = 5_tr;
+    constexpr units::turn_t ROTATION_THRESHOLD = 50_tr;
   } // namespace INTAKE
   namespace VISION
   {
