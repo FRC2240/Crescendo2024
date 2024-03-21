@@ -143,6 +143,20 @@ frc2::CommandPtr Intake::StartSpinCommand()
       .WithName("StartSpin");
 };
 
+frc2::CommandPtr Intake::StartSpinCommandAuto()
+{
+  
+    return frc2::RunCommand([this]
+                           {
+                            intake_state = INTAKING;
+                                m_belt_velocity = -12_V;
+                                 m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(m_belt_velocity)); },
+                           {this})
+      .ToPtr()
+      .AndThen(StopSpinCommand())
+      .WithName("StartSpin");
+};
+
 frc2::CommandPtr Intake::StopSpinCommand()
 {
   return frc2::RunCommand([this]
@@ -159,6 +173,11 @@ frc2::CommandPtr Intake::StopSpinCommand()
 frc2::CommandPtr Intake::StartCommand()
 {
   return ExtendCommand().AndThen(StartSpinCommand()).WithName("Start");
+};
+
+frc2::CommandPtr Intake::StartCommandAuto()
+{
+  return ExtendCommand().AndThen(StartSpinCommandAuto()).WithName("Start");
 };
 
 frc2::CommandPtr Intake::StopCommand()

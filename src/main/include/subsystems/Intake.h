@@ -38,8 +38,10 @@ public:
   frc2::CommandPtr RetractCommand();
   frc2::CommandPtr BraceCommand();
   frc2::CommandPtr StartSpinCommand();
+  frc2::CommandPtr StartSpinCommandAuto();
   frc2::CommandPtr StopSpinCommand();
-  frc2::CommandPtr StartCommand(); // extends + starts spinning
+  frc2::CommandPtr StartCommand();
+  frc2::CommandPtr StartCommandAuto(); // extends + starts spinning
   frc2::CommandPtr StopCommand();  // retracts + stops spinning
   frc2::CommandPtr ManualFeedCommand(bool back);
   frc2::CommandPtr zero();

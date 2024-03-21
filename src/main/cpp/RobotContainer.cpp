@@ -29,7 +29,7 @@ void RobotContainer::add_named_commands()
 {
   using namespace pathplanner;
 
-  NamedCommands::registerCommand("intake", std::move(m_intake.StartCommand()));
+  NamedCommands::registerCommand("intake", std::move(m_intake.StartCommandAuto()));
   NamedCommands::registerCommand("unintake", std::move(m_intake.StopCommand()));
 
   NamedCommands::registerCommand("ascore", std::move(frc2::cmd::Wait(0.2_s).AndThen(frc2::cmd::Print("ENTER").AndThen(m_shooter.execute_auto_shot().AlongWith(m_trajectory.auto_score_align()).RaceWith(frc2::cmd::Run([this]
