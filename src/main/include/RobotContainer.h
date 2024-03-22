@@ -54,19 +54,14 @@ public:
   enum AUTOS
   {
     TEST,
-    POS_1_LINE,
-    POS_2_LINE,
-    POS_3_LINE,
-    POS_1_GP2,
     POS_2_GP1,
     POS_2_GP2,
     POS_3_GP2,
-    POS_1_GP3,
     POS_2_GP3,
-    POS_3_GP3,
-    POS_1_GP4,
     POS_2_GP4,
     POS_3_GP4,
+    MIDLINE_MIDDLE,
+    MIDLINE_4GP,
     SHOOT
   };
   Intake m_intake;

@@ -7,17 +7,15 @@
 RobotContainer::RobotContainer()
 {
   m_chooser.AddOption("just shoot", AUTOS::SHOOT);
-  m_chooser.AddOption("DO NOT USE IN COMP (3gp)", AUTOS::POS_2_GP3);
+  m_chooser.AddOption("3 GP", AUTOS::POS_2_GP3);
   m_chooser.AddOption("2 GP", AUTOS::POS_2_GP2);
-  // m_chooser.AddOption("Position 3 two game piece", AUTOS::POS_3_GP2);
-  // m_chooser.AddOption("Position 1 three game piece", AUTOS::POS_1_GP3);
-  // m_chooser.AddOption("Position 2 three game piece", AUTOS::POS_2_GP3);
-  // m_chooser.AddOption("Position 3 three game piece", AUTOS::POS_3_GP3);
-  m_chooser.AddOption("Bearbotics\'s baby", AUTOS::POS_3_GP2);
-  m_chooser.AddOption("Position 2 four game piece", AUTOS::POS_2_GP4);
-  m_chooser.AddOption("rangey thingy", AUTOS::POS_3_GP4);
-  m_chooser.AddOption("Position 2 one game piece", AUTOS::POS_2_GP1);
-  m_chooser.AddOption("TEST", AUTOS::TEST);
+  //m_chooser.AddOption("Bearbotics\'s baby", AUTOS::POS_3_GP2);
+  m_chooser.AddOption("4 GP", AUTOS::POS_2_GP4);
+  m_chooser.AddOption("Midline 3 GP", AUTOS::POS_3_GP4);
+  m_chooser.AddOption("Midline 3 GP and go to center", AUTOS::MIDLINE_MIDDLE);
+  m_chooser.AddOption("Midline 4 GP", AUTOS::MIDLINE_4GP);
+  m_chooser.AddOption("1 GP", AUTOS::POS_2_GP1);
+  //m_chooser.AddOption("TEST", AUTOS::TEST);
 
   frc::SmartDashboard::PutData(&m_chooser);
   m_odometry.putField2d();
@@ -134,6 +132,12 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
     break;
   case AUTOS::POS_3_GP4:
     return autos::pos_3_gp4(&m_trajectory);
+    break;
+  case AUTOS::MIDLINE_MIDDLE:
+    return autos::midline_middle(&m_trajectory);
+    break;
+  case AUTOS::MIDLINE_4GP:
+    return autos::midline_3gp(&m_trajectory);
     break;
   default:
     frc::DataLogManager::Log("WARN: NO AUTO SELECTED");

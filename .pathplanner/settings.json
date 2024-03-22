@@ -13,14 +13,15 @@
     "testing"
   ],
   "autoFolders": [
+    "gp1",
     "cross_autoline",
     "gp2",
     "gp3",
     "gp4",
     "midlines"
   ],
-  "defaultMaxVel": 6.0,
-  "defaultMaxAccel": 4.0,
+  "defaultMaxVel": 7.0,
+  "defaultMaxAccel": 3.2,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "maxModuleSpeed": 4.0
