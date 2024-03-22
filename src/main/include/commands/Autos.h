@@ -16,5 +16,6 @@ namespace autos
     frc2::CommandPtr pos_3_gp4(Trajectory *traj);
     frc2::CommandPtr midline_middle(Trajectory *traj);
     frc2::CommandPtr midline_3gp(Trajectory *traj);
+    frc2::CommandPtr midline_2gp_update(Trajectory *traj);
     frc2::CommandPtr test(Trajectory *traj);
 } // namespace autos

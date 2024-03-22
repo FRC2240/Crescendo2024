@@ -143,19 +143,6 @@ frc2::CommandPtr Intake::StartSpinCommand()
       .WithName("StartSpin");
 };
 
-frc2::CommandPtr Intake::StartSpinCommandAuto()
-{
-  
-    return frc2::RunCommand([this]
-                           {
-                            intake_state = INTAKING;
-                                m_belt_velocity = -12_V;
-                                 m_beltMotor.SetControl(ctre::phoenix6::controls::VoltageOut(m_belt_velocity)); },
-                           {this})
-      .ToPtr()
-      .AndThen(StopSpinCommand())
-      .WithName("StartSpin");
-};
 
 frc2::CommandPtr Intake::StopSpinCommand()
 {
@@ -175,30 +162,11 @@ frc2::CommandPtr Intake::StartCommand()
   return ExtendCommand().AndThen(StartSpinCommand()).WithName("Start");
 };
 
-frc2::CommandPtr Intake::StartCommandAuto()
-{
-  return ExtendCommand().AndThen(StartSpinCommandAuto()).WithName("Start");
-};
-
 frc2::CommandPtr Intake::StopCommand()
 {
   return StopSpinCommand().AndThen(RetractCommand()).WithName("Stop");
 };
 
-frc2::CommandPtr Intake::Wes()
-{
-  return frc2::cmd::Run([this]
-                        { m_beltMotor.Set(0.3); },
-                        {this})
-      .Until([this] -> bool
-             { 
-                        if (is_loaded()) {
-                        m_timer.Start();
-                       }
-                       return m_timer.Get() >= CONSTANTS::INTAKE::DELAY; })
-
-      .AndThen(StopSpinCommand());
-}
 /*
 New position [DONE]
 Belt combined

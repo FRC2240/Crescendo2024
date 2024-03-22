@@ -164,7 +164,7 @@ units::turn_t Odometry::get_shooter_angle()
   frc::SmartDashboard::PutNumber("shooter/x1", x);
   if (frc::DriverStation::GetAlliance().has_value() && frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kRed)
   {
-    x = 16.55 - x;
+    x = 16.52 - x;
   }
   frc::SmartDashboard::PutNumber("shooter/x2", x);
   double y = units::math::fabs(pose.Y() - 5.548_m).value();

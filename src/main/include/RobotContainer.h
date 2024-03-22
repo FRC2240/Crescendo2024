@@ -62,6 +62,7 @@ public:
     POS_3_GP4,
     MIDLINE_MIDDLE,
     MIDLINE_4GP,
+    MIDLINE_3GP_UPDATE,
     SHOOT
   };
   Intake m_intake;

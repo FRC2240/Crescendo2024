@@ -12,9 +12,10 @@ RobotContainer::RobotContainer()
   //m_chooser.AddOption("Bearbotics\'s baby", AUTOS::POS_3_GP2);
   m_chooser.AddOption("4 GP", AUTOS::POS_2_GP4);
   m_chooser.AddOption("Midline 3 GP", AUTOS::POS_3_GP4);
-  m_chooser.AddOption("Midline 3 GP and go to center", AUTOS::MIDLINE_MIDDLE);
-  m_chooser.AddOption("Midline 4 GP", AUTOS::MIDLINE_4GP);
+  //m_chooser.AddOption("Midline 3 GP and go to center", AUTOS::MIDLINE_MIDDLE);
+  //m_chooser.AddOption("Midline 4 GP", AUTOS::MIDLINE_4GP);
   m_chooser.AddOption("1 GP", AUTOS::POS_2_GP1);
+  m_chooser.AddOption("Midline 3 GP Update", AUTOS::MIDLINE_3GP_UPDATE);
   //m_chooser.AddOption("TEST", AUTOS::TEST);
 
   frc::SmartDashboard::PutData(&m_chooser);
@@ -27,10 +28,10 @@ void RobotContainer::add_named_commands()
 {
   using namespace pathplanner;
 
-  NamedCommands::registerCommand("intake", std::move(m_intake.StartCommandAuto()));
+  NamedCommands::registerCommand("intake", std::move(m_intake.StartCommand()));
   NamedCommands::registerCommand("unintake", std::move(m_intake.StopCommand()));
 
-  NamedCommands::registerCommand("ascore", std::move(frc2::cmd::Wait(0.2_s).AndThen(frc2::cmd::Print("ENTER").AndThen(m_shooter.execute_auto_shot().AlongWith(m_trajectory.auto_score_align()).RaceWith(frc2::cmd::Run([this]
+  NamedCommands::registerCommand("ascore", std::move(frc2::cmd::Wait(0.000002_s).AndThen(frc2::cmd::Print("ENTER").AndThen(m_shooter.execute_auto_shot().AlongWith(m_trajectory.auto_score_align()).RaceWith(frc2::cmd::Run([this]
                                                                                                                                                                                                                        { m_odometry.update_from_vision(); }))
                                                                                                                           .WithTimeout(1.5_s))))
                                                .AndThen(frc2::cmd::Print("EXIT")));
@@ -80,7 +81,7 @@ void RobotContainer::ConfigureBindings()
   // m_stick0.RightTrigger().ToggleOnTrue(frc2::cmd::DeferredProxy(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())));
   m_stick0.RightTrigger().ToggleOnTrue(m_shooter.execute_auto_shot().AlongWith(m_trajectory.auto_score_align()).RaceWith(frc2::cmd::Run([this]
                                                                                                                                         { m_odometry.update_from_vision(); })));
-  m_stick0.LeftTrigger().ToggleOnTrue(m_shooter.test_shot());
+  m_stick0.LeftTrigger().ToggleOnTrue(m_shooter.pass());
 
   // Buddy Climber
   // Climber
@@ -138,6 +139,9 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
     break;
   case AUTOS::MIDLINE_4GP:
     return autos::midline_3gp(&m_trajectory);
+    break;
+  case AUTOS::MIDLINE_3GP_UPDATE:
+    return autos::midline_2gp_update(&m_trajectory);
     break;
   default:
     frc::DataLogManager::Log("WARN: NO AUTO SELECTED");

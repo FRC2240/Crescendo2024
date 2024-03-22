@@ -41,6 +41,12 @@ frc2::CommandPtr autos::midline_3gp(Trajectory *traj)
 {
   return frc2::PrintCommand("start four gamepiece pos_1").ToPtr().AndThen(traj->extract("a_sourcide_gp3").AndThen(frc2::PrintCommand("four piece completed").ToPtr()));
 }
+
+frc2::CommandPtr autos::midline_2gp_update(Trajectory *traj)
+{
+  return frc2::PrintCommand("start four gamepiece pos_1").ToPtr().AndThen(traj->extract("a_sourcide_gp3").AndThen(frc2::PrintCommand("four piece completed").ToPtr()));
+}
+
 frc2::CommandPtr autos::test(Trajectory *traj)
 {
   return frc2::PrintCommand("test").ToPtr().AndThen(traj->extract("a_test_all").AndThen(frc2::PrintCommand("four piece completed").ToPtr()));

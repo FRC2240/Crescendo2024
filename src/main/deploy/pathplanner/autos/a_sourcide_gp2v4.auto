@@ -1,0 +1,61 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "ascore"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "unscore"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "sourcide_midline_v4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ascore"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "unscore"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "sourcide_midline_2_v4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ascore"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "unscore"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "midlines",
+  "choreoAuto": false
+}
