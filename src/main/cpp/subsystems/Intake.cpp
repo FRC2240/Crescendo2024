@@ -15,6 +15,7 @@ Intake::Intake()
   angle_config.Slot0.kD = 0.01;
   angle_config.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
   m_angleMotor.GetConfigurator().Apply(angle_config);
+  m_angleMotor.SetPosition(0.0_tr);
 
   // belt motor (pid stuff may be unnecessary)
   ctre::phoenix6::configs::TalonFXConfiguration belt_config{};

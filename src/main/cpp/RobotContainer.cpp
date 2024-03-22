@@ -100,6 +100,35 @@ void RobotContainer::ConfigureBindings()
                   return CONSTANTS::IN_THRESHOLD<int>(m_stick1.GetPOV(), 180, 30);
                 }}
       .WhileTrue(m_climber.DownCommand());
+
+  frc2::Trigger{[this] -> bool
+                {
+                  int right_stick_axis = m_stick1.GetLeftY();
+                  return right_stick_axis <= -0.5;
+                }}
+    .WhileTrue(m_climber.RightUpCommand());
+
+  frc2::Trigger{[this] -> bool
+                {
+                  int left_stick_axis = m_stick1.GetRightY();
+                  return left_stick_axis <= -0.5;
+                }}
+    .WhileTrue(m_climber.LeftUpCommand());
+
+  frc2::Trigger{[this] -> bool
+                {
+                  int right_stick_axis = m_stick1.GetLeftY();
+                  return right_stick_axis >= 0.5;
+                }}
+    .WhileTrue(m_climber.RightDownCommand());
+
+  frc2::Trigger{[this] -> bool
+                {
+                  int left_stick_axis = m_stick1.GetRightY();
+                  return left_stick_axis >= 0.5;
+                }}
+    .WhileTrue(m_climber.LeftDownCommand());
+
   // Candle
   m_candle.SetDefaultCommand(m_candle.default_command());
   m_stick1.Y().ToggleOnTrue(m_candle.fast_yellow_blink());

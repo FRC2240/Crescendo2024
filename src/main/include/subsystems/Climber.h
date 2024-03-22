@@ -23,6 +23,10 @@ public:
   frc2::CommandPtr UpCommand();
   frc2::CommandPtr DownCommand();
   frc2::CommandPtr StopCommand();
+  frc2::CommandPtr LeftUpCommand();
+  frc2::CommandPtr RightUpCommand();
+  frc2::CommandPtr LeftDownCommand();
+  frc2::CommandPtr RightDownCommand();
 
 private:
 
