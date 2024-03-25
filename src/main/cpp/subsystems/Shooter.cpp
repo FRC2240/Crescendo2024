@@ -517,6 +517,7 @@ frc2::CommandPtr Shooter::execute_auto_shot()
   {
     frc::SmartDashboard::PutBoolean("shooter/fire", false);
     // frc::SmartDashboard::PutNumber("shooter/desired velocity", 0.0);
+    frc::SmartDashboard::PutNumber("auto shoot step", 1);
   };
   std::function<void()> periodic = [this]
   {
@@ -525,6 +526,7 @@ frc2::CommandPtr Shooter::execute_auto_shot()
     frc::SmartDashboard::PutNumber("ANGLE THINGY", angle.value());
     m_left_motor.Set(-0.8);
     m_right_motor.Set(-0.4);
+    frc::SmartDashboard::PutNumber("auto shoot step", 2);
   };
   std::function<bool()> is_finished = [this] -> bool
   {
@@ -543,6 +545,7 @@ frc2::CommandPtr Shooter::execute_auto_shot()
                          ctre::phoenix6::controls::VoltageOut{
 
                              units::volt_t{12}}); // changeme
+                             frc::SmartDashboard::PutNumber("auto shoot step", 3);
                    },
                    {this})
                    .ToPtr()

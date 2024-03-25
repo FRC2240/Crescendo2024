@@ -11,11 +11,12 @@ RobotContainer::RobotContainer()
   m_chooser.AddOption("2 GP", AUTOS::POS_2_GP2);
   //m_chooser.AddOption("Bearbotics\'s baby", AUTOS::POS_3_GP2);
   m_chooser.AddOption("4 GP", AUTOS::POS_2_GP4);
-  m_chooser.AddOption("Midline 3 GP", AUTOS::POS_3_GP4);
+  m_chooser.AddOption("Midline 3 GP Red", AUTOS::POS_3_GP4);
+  m_chooser.AddOption("Midline 3 GP Blue", AUTOS::MIDLINE_3GP_BLUE);
   //m_chooser.AddOption("Midline 3 GP and go to center", AUTOS::MIDLINE_MIDDLE);
   //m_chooser.AddOption("Midline 4 GP", AUTOS::MIDLINE_4GP);
   m_chooser.AddOption("1 GP", AUTOS::POS_2_GP1);
-  m_chooser.AddOption("Midline 3 GP Update", AUTOS::MIDLINE_3GP_UPDATE);
+  //m_chooser.AddOption("Midline 3 GP Update", AUTOS::MIDLINE_3GP_UPDATE);
   //m_chooser.AddOption("TEST", AUTOS::TEST);
 
   frc::SmartDashboard::PutData(&m_chooser);
@@ -171,6 +172,9 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
     break;
   case AUTOS::MIDLINE_3GP_UPDATE:
     return autos::midline_2gp_update(&m_trajectory);
+    break;
+  case AUTOS::MIDLINE_3GP_BLUE:
+    return autos::midline_2gp_blue(&m_trajectory);
     break;
   default:
     frc::DataLogManager::Log("WARN: NO AUTO SELECTED");

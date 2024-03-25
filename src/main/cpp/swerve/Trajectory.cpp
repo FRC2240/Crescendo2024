@@ -183,16 +183,20 @@ frc2::CommandPtr Trajectory::auto_score_align()
   return frc2::cmd::Run([this]
                         { auto botpose = m_odometry->getPose();
                           frc::Pose2d speakerpose;
+                          frc::SmartDashboard::PutNumber("auto align step", 1);
                           if (frc::DriverStation::GetAlliance().has_value() && 
                           frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kBlue ){
                             speakerpose = frc::Pose2d(0_m, 5.5_m, frc::Rotation2d(0_rad));
+                            frc::SmartDashboard::PutNumber("auto align step", 2);
                           }
                           else{
                             speakerpose = frc::Pose2d(16.46_m, 5.5_m, frc::Rotation2d(0_deg)); //CHANGEME
+                            frc::SmartDashboard::PutNumber("auto align step", 3);
                           }
                           botpose = botpose.RelativeTo(speakerpose);
                           // angle of relative vector
                           desired_angle = units::degree_t{(atan2(botpose.Y().value(),botpose.X().value())/std::numbers::pi*180)};
+                          frc::SmartDashboard::PutNumber("auto align step", 4);
                           if (frc::DriverStation::GetAlliance().has_value() && 
                           frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kRed ){
                             if (desired_angle.value() > 0)
@@ -203,6 +207,7 @@ frc2::CommandPtr Trajectory::auto_score_align()
                             {
                               desired_angle += units::degree_t{180};
                             }
+                            frc::SmartDashboard::PutNumber("auto align step", 4);
                           }
                           // if (frc::DriverStation::GetAlliance().has_value() && frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kRed){
                           // desired_angle = units::degree_t{(atan2(botpose.Y().value(),botpose.X().value())/std::numbers::pi*180)}+180_deg;
@@ -215,12 +220,14 @@ frc2::CommandPtr Trajectory::auto_score_align()
                           frc::SmartDashboard::PutNumber("as/rel y", botpose.Y().value());
                           frc::SmartDashboard::PutNumber("as/rel t", botpose.Rotation().Degrees().value());
                           frc::SmartDashboard::PutNumber("as/desired angle", desired_angle.value());
-                          m_drivetrain->face_direction(desired_angle); },
+                          m_drivetrain->face_direction(desired_angle);
+                          frc::SmartDashboard::PutNumber("auto align step", 5); },
                         {this})
       .Until([this] -> bool
              {
                    auto botpose = m_odometry->getPose();
                    frc::Pose2d speakerpose;
+                   frc::SmartDashboard::PutNumber("auto align step", 6);
                    if (frc::DriverStation::GetAlliance().has_value() &&
                        frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kBlue)
                    {
@@ -230,7 +237,8 @@ frc2::CommandPtr Trajectory::auto_score_align()
                    {
                        speakerpose = frc::Pose2d(16.46_m, 5.5_m, frc::Rotation2d(units::radian_t{std::numbers::pi}));
                    }
+                   frc::SmartDashboard::PutNumber("auto align step", 7);
                    botpose = botpose.RelativeTo(speakerpose);
-                   return CONSTANTS::IN_THRESHOLD<units::degree_t>(m_drivetrain->getAngle(), desired_angle, .1_deg); });
+                   return CONSTANTS::IN_THRESHOLD<units::degree_t>(m_drivetrain->getAngle(), desired_angle, .1_deg); }).AlongWith(frc2::cmd::Wait(0.75_s));
 }
 #endif

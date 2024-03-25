@@ -63,6 +63,7 @@ public:
     MIDLINE_MIDDLE,
     MIDLINE_4GP,
     MIDLINE_3GP_UPDATE,
+    MIDLINE_3GP_BLUE,
     SHOOT
   };
   Intake m_intake;
