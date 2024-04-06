@@ -74,7 +74,10 @@ public:
 
     frc2::CommandPtr extract(std::string auton);
 
+    frc2::CommandPtr set_speed_coeff(double coeff);
+    
 private:
+    double m_speed_coeff = 1.0;
     int cyclecounter = 0;
     Drivetrain *m_drivetrain;
     Odometry *m_odometry;

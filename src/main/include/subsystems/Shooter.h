@@ -47,6 +47,7 @@ public:
 
   frc2::CommandPtr intake_cmd();
 
+  frc2::CommandPtr full_shot();
   void intake();
 
   /**
