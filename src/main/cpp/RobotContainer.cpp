@@ -58,9 +58,9 @@ void RobotContainer::ConfigureBindings()
   m_climber.SetDefaultCommand(m_climber.StopCommand());
   m_stick1.RightStick().ToggleOnTrue(m_trajectory.manual_drive());
   // Slow button
-  m_stick1.A().OnTrue(m_trajectory.set_speed_coeff(0.33));
+  m_stick0.X().OnTrue(m_trajectory.set_speed_coeff(0.33));
   // Full power shot
-  m_stick1.B().OnTrue(m_shooter.full_shot());
+  m_stick0.Back().OnTrue(m_shooter.full_shot());
 //  m_stick1.A().ToggleOnTrue(frc2::cmd::StartEnd(m_trakec, [this] {}, {}, {this}));
   //
   // Shooter

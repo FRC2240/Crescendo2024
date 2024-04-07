@@ -558,16 +558,16 @@ frc2::CommandPtr Shooter::full_shot()
   std::function<void()> init = [this] {};
   std::function<void()> periodic = [this]
   {
-    units::degree_t angle{45}; //TD: UPDATE
+    units::turn_t angle = units::turn_t{6.5}; //TD: UPDATE
     set_angle(angle);
-    m_left_motor.Set(-0.8);
-    m_right_motor.Set(-0.4);
+    m_left_motor.Set(-1.0);
+    m_right_motor.Set(-1.0);
   };
   std::function<bool()> is_finished = [this] -> bool
   {
     return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(
                get_angle(),
-               units::degree_t{45},
+               units::turn_t{6.5}, //TD: UPDATE
                0.25_tr) &&
            m_left_motor.GetVelocity().GetValue() < -60_tps;
   };

@@ -249,16 +249,8 @@ frc2::CommandPtr Trajectory::set_speed_coeff(double coeff) {
     } else {
       m_speed_coeff = 1.0;
     }
+    std::cout << m_speed_coeff;
   });
 }
 
-frc2::CommandPtr Trajectory::set_speed_coeff(double coeff) {
-  return RunOnce([this, coeff] {
-    if (m_speed_coeff == 1.0) {
-      m_speed_coeff = coeff;
-    } else {
-      m_speed_coeff = 1.0;
-    }
-  });
-}
 #endif
