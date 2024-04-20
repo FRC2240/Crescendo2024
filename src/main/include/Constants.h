@@ -15,6 +15,7 @@
 #include <vector>
 // #define COLFAX_BOT
 #define BETABOT
+
 //  When using the second robot, uncomment the above line
 
 // #define MOD_AMP
@@ -28,6 +29,8 @@
 
 namespace CONSTANTS
 {
+
+  constexpr IS_OUTREACH = true;
 
   // An additive threshold (+/- value) that checks if 2 values (target & source)
   // are within a range A template so it can be used with units. Call it by:

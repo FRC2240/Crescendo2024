@@ -113,7 +113,7 @@ frc2::CommandPtr Candle::default_command()
             }
         }
 
-        else if (!has_vision || !auto_selected) {
+        else if (!has_vision || (!auto_selected && !CONSTANTS::IS_OUTREACH)) {
         //else if(false){
             m_candle.ClearAnimation(0);
             if (m_candle_timer.Get() < units::time::second_t(0.5)) {

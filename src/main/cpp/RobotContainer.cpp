@@ -51,6 +51,32 @@ void RobotContainer::add_named_commands()
 
 void RobotContainer::ConfigureBindings()
 {
+
+  /*
+
+  Stick 0:
+  A ------------- Toggle amp shot
+  B ------------- Spool shooter
+  X ------------- Toggle slow
+  Back ---------- Full power shot
+  Right Bumper -- Manual feed
+  Left Bumper --- Intake
+  Right Trigger - Auto shot
+  Left Trigger -- Pass
+
+  Stick 1:
+  A ------------------- blink LED alliance color
+  Y ------------------- blink LED yellow
+  Right Stick --------- Toggle manual drive
+  Right Trigger ------- Manual Feed
+  Left Trigger -------- Manual Feed
+  D-pad Up/Down ------- Climber up/down 
+  Right Stick Up/Down - Left climber up/down
+  Left Stick Up/Down -- Right climber up/down
+  
+  */
+  
+
   // Configure your trigger bindings here
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
   m_shooter.SetDefaultCommand(m_shooter.default_cmd());
@@ -139,6 +165,9 @@ void RobotContainer::ConfigureBindings()
   m_candle.SetDefaultCommand(m_candle.default_command());
   m_stick1.Y().ToggleOnTrue(m_candle.fast_yellow_blink());
   m_stick1.A().ToggleOnTrue(m_candle.amp_blink());
+
+// end
+
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
