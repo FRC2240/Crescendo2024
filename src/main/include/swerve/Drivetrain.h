@@ -31,6 +31,8 @@ public:
         frc::Translation2d{-12.18_in, 12.18_in},
         frc::Translation2d{-12.18_in, -12.18_in}};
 
+    void test_modules();
+
     frc::BuiltInAccelerometer acc;
     Drivetrain();
 

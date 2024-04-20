@@ -1,5 +1,6 @@
 #include "swerve/SwerveModule.h"
 #include "swerve/ngr.h"
+#include <cmath>
 #include "frc/smartdashboard/SmartDashboard.h"
 // #include <numbers>
 #include <units/angular_velocity.h>
@@ -7,6 +8,7 @@
 #include <fmt/format.h>
 #ifndef CFG_NO_DRIVEBASE
 #define CAN_BUS_NAME "swervecan"
+
 
 /******************************************************************/
 /*                       Private Constants                        */
@@ -23,7 +25,8 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
       turner{turner_adr, CAN_BUS_NAME},
       cancoder{cancoder_adr, CAN_BUS_NAME}
 {
-
+    frc::SmartDashboard::PutNumber(driver.GetDescription()+"/test/vel", 0.0);
+    frc::SmartDashboard::PutNumber(driver.GetDescription()+"/test/angle", 0.0);
     // fmt::println("Driver version: {}", driver.GetVersionMajor().GetValue());
     std::cout << "Driver Pro: " << driver.GetIsProLicensed().GetValue() << "\n";
     std::cout << "Turner Pro: " << turner.GetIsProLicensed().GetValue() << "\n";
@@ -44,14 +47,14 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
     driver_config.Audio.BeepOnBoot = true;
     driver_config.Audio.BeepOnConfig = true;
 
-    driver_config.Slot0.kP = 0.02;
-    // driver_config.Slot0.kD = 0.002;
+    // driver_config.Slot0.kP = 28;
+    // driver_config.Slot0.kD = 0.00016;
     // driver_config.Slot0.kI = 0.4;
     // driver_config.Slot0.kV = 0.0097;
     // driver_config.Slot0.kD = 0.002; // I is bad, don't use
     // driver_config.integralZone = 200;
     // driver_config.Slot0.kI = 0.400;
-    // driver_config.Slot0.kV = 0.0097; // FIXME could be kG, kA or Kv
+    // driver_config.Slot0.kV = 0.045; 
     driver_config.CurrentLimits.StatorCurrentLimitEnable = true;
     driver_config.CurrentLimits.StatorCurrentLimit = 65;
     // driver_config.CurrentLimits.SupplyCurrentLimitEnable
@@ -74,15 +77,7 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
     turner_config.MotorOutput.PeakForwardDutyCycle = .5;
     turner_config.MotorOutput.PeakReverseDutyCycle = -.5;
     turner_config.ClosedLoopGeneral.ContinuousWrap = 1;
-    // turner_neutralDeadband = 0.07;
-    // turner_eakOutputForward = .5;
-    // turner_config.peakOutputReverse = -.5;
-    // turner_config.Feedback.FeedbackRemoteSensorID = cancoder.GetDeviceID();
-    // turner_config.remoteFilter0.remoteSensorDeviceID = cancoder.GetDeviceNumber();
-    // turner_config.remoteFilter0.remoteSensorSource = RemoteSensorSource::RemoteSensorSource_CANCoder;
-    // turner_config.primaryPID.selectedFeedbackSensor = FeedbackDevice::RemoteSensor0;
-    // turner_config.closedloopRamp = .000;
-    // turner.ConfigAllSettings(turner_config);
+
     turner.SetInverted(false);
     // std::cout << "Swerve constuctor end \n";
     turner_config.Feedback.WithRemoteCANcoder(cancoder);
@@ -134,13 +129,34 @@ void SwerveModule::setDesiredState(frc::SwerveModuleState const &desired_state)
     // Difference between desired angle and current angle
     // frc::Rotation2d delta_rotation = optimized_angle - current_rotation;
 
+    double calculated_ff;
+
+    if (std::fabs(optimized_speed.value()) < 1)
+    {
+        calculated_ff = 0.0102 + -9.16e-04 * std::log(optimized_speed.value());
+    }
+    else {
+        calculated_ff = 0.01;
+    }
+
+    // double calculated_ff = 0.01;
+    ctre::phoenix6::configs::TalonFXConfiguration conf;
+    conf.Slot0.kV = calculated_ff;
+    conf.Slot0.kP = 0.03;
+    conf.Slot0.kD = 0.001264;
+    
+
+    driver.GetConfigurator().Apply(conf);
+
     controls::PositionDutyCycle controlreq{optimized_angle.Degrees()};
     controlreq.EnableFOC = 1;
     // Convert change in angle to change in (cancoder) ticks
     // double const delta_ticks = delta_rotation.Degrees().value() * TICKS_PER_CANCODER_DEGREE;
     frc::SmartDashboard::SmartDashboard::PutNumber(driver.GetDescription() + "/desired speed", optimized_speed.value());
+    frc::SmartDashboard::SmartDashboard::PutNumber(driver.GetDescription() + "/max allowable speed", optimized_speed.value()*1.01);
+    frc::SmartDashboard::SmartDashboard::PutNumber(driver.GetDescription() + "/min allowable speed", optimized_speed.value()*0.99);
     frc::SmartDashboard::SmartDashboard::PutNumber(driver.GetDescription() + "/desired angle", units::turn_t{optimized_angle.Degrees()}.value());
-    driver.SetControl(controls::VelocityDutyCycle{bot_speed_to_wheel_speed(optimized_speed)});
+    // driver.SetControl(controls::VelocityDutyCycle{bot_speed_to_wheel_speed(optimized_speed)});
     turner.SetControl(controlreq);
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/vout", driver.GetMotorVoltage().GetValueAsDouble());
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/tvout", turner.GetMotorVoltage().GetValueAsDouble());
@@ -149,12 +165,24 @@ void SwerveModule::setDesiredState(frc::SwerveModuleState const &desired_state)
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/turner.get()", turner.GetPosition().Refresh().GetValueAsDouble());
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/driver rotations", driver.GetPosition().GetValueAsDouble());
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/getAngle().value()", getAngle().value());
+    frc::SmartDashboard::PutNumber(driver.GetDescription() + "/driver velocity", wheel_speed_to_bot_speed(driver.GetVelocity().GetValue()).value());
+    frc::SmartDashboard::PutNumber(driver.GetDescription() + "/turner velocity", turner.GetVelocity().GetValueAsDouble());
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/cancoder.value().value()", cancoder.GetAbsolutePosition().GetValueAsDouble());
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/latency", cancoder.GetAbsolutePosition().GetTimestamp().GetLatency().convert<units::time::millisecond>().value());
     // turner.SetControl(controls::PositionVoltage(units::angle::turn_t{0.4}));
     // driver.SetControl(ctre::phoenix6::controls::PositionDutyCycle, desired_driver_velocity_ticks);
 
     // turner.Set(TalonFXControlMode::Position, desired_turner_pos_ticks);
+}
+
+void SwerveModule::test(){
+
+    units::turns_per_second_t velocity = units::turns_per_second_t{ frc::SmartDashboard::GetNumber(driver.GetDescription()+"/test/vel", 0.0)};
+   units::turn_t angle = units::turn_t{ frc::SmartDashboard::GetNumber(driver.GetDescription()+"/test/angle", 0.0)};
+   frc::SwerveModuleState state;
+   state.angle=angle;
+   state.speed=velocity*WHEEL_CIRCUMFERENCE;
+   setDesiredState(state);
 }
 
 inline units::turns_per_second_t SwerveModule::bot_speed_to_wheel_speed(units::meters_per_second_t bot_speed)

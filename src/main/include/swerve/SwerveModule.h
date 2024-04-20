@@ -50,6 +50,8 @@ public:
 
     units::angle::degree_t get_angle_degrees();
 
+    void test();
+
     // No copies/moves should be occuring (Talons don't support this)
     SwerveModule(SwerveModule const &) = delete;
     SwerveModule(SwerveModule &&) = delete;

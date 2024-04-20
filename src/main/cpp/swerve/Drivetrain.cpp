@@ -79,6 +79,13 @@ void Drivetrain::print_angle()
 
   } // namespace Module
 }
+
+void Drivetrain::test_modules(){
+  Module::back_left->test();
+  Module::back_right->test();
+  Module::front_left->test();
+  Module::front_right->test();
+}
 /******************************************************************/
 /*                        Public Variables                        */
 /******************************************************************/
