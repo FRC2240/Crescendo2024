@@ -14,7 +14,7 @@
 #include <units/velocity.h>
 #include <vector>
 // #define COLFAX_BOT
-#define BETABOT
+// #define BETABOT
 //  When using the second robot, uncomment the above line
 
 // #define MOD_AMP
@@ -168,10 +168,11 @@ namespace CONSTANTS
       /*                     BEGIN FIRST ROBOT CONFIGURATION                        */
       /* -------------------------------------------------------------------------- */
 
-      constexpr ModuleConfig FL{60, 61, 14, 0.311_tr};
-      constexpr ModuleConfig FR{50, 51, 13, 0.281_tr};
-      constexpr ModuleConfig BL{30, 31, 11, 0.175_tr};
-      constexpr ModuleConfig BR{40, 41, 12, -0.066_tr};
+      constexpr ModuleConfig FL{60, 61, 14, 0.43_tr};
+      constexpr ModuleConfig FR{50, 51, 13, 0.28_tr};
+      constexpr ModuleConfig BL{30, 31, 11, -0.434_tr};
+      constexpr ModuleConfig BR{40, 41, 12, 0.434_tr}; //good
+      constexpr char GYRO_BUS[] = "swervecan";
 
 /* -------------------------------------------------------------------------- */
 /*                        END FIRST ROBOT CONFIGURATION                       */
@@ -188,6 +189,8 @@ namespace CONSTANTS
       constexpr ModuleConfig FR{50, 51, 13, -0.179_tr};
       constexpr ModuleConfig BL{30, 31, 11, 0.322_tr};
       constexpr ModuleConfig BR{40, 41, 12, -0.25_tr};
+      constexpr char GYRO_BUS[] = "rio";
+
 
 /* -------------------------------------------------------------------------- */
 /*                        END SECOND ROBOT CONFIGUATION                       */
