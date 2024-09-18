@@ -168,11 +168,21 @@ namespace CONSTANTS
       /*                     BEGIN FIRST ROBOT CONFIGURATION                        */
       /* -------------------------------------------------------------------------- */
 
-      constexpr ModuleConfig FL{60, 61, 14, 0.43_tr - 0.492_tr};
-      constexpr ModuleConfig FR{50, 51, 13, 0.28_tr + 0.001_tr};
-      constexpr ModuleConfig BL{30, 31, 11, -0.434_tr - 0.479_tr};
-      constexpr ModuleConfig BR{40, 41, 12, 0.434_tr - 0.498_tr}; //good
+      /*
+      constexpr ModuleConfig FL{60, 61, 14, 0.43_tr + 0.492_tr};
+      constexpr ModuleConfig FR{50, 51, 13, 0.28_tr - 0.001_tr};
+      constexpr ModuleConfig BL{30, 31, 11, -0.434_tr + 0.479_tr};
+      constexpr ModuleConfig BR{40, 41, 12, 0.434_tr + 0.498_tr}; //good
       constexpr char GYRO_BUS[] = "swervecan";
+      */
+      ///*
+      constexpr ModuleConfig FL{60, 61, 14, 0.087_tr-0.5_tr};
+      constexpr ModuleConfig FR{50, 51, 13, 0.32_tr-0.5_tr}; //good
+      constexpr ModuleConfig BL{30, 31, 11, 0.34_tr};
+      constexpr ModuleConfig BR{40, 41, 12, 0.247_tr-0.5_tr}; //good
+      constexpr char GYRO_BUS[] = "rio";
+      //*/
+
 
 /* -------------------------------------------------------------------------- */
 /*                        END FIRST ROBOT CONFIGURATION                       */
