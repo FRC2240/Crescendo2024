@@ -64,7 +64,7 @@ namespace CONSTANTS
 #endif
 #ifndef BETABOT
     constexpr auto DELAY = 0.35_s;
-    constexpr units::turn_t UP_POSITION = 0.8_tr;
+    constexpr units::turn_t UP_POSITION = 0.169_tr;
     constexpr units::turn_t DOWN_POSITION = 8_tr;
     constexpr int INTAKE_VOLTAGE = -12;
 #endif
@@ -113,7 +113,7 @@ namespace CONSTANTS
     constexpr units::turns_per_second_t SHOOTER_VELOCITY = 60_tps;
 #endif
 #ifndef BETABOT
-    constexpr units::turn_t REST_ANGLE = -0.5_tr;
+    constexpr units::turn_t REST_ANGLE = 0.72_tr;
     constexpr units::turn_t FENDER_ANGLE = -11_tr;
     constexpr units::turn_t AMP_ANGLE = -10_tr;
     constexpr units::turns_per_second_t SHOOTER_VELOCITY = 80_tps;
@@ -168,11 +168,21 @@ namespace CONSTANTS
       /*                     BEGIN FIRST ROBOT CONFIGURATION                        */
       /* -------------------------------------------------------------------------- */
 
-      constexpr ModuleConfig FL{60, 61, 14, 0.43_tr};
-      constexpr ModuleConfig FR{50, 51, 13, 0.28_tr};
-      constexpr ModuleConfig BL{30, 31, 11, -0.434_tr};
-      constexpr ModuleConfig BR{40, 41, 12, 0.434_tr}; //good
+      /*
+      constexpr ModuleConfig FL{60, 61, 14, 0.43_tr + 0.492_tr};
+      constexpr ModuleConfig FR{50, 51, 13, 0.28_tr - 0.001_tr};
+      constexpr ModuleConfig BL{30, 31, 11, -0.434_tr + 0.479_tr};
+      constexpr ModuleConfig BR{40, 41, 12, 0.434_tr + 0.498_tr}; //good
       constexpr char GYRO_BUS[] = "swervecan";
+      */
+      ///*
+      constexpr ModuleConfig FL{60, 61, 14, 0.087_tr-0.5_tr};
+      constexpr ModuleConfig FR{50, 51, 13, 0.32_tr-0.5_tr}; //good
+      constexpr ModuleConfig BL{30, 31, 11, 0.34_tr};
+      constexpr ModuleConfig BR{40, 41, 12, 0.247_tr-0.5_tr}; //good
+      constexpr char GYRO_BUS[] = "rio";
+      //*/
+
 
 /* -------------------------------------------------------------------------- */
 /*                        END FIRST ROBOT CONFIGURATION                       */
