@@ -127,7 +127,8 @@ namespace CONSTANTS
 
   namespace DRIVE
   {
-    constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 23.533_fps;
+    constexpr PidCoeff PATHPLANNER_TX{6.16,0,0};
+        constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 23.533_fps;
     constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi *
                                                                   0.5};
     constexpr units::meters_per_second_t TELEOP_MAX_SPEED = ROBOT_MAX_SPEED;

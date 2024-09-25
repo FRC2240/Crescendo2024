@@ -113,7 +113,7 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand()
   switch (m_chooser.GetSelected())
   {
   case AUTOS::TEST:
-    return autos::test(&m_trajectory);
+    return autos::test(&m_trajectory, &m_odometry);
   case AUTOS::POS_2_GP2:
     return autos::pos_2_gp2(&m_trajectory);
     break;

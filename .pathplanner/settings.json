@@ -3,16 +3,18 @@
   "robotLength": 0.94,
   "holonomicMode": true,
   "pathFolders": [
-    "side",
+    "kcmt",
     "autoline",
     "gp1",
     "gp2",
     "gp2_speaker",
     "midline",
     "preloads",
+    "side",
     "testing"
   ],
   "autoFolders": [
+    "kcmt",
     "cross_autoline",
     "gp2",
     "gp3",

@@ -66,7 +66,9 @@ frc2::CommandPtr autos::pos_2_gp1(Trajectory *traj)
 {
   return frc2::PrintCommand("start four gamepiece pos_1").ToPtr().AndThen(traj->extract("a_pos_2_gp1").AndThen(frc2::PrintCommand("four piece completed").ToPtr()));
 }
-frc2::CommandPtr autos::test(Trajectory *traj)
+frc2::CommandPtr autos::test(Trajectory *traj, Odometry *odom)
 {
-  return frc2::PrintCommand("test").ToPtr().AndThen(traj->extract("a_test_all").AndThen(frc2::PrintCommand("four piece completed").ToPtr()));
+  return frc2::cmd::RunOnce([ odom]{frc::SmartDashboard::PutNumber("autotest/x", odom->getPose().X().value());}, {}).AndThen
+  (traj->extract("A_T_1m").AndThen(
+     frc2::cmd::RunOnce([ odom]{frc::SmartDashboard::PutNumber("autotest/xprime", odom->getPose().X().value());}, {})));
 }
