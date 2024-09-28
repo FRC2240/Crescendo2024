@@ -16,6 +16,24 @@
           "data": {
             "pathName": "Pickup_test"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "t_Pickup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "t_PIckup_test"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "t_PID"
+          }
         }
       ]
     }
