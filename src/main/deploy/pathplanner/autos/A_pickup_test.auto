@@ -1,0 +1,25 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.4806128860378027,
+      "y": 5.596312345506897
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pickup_test"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "kcmt",
+  "choreoAuto": false
+}
