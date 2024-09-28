@@ -54,6 +54,13 @@ namespace CONSTANTS
         max = .0;        /// Maximum output for control loop.
   };
 
+  namespace CORAL {
+
+      static const std::string LIMELIGHT_ID = "";
+      constexpr units::meters_per_second_t APPROACH_SPEED = 1.0_mps; 
+
+  }
+  
   namespace INTAKE
   {
 #ifdef BETABOT
