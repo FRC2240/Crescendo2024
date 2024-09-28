@@ -20,23 +20,19 @@
         {
           "type": "path",
           "data": {
-<<<<<<< HEAD
+            "pathName": "r_Pickup_test"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "t_Pickup"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "t_PIckup_test"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
             "pathName": "t_PID"
-=======
-            "pathName": "r_Pickup_test"
->>>>>>> bf92207 (accurate at 1m, albiet jittery)
           }
         }
       ]
