@@ -20,6 +20,7 @@
         {
           "type": "path",
           "data": {
+<<<<<<< HEAD
             "pathName": "t_Pickup"
           }
         },
@@ -33,11 +34,14 @@
           "type": "path",
           "data": {
             "pathName": "t_PID"
+=======
+            "pathName": "r_Pickup_test"
+>>>>>>> bf92207 (accurate at 1m, albiet jittery)
           }
         }
       ]
     }
   },
-  "folder": "kcmt",
+  "folder": null,
   "choreoAuto": false
 }
