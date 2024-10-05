@@ -20,13 +20,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "t_Pickup"
+            "pathName": "r_Pickup_test"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "t_PIckup_test"
+            "pathName": "t_Pickup"
           }
         },
         {
@@ -38,6 +38,6 @@
       ]
     }
   },
-  "folder": "kcmt",
+  "folder": null,
   "choreoAuto": false
 }
