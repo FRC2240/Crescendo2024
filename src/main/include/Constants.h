@@ -119,7 +119,7 @@ constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; // CHANGEME;
 } // namespace SHOOTER
 
 namespace DRIVE {
-constexpr PidCoeff PATHPLANNER_TX{5, 0, 0}; // Best: 2.75, 1
+constexpr PidCoeff PATHPLANNER_TX{2.5, 0, 0.8}; // Best: 2.5, 0.8
 constexpr PidCoeff PATHPLANNER_RT{5, 0, 0};
 constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 23.533_fps;
 constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi *

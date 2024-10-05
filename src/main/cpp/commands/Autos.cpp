@@ -69,6 +69,6 @@ frc2::CommandPtr autos::pos_2_gp1(Trajectory *traj)
 frc2::CommandPtr autos::test(Trajectory *traj, Odometry *odom)
 {
   return frc2::cmd::RunOnce([ odom]{frc::SmartDashboard::PutNumber("autotest/x", odom->getPose().X().value());}, {}).AndThen
-  (traj->extract("A_pickup_test").AndThen(
+  (traj->extract("a_pos_2_gp2").AndThen(
      frc2::cmd::RunOnce([ odom]{frc::SmartDashboard::PutNumber("autotest/xprime", odom->getPose().X().value());}, {})));
 }

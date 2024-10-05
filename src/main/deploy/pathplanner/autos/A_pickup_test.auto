@@ -2,7 +2,7 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4806128860378027,
+      "x": 1.37,
       "y": 5.596312345506897
     },
     "rotation": 0
@@ -14,7 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pickup_test"
+            "pathName": "t_Pickup"
           }
         },
         {
@@ -26,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "t_Pickup"
+            "pathName": "t_Pickup_left"
           }
         },
         {
