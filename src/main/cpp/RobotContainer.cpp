@@ -136,7 +136,11 @@ void RobotContainer::ConfigureBindings()
   m_stick1.A().ToggleOnTrue(m_candle.amp_blink());
 
   // Coral
-  m_stick0.X().ToggleOnTrue(m_coral.TrackCommand());
+  // Will deploy the intake and start tracking the note until either note is picked up or
+  // note is not found.
+  
+  //m_stick0.X().ToggleOnTrue(m_coral.TrackCommand());
+  m_stick0.X().ToggleOnTrue(m_intake.StartCommand().RaceWith(m_coral.TrackCommand()));
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
