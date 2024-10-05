@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4394635305561345,
-        "y": 5.575737667766062
+        "x": 2.4064733843753405,
+        "y": 5.51401363454356
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.439463530556135,
-        "y": 5.575737667766062
+        "x": 1.9435431352065715,
+        "y": 5.51401363454356
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.488772095338677,
-        "y": 6.974815754142787
+        "x": 1.3674521584632144,
+        "y": 5.51401363454356
       },
       "prevControl": {
-        "x": 1.98469249068824,
-        "y": 6.871942365438616
+        "x": 1.892106440854486,
+        "y": 5.493438956802725
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
   "reversed": false,
   "folder": "kcmt",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 0.40634623330899583,
     "velocity": 0
   },
   "useDefaultConstraints": true
