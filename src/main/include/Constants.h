@@ -202,10 +202,10 @@ namespace CONSTANTS
 /*                       BEGIN SECOND ROBOT CONFIGUATION                      */
 /* -------------------------------------------------------------------------- */
 #pragma warning("Values extraordinary wrong")
-      constexpr ModuleConfig FL{60, 61, 14, -0.57_tr}; //good
-      constexpr ModuleConfig FR{50, 51, 13, 0_tr};
-      constexpr ModuleConfig BL{30, 31, 11, -0.498_tr};
-      constexpr ModuleConfig BR{40, 41, 12, 0.43_tr}; //good
+      constexpr ModuleConfig FL{60, 61, 14, -0.067_tr + 0.5_tr}; //good
+      constexpr ModuleConfig FR{50, 51, 13,  0.278_tr};
+      constexpr ModuleConfig BL{30, 31, 11,  0.061_tr - 0.5_tr};
+      constexpr ModuleConfig BR{40, 41, 12,  0.425_tr}; //good
       constexpr char GYRO_BUS[] = "swervecan";
 
 
