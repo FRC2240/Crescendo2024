@@ -14,7 +14,7 @@
 #include <units/velocity.h>
 #include <vector>
 // #define COLFAX_BOT
-// #define BETABOT
+ #define BETABOT
 //  When using the second robot, uncomment the above line
 
 // #define MOD_AMP
@@ -195,10 +195,10 @@ namespace CONSTANTS
 /*                       BEGIN SECOND ROBOT CONFIGUATION                      */
 /* -------------------------------------------------------------------------- */
 #pragma warning("Values extraordinary wrong")
-      constexpr ModuleConfig FL{60, 61, 14, -0.405_tr};
-      constexpr ModuleConfig FR{50, 51, 13, -0.179_tr};
-      constexpr ModuleConfig BL{30, 31, 11, 0.322_tr};
-      constexpr ModuleConfig BR{40, 41, 12, -0.25_tr};
+      constexpr ModuleConfig FL{60, 61, 14, -0.415_tr};
+      constexpr ModuleConfig FR{50, 51, 13, -0.177_tr};
+      constexpr ModuleConfig BL{30, 31, 11, 0.328_tr};
+      constexpr ModuleConfig BR{40, 41, 12, -0.253_tr};
       constexpr char GYRO_BUS[] = "rio";
 
 
