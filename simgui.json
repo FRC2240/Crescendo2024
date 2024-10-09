@@ -29,6 +29,11 @@
           "open": true
         }
       },
+      "CANcoder (v6)[13]": {
+        "header": {
+          "open": true
+        }
+      },
       "Talon FX (v6)[0]/Fwd Limit": {
         "header": {
           "open": true
@@ -45,6 +50,11 @@
         }
       },
       "Talon FX (v6)[41]/Fwd Limit": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon FX (v6)[50]/Rotor Sensor": {
         "header": {
           "open": true
         }
@@ -81,6 +91,12 @@
     },
     "transitory": {
       "SmartDashboard": {
+        "Talon FX (v6) 30": {
+          "open": true
+        },
+        "Talon FX (v6) 40": {
+          "open": true
+        },
         "Talon FX (v6) 60": {
           "open": true
         },
@@ -251,7 +267,7 @@
             0.05999999865889549,
             0.9399999976158142
           ],
-          "height": 358,
+          "height": 0,
           "series": [
             {
               "color": [
