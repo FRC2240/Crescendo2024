@@ -53,7 +53,7 @@ struct PidCoeff {
 namespace INTAKE {
 #ifdef BETABOT
 constexpr auto DELAY = 0.15_s;
-constexpr units::turn_t UP_POSITION = -0.71_tr;
+constexpr units::turn_t UP_POSITION = 0.6_tr;
 constexpr units::turn_t DOWN_POSITION = 7.5_tr;
 constexpr int INTAKE_VOLTAGE = -12;
 #endif
