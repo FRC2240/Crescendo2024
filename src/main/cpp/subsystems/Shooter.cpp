@@ -138,8 +138,7 @@ frc2::CommandPtr Shooter::default_cmd()
                //    }
                //    //    m_left_motor.SetControl(req);
                //    m_right_motor.SetControl(req);
-              //  set_angle(CONSTANTS::SHOOTER::REST_ANGLE);
-              m_angle_motor.Set(0);
+               set_angle(CONSTANTS::SHOOTER::REST_ANGLE);
                m_left_motor.Set(0);
                m_right_motor.Set(0);
              },

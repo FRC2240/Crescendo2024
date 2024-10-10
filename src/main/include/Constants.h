@@ -116,7 +116,7 @@ namespace CONSTANTS
     constexpr units::turn_t FENDER_ANGLE = -9_tr;
     constexpr units::turn_t AMP_ANGLE = 11_tr;
     constexpr units::turns_per_second_t AMP_VELOCTITY = -6.5_tps;
-    constexpr units::turn_t REST_ANGLE = -0.5_tr;
+    constexpr units::turn_t REST_ANGLE = -1_tr;
     constexpr units::turns_per_second_t SHOOTER_VELOCITY = 60_tps;
 #endif
 #ifndef BETABOT
