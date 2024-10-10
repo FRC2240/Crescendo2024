@@ -113,10 +113,10 @@ namespace CONSTANTS
     constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
     constexpr double ANGLE_RATIO = 1; // CHANGEME
 #ifdef BETABOT                        // Main robot config
-    constexpr units::turn_t FENDER_ANGLE = 11.5_tr;
+    constexpr units::turn_t FENDER_ANGLE = -9_tr;
     constexpr units::turn_t AMP_ANGLE = 11_tr;
     constexpr units::turns_per_second_t AMP_VELOCTITY = -6.5_tps;
-    constexpr units::turn_t REST_ANGLE = 0.5_tr;
+    constexpr units::turn_t REST_ANGLE = -0.5_tr;
     constexpr units::turns_per_second_t SHOOTER_VELOCITY = 60_tps;
 #endif
 #ifndef BETABOT

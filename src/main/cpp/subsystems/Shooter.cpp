@@ -78,7 +78,6 @@ frc2::CommandPtr Shooter::spool_cmd()
   return frc2::cmd::Run(
       [this]
       {
-        set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
         m_left_motor.Set(-.8);
         m_right_motor.Set(-0.6);
       },
@@ -139,7 +138,8 @@ frc2::CommandPtr Shooter::default_cmd()
                //    }
                //    //    m_left_motor.SetControl(req);
                //    m_right_motor.SetControl(req);
-               set_angle(CONSTANTS::SHOOTER::REST_ANGLE);
+              //  set_angle(CONSTANTS::SHOOTER::REST_ANGLE);
+              m_angle_motor.Set(0);
                m_left_motor.Set(0);
                m_right_motor.Set(0);
              },
@@ -169,8 +169,7 @@ frc2::CommandPtr Shooter::test_shot()
   };
   std::function<void()> periodic = [this]
   {
-    units::turn_t angle =
-        units::turn_t{frc::SmartDashboard::GetNumber("shooter/dangle", 0.0)};
+    units::turn_t angle = 11_tr;
     // fmt::println("{}", angle.value());
     set_angle(angle);
     units::turns_per_second_t vel{
@@ -227,7 +226,7 @@ frc2::CommandPtr Shooter::fender_shot()
   std::function<void()> init = [this] {};
   std::function<void()> periodic = [this]
   {
-    set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
+    set_angle(-9_tr);
     // m_left_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(CONSTANTS::SHOOTER::LEFT_VELOCITY));
     // m_right_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(-CONSTANTS::SHOOTER::RIGHT_VELOCITY));
     m_left_motor.Set(-.8);

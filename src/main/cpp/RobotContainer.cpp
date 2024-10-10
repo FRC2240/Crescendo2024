@@ -111,7 +111,7 @@ void RobotContainer::ConfigureBindings()
   // m_stick0.RightTrigger().ToggleOnTrue(frc2::cmd::DeferredProxy(m_shooter.set_angle_cmd(m_odometry.get_shooter_angle())));
   m_stick0.RightTrigger().ToggleOnTrue(m_shooter.execute_auto_shot().AlongWith(m_trajectory.auto_score_align()).RaceWith(frc2::cmd::Run([this]
                                                                                                                                         { m_odometry.update_from_vision(); })));
-  m_stick0.LeftTrigger().ToggleOnTrue(m_shooter.test_shot());
+  m_stick0.LeftTrigger().ToggleOnTrue(m_shooter.fender_shot());
 
   // Buddy Climber
   // Climber
@@ -140,7 +140,6 @@ void RobotContainer::ConfigureBindings()
   // note is not found.
   
   //m_stick0.X().ToggleOnTrue(m_coral.TrackCommand());
-  m_stick0.X().ToggleOnTrue(m_intake.StartCommand().RaceWith(m_coral.TrackCommand()));
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
