@@ -5,9 +5,6 @@
     },
     "retained": {
       "SmartDashboard": {
-        "SendableChooser[0]": {
-          "open": true
-        },
         "open": true
       },
       "limelight": {
@@ -39,17 +36,8 @@
       }
     },
     "transitory": {
-      "Shuffleboard": {
-        "open": true
-      },
       "SmartDashboard": {
-        "Talon FX (v6) 60": {
-          "open": true
-        },
         "as": {
-          "open": true
-        },
-        "cspeed": {
           "open": true
         },
         "open": true,
@@ -134,7 +122,7 @@
   },
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
-    "serverTeam": "9992",
+    "serverTeam": "2240",
     "visible": false
   },
   "Plots": {
