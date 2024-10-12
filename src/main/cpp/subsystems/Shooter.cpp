@@ -298,9 +298,9 @@ frc2::CommandPtr Shooter::ManualFeedCommand(bool back)
                else
                {
                  m_belt_motor.SetControl(ctre::phoenix6::controls::VoltageOut{
-                     units::volt_t{3}}); // changeme
-                 m_left_motor.Set(-0.5);
-                 m_right_motor.Set(-0.5);
+                     units::volt_t{12}}); // changeme //old value 3
+                 m_left_motor.Set(-0.5); // old value -0.5
+                 m_right_motor.Set(-0.5); // old value -0.5
                }
              },
              {this})

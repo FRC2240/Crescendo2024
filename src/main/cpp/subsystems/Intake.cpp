@@ -75,7 +75,7 @@ bool Intake::is_lower_tof_loaded()
 frc2::CommandPtr Intake::ManualFeedCommand(bool back)
 {
   return frc2::cmd::Run([this, back]
-                        { if (back) {m_beltMotor.Set(0.3);}
+                        { if (back) {m_beltMotor.Set(1.0);} // old value: 0.3
                           else { m_beltMotor.Set(-0.3);} },
                         {this});
 }
