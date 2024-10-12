@@ -52,7 +52,7 @@ void Shooter::Periodic()
   {
     if (!m_intake->is_loaded())
     {
-      m_belt_motor.Set(0.12);
+      m_belt_motor.Set(0.16); // old value 0.12
     }
     else
     {
