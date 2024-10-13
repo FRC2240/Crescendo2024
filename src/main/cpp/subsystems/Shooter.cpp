@@ -225,7 +225,7 @@ frc2::CommandPtr Shooter::fender_shot()
   std::function<void()> init = [this] {};
   std::function<void()> periodic = [this]
   {
-    set_angle(-9_tr);
+    set_angle(CONSTANTS::SHOOTER::FENDER_ANGLE);
     // m_left_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(CONSTANTS::SHOOTER::LEFT_VELOCITY));
     // m_right_motor.SetControl(ctre::phoenix6::controls::VelocityDutyCycle(-CONSTANTS::SHOOTER::RIGHT_VELOCITY));
     m_left_motor.Set(-.8);
