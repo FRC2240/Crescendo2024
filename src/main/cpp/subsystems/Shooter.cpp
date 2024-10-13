@@ -45,7 +45,7 @@ void Shooter::Periodic()
   if (m_intake->intake_state == Intake::IntakeState::INTAKING)
   {
     frc::SmartDashboard::PutBoolean("intaking", 1);
-    m_belt_motor.Set(.5); // old value 0.22
+    m_belt_motor.Set(.22); // old value 0.22
     set_angle(0_tr);
   }
   else if (m_intake->is_lower_tof_loaded())
