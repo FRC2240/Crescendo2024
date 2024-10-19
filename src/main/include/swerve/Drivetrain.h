@@ -163,7 +163,7 @@ public:
     bool face_direction(units::degree_t tgt, double feedback_device);
 
     bool face_direction(units::degree_t tgt);
-    ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, CONSTANTS::DRIVE::CONFIG::GYRO_BUS};
+    ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, "swervecan"};
 
 private:
     // ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, "rio"};
