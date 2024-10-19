@@ -9,6 +9,7 @@
 
 #include "Constants.h"
 #include "commands/Autos.h"
+#include "subsystems/Coral.h"
 #include "subsystems/Climber.h"
 #include "subsystems/Intake.h"
 #include "subsystems/Shooter.h"
@@ -43,6 +44,9 @@ public:
   frc2::CommandXboxController m_stick1{1};
 
   Drivetrain m_drivetrain;
+  
+  Coral m_coral{&m_drivetrain};
+  
   Vision m_vision{
       [this]() -> units::degree_t
       {
