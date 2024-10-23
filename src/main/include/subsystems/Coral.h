@@ -16,11 +16,13 @@
 #include <span>
 #include "swerve/Drivetrain.h"
 #include <math.h>
+#include <iostream>
 
 class Coral : public frc2::SubsystemBase {
 
     public:
         Coral(Drivetrain *drivetrain);
+        void SimulationPeriodic();
         frc2::CommandPtr TrackCommand();
 
     private:

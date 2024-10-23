@@ -4,12 +4,19 @@ Coral::Coral(Drivetrain *drivetrain) : m_drivetrain{drivetrain} {
     m_table = nt::NetworkTableInstance::GetDefault().GetTable(CONSTANTS::CORAL::LIMELIGHT_ID);
 };
 
+void Coral::SimulationPeriodic() {
+    m_table->PutString("tclass", "note");
+    m_table->PutNumber("ta", 0.0);
+};
+
 frc2::CommandPtr Coral::TrackCommand() {
     return frc2::RunCommand([this] -> void {
         
         float raw_ta = m_table->GetNumber("ta", 0.0);
         
-        if (raw_ta != 0.0) { //TODO: find more robust way of detecting no note
+        std::cout << raw_ta;
+
+        if (m_table->GetString("tclass", "") == "note") {
 
             //get angle to note from limelight (relative to robot facing angle)
             units::degree_t rel_angle = units::degree_t{raw_ta};
