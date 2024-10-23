@@ -133,8 +133,7 @@ void Odometry::update_from_vision()
   {
     if (i)
     {
-      frc::SmartDashboard::PutNumber("auto thing", i.value().X().value());
-      estimator.AddVisionMeasurement(i.value(), frc::Timer::GetFPGATimestamp());
+      estimator.AddVisionMeasurement(frc::Pose2d(i.value().Translation(), m_drivetrain->getCCWHeading()), frc::Timer::GetFPGATimestamp());
     }
   }
 }

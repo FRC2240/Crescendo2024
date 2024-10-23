@@ -8,7 +8,7 @@
 #include <frc2/command/SubsystemBase.h>
 #include <frc2/command/RunCommand.h>
 #include "Constants.h"
-#include "frc/smartdashboard/Smartdashboard.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 #include "networktables/NetworkTable.h"
 #include "networktables/NetworkTableInstance.h"
 #include "networktables/NetworkTableEntry.h"
