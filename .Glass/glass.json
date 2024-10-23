@@ -115,10 +115,8 @@
     "Server": {
       "Publishers": {
         "open": true
-      },
-      "open": true
-    },
-    "visible": true
+      }
+    }
   },
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
@@ -384,7 +382,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 0,
+          "height": 282,
           "series": [
             {
               "color": [
@@ -408,7 +406,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 0,
+          "height": 336,
           "series": [
             {
               "color": [
