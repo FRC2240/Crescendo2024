@@ -1,8 +1,5 @@
 {
   "NetworkTables": {
-    "Persistent Values": {
-      "open": false
-    },
     "retained": {
       "SmartDashboard": {
         "open": true
@@ -37,6 +34,21 @@
     },
     "transitory": {
       "SmartDashboard": {
+        "Odometry Field": {
+          "open": true
+        },
+        "SendableChooser[0]": {
+          "open": true
+        },
+        "Talon FX (v6) 30": {
+          "open": true
+        },
+        "Talon FX (v6) 60": {
+          "open": true
+        },
+        "amp": {
+          "open": true
+        },
         "as": {
           "open": true
         },
@@ -50,7 +62,8 @@
           },
           "double[]##v_/SmartDashboard/pv/y arr": {
             "open": true
-          }
+          },
+          "open": true
         },
         "shooter": {
           "open": true
@@ -81,6 +94,7 @@
         }
       }
     },
+    "tree": false,
     "types": {
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/Odometry Field": "Field2d",
@@ -116,7 +130,8 @@
       "Publishers": {
         "open": true
       }
-    }
+    },
+    "visible": true
   },
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
@@ -382,7 +397,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 282,
+          "height": 0,
           "series": [
             {
               "color": [
@@ -406,7 +421,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 336,
+          "height": 0,
           "series": [
             {
               "color": [

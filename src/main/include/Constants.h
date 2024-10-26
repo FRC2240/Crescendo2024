@@ -53,7 +53,7 @@ template <typename T> static bool IN_THRESHOLD(T source, T target, T range) {
 
   namespace CORAL {
 
-      static const std::string LIMELIGHT_ID = "";
+      static const std::string LIMELIGHT_ID = "limelight-aft";
       constexpr units::meters_per_second_t APPROACH_SPEED = 1.0_mps; 
 
   }
