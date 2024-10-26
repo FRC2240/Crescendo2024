@@ -17,16 +17,19 @@
 #include "swerve/Drivetrain.h"
 #include <math.h>
 #include <iostream>
+#include <swerve/Odometry.h>
+#include <swerve/Trajectory.h>
 
 class Coral : public frc2::SubsystemBase {
 
     public:
-        Coral(Drivetrain *drivetrain);
+        Coral(Drivetrain *drivetrain, Odometry *odometry, Trajectory *trajectory);
         void SimulationPeriodic();
         frc2::CommandPtr TrackCommand();
 
     private:
         std::shared_ptr<nt::NetworkTable> m_table;
         Drivetrain *m_drivetrain;
-
+        Odometry *m_odometry;
+        Trajectory *m_trajectory;
 };
