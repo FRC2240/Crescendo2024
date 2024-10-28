@@ -14,7 +14,8 @@
 #include <units/velocity.h>
 #include <vector>
 // #define COLFAX_BOT
-#define BETABOT
+
+ #define BETABOT
 //  When using the second robot, uncomment the above line
 
 // #define MOD_AMP
