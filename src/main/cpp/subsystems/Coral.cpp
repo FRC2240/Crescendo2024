@@ -13,7 +13,7 @@ void Coral::SimulationPeriodic() {
 frc2::CommandPtr Coral::TrackCommand() {
     return frc2::RunCommand([this] -> void {
         
-        float raw_ta = m_table->GetNumber("ta", 0.0);
+        float raw_ta = m_table->GetNumber("tx", 0.0);
         frc::SmartDashboard::PutNumber("raw_ta", raw_ta);
 
         if (m_table->GetString("tclass", "") == "note") {
@@ -23,7 +23,7 @@ frc2::CommandPtr Coral::TrackCommand() {
 
             //compute absolute angle of note
             //maybe try get_absolute_angle()?
-            units::degree_t abs_angle = m_drivetrain->get_absolute_angle() + rel_angle;
+            units::degree_t abs_angle = m_drivetrain->get_absolute_angle()- rel_angle;
         
             //get x and y components of forward vector + multiply by coefficient
             // M_PI/180 is to convert to radians
@@ -31,13 +31,16 @@ frc2::CommandPtr Coral::TrackCommand() {
             units::meters_per_second_t dy = sin((M_PI/180)* abs_angle.value()) * CONSTANTS::CORAL::APPROACH_SPEED;
             frc::SmartDashboard::PutNumber("coral/dy", dy.value());
             frc::SmartDashboard::PutNumber("coral/dx", dx.value());
+            frc::SmartDashboard::PutNumber("coral/dt", abs_angle.value());
+            frc::SmartDashboard::PutNumber("coral/rot", abs_angle.value());
             // frc::SmartDashboard::PutData("coral/pose2", frc::Field2d frc::Pose2d(
             //     (units::meter_t{this->m_odometry->getPose().X()+units::meter_t{dx.value()}}),
             //  (units::meter_t{this->m_odometry->getPose().Y()+units::meter_t{dy.value()}}),
             //   this->m_odometry->getPose().Rotation() ) )
 
             //move towards the note
-            m_drivetrain->faceDirection(-dx, -dy, -abs_angle, true);
+            // m_drivetrain->faceDirection(-dx, -dy, abs_angle, true);
+            m_drivetrain->face_direction(abs_angle, dx, dy);
         } else {
             this->m_drivetrain->stop();
         }

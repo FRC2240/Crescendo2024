@@ -403,7 +403,7 @@ bool Drivetrain::face_direction(units::degree_t tgt, double feedback_device)
   }
 }
 
-bool Drivetrain::face_direction(units::degree_t tgt)
+bool Drivetrain::face_direction(units::degree_t tgt, units::meters_per_second_t dx, units::meters_per_second_t dy)
 {
   auto angle = get_absolute_angle().value();
   turn_pid.SetSetpoint(tgt.value());
@@ -422,7 +422,7 @@ bool Drivetrain::face_direction(units::degree_t tgt)
   frc::SmartDashboard::PutNumber("Current rotation", angle);
   frc::SmartDashboard::PutNumber("Delta", delta);
 
-  drive(0_mps, 0_mps, units::degrees_per_second_t{-pid_out}, false);
+  drive(-dx, -dy, units::degrees_per_second_t{-pid_out}, true);
   frc::SmartDashboard::PutNumber("PID Setpoint", turn_pid.GetSetpoint());
   if ((angle >= turn_pid.GetSetpoint() - .1) && (angle <= turn_pid.GetSetpoint() + .1))
   {
