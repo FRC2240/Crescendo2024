@@ -31,6 +31,7 @@ void RobotContainer::add_named_commands()
 
   NamedCommands::registerCommand("intake", std::move(m_intake.StartCommand()));
   NamedCommands::registerCommand("unintake", std::move(m_intake.StopCommand()));
+  NamedCommands::registerCommand("coral", std::move(m_intake.StartCommand().RaceWith(m_coral.TrackCommand()).RaceWith(frc2::cmd::Wait(5_s)) ));
 
   NamedCommands::registerCommand("ascore", std::move(frc2::cmd::Wait(0.2_s).AndThen(frc2::cmd::Print("ENTER").AndThen(m_shooter.execute_auto_shot().AlongWith(m_trajectory.auto_score_align()).RaceWith(frc2::cmd::Run([this]
                                                                                                                                                                                                                        { m_odometry.update_from_vision(); }))
@@ -51,6 +52,35 @@ void RobotContainer::add_named_commands()
 
 void RobotContainer::ConfigureBindings()
 {
+
+  /*
+  0 left bumper    intake start
+  0 right bumper   stop manual feed
+  0 left stick     *
+  0 right stick    manual drive
+  0 A button       amp shot
+  0 B button       spool
+  0 X button       auto pickup
+  0 Y button       *
+  0 back button    *
+  0 start button   *
+  0 left trigger   test shot
+  0 right trigger  auto shot
+  1 left bumper    *
+  1 right bumper   *
+  1 left stick     *
+  1 right stick    manual drive
+  1 A button       amp blink
+  1 B button       *
+  1 X button       *
+  1 Y button       fast yellow blink
+  1 back button    *
+  1 start button   *
+  1 left trigger   stop manual feed
+  1 right trigger  start manual feed
+  */
+
+
   // Configure your trigger bindings here
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
   m_shooter.SetDefaultCommand(m_shooter.default_cmd());
@@ -105,6 +135,13 @@ void RobotContainer::ConfigureBindings()
   m_candle.SetDefaultCommand(m_candle.default_command());
   m_stick1.Y().ToggleOnTrue(m_candle.fast_yellow_blink());
   m_stick1.A().ToggleOnTrue(m_candle.amp_blink());
+
+  // Coral
+  // Will deploy the intake and start tracking the note until either note is picked up or
+  // note is not found.
+  
+  //m_stick0.X().ToggleOnTrue(m_coral.TrackCommand());
+  m_stick0.X().ToggleOnTrue(m_intake.StartCommand().RaceWith(m_coral.TrackCommand()));
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()

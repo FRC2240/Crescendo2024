@@ -12,10 +12,12 @@
 #include <frc2/command/RunCommand.h>
 #include "frc/DigitalInput.h"
 #include "Constants.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 class Climber : public frc2::SubsystemBase
 {
 public:
   Climber();
+  void Periodic() override;
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */

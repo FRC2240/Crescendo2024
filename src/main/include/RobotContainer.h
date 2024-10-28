@@ -9,6 +9,7 @@
 
 #include "Constants.h"
 #include "commands/Autos.h"
+#include "subsystems/Coral.h"
 #include "subsystems/Climber.h"
 #include "subsystems/Intake.h"
 #include "subsystems/Shooter.h"
@@ -43,6 +44,8 @@ public:
   frc2::CommandXboxController m_stick1{1};
 
   Drivetrain m_drivetrain;
+  
+  
   Vision m_vision{
       [this]() -> units::degree_t
       {
@@ -78,6 +81,8 @@ public:
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
 
   Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick0, &m_vision, &m_intake};
+
+  Coral m_coral{&m_drivetrain, &m_odometry, &m_trajectory};
 
   frc::SendableChooser<AUTOS> m_chooser;
 

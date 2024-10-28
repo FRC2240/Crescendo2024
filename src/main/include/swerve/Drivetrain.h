@@ -143,7 +143,8 @@ public:
     // For theta, positive is CCW
     void faceDirection(units::meters_per_second_t const &dx,
                        units::meters_per_second_t const &dy,
-                       units::degree_t const &theta, bool const &field_relative,
+                       units::degree_t const &theta, 
+                       bool const &field_relative,
                        double const &rot_p = ROTATE_P,
                        units::degrees_per_second_t const &max_rot_speed =
                            TELEOP_MAX_ANGULAR_SPEED);
@@ -162,13 +163,14 @@ public:
 
     bool face_direction(units::degree_t tgt, double feedback_device);
 
-    bool face_direction(units::degree_t tgt);
-    ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, CONSTANTS::DRIVE::CONFIG::GYRO_BUS};
+    bool face_direction(units::degree_t tgt, units::meters_per_second_t dx=0_mps, units::meters_per_second_t dy=0_mps);
+    // bool face_direction(units::degree_t tgt);
+    ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, "rio"};
 
 private:
     // ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, "rio"};
     //  AHRS navx{frc::SPI::Port::kMXP};
-    CONSTANTS::PidCoeff pid_coef{5.0, 0.0, 0.25, 0.0, 0.0, -1, 1};
+    CONSTANTS::PidCoeff pid_coef{3.25, 0.0, 0.6, 0.0, 0.0, -1, 1};
     frc::PIDController turn_pid{pid_coef.p, pid_coef.i, pid_coef.d};
     CONSTANTS::PidCoeff pid_coral_coef{6.0, 0.0, 0.0, 0.0, 0.0, -1, 1};
     frc::PIDController turn_coral_pid{pid_coral_coef.p, pid_coral_coef.i,

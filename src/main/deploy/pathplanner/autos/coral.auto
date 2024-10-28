@@ -1,0 +1,43 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "pos_2_gp1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "unscore"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "pos_2_gp2_speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

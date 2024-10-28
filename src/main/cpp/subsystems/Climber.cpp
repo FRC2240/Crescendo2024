@@ -21,6 +21,12 @@ Climber::Climber()
   right_climber.GetConfigurator().Apply(right_climber_config);
 }
 
+// TODO: disable after testing
+void Climber::Periodic() {
+  //frc::SmartDashboard::PutBoolean("left_lim", left_limit_switch.Get());
+  //frc::SmartDashboard::PutBoolean("right_lim", left_limit_switch.Get());
+}
+
 frc2::CommandPtr Climber::UpCommand()
 {
   return frc2::RunCommand([this]

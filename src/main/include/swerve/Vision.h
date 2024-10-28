@@ -106,7 +106,7 @@ private:
     //     m_photoncam_vec = {{m_left_camera_a, m_left_estimator_a},
     //                        {m_right_camera_a, m_right_estimator_a}};
     std::shared_ptr<nt::NetworkTable> m_aft_limelight =
-        nt::NetworkTableInstance::GetDefault().GetTable("limelight-aft");
+        nt::NetworkTableInstance::GetDefault().GetTable("limelight-fore");
 
     std::shared_ptr<nt::NetworkTable> m_fore_limelight =
         nt::NetworkTableInstance::GetDefault().GetTable("limelight-fore");
