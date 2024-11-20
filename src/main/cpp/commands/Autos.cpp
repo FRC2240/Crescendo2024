@@ -68,5 +68,5 @@ frc2::CommandPtr autos::pos_2_gp1(Trajectory *traj)
 }
 frc2::CommandPtr autos::test(Trajectory *traj)
 {
-  return frc2::PrintCommand("test").ToPtr().AndThen(traj->extract("coral").AndThen(frc2::PrintCommand("four piece completed").ToPtr()));
+  return frc2::PrintCommand("test").ToPtr().AndThen(traj->extract("coral3gp").AndThen(frc2::PrintCommand("four piece completed").ToPtr()));
 }

@@ -170,7 +170,7 @@ public:
 private:
     // ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, "rio"};
     //  AHRS navx{frc::SPI::Port::kMXP};
-    CONSTANTS::PidCoeff pid_coef{3.25, 0.0, 0.6, 0.0, 0.0, -1, 1};
+    CONSTANTS::PidCoeff pid_coef{2.75, 0.0, 0.6, 0.0, 0.0, -1, 1};
     frc::PIDController turn_pid{pid_coef.p, pid_coef.i, pid_coef.d};
     CONSTANTS::PidCoeff pid_coral_coef{6.0, 0.0, 0.0, 0.0, 0.0, -1, 1};
     frc::PIDController turn_coral_pid{pid_coral_coef.p, pid_coral_coef.i,

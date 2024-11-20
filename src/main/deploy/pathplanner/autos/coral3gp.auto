@@ -1,0 +1,85 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "score"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "unscore"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "pos_2_gp1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "pos_2_gp2_speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "unscore"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "c3gp_2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "coral_back_to_speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "unscore"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
