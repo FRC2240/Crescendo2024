@@ -56,6 +56,12 @@ void Drivetrain::zero_adjustment()
   // navx.SetAngleAdjustment(0);
 }
 
+void Drivetrain::log_accel(){
+  frc::SmartDashboard::PutNumber("accel/X", gyro.GetAccelerationX().GetValue().convert<units::meters_per_second_squared>().value());
+  frc::SmartDashboard::PutNumber("accel/Y", gyro.GetAccelerationY().GetValue().convert<units::meters_per_second_squared>().value());
+  frc::SmartDashboard::PutNumber("accel/Z", gyro.GetAccelerationZ().GetValue().convert<units::meters_per_second_squared>().value());
+}
+
 void Drivetrain::zero_yaw()
 {
   gyro.SetYaw(0_deg);

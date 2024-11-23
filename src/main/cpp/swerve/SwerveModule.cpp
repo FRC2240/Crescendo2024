@@ -44,7 +44,9 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
     driver_config.Audio.BeepOnBoot = true;
     driver_config.Audio.BeepOnConfig = true;
 
-    driver_config.Slot0.kP = 0.02;
+    driver_config.Slot0.kP = 12;
+    driver_config.MotionMagic.MotionMagicAcceleration=575;
+    // driver_config
     // driver_config.Slot0.kD = 0.002;
     // driver_config.Slot0.kI = 0.4;
     // driver_config.Slot0.kV = 0.0097;
@@ -140,7 +142,7 @@ void SwerveModule::setDesiredState(frc::SwerveModuleState const &desired_state)
     // double const delta_ticks = delta_rotation.Degrees().value() * TICKS_PER_CANCODER_DEGREE;
     frc::SmartDashboard::SmartDashboard::PutNumber(driver.GetDescription() + "/desired speed", optimized_speed.value());
     frc::SmartDashboard::SmartDashboard::PutNumber(driver.GetDescription() + "/desired angle", units::turn_t{optimized_angle.Degrees()}.value());
-    driver.SetControl(controls::VelocityDutyCycle{bot_speed_to_wheel_speed(optimized_speed)});
+    driver.SetControl(controls::MotionMagicVelocityTorqueCurrentFOC{bot_speed_to_wheel_speed(optimized_speed)});
     turner.SetControl(controlreq);
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/vout", driver.GetMotorVoltage().GetValueAsDouble());
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/tvout", turner.GetMotorVoltage().GetValueAsDouble());

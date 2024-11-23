@@ -38,6 +38,12 @@
     },
     "transitory": {
       "SmartDashboard": {
+        "Talon FX (v6) 30": {
+          "open": true
+        },
+        "accel": {
+          "open": true
+        },
         "amp": {
           "open": true
         },
@@ -123,10 +129,17 @@
     }
   },
   "NetworkTables Info": {
+    "Clients": {
+      "open": true
+    },
+    "Connections": {
+      "open": true
+    },
     "Server": {
       "Publishers": {
         "open": true
-      }
+      },
+      "open": true
     },
     "visible": true
   },
@@ -177,7 +190,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 331,
+          "height": 279,
           "series": [
             {
               "color": [
@@ -199,10 +212,7 @@
             }
           ]
         }
-      ],
-      "window": {
-        "visible": false
-      }
+      ]
     },
     "Plot <3>": {
       "plots": [
@@ -213,7 +223,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 0,
+          "height": 298,
           "series": [
             {
               "color": [
@@ -237,10 +247,7 @@
             }
           ]
         }
-      ],
-      "window": {
-        "visible": false
-      }
+      ]
     },
     "Plot <4>": {
       "plots": [
@@ -251,7 +258,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 338,
+          "height": 269,
           "series": [
             {
               "color": [
@@ -282,10 +289,7 @@
             }
           ]
         }
-      ],
-      "window": {
-        "visible": false
-      }
+      ]
     },
     "Plot <5>": {
       "plots": [
@@ -296,7 +300,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 338,
+          "height": 561,
           "series": [
             {
               "color": [
@@ -305,8 +309,7 @@
                 0.6901960968971252,
                 1.0
               ],
-              "id": "NT:/SmartDashboard/shooter/auto angle",
-              "marker": "Square"
+              "id": "NT:/SmartDashboard/Talon FX (v6) 30/cyclemarker"
             },
             {
               "color": [
@@ -315,14 +318,49 @@
                 0.32156863808631897,
                 1.0
               ],
-              "id": "NT:/SmartDashboard/auto score bot angle",
-              "marker": "Circle"
+              "id": "NT:/SmartDashboard/Talon FX (v6) 30/desired angle"
+            },
+            {
+              "color": [
+                0.3333333432674408,
+                0.658823549747467,
+                0.4078431725502014,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/Talon FX (v6) 30/desired speed"
+            },
+            {
+              "color": [
+                0.7686275243759155,
+                0.30588236451148987,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/Talon FX (v6) 30/percent out"
+            },
+            {
+              "color": [
+                0.5058823823928833,
+                0.44705885648727417,
+                0.7019608020782471,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/Talon FX (v6) 30/vout"
+            },
+            {
+              "color": [
+                0.5764706134796143,
+                0.4705882668495178,
+                0.3764706254005432,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/Talon FX (v6) 30/tvout"
             }
           ]
         }
       ],
       "window": {
-        "visible": false
+        "name": "Swerve Modules"
       }
     },
     "Plot <6>": {
@@ -398,10 +436,7 @@
             }
           ]
         }
-      ],
-      "window": {
-        "visible": false
-      }
+      ]
     },
     "Plot <8>": {
       "plots": [
@@ -453,6 +488,51 @@
           ]
         }
       ]
+    },
+    "Plot <9>": {
+      "plots": [
+        {
+          "backgroundColor": [
+            0.0,
+            0.0,
+            0.0,
+            0.8500000238418579
+          ],
+          "height": 543,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/accel/Z"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/accel/Y"
+            },
+            {
+              "color": [
+                0.3333333432674408,
+                0.658823549747467,
+                0.4078431725502014,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/accel/X"
+            }
+          ]
+        }
+      ],
+      "window": {
+        "name": "Accel"
+      }
     }
   }
 }
