@@ -1,0 +1,91 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.671640157699585,
+      "y": 4.395447731018066
+    },
+    "rotation": -58.29855236349942
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "score"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "unintake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "spkr_to_line_1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "spkr_to_line_1r"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "unscore"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "spkr_to_line_2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "spkr_to_line_2r"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "unscore"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": true
+}
